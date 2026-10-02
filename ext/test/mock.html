@@ -1,0 +1,60 @@
+<!doctype html><html><head><meta charset="utf-8"><title>SLP mock</title></head>
+<body style="margin:0;background:#000">
+<input id="nick" value="mock">
+<script src="mock_world.js"></script>
+<script>
+// Minimal stand-in for the slither.io client globals mod.js reads (game.js names), with toy motion for our snake.
+var W = window.MOCK_WORLD, grd = W.wall[0], flux_grd = W.wall[2], gsc = .9, view_xx = 0, view_yy = 0;
+var mww = 960, mhh = 600, mww2 = mww / 2, mhh2 = mhh / 2, mc = document.createElement('canvas');
+mc.width = mww; mc.height = mhh; document.body.appendChild(mc);
+var timeObj = performance, wfpr = false, last_ping_mtm = 0, forcing = false, fobso = null;
+var sos = [{ip: '1.2.3.4', po: 444, ptm: 80}, {ip: '5.6.7.8', po: 444, ptm: 120}], bso = sos[0];
+var fpsls = [], fmlts = []; for (var i = 0; i < 2000; i++) { fpsls.push(i); fmlts.push(1); }
+var slithers = W.snakes.map(function (o) { return {id: o.id, xx: o.xx, yy: o.yy, fx: 0, fy: 0, cs: '#a55', ang: o.ang, sp: o.sp, sc: o.sc, sct: 60, rsc: 0, fam: .5,
+  pts: o.pts.map(function (p) { return {xx: p[0], yy: p[1], fx: 0, fy: 0}; })}; });
+var own = []; for (var k = 0; k + 1 < W.me.own.length - 1; k++) own.push({xx: W.me.own[k][0], yy: W.me.own[k][1], fx: 0, fy: 0});
+var slither = {id: -1, xx: W.me.x, yy: W.me.y, fx: 0, fy: 0, cs: '#4af', ang: W.me.ang, sp: W.me.sp, sc: W.me.sc, sct: 40, rsc: 0, fam: .5, pts: own, md: false, wmd: false, dead: false};
+slithers.push(slither);
+var foods = W.food.map(function (f) { return {xx: f[0], yy: f[1], rx: f[0], ry: f[1], sz: f[2], rad: 1, eaten: false}; }), foods_c = foods.length, preys = [];
+var playing = true, xm = 0, ym = 0, connects = 0, render_mode = 2, want_quality = 1, high_quality = true, gla = 1, bgp2 = null, csc = 1;
+var no_raf = false, animating = true, follow_view = true, choosing_skin = false, fps = 0, fvtg = 0, fvx = 0, fvy = 0, fvxs = [], fvys = [], fvpos = 0, vfc = 62;
+var wumsts = false, rank = 0, slither_count = 0, lbf = document.createElement('div');
+var ww = window.innerWidth, hh = window.innerHeight, lww = 0, lhh = 0, mwwp50, mhhp50, mwwp150, mhhp150;
+function trf(d, s) { d.style.transform = s; }
+function resize() {         // as game.js: canvas size only when the window size changed
+  ww = Math.ceil(window.innerWidth); hh = Math.ceil(window.innerHeight);
+  if (ww != lww || hh != lhh) { lww = ww; lhh = hh; mww = Math.min(1500, ww); mhh = Math.round(mww * hh / ww); mc.width = mww; mc.height = mhh;
+    mwwp50 = mww + 50; mhhp50 = mhh + 50; mwwp150 = mww + 150; mhhp150 = mhh + 150; mww2 = mww / 2; mhh2 = mhh / 2; csc = Math.min(ww / mww, hh / mhh); trf(mc, 'scale(' + csc + ',' + csc + ')'); }
+}
+function setAcceleration(m) { slither.wmd = m == 1; }
+function forceOnce(ip, po) { forcing = true; fobso = {ip: ip, po: po}; }
+function connect() { connects++; }
+var mockDraws = 0;
+var redraw = function () {
+  mockDraws++;
+  var ctx = mc.getContext('2d'); ctx.fillStyle = '#111'; ctx.fillRect(0, 0, mww, mhh);
+  var X = function (x) { return mww2 + gsc * (x - view_xx); }, Y = function (y) { return mhh2 + gsc * (y - view_yy); };
+  ctx.fillStyle = '#c84'; for (var i = 0; i < foods_c; i++) { var f = foods[i]; ctx.fillRect(X(f.xx) - 2 * f.rad, Y(f.yy) - 2 * f.rad, 4 * f.rad, 4 * f.rad); }
+  slithers.forEach(function (o) {
+    ctx.strokeStyle = o === slither ? '#4af' : '#a55'; ctx.lineWidth = 29 * o.sc * gsc; ctx.lineCap = 'round'; ctx.beginPath();
+    o.pts.forEach(function (p, j) { j ? ctx.lineTo(X(p.xx), Y(p.yy)) : ctx.moveTo(X(p.xx), Y(p.yy)); }); ctx.lineTo(X(o.xx), Y(o.yy)); ctx.stroke();
+  });
+};
+var lt = performance.now();
+function oef() {
+  var now = performance.now(), dt = Math.min(.05, (now - lt) / 1000); lt = now;
+  if (playing && !slither.dead) {
+    var want = Math.atan2(ym, xm), d = Math.atan2(Math.sin(want - slither.ang), Math.cos(want - slither.ang)), w = 4 * dt;
+    slither.ang += Math.max(-w, Math.min(w, d)); slither.sp = slither.wmd ? 14 : 5.8; slither.md = slither.wmd;
+    slither.pts.push({xx: slither.xx, yy: slither.yy, fx: 0, fy: 0}); slither.pts.shift();
+    slither.xx += Math.cos(slither.ang) * slither.sp * 31 * dt; slither.yy += Math.sin(slither.ang) * slither.sp * 31 * dt;
+    view_xx = slither.xx; view_yy = slither.yy;
+  }
+  redraw(); if (!no_raf) requestAnimationFrame(oef);
+}
+requestAnimationFrame(oef);
+</script>
+<script src="../params.js"></script>
+<script src="../pilot.js"></script>
+<script src="../mod.js"></script>
+</body></html>

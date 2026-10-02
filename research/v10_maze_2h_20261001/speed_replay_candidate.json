@@ -1,0 +1,226 @@
+[
+  {
+    "t": 90.211,
+    "routes": 1,
+    "fastRoutes": 0,
+    "risk": 0.604990275276431,
+    "boost": false,
+    "mode": "v10route",
+    "mapms": 50.19147899999999
+  },
+  {
+    "t": 90.852,
+    "routes": 4,
+    "fastRoutes": 0,
+    "risk": 0.613434120489403,
+    "mode": "v10route",
+    "mapms": 78.82750899999999
+  },
+  {
+    "t": 91.477,
+    "routes": 1,
+    "fastRoutes": 0,
+    "risk": 0.69501545011087,
+    "boost": false,
+    "mode": "v10route",
+    "mapms": 50.755401000000006
+  },
+  {
+    "t": 92.1,
+    "routes": 0,
+    "fastRoutes": 0,
+    "risk": null,
+    "boost": false,
+    "mode": "v10replan",
+    "mapms": 50.722398999999996
+  },
+  {
+    "t": 92.756,
+    "routes": 5,
+    "fastRoutes": 0,
+    "risk": 0.7111821607663782,
+    "boost": false,
+    "mode": "v10route",
+    "mapms": 68.54155000000003
+  },
+  {
+    "t": 93.494,
+    "routes": 5,
+    "fastRoutes": 0,
+    "risk": 0.6689979039243081,
+    "boost": false,
+    "mode": "v10route",
+    "mapms": 75.34646399999997
+  },
+  {
+    "t": 94.088,
+    "routes": 5,
+    "fastRoutes": 0,
+    "risk": 0.6448729501425494,
+    "boost": false,
+    "mode": "v10route",
+    "mapms": 45.036287000000016
+  },
+  {
+    "t": 94.664,
+    "routes": 5,
+    "fastRoutes": 0,
+    "risk": 0.6784767170984296,
+    "boost": false,
+    "mode": "v10route",
+    "mapms": 57.23383799999999
+  },
+  {
+    "t": 95.212,
+    "routes": 1,
+    "fastRoutes": 0,
+    "risk": 0.7515280212749055,
+    "boost": false,
+    "mode": "v10route",
+    "mapms": 56.38809500000002
+  },
+  {
+    "t": 95.86,
+    "routes": 4,
+    "fastRoutes": 0,
+    "risk": 0.7288741396650827,
+    "boost": false,
+    "mode": "v10route",
+    "mapms": 57.334986999999956
+  },
+  {
+    "t": 96.451,
+    "routes": 5,
+    "fastRoutes": 0,
+    "risk": 0.8527956504486688,
+    "boost": false,
+    "mode": "v10route",
+    "mapms": 59.03794099999993
+  },
+  {
+    "t": 96.979,
+    "routes": 5,
+    "fastRoutes": 0,
+    "risk": 0.7752895164752769,
+    "boost": false,
+    "mode": "v10route",
+    "mapms": 51.19971499999997
+  },
+  {
+    "t": 97.508,
+    "routes": 1,
+    "fastRoutes": 1,
+    "risk": 0.47081456341742123,
+    "boost": false,
+    "mode": "v10route",
+    "mapms": 44.61369500000001
+  },
+  {
+    "t": 97.972,
+    "routes": 5,
+    "fastRoutes": 0,
+    "risk": 0.7655353388487799,
+    "boost": false,
+    "mode": "v10route",
+    "mapms": 32.602874999999926
+  },
+  {
+    "t": 98.53,
+    "routes": 0,
+    "fastRoutes": 0,
+    "risk": null,
+    "boost": false,
+    "mode": "v10replan",
+    "mapms": 41.95788199999993
+  },
+  {
+    "t": 99.095,
+    "routes": 3,
+    "fastRoutes": 0,
+    "risk": 0.8399545925610501,
+    "boost": false,
+    "mode": "v10route",
+    "mapms": 66.71889499999997
+  },
+  {
+    "t": 99.752,
+    "routes": 0,
+    "fastRoutes": 0,
+    "risk": null,
+    "boost": false,
+    "mode": "v10replan",
+    "mapms": 10.530489999999872
+  },
+  {
+    "t": 100.29,
+    "routes": 0,
+    "fastRoutes": 0,
+    "risk": null,
+    "boost": false,
+    "mode": "v10replan",
+    "mapms": 11.429278000000068
+  },
+  {
+    "t": 100.741,
+    "routes": 0,
+    "fastRoutes": 0,
+    "risk": null,
+    "boost": false,
+    "mode": "v10replan",
+    "mapms": 9.097146000000066
+  },
+  {
+    "t": 101.17,
+    "routes": 0,
+    "fastRoutes": 0,
+    "risk": null,
+    "boost": false,
+    "mode": "v10replan",
+    "mapms": 4.266286000000036
+  },
+  {
+    "t": 101.638,
+    "routes": 0,
+    "fastRoutes": 0,
+    "risk": null,
+    "boost": false,
+    "mode": "v10replan",
+    "mapms": 7.1459319999999025
+  },
+  {
+    "t": 102.1,
+    "routes": 0,
+    "fastRoutes": 0,
+    "risk": null,
+    "boost": false,
+    "mode": "v10emergency",
+    "mapms": 3.8328800000001593
+  },
+  {
+    "t": 102.521,
+    "routes": 0,
+    "fastRoutes": 0,
+    "risk": null,
+    "boost": false,
+    "mode": "v10replan",
+    "mapms": 10.819675999999845
+  },
+  {
+    "t": 103,
+    "routes": 0,
+    "fastRoutes": 0,
+    "risk": null,
+    "boost": false,
+    "mode": "v10replan",
+    "mapms": 8.178314
+  },
+  {
+    "t": 103.416,
+    "routes": 0,
+    "fastRoutes": 0,
+    "risk": null,
+    "boost": false,
+    "mode": "v10emergency",
+    "mapms": 3.2607540000001336
+  }
+]

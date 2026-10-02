@@ -1,0 +1,14 @@
+import fs from 'node:fs';import vm from 'node:vm';import assert from 'node:assert/strict';import {performance} from 'node:perf_hooks';import zlib from 'node:zlib';
+function load(path){const c=vm.createContext({performance});vm.runInContext(fs.readFileSync(path,'utf8'),c);return c.SlpPilot;}
+const cur=load('ext/pilot.js'),old=load('research/t5_contours_20261002/before/pilot.js'),contour=cur.t5Contours;
+for(const name of ['t4Step','t3Step','t2Step','t1Step','pilotStep','v10Step','v111Step','va1Step','v4Adv'])assert.equal(cur.Pilot.prototype[name].toString(),old.Pilot.prototype[name].toString(),name);
+const line=contour({sc:1,segs:[0,0,100,0,20],sid:[10]},-5);assert.equal(line.length,2);assert.equal(line[0].points[1],29.5);assert.equal(line[1].points[1],-29.5);
+const broken=contour({sc:1,segs:[0,0,100,0,20,500,0,600,0,20,0,300,80,300,10],sid:[10,10,11]},-5);assert.equal(broken.length,6);assert.equal(new Set(broken.map(p=>p.id)).size,2);assert(broken.every(p=>p.points.length===4));
+const invalid=contour({sc:1,segs:[0,0,0,0,20,0,0,100,0,20,NaN,0,50,0,20,300,0,400,0,20],sid:[1,1,1,1]},-5);assert.equal(invalid.length,4);assert(invalid.flatMap(p=>p.points).every(Number.isFinite));
+const segs=[],sid=[];for(let k=0;k<100;k++){const a=k*.005,b=(k+1)*.005;segs.push(1000*Math.cos(a),1000*Math.sin(a),1000*Math.cos(b),1000*Math.sin(b),30);sid.push(12);}const curved=contour({sc:1,segs,sid},-5);for(const p of curved)for(let k=20;k<p.points.length-20;k+=2){const radius=Math.hypot(p.points[k],p.points[k+1]);assert(Math.abs(radius-(1000-p.side*39.5))<.1);}
+const d=JSON.parse(fs.readFileSync('params.json')),values={...d.defaults,...d.presets.t4_close.values},a=new old.Pilot(values),b=new cur.Pilot({...values,T4_ON:0,T5_ON:1});
+const frames=JSON.parse(zlib.gunzipSync(fs.readFileSync('runs/t4_20261002_121802/slp_03_box.json.gz'))).frames;let equal=0;
+for(const s of frames.filter((_,k)=>k%Math.ceil(frames.length/20)===0)){const x=a.step(s),y=b.step(s);assert.equal(x[0],y[0]);assert.equal(x[1],y[1]);assert.equal(JSON.stringify(a.last.draw.chosen),JSON.stringify(b.last.draw.chosen));assert.equal(b.last.trace.t5_on,1);equal++;}
+const start=performance.now();let dense;const many=[];const ids=[];for(let n=0;n<40;n++)for(let k=0;k<100;k++){many.push(k*10,n*50,(k+1)*10,n*50,20);ids.push(n);}for(let n=0;n<10;n++)dense=contour({sc:1,segs:many,sid:ids},-5);const avg=(performance.now()-start)/10;
+const result={straight_offset:29.5,both_sides:true,disconnected_no_bridge:true,short_enemy_included:true,invalid_degenerate_finite:true,curve_offset_passed:true,old_methods_preserved:9,recorded_command_matches:equal,dense_enemies:40,dense_segments:4000,dense_rails:dense.length,dense_geometry_average_ms:avg,scope:'geometry display and replay command equivalence; no new live survival trial'};
+fs.writeFileSync('research/t5_contours_20261002/check.json',JSON.stringify(result,null,2));console.log(result);

@@ -1,0 +1,30 @@
+{
+  "updated": "2026-10-02 12:09:44",
+  "supervisor_pid": 1288059,
+  "mode": "until_dataset_coverage",
+  "global_batch_or_time_cap": null,
+  "criteria": {
+    "enemy_radius_bins": [
+      "<20",
+      "20–30",
+      "30–40",
+      "40–50",
+      "≥50"
+    ],
+    "actual_speeds": [
+      "cruise_speed",
+      "boost_speed"
+    ],
+    "geometries": [
+      "straight",
+      "gentle_curve"
+    ],
+    "own_radius_bin_width_px": 2,
+    "minimum_independent_alive_games": 3,
+    "minimum_independent_qualified_death_games": 3,
+    "closest_alive_gap_per_game_max_px": 0,
+    "note": "Operational dataset coverage; not all continuous radii or a guaranteed safe offset."
+  },
+  "state": "user_stopped",
+  "run": "runs/t3_20261002_120229"
+}

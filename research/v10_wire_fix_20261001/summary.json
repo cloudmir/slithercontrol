@@ -1,0 +1,307 @@
+{
+  "final_build": "1001-5f471fca",
+  "local_assertions_passed": 31,
+  "checks": {
+    "checks": [
+      "all_251_bucket_boundaries_idempotent",
+      "half_turn_candidate_simulates_packet_direction",
+      "root_prefers_sent_packet_over_input_history",
+      "root_includes_angle_and_boost_send_gates",
+      "observation_age_and_gate_wait_overlap_without_double_count",
+      "pending_input_not_falsely_applied_before_gate",
+      "pending_angle_and_boost_have_separate_send_slots",
+      "longer_prefix_cannot_be_certified_after_collision",
+      "actuator_emits_all_simulated_buckets",
+      "socket_records_successful_actual_byte_and_time",
+      "socket_records_both_boost_transitions",
+      "failed_send_is_not_recorded",
+      "new_game_clears_previous_wire_history",
+      "old_record_root_fallback_preserved",
+      "legacy_root_and_step_bodies_preserved"
+    ],
+    "halfTurn": {
+      "raw": 1.5908844429633298,
+      "packet": 1.5770544794912906,
+      "beforeSign": -1,
+      "afterSign": 1
+    },
+    "limits": [
+      "251 decoder is client-encoding model; server source unavailable",
+      "send wait and future pending sends are estimates; TRACK_LAT remains user setting",
+      "legacy logs without wire history retain old approximate prefix"
+    ]
+  },
+  "boost_regression": [
+    {
+      "name": "zero_empty",
+      "boost": true
+    },
+    {
+      "name": "unsafe_boost_falls_back",
+      "boost": false
+    },
+    {
+      "name": "positive_empty",
+      "boost": false
+    },
+    {
+      "name": "switch_off",
+      "boost": false
+    },
+    {
+      "name": "too_short",
+      "boost": false
+    }
+  ],
+  "structural_regression": {
+    "retain_selected_below_threshold": {
+      "pass": true
+    },
+    "switch_above_threshold": {
+      "pass": true
+    },
+    "invalid_held_is_not_preserved": {
+      "pass": true
+    },
+    "empty_world_multiple_routes": {
+      "pass": true,
+      "routes": 3,
+      "ms": 41.756586999999996
+    },
+    "sketch_of_f73_open_four_sides_not_exact_replay": {
+      "pass": true,
+      "routes": 3,
+      "ms": 55.908800000000014
+    },
+    "closed_ring_does_not_invent_escape": {
+      "pass": true,
+      "reason": "grid_disconnected"
+    },
+    "near_food_detour_rejoins_selected_route": {
+      "pass": true,
+      "food": 0.5292300399795056
+    },
+    "pellets_behind_wall_not_chased": {
+      "pass": true
+    },
+    "planner_revalidates_actuator_selected_route": {
+      "pass": true,
+      "held": "11:0"
+    },
+    "repair_same_exit_when_distant_body_moves": {
+      "pass": true,
+      "routes": 3
+    },
+    "positive_cost_no_boost_without_food_or_near_threat": {
+      "pass": true
+    }
+  },
+  "earlier_death_packet_replay": {
+    "rows": [
+      {
+        "t": 103.904,
+        "predictedTurn": 0.2497862536269322,
+        "actualTurn": 0.33112012442504213,
+        "positionError": 5.4606032776947995,
+        "rootSafe": true,
+        "rootGap": 128
+      },
+      {
+        "t": 104.126,
+        "predictedTurn": -0.2497862536269322,
+        "actualTurn": -0.30692031425247457,
+        "positionError": 11.926346323838974,
+        "rootSafe": true,
+        "rootGap": 113.86132136036268
+      },
+      {
+        "t": 104.252,
+        "predictedTurn": 0.20220791960275353,
+        "actualTurn": 0.21138162292770876,
+        "positionError": 4.587020127739105,
+        "rootSafe": true,
+        "rootGap": 65.6606296925702
+      },
+      {
+        "t": 104.29,
+        "predictedTurn": 0.2497862536269313,
+        "actualTurn": 0.19064757704154545,
+        "positionError": 5.251986071310059,
+        "rootSafe": true,
+        "rootGap": 48.526945207194835
+      },
+      {
+        "t": 104.335,
+        "predictedTurn": 0.2497862536269322,
+        "actualTurn": 0.29639419472684647,
+        "positionError": 11.849985359419362,
+        "rootSafe": true,
+        "rootGap": 38.39643272704715
+      }
+    ],
+    "limits": [
+      "Historical send phase unavailable: diagnostic sets both gate waits0",
+      "Packet+TRACK_LAT .06 is model; interpolation used; not counterfactual survival"
+    ]
+  },
+  "first_live": {
+    "build": "1001-a67ce2c6",
+    "run": "runs/v10_wire_live_20261001_192903",
+    "seconds": 439.4,
+    "max_length": 307,
+    "capped": false,
+    "death": {
+      "x": 32619.950203232253,
+      "y": 32941.43329911751,
+      "at": 1790850984542
+    },
+    "server": "181.41.140.178:444",
+    "players": 505,
+    "errors": 0,
+    "settings_changes": [],
+    "modes": {
+      "v10replan": 165,
+      "v10route": 12950,
+      "v10emergency": 85
+    },
+    "decide_ms": {
+      "p50": 1.7,
+      "p95": 4
+    },
+    "obs_to_cmd_ms": {
+      "p50": 4.9,
+      "p95": 12.2
+    },
+    "saved_last_window_frames": 1793,
+    "verified_wire_events_in_saved_window": 1070,
+    "packet_history_mismatches": 0,
+    "angle_max_error_rad": 0.0,
+    "send_gate_range_ms": {
+      "angle": [
+        0,
+        32.10000002384186
+      ],
+      "boost": [
+        0,
+        46.89999997615814
+      ]
+    },
+    "near_half_turn_frames": 2,
+    "near_half_turn_examples": [
+      {
+        "t": 390.541,
+        "heading": 5.123149820437145,
+        "packet_target": 1.9775762520605074,
+        "turn_sign": 1
+      },
+      {
+        "t": 438.108,
+        "heading": 1.1535535524900022,
+        "packet_target": 4.305609055119079,
+        "turn_sign": -1
+      }
+    ],
+    "emergency_frames": 85,
+    "recovery_frames": 85,
+    "last_observed_nearest_bodies": [
+      {
+        "id": 209,
+        "physical_gap": -4.404232473554767
+      },
+      {
+        "id": 209,
+        "physical_gap": -3.939449732893049
+      },
+      {
+        "id": 209,
+        "physical_gap": -2.7974184857511553
+      }
+    ],
+    "limits": [
+      "Single live game does not establish improved survival rate.",
+      "Near-half-turn wire history is checked against packets, not proof of exact server turn response.",
+      "TRACK_LAT retained; future send gates and server response remain estimates.",
+      "Nearest body in last alive observation is not independently confirmed server killer."
+    ]
+  },
+  "final_smoke": {
+    "build": "1001-5f471fca",
+    "run": "runs/v10_wire_smoke_20261001_194052",
+    "seconds": 66.1,
+    "max_length": 129,
+    "capped": true,
+    "death": {
+      "x": 29031.575015880488,
+      "y": 34035.2022025408,
+      "at": 1790851321134
+    },
+    "server": "181.41.140.170:444",
+    "players": 354,
+    "errors": 0,
+    "settings_changes": [],
+    "modes": {
+      "v10replan": 7,
+      "v10route": 1983
+    },
+    "decide_ms": {
+      "p50": 1.5,
+      "p95": 3
+    },
+    "obs_to_cmd_ms": {
+      "p50": 4.5,
+      "p95": 9
+    },
+    "saved_last_window_frames": 1806,
+    "verified_wire_events_in_saved_window": 1139,
+    "packet_history_mismatches": 0,
+    "angle_max_error_rad": 0.0,
+    "send_gate_range_ms": {
+      "angle": [
+        0,
+        32.799999952316284
+      ],
+      "boost": [
+        0,
+        48.39999997615814
+      ]
+    },
+    "near_half_turn_frames": 0,
+    "near_half_turn_examples": [],
+    "emergency_frames": 0,
+    "recovery_frames": 0,
+    "last_observed_nearest_bodies": [
+      {
+        "id": 67,
+        "physical_gap": 802.3331417208739
+      },
+      {
+        "id": 67,
+        "physical_gap": 802.3331417208739
+      },
+      {
+        "id": 67,
+        "physical_gap": 803.3699416698183
+      }
+    ],
+    "limits": [
+      "Single live game does not establish improved survival rate.",
+      "Near-half-turn wire history is checked against packets, not proof of exact server turn response.",
+      "TRACK_LAT retained; future send gates and server response remain estimates.",
+      "Nearest body in last alive observation is not independently confirmed server killer."
+    ]
+  },
+  "final_idle": {
+    "version": "1001-5f471fca",
+    "playing": false,
+    "bot": false,
+    "V10": 1
+  },
+  "limits": [
+    "439.4s live trial used1001-a67ce2c6; final1001-5f471fca corrects overlapping observation age/send wait and has connection smoke only.",
+    "60s smoke limit closed connection; record66.1s includes termination processing, capped true is not death.",
+    "Zero packet-history mismatch measures command input representation, not zero tracking error.",
+    "Actual survival improvement, server angle decoder, variable response latency remain unproven.",
+    "Death: closest modeled body209 gap -4.40px at last alive frame; server killer not independently confirmed.",
+    "Emergency commands changed and heading changed before death, but no successful escape proven."
+  ]
+}

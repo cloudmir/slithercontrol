@@ -1,0 +1,59 @@
+{
+  "version": "0930-ca7cf3ac",
+  "full": {
+    "x": 942,
+    "y": 12,
+    "width": 486,
+    "height": 1058
+  },
+  "half": {
+    "x": 1185,
+    "y": 12,
+    "width": 243,
+    "height": 529
+  },
+  "widthRatio": 0.5,
+  "heightRatio": 0.5,
+  "sliderKeyboardAndNumberSync": true,
+  "drag": {
+    "x": 1085,
+    "y": 72,
+    "width": 243,
+    "height": 501
+  },
+  "tabs": {
+    "홈": {
+      "width": 243,
+      "overflow": false
+    },
+    "조정": {
+      "width": 243,
+      "overflow": false
+    },
+    "표시": {
+      "width": 243,
+      "overflow": false
+    },
+    "보관": {
+      "width": 243,
+      "overflow": false
+    },
+    "화면": {
+      "width": 243,
+      "overflow": false
+    },
+    "게임": {
+      "width": 243,
+      "overflow": false
+    }
+  },
+  "smallViewport": {
+    "x": 209,
+    "y": 72,
+    "width": 203,
+    "height": 311
+  },
+  "saved": true,
+  "errors": [],
+  "pilotUnchanged": true
+}

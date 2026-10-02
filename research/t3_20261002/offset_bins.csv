@@ -1,0 +1,79 @@
+build,geometry_class,own_radius_bin,enemy_radius_bin,actual_speed_class,independent_games,stable_levels,qualified_deaths,closest_alive_per_game,reference_gap,status,note
+1002-11dad5e1,straight,,<20,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-11dad5e1,straight,,<20,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-11dad5e1,gentle_curve,"[14, 16]",20–30,cruise_speed,2,2,0,"[37.36186806827941, 31.113848872838563]",,observed_alive_only,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-11dad5e1,straight,"[14, 16]",20–30,cruise_speed,1,1,0,[15.926265249625011],,observed_alive_only,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-11dad5e1,straight,,20–30,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-11dad5e1,gentle_curve,"[14, 16]",30–40,cruise_speed,8,13,0,"[35.2886521951757, 12.209227569215106, 14.195289878085596, 13.662955224048233, 13.56252542249782, 13.474532482678072, 16.919226092385315, 13.426886497220593]",,observed_alive_only,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-11dad5e1,gentle_curve,"[16, 18]",30–40,cruise_speed,3,7,0,"[33.89352325258325, 29.04308944251614, 12.969187380501417]",,observed_alive_only,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-11dad5e1,straight,"[16, 18]",30–40,cruise_speed,1,1,0,[28.83972667604251],,observed_alive_only,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-11dad5e1,straight,,30–40,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-11dad5e1,gentle_curve,"[14, 16]",40–50,cruise_speed,13,26,0,"[32.4831844546232, 26.838774714701103, 15.726402186645444, 12.401014760298473, 15.049131521176527, 12.409529397601759, 16.050399254832747, 12.7373641890835, 14.47459518417908, 12.807052623118686, 13.093441121001668, 12.882908769122317, 11.423940921362025]",,observed_alive_only,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-11dad5e1,straight,"[14, 16]",40–50,cruise_speed,4,7,0,"[14.56810310230209, 16.080499409920236, 13.832872781457489, 14.374767603025347]",,observed_alive_only,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-11dad5e1,gentle_curve,"[16, 18]",40–50,cruise_speed,6,19,0,"[36.39950391851472, 33.090597121416565, 31.939304495953614, 24.917538736355844, 13.169941606039536, 14.46963553263793]",,observed_alive_only,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-11dad5e1,gentle_curve,"[20, 22]",40–50,cruise_speed,1,4,0,[26.326811229593737],,observed_alive_only,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-11dad5e1,straight,,40–50,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-11dad5e1,gentle_curve,"[14, 16]",≥50,cruise_speed,6,15,0,"[31.976876383384017, 5.551354356903715, 12.36870075613384, 7.958954077977786, 13.067277377553715, 11.742185933533506]",,observed_alive_only,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-11dad5e1,straight,"[14, 16]",≥50,cruise_speed,4,10,0,"[31.92648784474479, 8.094021520683327, 11.166457266112907, 15.051850155449316]",,observed_alive_only,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-11dad5e1,straight,"[20, 22]",≥50,cruise_speed,1,2,0,[30.380852739074406],,observed_alive_only,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-11dad5e1,straight,,≥50,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-1efeafe8,straight,,<20,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-1efeafe8,straight,,<20,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-1efeafe8,straight,,20–30,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-1efeafe8,straight,,20–30,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-1efeafe8,straight,,30–40,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-1efeafe8,straight,,30–40,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-1efeafe8,straight,,40–50,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-1efeafe8,straight,,40–50,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-1efeafe8,straight,,≥50,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-1efeafe8,straight,,≥50,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-5c72501c,straight,,<20,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-5c72501c,straight,,<20,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-5c72501c,straight,,20–30,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-5c72501c,straight,,20–30,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-5c72501c,straight,,30–40,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-5c72501c,straight,,30–40,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-5c72501c,straight,,40–50,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-5c72501c,straight,,40–50,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-5c72501c,straight,,≥50,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-5c72501c,straight,,≥50,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-6bdce1a2,straight,,<20,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-6bdce1a2,straight,,<20,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-6bdce1a2,straight,,20–30,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-6bdce1a2,straight,,20–30,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-6bdce1a2,straight,,30–40,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-6bdce1a2,straight,,30–40,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-6bdce1a2,straight,,40–50,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-6bdce1a2,straight,,40–50,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-6bdce1a2,straight,,≥50,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-6bdce1a2,straight,,≥50,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-9ca46e23,straight,,<20,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-9ca46e23,straight,,<20,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-9ca46e23,straight,,20–30,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-9ca46e23,straight,,20–30,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-9ca46e23,straight,,30–40,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-9ca46e23,straight,,30–40,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-9ca46e23,straight,,40–50,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-9ca46e23,straight,,40–50,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-9ca46e23,straight,,≥50,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-9ca46e23,straight,,≥50,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-b5ab19c0,straight,,<20,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-b5ab19c0,straight,,<20,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-b5ab19c0,straight,,20–30,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-b5ab19c0,straight,,20–30,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-b5ab19c0,straight,,30–40,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-b5ab19c0,straight,,30–40,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-b5ab19c0,straight,,40–50,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-b5ab19c0,straight,,40–50,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-b5ab19c0,straight,,≥50,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-b5ab19c0,straight,,≥50,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-db20a6ce,straight,,<20,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-db20a6ce,straight,,<20,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-db20a6ce,straight,,20–30,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-db20a6ce,straight,,20–30,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-db20a6ce,straight,,30–40,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-db20a6ce,straight,,30–40,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-db20a6ce,straight,,40–50,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-db20a6ce,straight,,40–50,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-db20a6ce,straight,,≥50,cruise_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.
+1002-db20a6ce,straight,,≥50,boost_speed,0,0,0,[],,unmeasured,Observed live reference only; not a guaranteed safe server collision offset. No automatic production calibration.

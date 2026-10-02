@@ -1,0 +1,14 @@
+{
+  "geometry": true,
+  "overlapAndSubdivisionInvariant": true,
+  "crossingSegment": true,
+  "headlessBodyTrigger": 21.518987341772153,
+  "ownDeadDyingExcluded": true,
+  "orAndReleaseTimer": true,
+  "radiusAndThreshold": true,
+  "bodyDensity100SegmentsMs": {
+    "p50": 1.4372830000000079,
+    "p95": 2.9492230000000035
+  },
+  "scope": "synthetic trigger correctness, not survival"
+}

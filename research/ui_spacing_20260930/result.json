@@ -1,0 +1,49 @@
+{
+  "version": "0930-b5b4403f",
+  "current": {
+    "width": 432,
+    "height": 762,
+    "cardHeight": 77.59375,
+    "fonts": [
+      "12px",
+      "14px",
+      "12px",
+      "10px",
+      "9.5px"
+    ],
+    "transform": "none",
+    "sliderWidth": 232
+  },
+  "original": {
+    "width": 486,
+    "height": 1058,
+    "cardHeight": 110,
+    "fonts": [
+      "12px",
+      "14px",
+      "12px",
+      "10px",
+      "9.5px"
+    ],
+    "transform": "none",
+    "sliderWidth": 228
+  },
+  "fontsRestored": true,
+  "tabsNoOverflow": {
+    "홈": true,
+    "조정": true,
+    "표시": true,
+    "보관": true,
+    "화면": true,
+    "게임": true
+  },
+  "sliderAndSaved": true,
+  "small": {
+    "x": 6,
+    "y": 12,
+    "width": 406,
+    "height": 678
+  },
+  "errors": [],
+  "pilotUnchanged": true
+}

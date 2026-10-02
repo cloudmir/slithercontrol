@@ -1,0 +1,502 @@
+--- before/ext/pilot.js
++++ ext/pilot.js
+@@ -326,6 +326,15 @@
+   return {phase: K.phase, heads: count, radius, threshold, switched: K.phase !== previous ? 1 : 0};
+ }
+ 
++// Preserve V8's crowd switch and return delay. V6 takes priority while it is active.
++function v81Choice(K, count, nearCount, t, V) {
++  const c = v8Choice(K, count, t, V);
++  if (c.phase === 'feed' && (V.V81_HEAD_R ?? 250) > 0 && nearCount === 1) c.phase = 'near';
++  c.switched = c.phase !== (K.lastPhase || 'feed') ? 1 : 0;
++  K.lastPhase = c.phase;
++  return {...c, nearHeads: nearCount, nearRadius: V.V81_HEAD_R ?? 250};
++}
++
+ class Pilot {
+   constructor(values, profile) {
+     this.values = values; this.P = makeParams(values); this.profile = profile || 'safe'; this.period = 1 / 30;
+@@ -340,6 +349,7 @@
+     this.side = 0; this.sideUntil = -1; this.pend = null; this.boostSince = -1;
+   }
+   setParams(values, profile) { this.values = values; this.P = makeParams(values); this.sizedT = 0; this.Psized = null; if (profile) this.profile = profile;
++    if (this.v81Near) this.v81Near.setParams(this.v81Values(), this.profile);
+     for (const [key, six] of [['v8Feed', false], ['v8Avoid', true], ['v8Plan', true]]) {
+       if (this[key]) this[key].setParams(this.v8Values(six), this.profile);
+     }
+@@ -1680,9 +1690,10 @@
+   }
+ 
+   v8Values(six) {
+-    return {...this.values, V8_ON: 0, V7_ON: 0, V6_ON: six ? 1 : 0,
++    return {...this.values, V81_ON: 0, V8_ON: 0, V7_ON: 0, V6_ON: six ? 1 : 0,
+       V41_ON: 0, V5_ON: 0, V4_ON: 0, V3_ON: 0, V2_ON: 0, PROBE_ON: 0};
+   }
++  v81Values() { return {...this.v8Values(false), V41_ON: 1}; }
+   v8Route(s, ver) {
+     if (!this.v8Plan) this.v8Plan = new Pilot(this.v8Values(true), this.profile);
+     TURN_FIX = !!this.v8Plan.values.TURN_FIX;
+@@ -1691,13 +1702,17 @@
+   v8Step(s) {
+     const K = this.v8 || (this.v8 = {phase: 'feed', clearSince: null});
+     // Browser decides before observing, so each branch receives its original observation radius.
+-    const c = s.v8Control || v8Choice(K, countHeads(s, this.values.V8_HEAD_R ?? 450), s.t, this.values);
+-    const key = c.phase === 'avoid' ? 'v8Avoid' : 'v8Feed';
+-    if (!this[key]) this[key] = new Pilot(this.v8Values(c.phase === 'avoid'), this.profile);
++    const count = countHeads(s, this.values.V8_HEAD_R ?? 450);
++    const c = s.v8Control || (this.values.V81_ON
++      ? v81Choice(K, count, countHeads(s, this.values.V81_HEAD_R ?? 250), s.t, this.values)
++      : v8Choice(K, count, s.t, this.values));
++    const key = c.phase === 'near' ? 'v81Near' : c.phase === 'avoid' ? 'v8Avoid' : 'v8Feed';
++    if (!this[key]) this[key] = new Pilot(c.phase === 'near' ? this.v81Values() : this.v8Values(c.phase === 'avoid'), this.profile);
+     const child = this[key]; TURN_FIX = !!child.values.TURN_FIX;
+     const result = child.step(s); this.last = child.last;
+     Object.assign(this.last.trace, {v8_phase: c.phase, v8_heads: c.heads, v8_radius: c.radius,
+       v8_threshold: c.threshold, v8_switched: c.switched});
++    if (this.values.V81_ON) Object.assign(this.last.trace, {v81_heads: c.nearHeads, v81_radius: c.nearRadius});
+     this.prev = result[0]; this.prevBoost = result[1]; return result;
+   }
+ 
+@@ -1733,7 +1748,7 @@
+   }
+ 
+   step(s) {
+-    if (this.values.V8_ON) return this.v8Step(s);
++    if (this.values.V81_ON || this.values.V8_ON) return this.v8Step(s);
+     if (this.values.V7_ON) return this.v7Step(s);
+     if (this.values.V6_ON) return this.v6Step(s);
+     if (this.values.V41_ON) return this.v41Step(s);
+@@ -2547,6 +2562,6 @@
+   }
+ }
+ 
+-root.SlpPilot = {Pilot, makeParams, countHeads, v8Choice, R, paths, ANGLES};        // paths/ANGLES: research/param_replay.mjs
++root.SlpPilot = {Pilot, makeParams, countHeads, v8Choice, v81Choice, R, paths, ANGLES};        // paths/ANGLES: research/param_replay.mjs
+ }
+ slpPilotModule(typeof window !== 'undefined' ? window : globalThis);
+--- before/ext/mod.js
++++ ext/mod.js
+@@ -16,7 +16,7 @@
+ // of every wrap episode (a snake covering >= 30% of the bearings within 500 px) from 2 s before it until it ends.
+ const LOG_KEYS = ['t', 'x', 'y', 'ang', 'sp', 'sc', 'L', 'mode', 'boost', 'cmd', 'clear', 'hard', 'n_safe', 'wrap', 'cov', 'cov_id',
+   'cov_free', 'esc', 'enclosed', 'gap_now', 'threat', 'goal', 'nh', 'eat', 'pred', 'sized', 'raid', 'guard', 'gforce', 'gatk', 'giant', 'pph', 'pset', 'pgap', 'ptr', 'ptid', 'pstab', 'ttd', 'v2obj',
+-  'ttds', 'ttdh', 'branch', 'cause', 'head_hit', 'head_checked', 'ttddyn', 'dyn_id', 'dyn_kind', 'dyn_gap', 'dyn_heads', 'dyn_excluded', 'emergency', 'em_gap', 'em_unavoidable', 'unknown_at', 'verified_s', 'static_hit', 'boost_reason', 'chg', 'exit_width', 'exit_reach', 'exit_close', 'exit_slack', 'exit_unknown', 'exit_reason', 'v3_ms', 'v3_over', 'v3_full', 'v3_hold', 'v3_leaves', 'v3_eval', 'v3_cert', 'v3_ncert', 'v3_exits', 'v3_risk', 'v3_commit', 'v3_shield', 'v3_root', 'v3_keep', 'v3_local', 'v3_goal', 'v3_goal_age', 'v3_route_match', 'v3_cert_reason', 'pred25', 'herr25', 'trk_age', 'trk_cmd', 'trk_why', 'v6_intent', 'v6_goal_x', 'v6_goal_y', 'v6_reason', 'v7_phase', 'v7_heads', 'v7_radius', 'v7_threshold', 'v7_switched', 'v8_phase', 'v8_heads', 'v8_radius', 'v8_threshold', 'v8_switched']
++  'ttds', 'ttdh', 'branch', 'cause', 'head_hit', 'head_checked', 'ttddyn', 'dyn_id', 'dyn_kind', 'dyn_gap', 'dyn_heads', 'dyn_excluded', 'emergency', 'em_gap', 'em_unavoidable', 'unknown_at', 'verified_s', 'static_hit', 'boost_reason', 'chg', 'exit_width', 'exit_reach', 'exit_close', 'exit_slack', 'exit_unknown', 'exit_reason', 'v3_ms', 'v3_over', 'v3_full', 'v3_hold', 'v3_leaves', 'v3_eval', 'v3_cert', 'v3_ncert', 'v3_exits', 'v3_risk', 'v3_commit', 'v3_shield', 'v3_root', 'v3_keep', 'v3_local', 'v3_goal', 'v3_goal_age', 'v3_route_match', 'v3_cert_reason', 'pred25', 'herr25', 'trk_age', 'trk_cmd', 'trk_why', 'v6_intent', 'v6_goal_x', 'v6_goal_y', 'v6_reason', 'v7_phase', 'v7_heads', 'v7_radius', 'v7_threshold', 'v7_switched', 'v8_phase', 'v8_heads', 'v8_radius', 'v8_threshold', 'v8_switched', 'v81_heads', 'v81_radius']
+ const CLIP_MAX_FRAMES = 3600;
+ const PROFILES = {safe: '안전형', aggressive: '공격형'};
+ // Displays: the basic ones start on, the analysis ones (for tuning) start off (user 2026-09-26).
+@@ -195,15 +195,20 @@
+   const s = window.slither;
+   if (!window.playing || !s || s.dead) return null;
+   let v8Control = null;
+-  if (S.values.V8_ON) {
+-    const seen = new Set(), r2 = S.values.V8_HEAD_R ** 2;
+-    for (const o of window.slithers) if (o !== s && !o.dead && Number.isFinite(o.xx + o.yy) &&
+-      (o.xx - s.xx) ** 2 + (o.yy - s.yy) ** 2 <= r2) seen.add(o.id);
+-    v8Control = window.SlpPilot.v8Choice(v8Switch, seen.size, performance.now() / 1000, S.values);
++  if (S.values.V81_ON || S.values.V8_ON) {
++    const seen = new Set(), near = new Set(), r2 = S.values.V8_HEAD_R ** 2, nr2 = (S.values.V81_HEAD_R ?? 250) ** 2;
++    for (const o of window.slithers) if (o !== s && !o.dead && Number.isFinite(o.xx + o.yy)) {
++      const d2 = (o.xx - s.xx) ** 2 + (o.yy - s.yy) ** 2;
++      if (d2 <= r2) seen.add(o.id);
++      if (d2 <= nr2) near.add(o.id);
++    }
++    v8Control = S.values.V81_ON
++      ? window.SlpPilot.v81Choice(v8Switch, seen.size, near.size, performance.now() / 1000, S.values)
++      : window.SlpPilot.v8Choice(v8Switch, seen.size, performance.now() / 1000, S.values);
+     if (v8Control.switched) { route = null; planVer++; planSentAt = 0; }
+   }
+-  const seven = !S.values.V8_ON && S.values.V7_ON;
+-  const six = S.values.V8_ON ? v8Control.phase === 'avoid' : seven || S.values.V6_ON;
++  const seven = !S.values.V81_ON && !S.values.V8_ON && S.values.V7_ON;
++  const six = S.values.V81_ON || S.values.V8_ON ? v8Control.phase === 'avoid' : seven || S.values.V6_ON;
+   const radius = Math.max(RADIUS, six ? S.values.V6_OBS : 0, seven ? S.values.V7_HEAD_R : 0);
+   const hx = s.xx, hy = s.yy, R2 = radius * radius, RF2 = (seven ? Math.max(S.values.FOOD_R, S.values.V6_FOOD_R ?? 3000) : six ? (S.values.V6_FOOD_R ?? 3000) : FOOD_RADIUS) ** 2;
+   const inr = (x, y) => (x - hx) * (x - hx) + (y - hy) * (y - hy) < R2, inf = (x, y) => (x - hx) * (x - hx) + (y - hy) * (y - hy) < RF2;
+@@ -329,8 +334,8 @@
+     const q = game.predQ.shift(); if (st.t - q.t < .7) pred = Math.round(Math.hypot(st.x - q.x50, st.y - q.y50) * 10) / 10;
+   }
+   pending.pred = pred; pending.pred25 = pred25; pending.herr25 = herr25; st.pred = pred === null ? -1 : pred;
+-  if (S.values.V4_ON || S.values.V6_ON || S.values.V7_ON || S.values.V8_ON) { st.route = route;
+-    const v8 = !!S.values.V8_ON, v7 = !v8 && !!S.values.V7_ON, v6 = v8 || v7 || !!S.values.V6_ON, every = v6 ? (S.values.V6_PLAN_MS || 400) : (S.values.V4_PLAN_MS || 350);
++  if (S.values.V4_ON || S.values.V6_ON || S.values.V7_ON || S.values.V8_ON || S.values.V81_ON) { st.route = route;
++    const v8 = !!(S.values.V81_ON || S.values.V8_ON), v7 = !v8 && !!S.values.V7_ON, v6 = v8 || v7 || !!S.values.V6_ON, every = v6 ? (S.values.V6_PLAN_MS || 400) : (S.values.V4_PLAN_MS || 350);
+     const needPlan = v8 ? st.v8Control.phase === 'avoid' : !v7 || window.SlpPilot.countHeads(st, S.values.V7_HEAD_R) >= S.values.V7_HEAD_N || last?.trace?.v7_phase === 'avoid';
+     if (needPlan && worker2 && !planBusy && performance.now() - planSentAt >= every) { planBusy = true; planSentAt = performance.now(); planVer++;
+       const cp = Object.assign({}, st, {route: undefined, segs: Float32Array.from(st.segs), sid: Float32Array.from(st.sid), heads: Float32Array.from(st.heads), hid: Float32Array.from(st.hid), food: Float32Array.from(st.food), own: Float32Array.from(st.own)});
+@@ -346,11 +351,11 @@
+     frame.cmd = [r.cmd, r.boost]; game.box.push(frame);
+     while (frame.t - game.box[0].t > BOX_S) game.box.shift();
+     const tr = r.trace, q = (v, d) => v === null || v === undefined ? null : Math.round(v * d) / d;
+-    if ((S.values.V8_ON || S.values.V7_ON || S.values.V6_ON) && (tr.cause === 'changed' || tr.cause === 'old')) { route = null; planSentAt = 0; }
++    if ((S.values.V81_ON || S.values.V8_ON || S.values.V7_ON || S.values.V6_ON) && (tr.cause === 'changed' || tr.cause === 'old')) { route = null; planSentAt = 0; }
+     game.log.push([frame.t, q(frame.x, 10), q(frame.y, 10), q(frame.ang, 1000), q(frame.sp, 100), q(frame.sc, 100), frame.L, tr.mode,
+       tr.boost ? 1 : 0, tr.cmd, tr.clear, tr.hard, tr.n_safe, tr.wrap, tr.cov, tr.cov_id, tr.cov_free, tr.esc, tr.enclosed, q(gapNow, 10), tr.threat,
+       tr.goal, tr.nh, tr.eat, pred, tr.sized, tr.raid, tr.guard, tr.gforce, tr.gatk, tr.giant, tr.pph, tr.pset, tr.pgap, tr.ptr, tr.ptid, tr.pstab, tr.ttd, tr.v2obj,
+-      tr.ttds, tr.ttdh, tr.branch, tr.cause, tr.head_hit, tr.head_checked, tr.ttddyn, tr.dyn_id, tr.dyn_kind, tr.dyn_gap, tr.dyn_heads, tr.dyn_excluded, tr.emergency, tr.em_gap, tr.em_unavoidable, tr.unknown_at, tr.verified_s, tr.static_hit, tr.boost_reason, tr.chg, tr.exit_width, tr.exit_reach, tr.exit_close, tr.exit_slack, tr.exit_unknown, tr.exit_reason, tr.v3_ms, tr.v3_over, tr.v3_full, tr.v3_hold, tr.v3_leaves, tr.v3_eval, tr.v3_cert, tr.v3_ncert, tr.v3_exits, tr.v3_risk, tr.v3_commit, tr.v3_shield, tr.v3_root, tr.v3_keep, tr.v3_local, tr.v3_goal, tr.v3_goal_age, tr.v3_route_match, tr.v3_cert_reason, pred25, herr25, plan ? Math.round(sent.planAge * 1000) / 1000 : null, Number.isFinite(sent.ang) ? Math.round(sent.ang * 180 / Math.PI * 10) / 10 : null, sent.why, tr.v6_intent, tr.v6_goal_x, tr.v6_goal_y, tr.v6_reason, tr.v7_phase, tr.v7_heads, tr.v7_radius, tr.v7_threshold, tr.v7_switched, tr.v8_phase, tr.v8_heads, tr.v8_radius, tr.v8_threshold, tr.v8_switched]);
++      tr.ttds, tr.ttdh, tr.branch, tr.cause, tr.head_hit, tr.head_checked, tr.ttddyn, tr.dyn_id, tr.dyn_kind, tr.dyn_gap, tr.dyn_heads, tr.dyn_excluded, tr.emergency, tr.em_gap, tr.em_unavoidable, tr.unknown_at, tr.verified_s, tr.static_hit, tr.boost_reason, tr.chg, tr.exit_width, tr.exit_reach, tr.exit_close, tr.exit_slack, tr.exit_unknown, tr.exit_reason, tr.v3_ms, tr.v3_over, tr.v3_full, tr.v3_hold, tr.v3_leaves, tr.v3_eval, tr.v3_cert, tr.v3_ncert, tr.v3_exits, tr.v3_risk, tr.v3_commit, tr.v3_shield, tr.v3_root, tr.v3_keep, tr.v3_local, tr.v3_goal, tr.v3_goal_age, tr.v3_route_match, tr.v3_cert_reason, pred25, herr25, plan ? Math.round(sent.planAge * 1000) / 1000 : null, Number.isFinite(sent.ang) ? Math.round(sent.ang * 180 / Math.PI * 10) / 10 : null, sent.why, tr.v6_intent, tr.v6_goal_x, tr.v6_goal_y, tr.v6_reason, tr.v7_phase, tr.v7_heads, tr.v7_radius, tr.v7_threshold, tr.v7_switched, tr.v8_phase, tr.v8_heads, tr.v8_radius, tr.v8_threshold, tr.v8_switched, tr.v81_heads, tr.v81_radius]);
+     if (r.plan && r.plan.length >= 10) { const P = r.plan, n = P.length / 5, at = tt => { let i = 0; while (i + 1 < n && P[5 * (i + 1)] < tt) i++;
+         if (i + 1 >= n) { const k = 5 * (n - 1); return [P[k + 1], P[k + 2], P[k + 3]]; }
+         const k = 5 * i, t0 = P[k], t1 = P[k + 5], f = t1 > t0 ? Math.min(1, Math.max(0, (tt - t0) / (t1 - t0))) : 0, dh = ((P[k + 8] - P[k + 3] + 3 * Math.PI) % (2 * Math.PI)) - Math.PI;
+@@ -666,7 +671,7 @@
+   if (d) {
+     if (last.trace.v8_phase && S.show.path) {
+       ctx.font = 'bold 13px system-ui'; ctx.fillStyle = last.trace.v8_phase === 'avoid' ? '#ffb83d' : '#f6db52';
+-      ctx.fillText(`V8 · ${last.trace.v8_phase === 'avoid' ? 'V6' : 'V1 잔해'} · 머리 ${last.trace.v8_heads}/${last.trace.v8_threshold}`, X(me.xx) + 22, Y(me.yy) - 68);
++      ctx.fillText(`${S.values.V81_ON ? 'V8-1' : 'V8'} · ${last.trace.v8_phase === 'near' ? 'V4.1 근접' : last.trace.v8_phase === 'avoid' ? 'V6' : 'V1 잔해'} · 머리 ${last.trace.v8_phase === 'near' ? last.trace.v81_heads + ' / ' + last.trace.v81_radius + 'px' : last.trace.v8_heads + '/' + last.trace.v8_threshold}`, X(me.xx) + 22, Y(me.yy) - 68);
+     }
+     if (last.trace.v7_phase && S.show.path) {
+       ctx.font = 'bold 13px system-ui'; ctx.fillStyle = last.trace.v7_phase === 'avoid' ? '#ffb83d' : '#f6db52';
+@@ -989,7 +994,7 @@
+   const t = last && game && S.bot ? last.trace : null, sp = (txt, css = '') => el('span', {style: css}, txt);
+   // status tiles (design 2026-09-29, after the Suite / 143X panels): mode · decision ms · FPS · length/rank
+   const tile = (lab, val, css = '', title = '') => el('div', {class: 'tile', title}, el('div', {class: 'tl'}, lab), el('div', {class: 'tv', style: css}, val));
+-  const modeTxt = !S.bot ? '꺼짐' : !game ? '대기' : !t ? '판단 대기' : (t.v8_phase ? `V8 · ${t.v8_phase === 'avoid' ? 'V6' : 'V1 잔해'} (${t.v8_heads}/${t.v8_threshold})` : t.v7_phase ? `V7 · ${t.v7_phase === 'avoid' ? 'V6 회피' : 'V1 잔해'} (${t.v7_heads}/${t.v7_threshold})` : (MODE_KO[t.mode] || t.mode)) + (t.boost ? ' ⚡' : '');
++  const modeTxt = !S.bot ? '꺼짐' : !game ? '대기' : !t ? '판단 대기' : (t.v8_phase ? `${S.values.V81_ON ? 'V8-1' : 'V8'} · ${t.v8_phase === 'near' ? 'V4.1 근접' : t.v8_phase === 'avoid' ? 'V6' : 'V1 잔해'} (${t.v8_heads}/${t.v8_threshold})` : t.v7_phase ? `V7 · ${t.v7_phase === 'avoid' ? 'V6 회피' : 'V1 잔해'} (${t.v7_heads}/${t.v7_threshold})` : (MODE_KO[t.mode] || t.mode)) + (t.boost ? ' ⚡' : '');
+   const modeCss = !S.bot ? 'color:#8a94b0' : t ? `color:${MODE_COL[t.mode] || '#ddd'}` : 'color:#8a94b0';
+   const lenTxt = game && window.slither ? String(snakeLen(window.slither)) : '-', rankTxt = window.rank > 0 && window.slither_count > 0 ? `${window.rank}/${window.slither_count}` : '-';
+   hudEl.replaceChildren(
+@@ -1076,7 +1081,7 @@
+     el('div', {class: 'title', title: '끌어서 옮기기', onmousedown: e => {
+       if (e.target.tagName === 'BUTTON') return;
+       const r = panel.getBoundingClientRect(); drag = {dx: e.clientX - r.left, dy: e.clientY - r.top}; e.preventDefault();
+-    }}, el('span', {class: 'logo'}, el('img', {src: document.documentElement.getAttribute('data-slp-cat-icon') || '', alt: '발로 두드리는 고양이'})), el('div', {class: 'tt'}, el('b', {}, 'SLP MOD'), el('div', {class: 'st'}, `${S.values.V8_ON ? 'V8 · 원본 V1+V6' : S.values.V7_ON ? 'V7 · 잔해+혼잡 회피' : S.values.V6_ON ? 'V6 · 미로+근접' : S.values.V5_ON ? 'V5 · 시퀀스 탐색' : S.values.V4_ON ? 'V4 · 미로 풀이' : S.values.V2_ON && S.values.V3_ON ? 'V3 · 가용 경로 계획' : S.values.V2_ON ? 'V2 · 시간 여유 판단' : `V1 · ${PROFILES[S.profile]}`} · ${VERSION}`)),
++    }}, el('span', {class: 'logo'}, el('img', {src: document.documentElement.getAttribute('data-slp-cat-icon') || '', alt: '발로 두드리는 고양이'})), el('div', {class: 'tt'}, el('b', {}, 'SLP MOD'), el('div', {class: 'st'}, `${S.values.V81_ON ? 'V8-1 · V1+V4.1+V6' : S.values.V8_ON ? 'V8 · 원본 V1+V6' : S.values.V7_ON ? 'V7 · 잔해+혼잡 회피' : S.values.V6_ON ? 'V6 · 미로+근접' : S.values.V5_ON ? 'V5 · 시퀀스 탐색' : S.values.V4_ON ? 'V4 · 미로 풀이' : S.values.V2_ON && S.values.V3_ON ? 'V3 · 가용 경로 계획' : S.values.V2_ON ? 'V2 · 시간 여유 판단' : `V1 · ${PROFILES[S.profile]}`} · ${VERSION}`)),
+       btn(S.bot ? '● 봇 ON' : '○ 봇 OFF', false, () => setBot(!S.bot), '봇 켜기/끄기 (T)', `bot ${S.bot ? 'go' : 'stop'}`),
+       btn('—', false, () => { S.panel = false; save(); render(); }, '패널 숨기기 (H)', 'ico')),
+     el('div', {class: 'presetbar'},
+@@ -1103,24 +1108,25 @@
+       return el('div', {class: 'li' + (off ? ' off' : '') + (v !== cur[key] ? ' chg' : ''), title: `${key} · 프리셋 값 ${cur[key]}`},
+         el('span', {class: 'ic'}, icon), el('div', {class: 'txt'}, el('div', {class: 't'}, title), el('div', {class: 's'}, ev)), ctl);
+     };
+-    const v8 = !!S.values.V8_ON, v7 = !v8 && !!S.values.V7_ON, v6 = !v8 && !v7 && !!S.values.V6_ON, v41 = !v8 && !v7 && !v6 && !!S.values.V41_ON, v5 = !v8 && !v7 && !v6 && !v41 && !!S.values.V5_ON, v4 = !v8 && !v7 && !v6 && !v5 && !v41 && !!S.values.V4_ON, v2 = !v8 && !v7 && !v6 && !v4 && !v5 && !v41 && !!S.values.V2_ON, v3 = v2 && !!S.values.V3_ON;
++    const v81 = !!S.values.V81_ON, v8 = !v81 && !!S.values.V8_ON, v7 = !v81 && !v8 && !!S.values.V7_ON, v6 = !v81 && !v8 && !v7 && !!S.values.V6_ON, v41 = !v81 && !v8 && !v7 && !v6 && !!S.values.V41_ON, v5 = !v81 && !v8 && !v7 && !v6 && !v41 && !!S.values.V5_ON, v4 = !v81 && !v8 && !v7 && !v6 && !v5 && !v41 && !!S.values.V4_ON, v2 = !v81 && !v8 && !v7 && !v6 && !v4 && !v5 && !v41 && !!S.values.V2_ON, v3 = v2 && !!S.values.V3_ON;
+     const seg = el('div', {class: 'seg'},
+-      btn('V1', !v8 && !v7 && !v2 && !v4 && !v5 && !v41 && !v6, () => { setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V6_ON', 0); setValue('V41_ON', 0); setValue('V5_ON', 0); setValue('V2_ON', 0); setValue('V3_ON', 0); setValue('V4_ON', 0); render(); }, '기존 판단: 프리셋의 모든 값을 사용'),
+-      btn('V2', v2 && !v3, () => { setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V6_ON', 0); setValue('V41_ON', 0); setValue('V5_ON', 0); setValue('V4_ON', 0); setValue('V2_ON', 1); setValue('V3_ON', 0); render(); }, 'V2: 시간 여유 판단'),
+-      btn('V3', v3, () => { setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V6_ON', 0); setValue('V41_ON', 0); setValue('V5_ON', 0); setValue('V4_ON', 0); setValue('V2_ON', 1); setValue('V3_ON', 1); render(); }, 'V3: 가용 경로 계획'),
+-      btn('V4 · 미로', v4, () => { setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V6_ON', 0); setValue('V41_ON', 0); setValue('V5_ON', 0); setValue('V4_ON', 1); render(); }, 'V4: 몸·벽·적 전방 도달 영역을 벽으로 보고 격자 시간 탐색으로 출구를 찾음 (2026-09-30)'),
+-      btn('V5 · 시퀀스', v5, () => { setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V6_ON', 0); setValue('V41_ON', 0); setValue('V4_ON', 0); setValue('V2_ON', 0); setValue('V3_ON', 0); setValue('V5_ON', 1); render(); }, 'V5: 2단계 원호 시퀀스 100개를 매 틱 평가 — 먹이 실섭취·목표 접근·적 도달 위험 비용 (2026-09-30)'),
+-      btn('V4.1 · 근접', v41, () => { setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V6_ON', 0); setValue('V41_ON', 1); render(); }, 'V4.1: 최초 미로 풀이(48px 격자·전방 원뿔 도달장·Dijkstra) 보존판 — 근접 회피 모드'),
+-      btn('V6 · 이중층', v6, () => { setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V41_ON', 0); setValue('V5_ON', 0); setValue('V4_ON', 0); setValue('V2_ON', 0); setValue('V3_ON', 0); setValue('V6_ON', 1); render(); }, 'V6: 비동기 2차원 미로 안내선 + 매 틱 연속 원호 근접 회피'),
+-      btn('V7 · 자동 전환', v7, () => { setValue('V8_ON', 0); for (const k of ['V6_ON','V41_ON','V5_ON','V4_ON','V3_ON','V2_ON','PROBE_ON']) setValue(k, 0); setValue('V7_ON', 1); render(); }, '현재 V1 설정으로 추종하고, 반경 안 머리 개수가 기준 이상이면 V6로 회피'),
+-      btn('V8 · 원본 전환', v8, () => { applyPreset('v8_exact'); }, '저장된 잔해 적극 V1과 기존 V6 설정·관측·판단을 사용'));
++      btn('V1', !v81 && !v8 && !v7 && !v2 && !v4 && !v5 && !v41 && !v6, () => { setValue('V81_ON', 0); setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V6_ON', 0); setValue('V41_ON', 0); setValue('V5_ON', 0); setValue('V2_ON', 0); setValue('V3_ON', 0); setValue('V4_ON', 0); render(); }, '기존 판단: 프리셋의 모든 값을 사용'),
++      btn('V2', v2 && !v3, () => { setValue('V81_ON', 0); setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V6_ON', 0); setValue('V41_ON', 0); setValue('V5_ON', 0); setValue('V4_ON', 0); setValue('V2_ON', 1); setValue('V3_ON', 0); render(); }, 'V2: 시간 여유 판단'),
++      btn('V3', v3, () => { setValue('V81_ON', 0); setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V6_ON', 0); setValue('V41_ON', 0); setValue('V5_ON', 0); setValue('V4_ON', 0); setValue('V2_ON', 1); setValue('V3_ON', 1); render(); }, 'V3: 가용 경로 계획'),
++      btn('V4 · 미로', v4, () => { setValue('V81_ON', 0); setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V6_ON', 0); setValue('V41_ON', 0); setValue('V5_ON', 0); setValue('V4_ON', 1); render(); }, 'V4: 몸·벽·적 전방 도달 영역을 벽으로 보고 격자 시간 탐색으로 출구를 찾음 (2026-09-30)'),
++      btn('V5 · 시퀀스', v5, () => { setValue('V81_ON', 0); setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V6_ON', 0); setValue('V41_ON', 0); setValue('V4_ON', 0); setValue('V2_ON', 0); setValue('V3_ON', 0); setValue('V5_ON', 1); render(); }, 'V5: 2단계 원호 시퀀스 100개를 매 틱 평가 — 먹이 실섭취·목표 접근·적 도달 위험 비용 (2026-09-30)'),
++      btn('V4.1 · 근접', v41, () => { setValue('V81_ON', 0); setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V6_ON', 0); setValue('V41_ON', 1); render(); }, 'V4.1: 최초 미로 풀이(48px 격자·전방 원뿔 도달장·Dijkstra) 보존판 — 근접 회피 모드'),
++      btn('V6 · 이중층', v6, () => { setValue('V81_ON', 0); setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V41_ON', 0); setValue('V5_ON', 0); setValue('V4_ON', 0); setValue('V2_ON', 0); setValue('V3_ON', 0); setValue('V6_ON', 1); render(); }, 'V6: 비동기 2차원 미로 안내선 + 매 틱 연속 원호 근접 회피'),
++      btn('V7 · 자동 전환', v7, () => { setValue('V81_ON', 0); setValue('V8_ON', 0); for (const k of ['V6_ON','V41_ON','V5_ON','V4_ON','V3_ON','V2_ON','PROBE_ON']) setValue(k, 0); setValue('V7_ON', 1); render(); }, '현재 V1 설정으로 추종하고, 반경 안 머리 개수가 기준 이상이면 V6로 회피'),
++      btn('V8 · 원본 전환', v8, () => { applyPreset('v8_exact'); }, '저장된 잔해 적극 V1과 기존 V6 설정·관측·판단을 사용'),
++      btn('V8-1 · 근접 추가', v81, () => { S.preset = 'v81_exact'; for (const k of ['V8_ON','V7_ON','V6_ON','V41_ON','V5_ON','V4_ON','V3_ON','V2_ON','PROBE_ON']) S.values[k] = 0; S.values.V81_ON = 1; if (game) game.changes.push({t: gameT(), preset: S.preset, V81_ON: 1, V8_ON: 0, V7_ON: 0, V6_ON: 0, V41_ON: 0, V5_ON: 0, V4_ON: 0, V3_ON: 0, V2_ON: 0, PROBE_ON: 0}); route = null; planVer++; planSentAt = 0; save(); send({type: 'params', ...pilotParams()}); render(); }, 'V8 설정을 유지하며 단일 머리 근접 시 원본 V4.1 사용. 밀집 V6 우선'));
+     const BUNDLE = ['TURN_FIX', 'RAIDER_ON', 'SIZE_SAFE', 'SIZE_GATE', 'HEAD_RAYS', 'WRAP_RAID', 'WRAP_EXIT_TAIL', 'HEAP_GATE', 'SIZE_PROFILE'];
+     const bOn = BUNDLE.filter(k => S.values[k]).length;
+     const bundleRow = el('div', {class: 'li'}, el('span', {class: 'ic'}, '📦'), el('div', {class: 'txt'}, el('div', {class: 't'}, '검증 묶음'), el('div', {class: 's'}, `사이클 2 A/B 채택 8개 + 크기 프로필 · ${bOn}/${BUNDLE.length} 켬`)),
+       el('button', {class: 'sw' + (bOn === BUNDLE.length ? ' on' : bOn ? ' half' : ''), title: '묶음 전체 켜기/끄기',
+         onclick: () => { const on = bOn === BUNDLE.length ? 0 : 1; for (const k of BUNDLE) setValue(k, on); render(); }}, el('i')));
+-    const rows = v8
+-      ? [sw('V8_HEAD_R', '혼잡 판정 반경', '내 머리에서 이 거리 안의 적 머리만 셈', '◎'), sw('V8_HEAD_N', 'V6 전환 머리 개수', '이 개수 이상이면 원본 V6 사용', '🛡'), sw('V8_CLEAR_S', 'V1 복귀 대기', '기준보다 적은 상태가 지속되면 원본 V1 복귀', '⏱'), sw('W_GOAL', 'V1 잔해 목표 끌림', '저장된 잔해 적극 설정에서 조정', '🎯'), sw('FOOD_R', 'V1 잔해 탐색 범위', '원본 V1 먹이 탐색 반경', '🔭'), sw('BOOST_COST', 'V1 부스트 비용', '낮을수록 부스트 적극 사용', '⚡'), sw('V6_MARGIN', 'V6 몸·벽 여유', '원본 V6 설정에서 조정', '↔'), sw('V6_SAFETY', 'V6 적 도달 여유', '원본 V6 설정에서 조정', '🛡'), sw('V6_CENTER_W', 'V6 중심 이동 가중치', '원본 V6 설정에서 조정', '◎')]
++    const rows = v81 || v8
++      ? [...(v81 ? [sw('V81_HEAD_R', 'V4.1 단일 머리 근접 반경', '범위 안 머리가 정확히 1개면 V4.1. 기존 밀집 V6가 우선. 0이면 끔', '↔')] : []), sw('V8_HEAD_R', '혼잡 판정 반경', '내 머리에서 이 거리 안의 적 머리만 셈', '◎'), sw('V8_HEAD_N', 'V6 전환 머리 개수', '이 개수 이상이면 원본 V6 사용', '🛡'), sw('V8_CLEAR_S', 'V1 복귀 대기', '기준보다 적은 상태가 지속되면 원본 V1 복귀', '⏱'), sw('W_GOAL', 'V1 잔해 목표 끌림', '저장된 잔해 적극 설정에서 조정', '🎯'), sw('FOOD_R', 'V1 잔해 탐색 범위', '원본 V1 먹이 탐색 반경', '🔭'), sw('BOOST_COST', 'V1 부스트 비용', '낮을수록 부스트 적극 사용', '⚡'), sw('V6_MARGIN', 'V6 몸·벽 여유', '원본 V6 설정에서 조정', '↔'), sw('V6_SAFETY', 'V6 적 도달 여유', '원본 V6 설정에서 조정', '🛡'), sw('V6_CENTER_W', 'V6 중심 이동 가중치', '원본 V6 설정에서 조정', '◎')]
+       : v7
+       ? [sw('V7_HEAD_R', '혼잡 판정 반경', '내 머리에서 이 거리 안의 적 머리만 셈', '◎'), sw('V7_HEAD_N', 'V6 전환 머리 개수', '이 개수 이상이면 즉시 V6 회피', '🛡'), sw('V7_CLEAR_S', 'V1 복귀 대기', '기준보다 적은 상태가 이 시간 지속되면 먹이 추종 복귀', '⏱'), sw('W_GOAL', 'V1 잔해 목표 끌림', '평상시 V1의 무더기 추종 가중치', '🎯'), sw('FOOD_R', 'V1 잔해 탐색 범위', '평상시 V1 먹이 탐색 반경', '🔭'), sw('BOOST_COST', 'V1 부스트 비용', '낮을수록 V1 부스트 적극 사용', '⚡'), sw('REMAINS', '잔해 판정 크기', '평상시 V1의 큰 먹이 판정', '✨'), sw('REMAINS_ONLY', '잔해만 무더기로', '평상시 일반 먹이는 무더기 목표에서 제외', '🎯'), sw('V6_MARGIN', 'V6 몸·벽 여유', '혼잡 회피 중 사용할 추가 여유', '↔'), sw('V6_SAFETY', 'V6 적 도달 여유', '혼잡 회피 중 적보다 먼저 통과할 시간', '🛡'), sw('V6_CENTER_W', 'V6 중심 이동 가중치', '회피 후보에서 안쪽 선호', '◎')]
+       : v6
+@@ -1341,7 +1347,7 @@
+     boxSize: () => game ? {frames: game.box.length, floats: game.box.reduce((n, f) => n + f.segs.length + f.heads.length + f.food.length + f.own.length, 0)} : null,
+     terms: () => last && last.draw.an && last.draw.an.plans && last.draw.an.plans.chosen.terms,
+     status: () => ({bot: S.bot, game: !!game, ticks: game && game.ticks, fps, ping, errors: game && game.errors,
+-      last: last && {ms: last.ms, mode: last.trace.mode, squeeze: last.trace.squeeze, v7_phase: last.trace.v7_phase, v7_heads: last.trace.v7_heads, v8_phase: last.trace.v8_phase, v8_heads: last.trace.v8_heads}, squeeze_ticks: game && game.squeeze.length})};
++      last: last && {ms: last.ms, mode: last.trace.mode, squeeze: last.trace.squeeze, v7_phase: last.trace.v7_phase, v7_heads: last.trace.v7_heads, v8_phase: last.trace.v8_phase, v8_heads: last.trace.v8_heads, v81_heads: last.trace.v81_heads, v81_radius: last.trace.v81_radius}, squeeze_ticks: game && game.squeeze.length})};
+   console.log('[SLP] MOD', VERSION, 'ready; worker', !!worker);
+ }, 100);
+ })();
+--- before/params.json
++++ params.json
+@@ -239,7 +239,9 @@
+     "V8_ON": 0,
+     "V8_HEAD_R": 450,
+     "V8_HEAD_N": 3,
+-    "V8_CLEAR_S": 1
++    "V8_CLEAR_S": 1,
++    "V81_ON": 0,
++    "V81_HEAD_R": 250
+   },
+   "profiles": {
+     "safe": {},
+@@ -566,9 +568,274 @@
+         "V8_HEAD_N": 3,
+         "V8_CLEAR_S": 1
+       }
++    },
++    "v81_exact": {
++      "label": "V8-1 · V1 + V4.1 근접 + V6 혼잡",
++      "profile": "aggressive",
++      "values": {
++        "LAT": 0.1,
++        "HARD": 0,
++        "SAFE": 5,
++        "TIGHT": 0,
++        "SAFE_HEADS": 10,
++        "HARD_PHYS": 5,
++        "CREDIT": 25,
++        "THICK_OFF_THIN": 0,
++        "THICK_OFF_MID": 0,
++        "THICK_OFF_THICK": 0,
++        "REACH": 700,
++        "HEAD_R": 300,
++        "HEAD_NEAR": 210,
++        "REMAINS": 12,
++        "FOOD_R": 3000,
++        "EAT": 30,
++        "W_FOOD": 6,
++        "W_GOAL": 300,
++        "BOOST_COST": 15,
++        "W_RUN": 14,
++        "BOOST_DWELL": 0.285,
++        "W_OPEN": 0.05,
++        "W_ESC": 0,
++        "W_AWAY": 1,
++        "W_CUT": 59,
++        "W_TURN": 0.12,
++        "SWITCH": 8,
++        "W_WRAP": 100,
++        "BIG_RATIO": 1.5,
++        "W_BIG": 9,
++        "W_PROG": 39,
++        "W_WP": 40,
++        "LOOP_STRAIGHT": 0.5,
++        "W_CURL": 106,
++        "CURL_ON": 0.25,
++        "W_PAR": 0,
++        "LONG_RATIO": 1.5,
++        "W_CENTER": 40,
++        "RIM": 0.5,
++        "W_CROWD": 60,
++        "CROWD_R": 700,
++        "W_HUNT": 52,
++        "W_THREAD": 40,
++        "LONG_T": 3.8,
++        "LONG_SAFE": 28,
++        "SIDE_HOLD": 0.6,
++        "CONFIRM": 2,
++        "PEND_GAP": 0.1,
++        "MAX_REL_DEG": 150,
++        "CALM_RATE_DEG": 90,
++        "COIL_ON": 0.9,
++        "COIL_OFF": 0.5,
++        "GAP_EXTRA": 120,
++        "GAP_R": 450,
++        "THREAD_TOL": 3,
++        "W_CENTRE": 40,
++        "SQUEEZE_ON": 1,
++        "CORRIDOR_W": 100,
++        "SQUEEZE_R": 500,
++        "SQUEEZE_ANGLE": 60,
++        "W_SQUEEZE": 40,
++        "TURN_FIX": 1,
++        "RAIDER_ON": 1,
++        "SIZE_SAFE": 1,
++        "SIZE_GATE": 1,
++        "HEAD_RAYS": 1,
++        "WRAP_RAID": 1,
++        "WRAP_EXIT_TAIL": 1,
++        "MODE_DWELL": 0.6,
++        "BOOST_DANGER": 10,
++        "HEAP_GATE": 0,
++        "SIZE_PROFILE": 0,
++        "SIZE_SC": 2.3,
++        "RIVAL_R": 0,
++        "GUARD_ON": 0,
++        "GUARD_R": 400,
++        "GUARD_T": 2.5,
++        "GUARD_TTC": 1.2,
++        "W_GUARD": 40,
++        "GIANT_ON": 0,
++        "GIANT_RATIO": 1.5,
++        "GIANT_COV": 0.35,
++        "GIANT_D": 250,
++        "GIANT_HOLD": 0.7,
++        "GIANT_OFF": 0.25,
++        "GIANT_KEEP": 1.5,
++        "PROBE_ON": 0,
++        "PROBE_GAP0": 4,
++        "PROBE_JUMP": -4,
++        "PROBE_STEP": 1,
++        "PROBE_FLOOR": -30,
++        "PROBE_MIN_L": 600,
++        "BOUND_CAL": 1,
++        "BOUND_GAP": -5,
++        "REMAINS_ONLY": 1,
++        "WF_ON": 0,
++        "WF_RATIO": 1,
++        "WF_COV": 0.2,
++        "WF_ANG": 50,
++        "WF_BOOST_COV": 0.4,
++        "NOWRAP_ON": 0,
++        "NW_RATIO": 1,
++        "NW_SPEED": 1,
++        "NW_MARGIN": 0,
++        "V2_ON": 0,
++        "V2_H": 5,
++        "V2_TOK": 2.5,
++        "V2_MARGIN": 10,
++        "V2_MINL": 80,
++        "V2_HEAPW": 0.2,
++        "V2_HEAPMIN": 60,
++        "V2_BCOST": 60,
++        "V2_HYST": 5,
++        "V2_CONE": 120,
++        "V2_TOKS": 5,
++        "V2_WTTD": 8,
++        "V2_WRAPCOV": 0.54,
++        "V2_WRAPR": 1150,
++        "V2_WRAPANG": 60,
++        "V2_WRAPRATIO": 0,
++        "V2_ARCMIN": 2,
++        "V2_CHGR": 1000,
++        "V2_WALLSHRINK": 1,
++        "V2_STRAIGHT": 1,
++        "V2_WRAP": 1,
++        "V2_CHG": 0,
++        "V2_BOOSTFREE": 0,
++        "V2_REMAINS": 12,
++        "V2_EXIT_ON": 0,
++        "V2_EXIT_EDGE": 900,
++        "V2_EXIT_SAMPLE": 4,
++        "V2_EXIT_MIN_WIDTH": 32,
++        "V2_EXIT_MIN_SLACK": 0.5,
++        "V2_EXIT_WIDTH_W": 0.08,
++        "V2_EXIT_SLACK_W": 8,
++        "V2_EXIT_REFINE_TOP": 8,
++        "V3_ON": 0,
++        "V3_DT": 0.09,
++        "V3_STEPS": 10,
++        "V3_HC": 5,
++        "V3_TOP": 12,
++        "V3_BUDGET": 25,
++        "V3_EDGE": 900,
++        "V3_OBS": 1150,
++        "V3_HEADPAD": 10,
++        "V3_MIN_WIDTH": 32,
++        "V3_MIN_SLACK": 0.5,
++        "V3_CLOSE": 450,
++        "V3_COMMIT_HOLD": 1,
++        "V3_SHIELD": 8,
++        "V3_BEAM1": 10,
++        "V3_BEAM2": 40,
++        "V3_BEAM3": 160,
++        "V3_CMD_STEP": 2,
++        "V3_SWITCH": 25,
++        "TRACK_ON": 1,
++        "TRACK_LOOK": 0.13,
++        "TRACK_MIND": 15,
++        "V3_RISKW": 40,
++        "TRACK_MODE": 1,
++        "TRACK_LAT": 0.17,
++        "TRACK_KLAT": 0.6,
++        "V4_ON": 0,
++        "V4_CELL": 48,
++        "V4_OBS": 1150,
++        "V4_EDGE": 700,
++        "V4_H": 6,
++        "V4_MARGIN": 10,
++        "V4_SAFETY": 0.3,
++        "V4_HUG": 1,
++        "V4_FOODW": 0.05,
++        "V4_TIMEW": 1,
++        "V4_HYST": 2,
++        "V4_DIRS": 12,
++        "V4_ARC": 1.5,
++        "V4_MEM": 4,
++        "V4_TURNW": 0.05,
++        "V4_HEADR": 1300,
++        "V4_PLAN_MS": 350,
++        "V4_PLAN_BUDGET": 40,
++        "V4_LOCAL_H": 0.9,
++        "V4_ROUTE_AGE": 1,
++        "V6_ON": 0,
++        "V6_CELL": 48,
++        "V6_OBS": 1400,
++        "V6_EDGE": 1000,
++        "V6_H": 8,
++        "V6_MARGIN": 1,
++        "V6_SAFETY": 0.3,
++        "V6_CLEAR_W": 0.6,
++        "V6_HEADR": 1300,
++        "V6_PLAN_MS": 400,
++        "V6_PLAN_BUDGET": 60,
++        "V6_LOCAL_H": 1.1,
++        "V6_ROUTE_AGE": 0.8,
++        "V5_ON": 0,
++        "V5_STAGE": 0.6,
++        "V5_W_FOOD": 3,
++        "V5_W_OPEN": 0.1,
++        "V5_W_RISK": 4000,
++        "V5_W_TURN": 0.5,
++        "V5_W_BOOST": 8,
++        "V5_W_STICK": 6,
++        "V5_EATR": 30,
++        "V5_REMAINSX": 4,
++        "V5_HYST": 20,
++        "V41_ON": 0,
++        "V41_CELL": 48,
++        "V41_OBS": 1150,
++        "V41_EDGE": 700,
++        "V41_H": 6,
++        "V41_MARGIN": 10,
++        "V41_SAFETY": 0.3,
++        "V41_HUG": 0.3,
++        "V41_FOODW": 0.05,
++        "V41_TIMEW": 1,
++        "V41_HYST": 0.15,
++        "V41_CONE": 150,
++        "V41_FIRST": 100,
++        "V41_ASSUME_BOOST": 0,
++        "V5_TG": 12,
++        "V5_EXPLOREV": 10,
++        "V6_FOOD_W": 3,
++        "V6_REMAINS_MIN": 12,
++        "V6_FOOD_R": 5000,
++        "V6_HEAP_SIZE": 100,
++        "V6_GOAL_W": 1.5,
++        "V6_BOOST_W": 80,
++        "V6_BOOST_MIN_MASS": 48,
++        "V6_BOOST_MIN_DIST": 150,
++        "V6_CENTER_W": 2,
++        "V8_ON": 0,
++        "V7_ON": 0,
++        "V8_HEAD_R": 450,
++        "V8_HEAD_N": 3,
++        "V8_CLEAR_S": 1,
++        "V81_ON": 1,
++        "V81_HEAD_R": 250
++      }
+     }
+   },
+   "ui": [
++    {
++      "group": "V8-1 — V8에 머리 하나 근접 V4.1 추가",
++      "items": [
++        [
++          "V81_ON",
++          "V8-1 켜기: V8 + 단일 머리 근접 V4.1",
++          0,
++          1,
++          1,
++          true
++        ],
++        [
++          "V81_HEAD_R",
++          "V4.1 전환 머리 근접 반경 px",
++          0,
++          6000,
++          25,
++          true
++        ]
++      ]
++    },
+     {
+       "group": "V8 — 원본 V1 + 원본 V6 전환",
+       "items": [

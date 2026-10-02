@@ -1,0 +1,79 @@
+The Circle Method · Issue #318 · ermiyaeskandary/Slither.io-bot · GitHub
+Skip to content
+You signed in with another tab or window.
+Reload
+to refresh your session.
+You signed out in another tab or window.
+Reload
+to refresh your session.
+You switched accounts on another tab or window.
+Reload
+to refresh your session.
+Dismiss alert
+This repository was archived by the owner on Oct 2, 2021. It is now read-only.
+ermiyaeskandary
+/
+Slither.io-bot
+Public archive
+Notifications
+You must be signed in to change notification settings
+Fork
+121
+Star
+196
+This repository was archived by the owner on Oct 2, 2021. It is now read-only.
+The Circle Method
+#318
+Copy link
+Copy link
+Closed
+Closed
+The Circle Method
+#318
+Copy link
+Description
+khumarahn
+opened
+on Jul 5, 2016
+Issue body actions
+Hi!
+I found this project extremely useful. I wanted to write a simple bot, but as I don't know any javascript or slither.io architecture, it wasn't accessible to me until I found this repo. I am very grateful to all the developers.
+I modified the bot a bit. I removed all the clever stuff and made it go round a circle following its tail. It has  been quite successful so far, the max score it reached was over 1.8 mln.
+Here is a fresh screenshot:
+http://imgur.com/6uemNd3
+Two leading snakes are driven by my algorithm. At the moment of writing this, both are still alive, and the largest one is 1.4 mln.
+Here is a video
+https://www.youtube.com/watch?v=dv91cZjVzow
+of the old version of the bot being killed by an angry online streamer at a size of 1.1 mln. I improved the algorithm significantly since then.
+I have been testing the Circle Method for quite some time now, and I have seen an increase of human players doing the same thing. But sooner or later they have to go to a toilet, and their snakes die. In contrast, the bot's poop is collected by the javascript garbage collector, and it can run longer.
+For my algorithm to work, the snake has to be manually controlled until it has a size of several thousand. Then I form a counter-clockwise circle with it and then the bot can run.
+I would suggest using the current bot that you developed until the snake reaches a size of 10 thousand say, and then starting the circle and switching to the circle algorithm. This has a potential of scoring very high fully automatically :-)
+https://github.com/khumarahn/Slither.io-bot
+updated version:
+https://github.com/j-c-m/Slither.io-bot/tree/_followself
+(branch)
+https://github.com/j-c-m/Slither.io-bot/blob/_followself/bot.user.js
+Reactions are currently unavailable
+Activity
+Sign up for free
+to join this conversation on GitHub.
+Already have an account?
+Sign in to comment
+Metadata
+Metadata
+Assignees
+No one assigned
+Labels
+No labels
+No labels
+Projects
+No projects
+Milestone
+No milestone
+Relationships
+None yet
+Development
+No branches or pull requests
+Issue actions
+Open in GitHub Copilot app
+You can’t perform that action at this time.

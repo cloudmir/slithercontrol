@@ -1,0 +1,22 @@
+[
+  {
+    "name": "zero_empty",
+    "boost": true
+  },
+  {
+    "name": "unsafe_boost_falls_back",
+    "boost": false
+  },
+  {
+    "name": "positive_empty",
+    "boost": false
+  },
+  {
+    "name": "switch_off",
+    "boost": false
+  },
+  {
+    "name": "too_short",
+    "boost": false
+  }
+]

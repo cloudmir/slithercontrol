@@ -1,0 +1,55 @@
+{
+ "synthetic": {
+  "open": {
+   "certified": 1,
+   "points": 3,
+   "route_ms": 13.75,
+   "cmd_deg": 5.6,
+   "mode": "v6guide",
+   "macro_distance": 1019
+  },
+  "corridor": {
+   "certified": 1,
+   "points": 4,
+   "min_x": 30000,
+   "max_x": 30024,
+   "min_clear": 37,
+   "mode": "v6guide"
+  },
+  "head_on": {
+   "mode": "v6avoid",
+   "cause": "changed",
+   "cmd_deg": 20,
+   "safe": 0
+  }
+ },
+ "replay": [
+  {
+   "file": "runs/v6verify_20260930_123015/slp_01_box.json.gz",
+   "frames": 1642,
+   "macro": {
+    "p50": 3.33,
+    "p95": 6.53,
+    "max": 14.4
+   },
+   "local": {
+    "p50": 1.12,
+    "p95": 2.7,
+    "max": 16.02
+   },
+   "guide_rate": 0.981,
+   "certified_rate": 0,
+   "plan_reasons": {
+    "reachable_prefix": 141,
+    "root_blocked": 3
+   },
+   "local_causes": {
+    "ok": 1610,
+    "changed": 2,
+    "none": 30
+   },
+   "hard": 10,
+   "turns": 11
+  }
+ ]
+}

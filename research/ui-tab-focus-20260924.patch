@@ -1,0 +1,101 @@
+--- a/src/renderer/src/components/MultiConversationView.tsx
++++ b/src/renderer/src/components/MultiConversationView.tsx
+@@ -21,6 +21,7 @@
+   onDragEnd: () => void
+ }) {
+   const focusConversation = useChat((s) => s.focusConversation)
++  const closeConversation = useChat((s) => s.closeMultiConversation)
+   if (!conv) return <section className="multi-conversation-pane">대화 불러오는 중…</section>
+   return (
+     <section
+@@ -32,7 +33,12 @@
+       <div className="multi-pane-label" draggable={draggable}
+         title={draggable ? '제목을 끌어 다른 창의 위·아래·왼쪽·오른쪽에 배치' : conv.title}
+         onDragStart={(event) => onDragStart(id, event)} onDragEnd={onDragEnd}>
+-        <span>{index + 1}</span><strong>{conv.title}</strong>{draggable && <i aria-hidden="true">⠿</i>}
++        <span>{index + 1}</span>
++        <button className="multi-pane-title" aria-pressed={focused} title={conv.title}
++          onClick={() => void focusConversation(id)}>{conv.title}</button>
++        {draggable && <i aria-hidden="true">⠿</i>}
++        <button className="multi-conversation-close" draggable={false} aria-label={`${conv.title} 창 닫기`}
++          title="창 닫기" onClick={() => closeConversation(id)}>×</button>
+       </div>
+       {conv.mode !== 'run' && <ConversationBar conversationId={id} />}
+       {conv.mode !== 'run' && conv.mode !== 'project' && <ChatWorkflowStrip conversationId={id} />}
+@@ -48,7 +54,6 @@
+   const activeId = useChat((s) => s.activeId)
+   const activeConv = useChat((s) => s.activeConv)
+   const focusConversation = useChat((s) => s.focusConversation)
+-  const closeConversation = useChat((s) => s.closeMultiConversation)
+   // Sidebar search can temporarily remove an open conversation from its result list.
+   const metadata = useRef(new Map<string, Conversation>())
+   for (const conv of conversations) if (ids.includes(conv.id)) metadata.current.set(conv.id, conv)
+@@ -173,21 +178,6 @@
+ 
+   return (
+     <section className={`multi-conversation-view${narrow ? ' narrow' : ''}`} aria-label="멀티 대화 보기">
+-      <div className="multi-conversation-tabs" role="tablist" aria-label="열린 대화">
+-        {ids.map((id) => {
+-          const title = metadata.current.get(id)?.title ?? '대화 불러오는 중…'
+-          return (
+-            <div key={id} className={`multi-conversation-tab${activeId === id ? ' active' : ''}`} role="tab" aria-selected={activeId === id}>
+-              <button className="multi-conversation-title" title={title} draggable={!narrow}
+-                onDragStart={(event) => startDrag(id, event)} onDragEnd={endDrag}
+-                onClick={() => void focusConversation(id)}>{title}</button>
+-              {ids.length > 1 && (
+-                <button className="multi-conversation-close" aria-label={`${title} 창 닫기`} title="창 닫기" onClick={() => closeConversation(id)}>×</button>
+-              )}
+-            </div>
+-          )
+-        })}
+-      </div>
+       <div className="multi-conversation-layout" ref={viewport}
+         onDragOverCapture={dragOver} onDropCapture={drop}
+         onDragLeave={(event) => {
+--- a/src/renderer/src/styles.css
++++ b/src/renderer/src/styles.css
+@@ -725,10 +725,6 @@
+   width: auto; min-width: 0; min-height: 0; max-width: 100%; overflow: hidden;
+ }
+ .multi-conversation-view { flex: 1; display: flex; flex-direction: column; min-width: 0; min-height: 0; background: var(--bg); }
+-.multi-conversation-tabs { flex: none; display: flex; align-items: stretch; gap: 3px; min-height: 36px; padding: 4px 8px 0; overflow-x: auto; border-bottom: 1px solid var(--border); background: var(--panel); }
+-.multi-conversation-tab { display: inline-flex; align-items: center; gap: 5px; min-width: 0; max-width: 280px; padding: 0 6px 0 11px; border: 1px solid transparent; border-bottom: 0; border-radius: 8px 8px 0 0; color: var(--muted); }
+-.multi-conversation-tab.active { color: var(--text); background: var(--bg); border-color: var(--border); }
+-.multi-conversation-title { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; border: 0; padding: 6px 0; background: transparent; color: inherit; cursor: pointer; text-align: left; font: inherit; }
+ .multi-conversation-close { flex: none; width: 22px; height: 22px; border: 0; border-radius: 5px; color: var(--muted); background: transparent; cursor: pointer; font-size: 17px; line-height: 1; }
+ .multi-conversation-close:hover { color: var(--text); background: var(--border); }
+ .multi-conversation-layout { flex: 1; min-width: 0; min-height: 0; overflow: auto; margin: 6px; background: var(--bg); }
+@@ -739,7 +735,9 @@
+ .multi-conversation-pane.focused { outline-color: color-mix(in srgb, var(--accent) 58%, transparent); }
+ .multi-pane-label { flex: none; display: flex; align-items: center; gap: 6px; min-width: 0; padding: 4px 8px; border-bottom: 1px solid var(--border); color: var(--muted); font-size: 11px; }
+ .multi-pane-label span { flex: none; display: inline-grid; place-items: center; width: 17px; height: 17px; border-radius: 5px; background: var(--panel); color: var(--accent); font-size: 10px; font-weight: 700; }
+-.multi-pane-label strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text); font-weight: 600; }
++.multi-pane-title { flex: 1; min-width: 0; padding: 0; border: 0; background: transparent; text-align: left; font: inherit; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text); font-weight: 600; cursor: pointer; }
++.multi-conversation-pane.focused > .multi-pane-label { background: color-mix(in srgb, var(--accent) 22%, var(--panel)); border-bottom-color: color-mix(in srgb, var(--accent) 55%, var(--border)); }
++.multi-pane-title:focus-visible, .multi-conversation-close:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+ .multi-pane-label[draggable='true'] { cursor: grab; user-select: none; }
+ .multi-pane-label[draggable='true']:active { cursor: grabbing; }
+ .multi-pane-label i { margin-left: auto; font-size: 15px; font-style: normal; }
+--- a/tests/e2e/multi-conversation-restore.mjs
++++ b/tests/e2e/multi-conversation-restore.mjs
+@@ -62,7 +62,19 @@
+       assert.deepEqual(errors, [], 'restoring unloaded panes must not unmount the app')
+       releaseDetails()
+       for (const conv of conversations) await expect(page.locator(`[data-pane-id="${conv.id}"] .msg-user`)).toContainText(`${conv.title} 본문`)
+-      await page.locator('.multi-conversation-title').nth(1).click()
++      await expect(page.locator('.multi-conversation-tabs')).toHaveCount(0)
++      if (width > 768) {
++        const labels = page.locator('.multi-pane-label')
++        const before = await labels.evaluateAll(nodes => nodes.map(node => getComputedStyle(node).backgroundColor))
++        assert.notEqual(before[0], before[1], 'focused title background must differ')
++        await page.locator('[data-pane-id="restore-2"] .multi-pane-title').click()
++        const after = await labels.evaluateAll(nodes => nodes.map(node => getComputedStyle(node).backgroundColor))
++        assert.equal(after[1], before[0], 'highlight must move to the focused pane')
++        assert.equal(after[0], before[1], 'previous pane must lose its highlight')
++      } else {
++        await page.getByTitle('목록', { exact: true }).click()
++        await page.locator('.conv-item').getByTitle(conversations[1].title, { exact: true }).click()
++      }
+       await expect(page.locator('[data-pane-id="restore-2"] .multi-conversation-pane')).toHaveClass(/focused/)
+       await expect(page.locator('[data-pane-id="restore-2"] .prompt textarea')).toBeVisible()
+       if (width > 768) {

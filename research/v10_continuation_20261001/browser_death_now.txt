@@ -1,0 +1,1 @@
+{'url': 'http://slither.com/io', 'version': '1001-8385d1b4', 'playing': False, 'dead': None, 'status': {'bot': True, 'game': False, 'ticks': None, 'fps': 63, 'ping': None, 'errors': None, 'last': None, 'squeeze_ticks': None}, 'record': None, 'box': False, 'log': False}

@@ -1,0 +1,27 @@
+{
+  "version": "1001-641f8e58",
+  "buttons": [
+    "VA1",
+    "V1",
+    "V2",
+    "V3",
+    "V4",
+    "V4.1",
+    "V5",
+    "V6",
+    "V7",
+    "V8",
+    "V8-1",
+    "V10-2",
+    "V11-1",
+    "V11",
+    "V10-1",
+    "V10",
+    "V9"
+  ],
+  "presetCount": 13,
+  "allBuiltinsVisible": true,
+  "selectionWorks": true,
+  "wrapTogglePreserved": true,
+  "errors": []
+}

@@ -1,0 +1,98 @@
+[
+  {
+    "run": "runs/v10_maze_cycle3_20261001_134851",
+    "measure": "Actual enemy position vs closest cruise/boost constant-turn forecast, turn clipped2rad/s. Near heads<=800px, stride3. Descriptive samples overlap, no independent confidence guarantee.",
+    "errors": {
+      "0.1": {
+        "n": 1492,
+        "p50": 3.25,
+        "p95": 11.9,
+        "p99": 18.43,
+        "outside_existing_envelope": 0.03284182305630027
+      },
+      "0.2": {
+        "n": 1514,
+        "p50": 7.99,
+        "p95": 28.86,
+        "p99": 48.88,
+        "outside_existing_envelope": 0.059445178335535004
+      },
+      "0.3": {
+        "n": 1528,
+        "p50": 14.73,
+        "p95": 54.57,
+        "p99": 90.1,
+        "outside_existing_envelope": 0.0824607329842932
+      },
+      "0.5": {
+        "n": 1466,
+        "p50": 36.8,
+        "p95": 133.96,
+        "p99": 216.76,
+        "outside_existing_envelope": 0.2994542974079127
+      },
+      "0.75": {
+        "n": 1495,
+        "p50": 72.33,
+        "p95": 269.21,
+        "p99": 396.09,
+        "outside_existing_envelope": 0.5491638795986622
+      },
+      "1": {
+        "n": 1489,
+        "p50": 116.06,
+        "p95": 409.0,
+        "p99": 568.27,
+        "outside_existing_envelope": 0.6856950973807925
+      }
+    }
+  },
+  {
+    "run": "runs/v10_maze_cycle4_20261001_135606",
+    "measure": "Actual enemy position vs closest cruise/boost constant-turn forecast, turn clipped2rad/s. Near heads<=800px, stride3. Descriptive samples overlap, no independent confidence guarantee.",
+    "errors": {
+      "0.1": {
+        "n": 734,
+        "p50": 2.78,
+        "p95": 9.44,
+        "p99": 13.45,
+        "outside_existing_envelope": 0.010899182561307902
+      },
+      "0.2": {
+        "n": 746,
+        "p50": 7.11,
+        "p95": 22.79,
+        "p99": 34.7,
+        "outside_existing_envelope": 0.024128686327077747
+      },
+      "0.3": {
+        "n": 750,
+        "p50": 13.29,
+        "p95": 43.54,
+        "p99": 63.64,
+        "outside_existing_envelope": 0.04133333333333333
+      },
+      "0.5": {
+        "n": 734,
+        "p50": 33.69,
+        "p95": 103.25,
+        "p99": 145.63,
+        "outside_existing_envelope": 0.1989100817438692
+      },
+      "0.75": {
+        "n": 734,
+        "p50": 65.26,
+        "p95": 180.01,
+        "p99": 250.68,
+        "outside_existing_envelope": 0.5190735694822888
+      },
+      "1": {
+        "n": 728,
+        "p50": 109.07,
+        "p95": 262.28,
+        "p99": 412.06,
+        "outside_existing_envelope": 0.7101648351648352
+      }
+    }
+  }
+]

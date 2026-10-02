@@ -1,0 +1,296 @@
+{
+ "range": {
+  "short": {
+   "intent": "explore",
+   "goal": {
+    "x": 31032,
+    "y": 30024,
+    "kind": "explore"
+   },
+   "food": 0,
+   "cmd": 0,
+   "boost": false,
+   "mode": "v6explore",
+   "safe": 14,
+   "clear": 19686.2,
+   "routeEnd": [
+    5.448326760212525,
+    31032,
+    30024,
+    0,
+    0
+   ],
+   "route_ms": 18.307530000000007
+  },
+  "long": {
+   "intent": "food",
+   "goal": {
+    "x": 32020,
+    "y": 30000,
+    "kind": "food"
+   },
+   "food": 48,
+   "cmd": 0,
+   "boost": false,
+   "mode": "v6food",
+   "safe": 14,
+   "clear": 19686.2,
+   "routeEnd": [
+    5.448326760212525,
+    31032,
+    30024,
+    0,
+    0
+   ],
+   "route_ms": 25.381709999999998
+  }
+ },
+ "group": {
+  "small": {
+   "intent": "food",
+   "goal": {
+    "x": 30400,
+    "y": 30000,
+    "kind": "food"
+   },
+   "food": 16,
+   "cmd": 0,
+   "boost": false,
+   "mode": "v6food",
+   "safe": 14,
+   "clear": 19686.2,
+   "routeEnd": [
+    2.1753133849174815,
+    30408,
+    30024,
+    0,
+    0
+   ],
+   "route_ms": 27.434340000000006
+  },
+  "large": {
+   "intent": "food",
+   "goal": {
+    "x": 30610,
+    "y": 30260,
+    "kind": "food"
+   },
+   "food": 48,
+   "cmd": 0,
+   "boost": false,
+   "mode": "v6food",
+   "safe": 14,
+   "clear": 19686.2,
+   "routeEnd": [
+    3.7038277041912435,
+    30600,
+    30264,
+    0.7853981633974483,
+    0
+   ],
+   "route_ms": 21.653369999999995
+  }
+ },
+ "center": {
+  "off": {
+   "intent": "explore",
+   "goal": {
+    "x": 36024,
+    "y": 30024,
+    "kind": "explore"
+   },
+   "food": 0,
+   "cmd": 0,
+   "boost": false,
+   "mode": "v6explore",
+   "safe": 14,
+   "clear": 14686.2,
+   "routeEnd": [
+    5.413577773125496,
+    36024,
+    30024,
+    0,
+    0
+   ],
+   "route_ms": 12.048660000000012
+  },
+  "on": {
+   "intent": "explore",
+   "goal": {
+    "x": 33960,
+    "y": 30024,
+    "kind": "explore"
+   },
+   "food": 0,
+   "cmd": 0.3485175554173451,
+   "boost": true,
+   "mode": "v6explore",
+   "safe": 14,
+   "clear": 14812.8,
+   "routeEnd": [
+    5.817616185907425,
+    33960,
+    30024,
+    3.141592653589793,
+    0
+   ],
+   "route_ms": 6.5273400000000095
+  }
+ },
+ "boost": {
+  "off": {
+   "intent": "food",
+   "goal": {
+    "x": 30800,
+    "y": 30100,
+    "kind": "food"
+   },
+   "food": 64,
+   "cmd": 0,
+   "boost": false,
+   "mode": "v6food",
+   "safe": 14,
+   "clear": 19686.2,
+   "routeEnd": [
+    4.3980487743107,
+    30792,
+    30120,
+    0.7853981633974483,
+    0
+   ],
+   "route_ms": 9.475380000000001
+  },
+  "on": {
+   "intent": "food",
+   "goal": {
+    "x": 30800,
+    "y": 30100,
+    "kind": "food"
+   },
+   "food": 64,
+   "cmd": 0,
+   "boost": true,
+   "mode": "v6food",
+   "safe": 14,
+   "clear": 19488,
+   "routeEnd": [
+    4.3980487743107,
+    30792,
+    30120,
+    0.7853981633974483,
+    0
+   ],
+   "route_ms": 10.900440000000003
+  },
+  "massGated": {
+   "intent": "food",
+   "goal": {
+    "x": 30800,
+    "y": 30100,
+    "kind": "food"
+   },
+   "food": 64,
+   "cmd": 0,
+   "boost": false,
+   "mode": "v6food",
+   "safe": 14,
+   "clear": 19686.2,
+   "routeEnd": [
+    4.3980487743107,
+    30792,
+    30120,
+    0.7853981633974483,
+    0
+   ],
+   "route_ms": 10.057140000000004
+  },
+  "distanceGated": {
+   "intent": "food",
+   "goal": {
+    "x": 30800,
+    "y": 30100,
+    "kind": "food"
+   },
+   "food": 64,
+   "cmd": 0,
+   "boost": false,
+   "mode": "v6food",
+   "safe": 14,
+   "clear": 19686.2,
+   "routeEnd": [
+    4.3980487743107,
+    30792,
+    30120,
+    0.7853981633974483,
+    0
+   ],
+   "route_ms": 9.291150000000016
+  }
+ },
+ "goalOff": {
+  "intent": "explore",
+  "goal": {
+   "x": 31032,
+   "y": 30024,
+   "kind": "explore"
+  },
+  "food": 0,
+  "cmd": 0,
+  "boost": false,
+  "mode": "v6explore",
+  "safe": 14,
+  "clear": 19686.2,
+  "routeEnd": [
+   5.448326760212525,
+   31032,
+   30024,
+   0,
+   0
+  ],
+  "route_ms": 9.081270000000018
+ },
+ "wall": {
+  "intent": "escape",
+  "goal": {
+   "x": 48792,
+   "y": 30312,
+   "kind": "escape"
+  },
+  "food": 0,
+  "cmd": 0.3485175554173451,
+  "boost": true,
+  "mode": "v6guide",
+  "safe": 4,
+  "clear": 13.7,
+  "routeEnd": [
+   6.2943471160311395,
+   48792,
+   30312,
+   2.356194490192345,
+   0
+  ],
+  "route_ms": 7.677719999999994
+ },
+ "small": {
+  "intent": "explore",
+  "goal": {
+   "x": 31032,
+   "y": 30024,
+   "kind": "explore"
+  },
+  "food": 0,
+  "cmd": 0,
+  "boost": false,
+  "mode": "v6explore",
+  "safe": 14,
+  "clear": 19686.2,
+  "routeEnd": [
+   5.448326760212525,
+   31032,
+   30024,
+   0,
+   0
+  ],
+  "route_ms": 15.648749999999978
+ }
+}

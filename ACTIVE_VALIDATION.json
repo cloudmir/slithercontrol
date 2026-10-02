@@ -1,0 +1,665 @@
+{
+  "plan": {
+    "purpose": "independent first-life validation of candidate v5; frozen activity rules and population guard",
+    "normal_seeds": [
+      56000,
+      56001,
+      56002,
+      56003,
+      56004,
+      56005,
+      56006,
+      56007,
+      56008,
+      56009
+    ],
+    "baseline_seeds": [
+      56000,
+      56001,
+      56002
+    ],
+    "hard_seeds": [
+      56500,
+      56501,
+      56502
+    ],
+    "seconds": 600,
+    "rules": "runs/active_rules_v1.json",
+    "target": 0.9,
+    "missing_invalid_or_discontinued_prevent_certification": true
+  },
+  "planned": 19,
+  "completed": 19,
+  "missing": [],
+  "summary": {
+    "active/hard": {
+      "attempted": 3,
+      "valid": 3,
+      "invalid": 0,
+      "survival_rate": 0.0,
+      "activity_success_rate": 0.0,
+      "success_ci95": [
+        0.0,
+        0.7075982261787133
+      ],
+      "mean_life_s": 186.12222222221422,
+      "mean_gain": 7567.059923494169,
+      "mean_off_fraction": 0.11632437344446456,
+      "target_90_certified": false
+    },
+    "active/normal": {
+      "attempted": 10,
+      "valid": 10,
+      "invalid": 0,
+      "survival_rate": 0.0,
+      "activity_success_rate": 0.0,
+      "success_ci95": [
+        0.0,
+        0.3084971078187607
+      ],
+      "mean_life_s": 280.3866666667044,
+      "mean_gain": 11667.39351612395,
+      "mean_off_fraction": 0.06782794555312177,
+      "target_90_certified": false
+    },
+    "planner/normal": {
+      "attempted": 3,
+      "valid": 3,
+      "invalid": 0,
+      "survival_rate": 0.0,
+      "activity_success_rate": 0.0,
+      "success_ci95": [
+        0.0,
+        0.7075982261787133
+      ],
+      "mean_life_s": 208.39999999999682,
+      "mean_gain": 4971.45423211208,
+      "mean_off_fraction": 0.17654434097635385,
+      "target_90_certified": false
+    },
+    "straight/normal": {
+      "attempted": 3,
+      "valid": 3,
+      "invalid": 0,
+      "survival_rate": 0.0,
+      "activity_success_rate": 0.0,
+      "success_ci95": [
+        0.0,
+        0.7075982261787133
+      ],
+      "mean_life_s": 154.4888888888884,
+      "mean_gain": 706.2055193850347,
+      "mean_off_fraction": 0.5327984395766548,
+      "target_90_certified": false
+    }
+  },
+  "failure_observations": [
+    {
+      "seed": 56000,
+      "setting": "normal",
+      "cause": "body:other",
+      "seconds": 230.13333333332284,
+      "last_observation_t": 230.06666666665618,
+      "last_safe_observation_t": 228.3999999999896,
+      "seconds_after_last_safe_in_trace": 1.7333333333332348,
+      "last_three_seconds_no_safe_fraction": 0.5434782608695652,
+      "last_status": {
+        "mode": "escape",
+        "safe_count": 0,
+        "heads": 4,
+        "occupied": 0.125,
+        "active": true,
+        "selected": 82,
+        "tc": 0.16666666666666669,
+        "tr": 1.2666666666666668,
+        "food": 21.828322522350444,
+        "goal": [
+          1090.7738810009346,
+          -170.8458052754912
+        ]
+      },
+      "executing_target": 1.2721620174267478,
+      "executing_boost": false,
+      "pending": [
+        [
+          1.2721620174267478,
+          false
+        ],
+        [
+          1.2721620174267478,
+          false
+        ]
+      ],
+      "proposed": [
+        1.2721620174267478,
+        false
+      ],
+      "note": "Last observation/proposal is distinct from the delayed command executing at collision. No counterfactual cause established."
+    },
+    {
+      "seed": 56001,
+      "setting": "normal",
+      "cause": "body:cutter",
+      "seconds": 84.19999999999779,
+      "last_observation_t": 84.13333333333112,
+      "last_safe_observation_t": 82.7333333333312,
+      "seconds_after_last_safe_in_trace": 1.4666666666665833,
+      "last_three_seconds_no_safe_fraction": 0.4782608695652174,
+      "last_status": {
+        "mode": "escape",
+        "safe_count": 0,
+        "heads": 5,
+        "occupied": 0.125,
+        "active": true,
+        "selected": 49,
+        "tc": 0.16666666666666669,
+        "tr": 0.16666666666666669,
+        "food": 0.0,
+        "goal": [
+          -1380.6969417933983,
+          735.5317000536321
+        ]
+      },
+      "executing_target": -1.0756971821897388,
+      "executing_boost": false,
+      "pending": [
+        [
+          -1.0756971821897388,
+          false
+        ],
+        [
+          -1.0756971821897388,
+          false
+        ]
+      ],
+      "proposed": [
+        -0.9822887831522742,
+        false
+      ],
+      "note": "Last observation/proposal is distinct from the delayed command executing at collision. No counterfactual cause established."
+    },
+    {
+      "seed": 56002,
+      "setting": "normal",
+      "cause": "body:encircler",
+      "seconds": 410.3000000001108,
+      "last_observation_t": 410.26666666677744,
+      "last_safe_observation_t": 406.800000000108,
+      "seconds_after_last_safe_in_trace": 3.5000000000027853,
+      "last_three_seconds_no_safe_fraction": 1.0,
+      "last_status": {
+        "mode": "escape",
+        "safe_count": 0,
+        "heads": 4,
+        "occupied": 0.19444444444444445,
+        "active": true,
+        "selected": 55,
+        "tc": 0.16666666666666669,
+        "tr": 0.3666666666666667,
+        "food": 28.433917251137608,
+        "goal": [
+          -268.7970876159429,
+          -1382.5075778281707
+        ]
+      },
+      "executing_target": 1.1573100072264246,
+      "executing_boost": false,
+      "pending": [
+        [
+          1.920103126459633,
+          true
+        ],
+        [
+          1.920103126459633,
+          true
+        ]
+      ],
+      "proposed": [
+        2.7927677524568075,
+        false
+      ],
+      "note": "Last observation/proposal is distinct from the delayed command executing at collision. No counterfactual cause established."
+    },
+    {
+      "seed": 56003,
+      "setting": "normal",
+      "cause": "body:other",
+      "seconds": 214.46666666665706,
+      "last_observation_t": 214.3999999999904,
+      "last_safe_observation_t": 211.79999999999055,
+      "seconds_after_last_safe_in_trace": 2.666666666666515,
+      "last_three_seconds_no_safe_fraction": 0.8478260869565217,
+      "last_status": {
+        "mode": "escape",
+        "safe_count": 0,
+        "heads": 2,
+        "occupied": 0.2777777777777778,
+        "active": true,
+        "selected": 0,
+        "tc": 0.16666666666666669,
+        "tr": 0.26666666666666666,
+        "food": 0.0,
+        "goal": [
+          1058.178385418691,
+          -1765.9510074317816
+        ]
+      },
+      "executing_target": -2.950118573737786,
+      "executing_boost": false,
+      "pending": [
+        [
+          -3.079090640828685,
+          false
+        ],
+        [
+          -3.079090640828685,
+          false
+        ]
+      ],
+      "proposed": [
+        0.5443951838682359,
+        false
+      ],
+      "note": "Last observation/proposal is distinct from the delayed command executing at collision. No counterfactual cause established."
+    },
+    {
+      "seed": 56004,
+      "setting": "normal",
+      "cause": "body:other",
+      "seconds": 355.666666666734,
+      "last_observation_t": 355.60000000006727,
+      "last_safe_observation_t": 352.0000000000644,
+      "seconds_after_last_safe_in_trace": 3.6666666666695846,
+      "last_three_seconds_no_safe_fraction": 1.0,
+      "last_status": {
+        "mode": "escape",
+        "safe_count": 0,
+        "heads": 3,
+        "occupied": 0.1527777777777778,
+        "active": true,
+        "selected": 82,
+        "tc": 0.16666666666666669,
+        "tr": 0.26666666666666666,
+        "food": 0.0,
+        "goal": [
+          -1478.739351272321,
+          123.31155802078057
+        ]
+      },
+      "executing_target": 1.9898603484521358,
+      "executing_boost": false,
+      "pending": [
+        [
+          1.6826733890399037,
+          false
+        ],
+        [
+          1.6826733890399037,
+          false
+        ]
+      ],
+      "proposed": [
+        1.6826733890399037,
+        false
+      ],
+      "note": "Last observation/proposal is distinct from the delayed command executing at collision. No counterfactual cause established."
+    },
+    {
+      "seed": 56005,
+      "setting": "normal",
+      "cause": "body:other",
+      "seconds": 250.39999999998835,
+      "last_observation_t": 250.3333333333217,
+      "last_safe_observation_t": 246.99999999998855,
+      "seconds_after_last_safe_in_trace": 3.3999999999998067,
+      "last_three_seconds_no_safe_fraction": 1.0,
+      "last_status": {
+        "mode": "escape",
+        "safe_count": 0,
+        "heads": 3,
+        "occupied": 0.25,
+        "active": true,
+        "selected": 82,
+        "tc": 0.16666666666666669,
+        "tr": 0.6666666666666667,
+        "food": 4.791667452658189,
+        "goal": [
+          127.13807924511325,
+          1852.808600101798
+        ]
+      },
+      "executing_target": 2.5615390934449316,
+      "executing_boost": false,
+      "pending": [
+        [
+          1.802992777641193,
+          false
+        ],
+        [
+          1.802992777641193,
+          false
+        ]
+      ],
+      "proposed": [
+        1.802992777641193,
+        false
+      ],
+      "note": "Last observation/proposal is distinct from the delayed command executing at collision. No counterfactual cause established."
+    },
+    {
+      "seed": 56006,
+      "setting": "normal",
+      "cause": "body:other",
+      "seconds": 145.93333333332762,
+      "last_observation_t": 145.86666666666096,
+      "last_safe_observation_t": 143.7999999999944,
+      "seconds_after_last_safe_in_trace": 2.133333333333212,
+      "last_three_seconds_no_safe_fraction": 0.6739130434782609,
+      "last_status": {
+        "mode": "escape",
+        "safe_count": 0,
+        "heads": 2,
+        "occupied": 0.2361111111111111,
+        "active": true,
+        "selected": 82,
+        "tc": 0.16666666666666669,
+        "tr": 0.4666666666666667,
+        "food": 4.7227001487573,
+        "goal": [
+          -1780.2820264057477,
+          -10.56428424997369
+        ]
+      },
+      "executing_target": -0.8207469778559782,
+      "executing_boost": false,
+      "pending": [
+        [
+          -1.2728728960112736,
+          false
+        ],
+        [
+          -1.2728728960112736,
+          false
+        ]
+      ],
+      "proposed": [
+        -1.2728728960112736,
+        false
+      ],
+      "note": "Last observation/proposal is distinct from the delayed command executing at collision. No counterfactual cause established."
+    },
+    {
+      "seed": 56007,
+      "setting": "normal",
+      "cause": "body:other",
+      "seconds": 417.40000000011645,
+      "last_observation_t": 417.33333333344973,
+      "last_safe_observation_t": 416.2666666667822,
+      "seconds_after_last_safe_in_trace": 1.1333333333342352,
+      "last_three_seconds_no_safe_fraction": 0.35555555555555557,
+      "last_status": {
+        "mode": "escape",
+        "safe_count": 0,
+        "heads": 5,
+        "occupied": 0.09722222222222222,
+        "active": true,
+        "selected": 28,
+        "tc": 0.16666666666666669,
+        "tr": 0.16666666666666669,
+        "food": 170.45958143463258,
+        "goal": [
+          -1384.5807522029254,
+          608.6311139954136
+        ]
+      },
+      "executing_target": -2.5768023956178965,
+      "executing_boost": true,
+      "pending": [
+        [
+          -2.455113158337568,
+          false
+        ],
+        [
+          -2.455113158337568,
+          false
+        ]
+      ],
+      "proposed": [
+        -2.5688014648968363,
+        true
+      ],
+      "note": "Last observation/proposal is distinct from the delayed command executing at collision. No counterfactual cause established."
+    },
+    {
+      "seed": 56008,
+      "setting": "normal",
+      "cause": "body:other",
+      "seconds": 293.66666666668465,
+      "last_observation_t": 293.6000000000179,
+      "last_safe_observation_t": 292.26666666668353,
+      "seconds_after_last_safe_in_trace": 1.4000000000011141,
+      "last_three_seconds_no_safe_fraction": 0.4888888888888889,
+      "last_status": {
+        "mode": "escape",
+        "safe_count": 0,
+        "heads": 4,
+        "occupied": 0.1388888888888889,
+        "active": true,
+        "selected": 82,
+        "tc": 0.16666666666666669,
+        "tr": 0.16666666666666669,
+        "food": 24.070369586461673,
+        "goal": [
+          -1644.2093105192241,
+          -1504.9188278717997
+        ]
+      },
+      "executing_target": -0.05203287240788512,
+      "executing_boost": false,
+      "pending": [
+        [
+          0.059100254372104644,
+          false
+        ],
+        [
+          0.059100254372104644,
+          false
+        ]
+      ],
+      "proposed": [
+        0.1702333811520944,
+        false
+      ],
+      "note": "Last observation/proposal is distinct from the delayed command executing at collision. No counterfactual cause established."
+    },
+    {
+      "seed": 56009,
+      "setting": "normal",
+      "cause": "body:other",
+      "seconds": 401.70000000010396,
+      "last_observation_t": 401.6666666667706,
+      "last_safe_observation_t": 398.9333333334351,
+      "seconds_after_last_safe_in_trace": 2.7666666666688684,
+      "last_three_seconds_no_safe_fraction": 0.9111111111111111,
+      "last_status": {
+        "mode": "escape",
+        "safe_count": 0,
+        "heads": 3,
+        "occupied": 0.2638888888888889,
+        "active": true,
+        "selected": 38,
+        "tc": 0.16666666666666669,
+        "tr": 3.4666666666666672,
+        "food": 173.51990297545868,
+        "goal": [
+          -3388.7420276816742,
+          1635.5663037793663
+        ]
+      },
+      "executing_target": 2.9949617443231675,
+      "executing_boost": true,
+      "pending": [
+        [
+          2.9949617443231675,
+          true
+        ],
+        [
+          2.9949617443231675,
+          true
+        ]
+      ],
+      "proposed": [
+        2.9949617443231675,
+        false
+      ],
+      "note": "Last observation/proposal is distinct from the delayed command executing at collision. No counterfactual cause established."
+    },
+    {
+      "seed": 56500,
+      "setting": "hard",
+      "cause": "body:encircler",
+      "seconds": 120.43333333332906,
+      "last_observation_t": 120.39999999999573,
+      "last_safe_observation_t": 119.13333333332913,
+      "seconds_after_last_safe_in_trace": 1.299999999999926,
+      "last_three_seconds_no_safe_fraction": 0.41304347826086957,
+      "last_status": {
+        "mode": "escape",
+        "safe_count": 0,
+        "heads": 2,
+        "occupied": 0.1111111111111111,
+        "active": true,
+        "selected": 62,
+        "tc": 0.2,
+        "tr": 0.2,
+        "food": 0.0,
+        "goal": [
+          2723.9802006648974,
+          -1060.1822556502625
+        ]
+      },
+      "executing_target": 0.021076747413605545,
+      "executing_boost": true,
+      "pending": [
+        [
+          0.021076747413605545,
+          true
+        ],
+        [
+          0.24430655747352503,
+          false
+        ],
+        [
+          0.24430655747352503,
+          false
+        ]
+      ],
+      "proposed": [
+        1.2529345309308901,
+        false
+      ],
+      "note": "Last observation/proposal is distinct from the delayed command executing at collision. No counterfactual cause established."
+    },
+    {
+      "seed": 56501,
+      "setting": "hard",
+      "cause": "body:other",
+      "seconds": 237.43333333332242,
+      "last_observation_t": 237.3999999999891,
+      "last_safe_observation_t": 236.06666666665583,
+      "seconds_after_last_safe_in_trace": 1.366666666666589,
+      "last_three_seconds_no_safe_fraction": 0.5217391304347826,
+      "last_status": {
+        "mode": "escape",
+        "safe_count": 0,
+        "heads": 4,
+        "occupied": 0.20833333333333334,
+        "active": true,
+        "selected": 39,
+        "tc": 0.2,
+        "tr": 0.2,
+        "food": 204.10647324094407,
+        "goal": [
+          -1354.5758402196363,
+          -522.6643629108712
+        ]
+      },
+      "executing_target": -2.91213678408894,
+      "executing_boost": true,
+      "pending": [
+        [
+          -2.91213678408894,
+          true
+        ],
+        [
+          -3.0482225504925715,
+          true
+        ],
+        [
+          -3.0482225504925715,
+          true
+        ]
+      ],
+      "proposed": [
+        3.0988769902833795,
+        true
+      ],
+      "note": "Last observation/proposal is distinct from the delayed command executing at collision. No counterfactual cause established."
+    },
+    {
+      "seed": 56502,
+      "setting": "hard",
+      "cause": "body:cutter",
+      "seconds": 200.4999999999912,
+      "last_observation_t": 200.46666666665786,
+      "last_safe_observation_t": 198.33333333332465,
+      "seconds_after_last_safe_in_trace": 2.1666666666665435,
+      "last_three_seconds_no_safe_fraction": 0.7391304347826086,
+      "last_status": {
+        "mode": "escape",
+        "safe_count": 0,
+        "heads": 7,
+        "occupied": 0.16666666666666666,
+        "active": true,
+        "selected": 66,
+        "tc": 0.2,
+        "tr": 0.2,
+        "food": 0.0,
+        "goal": [
+          -573.7252797733966,
+          -781.554689580187
+        ]
+      },
+      "executing_target": -0.3968226055107156,
+      "executing_boost": false,
+      "pending": [
+        [
+          -0.3968226055107156,
+          false
+        ],
+        [
+          0.2705339820738679,
+          true
+        ],
+        [
+          0.2705339820738679,
+          true
+        ]
+      ],
+      "proposed": [
+        1.7848389594821956,
+        false
+      ],
+      "note": "Last observation/proposal is distinct from the delayed command executing at collision. No counterfactual cause established."
+    }
+  ],
+  "source_hashes": {
+    "active.py": "5486f2283a980177c830209b5485f190e5f843d53ec04733bba0b04159f56757",
+    "brain.py": "2b7b2697840d03e55a6158679ef423fc63c7ef474ba2b70f50d04b80cff1c6b9",
+    "activity.py": "b3c97f28cb31a8d444dd4dcb1825f0c73e429da8c3b0f9880d76d81c47658f87",
+    "sim_active.py": "62a0aa47615c911c9578edfef134a6606cf739d4159135d01d1132549d9515f1",
+    "geometry.py": "2ac04f03341599edaa90c7a4273519baf497a2984df2dff5b47e7b7be1a9ee68",
+    "evaluate_chunk.py": "4ae60a337c3cc2839d42fd773b4ba4f08b2a2e80e9fefe8b6ef4be5e80cd7f19",
+    "evaluate_active.py": "63f8f4b8d3e64d453a99bc2e4841cc4d8b61aacf0055a38ba2ad06949db7d12a"
+  }
+}

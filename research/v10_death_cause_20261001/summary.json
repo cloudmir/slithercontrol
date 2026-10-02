@@ -1,0 +1,93 @@
+{
+  "build": "1001-10f3faa7",
+  "run": "runs/v10_recovery_live_20261001_155641",
+  "confirmed_implementation_mismatch": [
+    "applyCmd records unquantized atan2(xm,ym) and input-write time in commandHistory",
+    "Game client sends floor(251*angle/(2*pi)) on a >33ms send gate; packet timestamps are later",
+    "v10Root replays commandHistory using fixed TRACK_LAT=.06; it does not consume logged outgoing packet time/bucket"
+  ],
+  "boundary_example": {
+    "t": 104.335,
+    "observed_heading": 4.727510130238209,
+    "history_target": 1.5908844429633298,
+    "history_time": 104.26480000001192,
+    "packet_bucket": 63,
+    "packet_time": 104.285,
+    "bucket_angle": 1.5770544794912906,
+    "history_shortest_turn": -3.1366256872748792,
+    "bucket_shortest_turn": 3.132729656432668
+  },
+  "root_replay": {
+    "t": 104.335,
+    "ang": 4.727510130238209,
+    "modelHistory": {
+      "t": 104.26480000001192,
+      "ang": 1.5908844429633298,
+      "boost": true,
+      "id": 2387
+    },
+    "packet": {
+      "at": 104.285,
+      "byte": 63,
+      "angle": 1.5770544794912906
+    },
+    "predictedTurn": -0.2497862536269322,
+    "actualAt": 104.398,
+    "actualTurn": 0.29639419472684647,
+    "positionError": 14.699718343012172,
+    "rootSafe": true,
+    "rootGap": 42.267059852830805
+  },
+  "fit": {
+    "packets": {
+      "train_frames": 40,
+      "test_frames": 19,
+      "best_train": {
+        "lag": 0.05,
+        "scale": 1,
+        "mean": 2.639898503503985,
+        "px": 7.441883812053213
+      },
+      "test_heading_mean_deg": 4.596528236899164,
+      "test_position_mean_px": 7.521954609183644
+    },
+    "applied": {
+      "train_frames": 40,
+      "test_frames": 19,
+      "best_train": {
+        "lag": 0.06,
+        "scale": 1,
+        "mean": 3.088413072247122,
+        "px": 7.230068651948395
+      },
+      "test_heading_mean_deg": 13.913923703089509,
+      "test_position_mean_px": 10.915922536187226
+    },
+    "applied_quantized": {
+      "train_frames": 40,
+      "test_frames": 19,
+      "best_train": {
+        "lag": 0.06,
+        "scale": 1,
+        "mean": 2.835247801272135,
+        "px": 7.2228519488531475
+      },
+      "test_heading_mean_deg": 14.81447548472363,
+      "test_position_mean_px": 10.957910452103231
+    }
+  },
+  "interpretation": "Confirmed actuator-input representation mismatch; highly sensitive near half-turn. Actual body approach and late emergency are observed. Contribution to death is supported by opposite turn during near-wall trajectory, but no proof of sole causation or counterfactual survival.",
+  "limits": [
+    "Bucket-to-angle decoding uses251 consistent with client encoding and best observed fits; server source unavailable",
+    "Interpolated actual heading/position at104.398s; root diagnostic assumes previous computation3ms and no unrecorded inputAge",
+    "Fit windows overlap and are from one game; numerical lag is response fit, not measured RTT",
+    "Current target may change again; fixed-command earlier analysis did not isolate this",
+    "No product code edits, new deployment or live game in cause analysis"
+  ],
+  "recommendation": [
+    "Replay actual packet bucket and send timestamps for pending commands",
+    "Quantize candidate controls before physical simulation",
+    "Account for next outgoing send slot and latency variation",
+    "Protect near-half-turn direction consistency; reject paths whose margin is smaller than measured tracking uncertainty"
+  ]
+}

@@ -1,0 +1,338 @@
+ext/pilot.js SHA256 07054ad7fc70ec5e1356c932880aa57cd7e192d36e08fc50074b42ace95942c8
+366: function v8Choice(K, count, t, V, density = 0) {
+367:   const previous = K.phase;
+368:   const radius = V.V8_HEAD_R ?? 450, threshold = Math.max(1, Math.round(V.V8_HEAD_N ?? 3));
+369:   const body = !!V.V81_BODY_ON && (V.V81_BODY_R ?? 450) > 0 && density >= (V.V81_BODY_PCT ?? 18);
+370:   if (count >= threshold || body) { K.phase = 'avoid'; K.clearSince = null; }
+371:   else if (K.phase === 'avoid') {
+372:     if (K.clearSince === null) K.clearSince = t;
+373:     if (t - K.clearSince >= (V.V8_CLEAR_S ?? 1)) { K.phase = 'feed'; K.clearSince = null; }
+374:   }
+375:   return {phase: K.phase, heads: count, radius, threshold, switched: K.phase !== previous ? 1 : 0,
+376:     bodyDensity: density, bodyTrigger: body ? 1 : 0,
+377:     reason: count >= threshold ? (body ? 'heads+body' : 'heads') : body ? 'body' : K.phase === 'avoid' ? 'hold' : 'clear'};
+378: }
+1343:   // ================= V6 — two independent layers =================
+1344:   // Macro layer (Worker): build a 2-D clearance maze and return a guide corridor to an observed exit.
+1345:   // Local layer (every tick): test continuous short arcs against current bodies and enemy-head motion, then follow the guide.
+1346:   // The macro route is guidance, never a direct mouse command. Only the local layer emits commands.
+1347:   v6Route(s, ver) {
+1348:     const V = this.values, clock = () => (typeof performance !== 'undefined' ? performance.now() : Date.now()), T0 = clock();
+1349:     const Wd = this.v4World(s), Rf = this.v4Reach(s, Wd), ph = this.v4Physics(s.sc), N = Wd.N, NN = Wd.NN;
+1350:     const M = V.V6_MARGIN, SAFE = V.V6_SAFETY, H = V.V6_H, EDGE = V.V6_EDGE, LAT = V.TRACK_LAT || .17;
+1351:     const prevCmd = Number.isFinite(s.cmdNow) ? s.cmdNow : s.ang, prevBoost = typeof s.boostNow === 'boolean' ? s.boostNow : false;
+1352:     let root = {x: s.x, y: s.y, h: s.ang, v: s.sp * PX_PER_SP};
+1353:     for (let k = 0; k < 4; k++) root = this.v4Adv(root, prevCmd, prevBoost, LAT / 4, ph);
+1354:     // The maze is a route planner, not an unconditional escape command. Test the
+1355:     // current motion first; only an impending obstruction requests escape.
+1356:     const K = this.v6nav || (this.v6nav = {dangerUntil: -Infinity, target: null, passed: []});
+1357:     K.passed = K.passed.filter(p => s.t < p.until);
+1358:     if (K.target) {
+1359:       const dx = K.target.x - s.x, dy = K.target.y - s.y, d = hypot(dx, dy);
+1360:       if (d < Math.max(Wd.ro + 20, ph.cs * .25) || (d < ph.cs * .65 && dx * Math.cos(s.ang) + dy * Math.sin(s.ang) < 0)) {
+1361:         K.passed.push({...K.target, until: s.t + 3}); K.target = null;
+1362:       }
+1363:     }
+1364:     let probe = {...root}, danger = false;
+1365:     for (let t = LAT; t < LAT + 1.6; t += .1) {
+1366:       probe = this.v4Adv(probe, prevCmd, prevBoost, .1, ph);
+1367:       const c = Wd.cellI(probe.x, probe.y);
+1368:       if (c < 0 || Wd.gapAt(probe.x, probe.y, t + .1) < M || Rf.tr[c] <= t + .1 + SAFE) { danger = true; break; }
+1369:     }
+1370:     if (danger) K.dangerUntil = s.t + .8;
+1371:     const escaping = !!s.v7Escape || s.t < K.dangerUntil, foodCells = new Map(), bins = new Map();
+1372:     const foodR = V.V6_FOOD_R ?? 3000, heapSize = Math.max(Wd.CELL, V.V6_HEAP_SIZE ?? 250);
+1373:     const goalW = V.V6_GOAL_W ?? 1.5, centerW = V.V6_CENTER_W ?? 2;
+1374:     const centerDist = hypot(s.x - s.wall[0], s.y - s.wall[1]);
+1375:     // Fade the centre bias near the centre; it is a direction preference, not a point to orbit.
+1376:     const centerGain = (x, y) => centerW * Math.min(1, centerDist / 2000) * (centerDist - hypot(x - s.wall[0], y - s.wall[1]));
+1377:     if (!escaping) for (let i = 0; i + 2 < s.food.length; i += 3) {
+1378:       if (s.food[i + 2] < (V.V6_REMAINS_MIN ?? 12)) continue;
+1379:       const x = s.food[i], y = s.food[i + 1], d = hypot(x - s.x, y - s.y), c = Wd.cellI(x, y);
+1380:       if (goalW <= 0 || d < Wd.ro + 15 || d > foodR) continue;
+1381:       if (d < ph.cs * .65 && (x - s.x) * Math.cos(s.ang) + (y - s.y) * Math.sin(s.ang) < 0) continue;
+1382:       if (K.passed.some(p => hypot(x - p.x, y - p.y) < Wd.CELL * 1.5)) continue;
+1383:       const key = Math.floor(x / heapSize) + ',' + Math.floor(y / heapSize);
+1384:       let b = bins.get(key); if (!b) { b = {mass: 0, x: 0, y: 0, members: []}; bins.set(key, b); }
+1385:       const w = s.food[i + 2]; b.mass += w; b.x += x * w; b.y += y * w; b.members.push({x, y, c, d});
+1386:     }
+1387:     const piles = [...bins.values()].map(b => {
+1388:       b.x /= b.mass; b.y /= b.mass;
+1389:       b.keep = K.target && hypot(b.x - K.target.x, b.y - K.target.y) < heapSize ? 1.25 : 1;
+1390:       b.distance = hypot(b.x - s.x, b.y - s.y); b.value = b.mass * b.keep / (400 + b.distance); return b;
+1391:     }).sort((a, b) => b.value - a.value).slice(0, 8);
+1392:     const remote = [];
+1393:     for (const b of piles) {
+1394:       let mapped = false;
+1395:       for (const f of b.members) if (f.c >= 0 && f.d <= V.V6_OBS - Wd.CELL) {
+1396:         const old = foodCells.get(f.c); if (!old || b.value > old.pile.value) foodCells.set(f.c, {pile: b, x: f.x, y: f.y}); mapped = true;
+1397:       }
+1398:       // Far food supplies a heading only. Certify only the local prefix, never the unseen rest.
+1399:       if (!mapped) remote.push(b);
+1400:     }
+1401:     const c0 = Wd.cellI(root.x, root.y); if (c0 < 0) return {algo: 'v6', ver, t0: s.t, pts: null, certified: 0, reason: 'outside', ms: clock() - T0};
+1402:     const at = new Float32Array(NN).fill(1e9), cost = new Float32Array(NN).fill(1e9), minG = new Float32Array(NN).fill(-1e9), prev = new Int32Array(NN).fill(-1), done = new Uint8Array(NN);
+1403:     const hk = [], hv = []; const push = (n, d) => { hk.push(n); hv.push(d); let c = hk.length - 1; while (c > 0) { const p = (c - 1) >> 1; if (hv[p] <= hv[c]) break; [hk[p], hk[c]] = [hk[c], hk[p]]; [hv[p], hv[c]] = [hv[c], hv[p]]; c = p; } };
+1404:     const pop = () => { const n = hk[0], ln = hk.pop(), lv = hv.pop(); if (hk.length) { hk[0] = ln; hv[0] = lv; let c = 0; for (;;) { const l = 2 * c + 1, r = l + 1; let m = c; if (l < hk.length && hv[l] < hv[m]) m = l; if (r < hk.length && hv[r] < hv[m]) m = r; if (m === c) break; [hk[m], hk[c]] = [hk[c], hk[m]]; [hv[m], hv[c]] = [hv[c], hv[m]]; c = m; } } return n; };
+1405:     const nb = [[1, 0, 1], [-1, 0, 1], [0, 1, 1], [0, -1, 1], [1, 1, Math.SQRT2], [1, -1, Math.SQRT2], [-1, 1, Math.SQRT2], [-1, -1, Math.SQRT2]];
+1406:     at[c0] = LAT; cost[c0] = 0; minG[c0] = Wd.gapAt(root.x, root.y, LAT); if (minG[c0] < M) return {algo: 'v6', ver, t0: s.t, pts: null, certified: 0, reason: 'root_blocked', ms: clock() - T0}; push(c0, 0);
+1407:     let exit = -1, partial = c0, partialV = -Infinity, foodGoal = -1, foodScore = -Infinity, selectedFood = null, exitScore = -Infinity, exits = 0, expanded = 0, over = false;
+1408:     while (hk.length) {
+1409:       if ((++expanded & 63) === 0 && clock() - T0 > V.V6_PLAN_BUDGET) { over = true; break; }
+1410:       const n = pop(); if (done[n]) continue; done[n] = 1;
+1411:       const x0 = n === c0 ? root.x : Wd.cx(n), y0 = n === c0 ? root.y : Wd.cy(n), radial = hypot(x0 - s.x, y0 - s.y), slack0 = Math.min(Rf.tr[n], H + 2) - at[n] - SAFE;
+1412:       const forward = (x0 - s.x) * Math.cos(s.ang) + (y0 - s.y) * Math.sin(s.ang);
+1413:       const pv = (escaping ? radial + Math.min(Math.max(minG[n], 0), 100) * 2 + Math.min(slack0, 3) * 60 : forward - Math.abs((x0 - s.x) * Math.sin(s.ang) - (y0 - s.y) * Math.cos(s.ang))) + centerGain(x0, y0);
+1414:       if (n !== c0 && pv > partialV) { partialV = pv; partial = n; }
+1415:       if (n !== c0 && foodCells.has(n)) {
+1416:         const f = foodCells.get(n), b = f.pile;
+1417:         const facing = 1 - .3 * Math.abs(wrap(Math.atan2(y0 - s.y, x0 - s.x) - s.ang)) / Math.PI;
+1418:         const score = b.mass * b.keep * facing / (400 + cost[n] * ph.cs);
+1419:         if (score > foodScore) { foodScore = score; foodGoal = n; selectedFood = {x: f.x, y: f.y, mass: b.mass}; }
+1420:       }
+1421:       if (n !== c0) for (const b of remote) {
+1422:         const remaining = hypot(b.x - x0, b.y - y0), progress = b.distance - remaining;
+1423:         if (progress < Wd.CELL * 2) continue;
+1424:         const score = b.mass * b.keep / (400 + cost[n] * ph.cs + remaining) * Math.min(1, progress / Math.max(EDGE, Wd.CELL));
+1425:         if (score > foodScore) { foodScore = score; foodGoal = n; selectedFood = {x: b.x, y: b.y, mass: b.mass}; }
+1426:       }
+1427:       if (escaping && radial >= EDGE && minG[n] >= M && slack0 > 0) {
+1428:         exits++; if (pv > exitScore) { exit = n; exitScore = pv; } continue;
+1429:       }
+1430:       if (!escaping && !piles.length && radial >= EDGE) continue;
+1431:       if (at[n] >= H) continue;
+1432:       const ni = n % N, nj = Math.floor(n / N);
+1433:       for (const [di, dj, w] of nb) {
+1434:         const ii = ni + di, jj = nj + dj; if (ii < 0 || ii >= N || jj < 0 || jj >= N) continue; const m = jj * N + ii; if (done[m]) continue;
+1435:         const x1 = Wd.cx(m), y1 = Wd.cy(m), dt = w * Wd.CELL / ph.cs, nt = at[n] + dt; if (nt > H) continue;
+1436:         if (hypot(x1 - s.x, y1 - s.y) > V.V6_OBS - Wd.CELL) continue;
+1437:         let ok = true, eg = minG[n], es = Infinity;
+1438:         for (let q = 1; q <= 4; q++) { const f = q / 4, x = x0 + (x1 - x0) * f, y = y0 + (y1 - y0) * f, tt = at[n] + dt * f;
+1439:           const g = Wd.gapAt(x, y, tt), ci = Wd.cellI(x, y); if (g < eg) eg = g; if (g < M || ci < 0) { ok = false; break; }
+1440:           const sl = Rf.tr[ci] - tt - SAFE; if (sl < es) es = sl; if (sl <= 0) { ok = false; break; } }
+1441:         if (!ok) continue;
+1442:         const hug = V.V6_CLEAR_W * dt * 32 / Math.max(8, eg - M), ng = cost[n] + dt + hug;
+1443:         if (ng + 1e-6 < cost[m]) { cost[m] = ng; at[m] = nt; minG[m] = eg; prev[m] = n; push(m, ng); }
+1444:       }
+1445:     }
+1446:     const intent = escaping ? 'escape' : foodGoal >= 0 ? 'food' : 'explore';
+1447:     const goal = escaping ? (exit >= 0 ? exit : partial) : foodGoal >= 0 ? foodGoal : partial;
+1448:     if (goal === c0 || prev[goal] < 0) return {algo: 'v6', ver, t0: s.t, intent, pts: null, certified: 0, reason: over ? 'budget' : 'no_path', exits, ms: clock() - T0};
+1449:     K.target = intent === 'food' ? {x: selectedFood.x, y: selectedFood.y} : null;
+1450:     const cells = []; for (let q = goal; q !== -1; q = prev[q]) cells.push(q); cells.reverse();
+1451:     // Remove only collinear grid points. Corners remain visible because they are the actual maze corridor chosen by the search.
+1452:     const line = [[root.x, root.y, c0]]; for (let k = 1; k < cells.length; k++) { const c = cells[k], p = line[line.length - 1];
+1453:       if (line.length >= 2) { const a = line[line.length - 2], dx0 = Math.sign(p[0] - a[0]), dy0 = Math.sign(p[1] - a[1]), dx1 = Math.sign(Wd.cx(c) - p[0]), dy1 = Math.sign(Wd.cy(c) - p[1]); if (dx0 === dx1 && dy0 === dy1) { line[line.length - 1] = [Wd.cx(c), Wd.cy(c), c]; continue; } }
+1454:       line.push([Wd.cx(c), Wd.cy(c), c]); }
+1455:     const pts = [0, s.x, s.y, s.ang, prevBoost ? 1 : 0, LAT, root.x, root.y, root.h, prevBoost ? 1 : 0]; let tt = LAT, last = line[0], minClear = minG[goal], minSlack = Infinity;
+1456:     for (let k = 1; k < line.length; k++) { const q = line[k], h = Math.atan2(q[1] - last[1], q[0] - last[0]); tt += hypot(q[0] - last[0], q[1] - last[1]) / ph.cs; pts.push(tt, q[0], q[1], h, 0); const sl = Rf.tr[q[2]] - tt - SAFE; if (sl < minSlack) minSlack = sl; last = q; }
+1457:     const certified = exit >= 0 && minClear >= M && minSlack > 0;
+1458:     return {algo: 'v6', ver, t0: s.t, pts, intent, certified: certified ? 1 : 0, reason: escaping ? (certified ? 'exit' : (over ? 'budget_prefix' : 'reachable_prefix')) : intent, exits,
+1459:       partial: escaping && !certified, mode: intent, foodValue: intent === 'food' ? selectedFood.mass : 0,
+1460:       goal: {x: intent === 'food' ? selectedFood.x : last[0], y: intent === 'food' ? selectedFood.y : last[1], kind: intent}, minClear, minSlack, expanded, ms: clock() - T0};
+1461:   }
+1462: 
+1463:   v6Step(s) {
+1464:     const V = this.values, clock = () => (typeof performance !== 'undefined' ? performance.now() : Date.now()), T0 = clock();
+1465:     const Wd = this.v4World(s, false, false), ph = this.v4Physics(s.sc), M = V.V6_MARGIN, SAFE = V.V6_SAFETY, LAT = V.TRACK_LAT || .17, HL = V.V6_LOCAL_H, DT = .05;
+1466:     const px = s.x, py = s.y, ang = s.ang, ro = Wd.ro, canBoost = s.L >= V.V2_MINL, vb = BOOST_SP * PX_PER_SP;
+1467:     const prevCmd = Number.isFinite(s.cmdNow) ? s.cmdNow : ang, prevBoost = typeof s.boostNow === 'boolean' ? s.boostNow : !!this.prevBoost;
+1468:     const heads = []; for (let m = 0; m < s.hid.length; m++) { const x = s.heads[5 * m], y = s.heads[5 * m + 1]; if (hypot(x - px, y - py) > V.V6_HEADR) continue;
+1469:       const a = s.heads[5 * m + 2], sp = s.heads[5 * m + 3], sc = s.heads[5 * m + 4], rh = R * sc, wc = turnRate(sc), v0 = Math.max(sp, 5.8) * PX_PER_SP, rate = Math.max(0, (vb - v0) / RAMP);
+1470:       const sRamp = v0 * RAMP + .5 * rate * RAMP * RAMP, travel = d => rate <= 1e-6 ? d / vb : (d <= sRamp ? (-v0 + Math.sqrt(v0 * v0 + 2 * rate * d)) / rate : RAMP + (d - sRamp) / vb);
+1471:       heads.push({x, y, a, rh, wc, v0, rate, travel}); }
+1472:     const headGapAt = (x, y, t) => { let best = Infinity;
+1473:       for (const h of heads) { const ta = Math.min(t, RAMP), ds = h.v0 * ta + .5 * h.rate * ta * ta + vb * Math.max(0, t - RAMP);
+1474:         for (const turn of [-1, 0, 1]) { let hx, hy; if (!turn || h.wc * t < 1e-6) { hx = h.x + ds * Math.cos(h.a); hy = h.y + ds * Math.sin(h.a); }
+1475:           else { const da = turn * h.wc * t, rr = ds / da, ha = h.a + da; hx = h.x + rr * (Math.sin(ha) - Math.sin(h.a)); hy = h.y - rr * (Math.cos(ha) - Math.cos(h.a)); }
+1476:           const g = hypot(x - hx, y - hy) - ro - h.rh - M; if (g < best) best = g; } }
+1477:       return best; };
+1478:     const headRiskAt = (x, y, t) => { let r = 0; for (const h of heads) { const dx = x - h.x, dy = y - h.y, d = hypot(dx, dy) - ro - h.rh - M;
+1479:         if (d <= 0) return 10; const ta = Math.max(h.travel(d), Math.abs(wrap(Math.atan2(dy, dx) - h.a)) / h.wc), z = t + SAFE - ta; if (z > r) r = z; } return Math.max(0, r); };
+1480:     let route = s.route && s.route.algo === 'v6' && s.route.pts ? s.route : null, routeWhy = route ? 'ok' : 'none';
+1481:     const nearestGuide = (P, x, y) => { let best = null;
+1482:       for (let i = 0; i + 9 < P.length; i += 5) { const ax = P[i + 1], ay = P[i + 2], dx = P[i + 6] - ax, dy = P[i + 7] - ay, l2 = dx * dx + dy * dy;
+1483:         const f = l2 > 1e-9 ? clip(((x - ax) * dx + (y - ay) * dy) / l2, 0, 1) : 0, qx = ax + dx * f, qy = ay + dy * f, d2 = (x - qx) ** 2 + (y - qy) ** 2;
+1484:         if (!best || d2 < best.d2) best = {i, f, x: qx, y: qy, d2}; }
+1485:       return best; };
+1486:     const guideAhead = (P, x, y, ahead, passThrough = false) => { const q = nearestGuide(P, x, y); if (!q) return [P[P.length - 4], P[P.length - 3], P[P.length - 2]];
+1487:       let px0 = q.x, py0 = q.y, i = q.i; for (; i + 9 < P.length; i += 5) { const nx = P[i + 6], ny = P[i + 7], d = hypot(nx - px0, ny - py0);
+1488:         if (d >= ahead) { const f = ahead / Math.max(d, 1e-6); return [px0 + (nx - px0) * f, py0 + (ny - py0) * f, Math.atan2(ny - py0, nx - px0)]; }
+1489:         ahead -= d; px0 = nx; py0 = ny; }
+1490:       const h = P[Math.max(3, P.length - 2)];
+1491:       // A food target is a waypoint to pass, not a position at which a moving
+1492:       // snake can stop. The local collision checker validates this continuation.
+1493:       return passThrough ? [px0 + ahead * Math.cos(h), py0 + ahead * Math.sin(h), h] : [px0, py0, h]; };
+1494:     if (route) { const age = s.t - route.t0; if (age < 0 || age > V.V6_ROUTE_AGE) { route = null; routeWhy = 'old'; }
+1495:       else { const P = route.pts, q0 = nearestGuide(P, px, py); outer: for (let i = q0 ? q0.i : 0; i + 9 < P.length; i += 5) { const ax = q0 && i === q0.i ? q0.x : P[i + 1], ay = q0 && i === q0.i ? q0.y : P[i + 2], bx = P[i + 6], by = P[i + 7], d = hypot(bx - ax, by - ay), n = Math.max(1, Math.ceil(d / 32));
+1496:           for (let k = 0; k <= n; k++) { const f = k / n, x = ax + (bx - ax) * f, y = ay + (by - ay) * f, dist = hypot(x - px, y - py); if (dist > 500) continue; const tt = LAT + dist / ph.cs;
+1497:             if (Wd.gapAt(x, y, tt) < M || headGapAt(x, y, tt) < 0) { route = null; routeWhy = 'changed'; break outer; } } } } }
+1498:     let st0 = {x: px, y: py, h: ang, v: s.sp * PX_PER_SP}; for (let k = 0; k < 4; k++) st0 = this.v4Adv(st0, prevCmd, prevBoost, LAT / 4, ph);
+1499:     const foods = []; for (let i = 0; i + 2 < s.food.length; i += 3) { if (s.food[i + 2] < (V.V6_REMAINS_MIN ?? 12)) continue;
+1500:       const d2 = (s.food[i] - px) ** 2 + (s.food[i + 1] - py) ** 2; if (d2 < 500000) foods.push([s.food[i], s.food[i + 1], s.food[i + 2] * 4, d2]); }
+1501:     foods.sort((a, b) => a[3] - b[3]); if (foods.length > 120) foods.length = 120;
+1502:     const fracs = [0, .33, -.33, .67, -.67, 1, -1], fams = canBoost ? [prevBoost, !prevBoost] : [false], cands = [];
+1503:     for (const boost of fams) for (const fr of fracs) { let st = {...st0}, t = LAT, hitT = Infinity, risk = 0, mg = Infinity, hm = Infinity, turn = 0, food = 0; const eaten = new Set(), samp = [];
+1504:       while (t < LAT + HL - 1e-9) { const h0 = st.h; st = this.v4Adv(st, st.h + fr * ph.w * DT, boost, DT, ph); t += DT; turn += Math.abs(wrap(st.h - h0));
+1505:         const g = Wd.gapAt(st.x, st.y, t), hg = heads.length ? headGapAt(st.x, st.y, t) : Infinity; if (g < mg) mg = g; if (hg < hm) hm = hg; samp.push(t, st.x, st.y, st.h);
+1506:         if (g < M || hg < 0) { hitT = t; break; } risk += headRiskAt(st.x, st.y, t) * DT;
+1507:         for (let j = 0; j < foods.length; j++) if (!eaten.has(j)) { const f = foods[j], rr = ro + 30; if ((f[0] - st.x) ** 2 + (f[1] - st.y) ** 2 < rr * rr) { eaten.add(j); food += f[2]; } } }
+1508:       let follow; if (route) { const q = guideAhead(route.pts, st0.x, st0.y, Math.max(140, ph.cs * HL * .8), route.intent === 'food'); follow = -hypot(st.x - q[0], st.y - q[1]) - Math.abs(wrap(st.h - q[2])) * 30; }
+1509:       else follow = -Math.abs(fr) * 80 + Math.min(mg, 80) * .15;
+1510:       const foodDriving = route && route.intent === 'food';
+1511:       let collect = 0;
+1512:       if (foodDriving) {
+1513:         follow *= V.V6_GOAL_W ?? 1.5;
+1514:         const g = route.goal, distance = g ? hypot(g.x - px, g.y - py) : 0;
+1515:         if (boost && g && distance > (V.V6_BOOST_MIN_DIST ?? 150) && route.foodValue >= (V.V6_BOOST_MIN_MASS ?? 48)) {
+1516:           const progress = distance - hypot(g.x - st.x, g.y - st.y);
+1517:           collect = (V.V6_BOOST_W ?? 80) * clip(progress / Math.max(1, ph.cs * HL), 0, 1);
+1518:         }
+1519:       } else {
+1520:         const d = hypot(px - s.wall[0], py - s.wall[1]);
+1521:         collect = (V.V6_CENTER_W ?? 2) * Math.min(1, d / 2000) * (d - hypot(st.x - s.wall[0], st.y - s.wall[1]));
+1522:       }
+1523:       cands.push({boost, fr, hitT, risk, mg, hm, follow, food, collect, turn, samp}); }
+1524:     const clean = cands.filter(c => c.hitT === Infinity), base = clean.length ? clean : cands, safe = clean.filter(c => c.risk <= 1e-8), pool = safe.length ? safe : base; let best = null;
+1525:     const foodDriving = route && route.intent === 'food';
+1526:     const better = (a, b) => { if (!b) return true; if (a.hitT !== b.hitT) return a.hitT > b.hitT; if (Math.abs(a.risk - b.risk) > 1e-6) return a.risk < b.risk;
+1527:       const af = a.follow + a.collect + (foodDriving ? a.food * (V.V6_FOOD_W ?? 1) : 0), bf = b.follow + b.collect + (foodDriving ? b.food * (V.V6_FOOD_W ?? 1) : 0);
+1528:       if (Math.abs(af - bf) > 3) return af > bf; if (Math.abs(a.hm - b.hm) > 3) return a.hm > b.hm; if (Math.abs(a.mg - b.mg) > 2) return a.mg > b.mg; return a.food * .08 - a.turn > b.food * .08 - b.turn; };
+1529:     for (const c of pool) if (better(c, best)) best = c;
+1530:     // Compare the requested route motion with the chosen safe motion, so the
+1531:     // cyan line is labelled avoidance only when a safety constraint intervened.
+1532:     const desired = cands.reduce((a, b) => !a || b.follow > a.follow ? b : a, null);
+1533:     const localAvoiding = !clean.length || !safe.length || !!(desired && (desired.hitT !== Infinity || desired.risk > 1e-8));
+1534:     let cmd = this.v2last ? this.v2last[0] : ang, boost = false, plan = null, localPts = [];
+1535:     if (best && best.samp.length) { const S = best.samp; let k = 0; while (k + 4 < S.length && S[k] < LAT + .3) k += 4; cmd = Math.atan2(S[k + 2] - py, S[k + 1] - px); boost = best.boost && canBoost;
+1536:       plan = [0, px, py, ang, prevBoost ? 1 : 0, LAT, st0.x, st0.y, st0.h, prevBoost ? 1 : 0]; for (let i = 0; i + 3 < S.length; i += 4) { plan.push(S[i], S[i + 1], S[i + 2], S[i + 3], boost ? 1 : 0); localPts.push(S[i + 1], S[i + 2]); } }
+1537:     this.prev = cmd; this.prevBoost = boost; this.v2last = [cmd, boost];
+1538:     const guidePts = []; if (route) { const P = route.pts, q = nearestGuide(P, px, py); if (q) { guidePts.push(q.x, q.y); for (let i = q.i + 5; i + 4 < P.length; i += 5) guidePts.push(P[i + 1], P[i + 2]); } }
+1539:     // Keep the two algorithms visible independently. A rejected macro route is never shown as usable.
+1540:     const localPath = plan ? [px, py, st0.x, st0.y, ...localPts] : [];
+1541:     const mode = !clean.length ? 'v6hard' : (localAvoiding ? 'v6avoid' : route ? (route.intent === 'food' ? 'v6food' : route.intent === 'explore' ? 'v6explore' : route.certified ? 'v6guide' : 'v6partial') : 'v6local');
+1542:     const trace = {mode, boost, cmd: r1(deg(cmd)), clear: null, hard: null, n_safe: safe.length, threat: localAvoiding ? 1 : 0, enclosed: 0, wrap: 0, thr: null, eat: best ? r1(best.food) : null, goal: route ? (route.foodValue || 0) : 0, thread: null, cov: null, cov_id: null, cov_free: null, esc: null,
+1543:       L: s.L, sc: r2(s.sc), died_near: this.diedNear, kills: this.kills, big: 0, curl: 0, prof: this.profile, onward: null, nh: heads.length, hold_by: null, sized: 0, guard: null, gforce: 0, gatk: 0, giant: 0, wf: 0, raid: 0, gap: null, squeeze: null,
+1544:       ttd: best ? r2(best.risk) : null, ttds: best ? r1(best.mg) : null, ttdh: best ? r1(Math.min(best.hm, 9999)) : null, v2obj: null, arc: 0, chg: 0, cause: routeWhy, v3_ms: r1(clock() - T0), v3_exits: s.route ? (s.route.exits || 0) : 0, v3_cert: route && route.certified ? 1 : 0,
+1545:       v3_root: s.route ? r1(s.route.ms || 0) : null, v3_keep: route && !route.certified ? 1 : 0, v3_hold: route ? r2(s.t - route.t0) : null, v3_route_match: route ? 1 : 0, v6_intent: route ? route.intent : 'none', v6_goal_x: route?.goal?.x ?? null, v6_goal_y: route?.goal?.y ?? null, v6_reason: route ? route.reason : routeWhy};
+1546:     this.last = {mode, trace, draw: {chosen: guidePts.length ? guidePts : localPts, mazePath: guidePts, localPath,
+1547:       mazeState: route ? (route.intent === 'escape' ? (route.certified ? 'exit' : 'partial') : route.intent) : routeWhy, localUnsafe: !clean.length, localAvoiding,
+1548:       guideCert: route ? (route.certified ? 1 : 0) : -1, guideWidth: route ? route.minClear : null,
+1549:       safe: [], pos: new Float64Array(0), N: Wd.N, C2: 0, i: 0, near: [], gaps: [], goal: route && route.goal ? [route.goal.x, route.goal.y] : null, crowdAt: null, wp: null, attacker: null, ro, analysis: null}, plan};
+1550:     return [cmd, boost];
+1551:   }
+1733:   v8Values(six) {
+1734:     return {...this.values, V8_ON: 0, V7_ON: 0, V6_ON: six ? 1 : 0,
+1735:       V41_ON: 0, V5_ON: 0, V4_ON: 0, V3_ON: 0, V2_ON: 0, PROBE_ON: 0};
+1736:   }
+1737:   v8Route(s, ver) {
+1738:     if (!this.v8Plan) this.v8Plan = new Pilot(this.v8Values(true), this.profile);
+1739:     TURN_FIX = !!this.v8Plan.values.TURN_FIX;
+1740:     return this.v8Plan.v6Route(s, ver);
+1741:   }
+1742:   v8Step(s) {
+1743:     const K = this.v8 || (this.v8 = {phase: 'feed', clearSince: null});
+1744:     // Browser decides before observing, so each branch receives its original observation radius.
+1745:     const c = s.v8Control || v8Choice(K, countHeads(s, this.values.V8_HEAD_R ?? 450), s.t, this.values,
+1746:       this.values.V81_BODY_ON ? bodyDensity(s, this.values.V81_BODY_R ?? 450, this.values.V81_BODY_NEAR_W ?? 2, this.values.V81_BODY_SELF_W ?? .1) : 0);
+1747:     const key = c.phase === 'avoid' ? 'v8Avoid' : 'v8Feed';
+1748:     if (!this[key]) this[key] = new Pilot(this.v8Values(c.phase === 'avoid'), this.profile);
+1749:     const child = this[key]; TURN_FIX = !!child.values.TURN_FIX;
+1750:     const result = child.step(s); this.last = child.last;
+1751:     Object.assign(this.last.trace, {v8_phase: c.phase, v8_heads: c.heads, v8_radius: c.radius,
+1752:       v8_threshold: c.threshold, v8_switched: c.switched,
+1753:       v81_on: this.values.V81_BODY_ON ? 1 : 0, v81_density: c.bodyDensity ?? 0,
+1754:       v81_body_trigger: c.bodyTrigger ?? 0, v81_reason: c.reason || ''});
+1755:     this.prev = result[0]; this.prevBoost = result[1]; return result;
+1756:   }
+1757: 
+1758:   // V7 switches between the unchanged V1 feed controller and V6 escape controller.
+1759:   // Each controller owns its history; no mode flag is mutated in the user's settings.
+ext/mod.js SHA256 37e53d271b351ff908cf1d1bf734ab9c2dac60c42c852ac4817df44d6985a4f2
+151: // planner Worker (V4 route search, contract 7): same source, its own pilot; receives 'plan' snapshots, returns versioned routes
+152: let worker2 = null, route = null, planVer = 0, planSentAt = 0, planBusy = false;
+153: try {
+154:   const src2 = `(${window.slpPilotModule})(self);\nconst handle = (${makeHandler})();\nonmessage = e => handle(e.data, r => postMessage(r));`;
+155:   worker2 = new Worker(URL.createObjectURL(new Blob([src2], {type: 'text/javascript'})));
+156:   worker2.onmessage = e => { const r = e.data; planBusy = false; if (!r || r.type !== 'plan') return; if (r.error) { console.error('[SLP plan]', r.error); return; }
+157:     if (r.ver === planVer) route = r.pts ? {algo: r.algo, ver: r.ver, t0: r.t0, pts: r.pts, exits: r.exits, ms: r.ms, partial: r.partial, certified: r.certified, reason: r.reason, minClear: r.minClear, minSlack: r.minSlack, expanded: r.expanded, mode: r.mode, goal: r.goal, intent: r.intent, foodValue: r.foodValue} : null; };
+158:   worker2.onerror = e => { console.error('[SLP plan worker]', e.message); worker2 = null; };
+159: } catch (e) { worker2 = null; }
+160: function send(m, transfer) {
+161:   if (worker2 && (m.type === 'reset' || m.type === 'params')) worker2.postMessage(m);
+162:   if (worker) return worker.postMessage(m, transfer || []);
+223:     }
+224:     v8Control = window.SlpPilot.v8Choice(v8Switch, seen.size, performance.now() / 1000, S.values, density);
+225:     if (v8Control.switched) { route = null; planVer++; planSentAt = 0; }
+226:   }
+227:   const seven = !S.values.V8_ON && S.values.V7_ON;
+228:   const six = S.values.V8_ON ? v8Control.phase === 'avoid' : seven || S.values.V6_ON;
+229:   const radius = Math.max(RADIUS, six ? S.values.V6_OBS : 0, seven ? S.values.V7_HEAD_R : 0);
+230:   const hx = s.xx, hy = s.yy, R2 = radius * radius, RF2 = (seven ? Math.max(S.values.FOOD_R, S.values.V6_FOOD_R ?? 3000) : six ? (S.values.V6_FOOD_R ?? 3000) : FOOD_RADIUS) ** 2;
+352:   }
+353:   pending.pred = pred; pending.pred25 = pred25; pending.herr25 = herr25; st.pred = pred === null ? -1 : pred;
+354:   if (S.values.V4_ON || S.values.V6_ON || S.values.V7_ON || S.values.V8_ON) { st.route = route;
+355:     const v8 = !!S.values.V8_ON, v7 = !v8 && !!S.values.V7_ON, v6 = v8 || v7 || !!S.values.V6_ON, every = v6 ? (S.values.V6_PLAN_MS || 400) : (S.values.V4_PLAN_MS || 350);
+356:     const needPlan = v8 ? st.v8Control.phase === 'avoid' : !v7 || window.SlpPilot.countHeads(st, S.values.V7_HEAD_R) >= S.values.V7_HEAD_N || last?.trace?.v7_phase === 'avoid';
+357:     if (needPlan && worker2 && !planBusy && performance.now() - planSentAt >= every) { planBusy = true; planSentAt = performance.now(); planVer++;
+358:       const cp = Object.assign({}, st, {route: undefined, segs: Float32Array.from(st.segs), sid: Float32Array.from(st.sid), heads: Float32Array.from(st.heads), hid: Float32Array.from(st.hid), food: Float32Array.from(st.food), own: Float32Array.from(st.own)});
+359:       worker2.postMessage({type: 'plan', kind: v8 ? 'v8' : v7 ? 'v7' : v6 ? 'v6' : 'v4', ver: planVer, s: cp}, [cp.segs.buffer, cp.sid.buffer, cp.heads.buffer, cp.hid.buffer, cp.food.buffer, cp.own.buffer]); } }
+360:   pending.box = {t: Math.round(pending.at - game.t0) / 1000, x: st.x, y: st.y, ang: st.ang, sp: st.sp, sc: st.sc, boost: st.boost,
+probe.json
+{
+  "wallNoHeads": {
+    "phase": "feed",
+    "mode": "cruise"
+  },
+  "wallBodyEnabled": {
+    "phase": "avoid",
+    "density": 5.490868996008366
+  },
+  "crowd": {
+    "headRadius": 2500,
+    "phase": "avoid",
+    "intent": "food",
+    "reason": "food",
+    "routeUsed": 1,
+    "mode": "v6food"
+  },
+  "wallRoute": {
+    "intent": "escape",
+    "certified": 1,
+    "reason": "exit",
+    "maxHeadingChangeDegrees": 96.64715305349769,
+    "maxRequiredTurnRateRatio": 1.4442801977624686,
+    "points": 7
+  }
+}
+parity.json
+{
+  "v1Frames": 150,
+  "v6Frames": 150,
+  "commandDifferences": 0,
+  "planDifferences": 0,
+  "switches": 9,
+  "unchangedDecisionBodies": true,
+  "macroParity": [
+    {
+      "label": "empty",
+      "intent": "explore"
+    },
+    {
+      "label": "food",
+      "intent": "food"
+    },
+    {
+      "label": "wall",
+      "intent": "escape"
+    },
+    {
+      "label": "heads",
+      "intent": "escape"
+    }
+  ],
+  "observationParity": true,
+  "triggerIndependent": true,
+  "scope": "offline replay and synthetic; no survival result"
+}
+Live browser read-only attempt 2026-10-01: connect_over_cdp socket hang up. Current loaded version/settings not verified. No new live game, production edits, build or deployment.

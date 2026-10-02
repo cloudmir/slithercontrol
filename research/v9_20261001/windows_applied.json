@@ -1,0 +1,5 @@
+{
+  "applied": false,
+  "reason": "connection_or_apply_failed",
+  "error": "BrowserType.connect_over_cdp: socket hang up\nCall log:\n  - <ws preparing> retrieving websocket url from http://127.0.0.1:9337\n"
+}

@@ -1,0 +1,85 @@
+{
+  "build": "1001-baeb2963",
+  "seconds": 322.6,
+  "capped": true,
+  "server": "181.41.140.146:444",
+  "players_max_observed": 274,
+  "L_first": 10,
+  "L_last": 1128,
+  "L_max": 1128,
+  "net_L_per_min": 207.94,
+  "settings_changes": [],
+  "food_risk_values": {
+    "100": 9168
+  },
+  "modes": {
+    "v10replan": 258,
+    "v10route": 8865,
+    "v10emergency": 45
+  },
+  "route_frame_percent": 96.7,
+  "boost_frame_percent": 1.2,
+  "food_value_on_routes": {
+    "p50": 5.716415176043012e-05,
+    "p95": 0.1248203170810445,
+    "max": 0.7134442748852341
+  },
+  "closure_risk_on_routes": {
+    "p50": 0.6101282007296689,
+    "p95": 0.7598728859130514,
+    "max": 0.8946025641861024
+  },
+  "remains_observation_samples": 541,
+  "samples_with_remains": 330,
+  "samples_with_remains_within100px": 0,
+  "nearest_remains_px": {
+    "p50": 771.1278505950348,
+    "p95": 1372.3520984507916,
+    "max": 1662.9030417994604
+  },
+  "decision_errors": 0,
+  "page_errors": [],
+  "decision_ms": {
+    "p50": 4.5,
+    "p95": 10.2
+  },
+  "observation_to_command_ms": {
+    "p50": 13.6,
+    "p95": 27.4
+  },
+  "screenshots": 600,
+  "capture_interval_s": {
+    "p50": 0.5,
+    "p95": 0.5649999999999977,
+    "max": 0.724000000000018
+  },
+  "camera_error": null,
+  "limits": [
+    "One live game; any setting changes are split into observational segments, not a causal A/B comparison.",
+    "Net length change includes boost loss; observed food is not proven reachable food.",
+    "Risk is a heuristic index, not calibrated death probability.",
+    "Decision-frame shares are not independent escape success rates."
+  ],
+  "end_reason": "time_cap",
+  "risk_segments": [
+    {
+      "risk_setting": 100,
+      "from_s": 0.003,
+      "to_s": 322.587,
+      "L_start": 10,
+      "L_end": 1128,
+      "L_max": 1128,
+      "net_L_per_min": 207.95,
+      "frames": 9168,
+      "boost_frame_percent": 1.2,
+      "food_value": {
+        "p50": 4.191258563690381e-05,
+        "p95": 0.12142532105098619,
+        "max": 0.7134442748852341
+      },
+      "remains_samples": 541,
+      "samples_with_remains": 330,
+      "within100px": 0
+    }
+  ]
+}

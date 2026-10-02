@@ -1,0 +1,12 @@
+{
+  "originalFunctionsUnchanged": 5,
+  "thresholdEqualityFeeds": true,
+  "sliderMonotonic": true,
+  "separateClustersNotSummed": true,
+  "outOfRadiusExcluded": true,
+  "allFoodSizes": true,
+  "invalidFoodExcluded": true,
+  "switchOffUsesV101": true,
+  "zeroThresholdFeeds": true,
+  "controllerParityFrames": 6
+}

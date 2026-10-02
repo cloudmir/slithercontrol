@@ -1,0 +1,47 @@
+{
+ "synthetic": {
+  "open": {
+   "certified": 0,
+   "points": 4,
+   "route_ms": 18.45,
+   "cmd_deg": 0,
+   "mode": "v6explore",
+   "macro_distance": 1032
+  },
+  "corridor": {
+   "certified": 0,
+   "points": 4,
+   "min_x": 30000,
+   "max_x": 30024,
+   "min_clear": 37,
+   "mode": "v6avoid"
+  },
+  "head_on": {
+   "mode": "v6avoid",
+   "cause": "changed",
+   "cmd_deg": 20,
+   "safe": 0
+  },
+  "food": {
+   "intent": "food",
+   "goal": {
+    "x": 30408,
+    "y": 30312,
+    "kind": "food"
+   },
+   "cmd_deg": 5.556672684309962,
+   "state": "food"
+  },
+  "wall": {
+   "intent": "escape",
+   "reason": "exit"
+  },
+  "remains_only": {
+   "small": "explore",
+   "big": "food",
+   "passed": "explore",
+   "close_forward_px": 201
+  }
+ },
+ "replay": []
+}

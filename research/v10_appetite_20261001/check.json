@@ -1,0 +1,40 @@
+{
+  "slider_trades_risk_for_food_monotonically": {
+    "pass": true,
+    "foodRouteSelected": [
+      false,
+      false,
+      true,
+      true,
+      true
+    ]
+  },
+  "no_food_cannot_reward_risk": {
+    "pass": true
+  },
+  "swept_food_contact_is_valued_and_time_discounted": {
+    "pass": true,
+    "fast": 0.8888888888888888,
+    "slow": 0.6666666666666666
+  },
+  "long_food_route_reaches_pellets_and_continues": {
+    "pass": true,
+    "routes": 1,
+    "foodDistance": 5.3439900789651755,
+    "foodValue": 0.42231215907091324,
+    "length": 2229.2812680949814,
+    "ms": 55.196033
+  },
+  "food_removed_from_world_removes_reward": {
+    "pass": true
+  },
+  "max_risk_does_not_cross_wall": {
+    "pass": true
+  },
+  "boost_off_disables_all_route_boosts": {
+    "pass": true
+  },
+  "v9_legacy_food_switch_preserved": {
+    "pass": true
+  }
+}

@@ -1,0 +1,9 @@
+import fs from 'node:fs';import vm from 'node:vm';vm.runInThisContext(fs.readFileSync('ext/pilot.js','utf8'));
+const fixtures=JSON.parse(fs.readFileSync('research/v10_contract_audit_20261001/fixtures.json'));let game,p,tp,planner,route,lastPlan;const rows=[];
+for(const f of fixtures){const V={...f.values};if(game!==f.game){game=f.game;p=new SlpPilot.Pilot(V,'safe');tp=new SlpPilot.Pilot(V,'safe');planner=new SlpPilot.Pilot(V,'safe');route=null;lastPlan=-Infinity;}
+ const hist=f.s.cmdHistory||[],last=hist.at(-1),s={...f.s,cmdNow:last?.ang??f.s.ang,boostNow:last?.boost??!!f.s.boost,inputAgeMs:5};s.threat=tp.v10Threat(s);
+ if(s.t-lastPlan>=.3||!route){route=planner.v10Route(s,rows.length);lastPlan=s.t;}
+ p.step({...s,route});const tr=p.last.trace;rows.push({game,t:s.t,mode:tr.mode,rootSafe:tr.v10_root_safe,safe:tr.n_safe,ms:tr.v10_local_ms,mapMs:route.ms,mapReason:route.reason,routes:route.routes.length,reject:tr.v10_reject,continuation:tr.v10_continuation_s,expiredFresh:p.last.controls[0].end<=.01+(V.TRACK_LAT??.17)});
+}
+const q=(a,k)=>a.sort((a,b)=>a-b)[Math.floor(a.length*k)];const summary={frames:rows.length,routeFollowing:rows.filter(r=>r.mode==='v10route').length,rootUnsafe:rows.filter(r=>!r.rootSafe).length,expiredFresh:rows.filter(r=>r.expiredFresh).length,p95:q(rows.map(r=>r.ms),.95),byGame:[1,2,3,4,5].map(game=>{const a=rows.filter(r=>r.game===game);return {game,frames:a.length,routeFollowing:a.filter(r=>r.mode==='v10route').length,reasonCounts:a.reduce((d,r)=>(d[r.reject||'route']=(d[r.reject||'route']||0)+1,d),{})};})};
+console.log(summary);fs.writeFileSync('research/v10_continuation_20261001/replay.json',JSON.stringify({note:'Fixed recorded observations and commands; macro plans recomputed synchronously. Not browser scheduling or counterfactual survival.',summary,rows},null,2));

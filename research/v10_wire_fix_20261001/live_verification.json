@@ -1,0 +1,448 @@
+{
+  "build": "1001-a67ce2c6",
+  "run": "runs/v10_wire_live_20261001_192903",
+  "seconds": 439.4,
+  "max_length": 307,
+  "capped": false,
+  "death": {
+    "x": 32619.950203232253,
+    "y": 32941.43329911751,
+    "at": 1790850984542
+  },
+  "server": "181.41.140.178:444",
+  "players": 505,
+  "errors": 0,
+  "settings_changes": [],
+  "modes": {
+    "v10replan": 165,
+    "v10route": 12950,
+    "v10emergency": 85
+  },
+  "decide_ms": {
+    "p50": 1.7,
+    "p95": 4
+  },
+  "obs_to_cmd_ms": {
+    "p50": 4.9,
+    "p95": 12.2
+  },
+  "saved_last_window_frames": 1793,
+  "verified_wire_events_in_saved_window": 1070,
+  "packet_history_mismatches": 0,
+  "mismatch_examples": [],
+  "angle_max_error_rad": 0.0,
+  "send_gate_range_ms": {
+    "angle": [
+      0,
+      32.10000002384186
+    ],
+    "boost": [
+      0,
+      46.89999997615814
+    ]
+  },
+  "near_half_turn_frames": 2,
+  "near_half_turn_examples": [
+    {
+      "t": 390.541,
+      "heading": 5.123149820437145,
+      "packet_target": 1.9775762520605074,
+      "turn_sign": 1
+    },
+    {
+      "t": 438.108,
+      "heading": 1.1535535524900022,
+      "packet_target": 4.305609055119079,
+      "turn_sign": -1
+    }
+  ],
+  "emergency_frames": 85,
+  "recovery_frames": 85,
+  "last_observed_nearest_bodies": [
+    {
+      "id": 209,
+      "physical_gap": -4.404232473554767
+    },
+    {
+      "id": 209,
+      "physical_gap": -3.939449732893049
+    },
+    {
+      "id": 209,
+      "physical_gap": -2.7974184857511553
+    }
+  ],
+  "last_second_trace": [
+    {
+      "t": 438.334,
+      "mode": "v10emergency",
+      "cmd": 164.5,
+      "boost": 0,
+      "v10_clear": -27.548621477404303,
+      "v10_root_safe": true,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -27.548621477404303,
+      "v10_recovery_body_gap": -6.584748168507129,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 438.369,
+      "mode": "v10emergency",
+      "cmd": 174.9,
+      "boost": 0,
+      "v10_clear": -25.76178535938684,
+      "v10_root_safe": true,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -25.76178535938684,
+      "v10_recovery_body_gap": -11.311600532995026,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 438.397,
+      "mode": "v10emergency",
+      "cmd": 183,
+      "boost": 0,
+      "v10_clear": -30.651448962305594,
+      "v10_root_safe": true,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -30.651448962305594,
+      "v10_recovery_body_gap": -14.462274382659135,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 438.461,
+      "mode": "v10emergency",
+      "cmd": 229.4,
+      "boost": 1,
+      "v10_clear": -18.2295317428888,
+      "v10_root_safe": true,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -18.2295317428888,
+      "v10_recovery_body_gap": -10.510964683463271,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 438.501,
+      "mode": "v10emergency",
+      "cmd": 238.3,
+      "boost": 1,
+      "v10_clear": -23.2164938643373,
+      "v10_root_safe": true,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -23.2164938643373,
+      "v10_recovery_body_gap": -3.4164632846649248,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 438.552,
+      "mode": "v10emergency",
+      "cmd": 248.5,
+      "boost": 1,
+      "v10_clear": -22.321589261675786,
+      "v10_root_safe": true,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -22.321589261675786,
+      "v10_recovery_body_gap": 0.9476821657079988,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 438.576,
+      "mode": "v10emergency",
+      "cmd": 248.7,
+      "boost": 1,
+      "v10_clear": -17.449761963505598,
+      "v10_root_safe": true,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -17.449761963505598,
+      "v10_recovery_body_gap": 0.9852256906523245,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 438.609,
+      "mode": "v10emergency",
+      "cmd": 257,
+      "boost": 1,
+      "v10_clear": -13.642659441210364,
+      "v10_root_safe": true,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -13.642659441210364,
+      "v10_recovery_body_gap": -10.492659441210364,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 438.639,
+      "mode": "v10emergency",
+      "cmd": 266.7,
+      "boost": 0,
+      "v10_clear": -7.04184416201989,
+      "v10_root_safe": false,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -2.138905579035279,
+      "v10_recovery_body_gap": 1.0110944209647208,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 438.674,
+      "mode": "v10emergency",
+      "cmd": 251,
+      "boost": 0,
+      "v10_clear": -7.295741555341179,
+      "v10_root_safe": false,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -7.295741555341179,
+      "v10_recovery_body_gap": 128,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 438.705,
+      "mode": "v10emergency",
+      "cmd": 250.9,
+      "boost": 0,
+      "v10_clear": -6.180673705558368,
+      "v10_root_safe": false,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -6.180673705558368,
+      "v10_recovery_body_gap": 128,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 438.734,
+      "mode": "v10emergency",
+      "cmd": 255.4,
+      "boost": 0,
+      "v10_clear": -11.31494380922595,
+      "v10_root_safe": false,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -11.31494380922595,
+      "v10_recovery_body_gap": 128,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 438.766,
+      "mode": "v10emergency",
+      "cmd": 262.5,
+      "boost": 0,
+      "v10_clear": -17.104809453575733,
+      "v10_root_safe": false,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -17.104809453575733,
+      "v10_recovery_body_gap": 128,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 438.8,
+      "mode": "v10emergency",
+      "cmd": 247.5,
+      "boost": 0,
+      "v10_clear": -12.649793461386109,
+      "v10_root_safe": false,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -12.649793461386109,
+      "v10_recovery_body_gap": -9.499793461386108,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 438.83,
+      "mode": "v10emergency",
+      "cmd": 246.7,
+      "boost": 0,
+      "v10_clear": -13.710580303330884,
+      "v10_root_safe": false,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -13.710580303330884,
+      "v10_recovery_body_gap": -10.560580303330884,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 438.865,
+      "mode": "v10emergency",
+      "cmd": 246.7,
+      "boost": 0,
+      "v10_clear": -15.295412308308931,
+      "v10_root_safe": false,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -15.295412308308931,
+      "v10_recovery_body_gap": -12.14541230830893,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 438.893,
+      "mode": "v10emergency",
+      "cmd": 246.7,
+      "boost": 0,
+      "v10_clear": -8.91365149990864,
+      "v10_root_safe": false,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -8.539389937879209,
+      "v10_recovery_body_gap": -3.506850750292525,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 438.928,
+      "mode": "v10emergency",
+      "cmd": 246.7,
+      "boost": 0,
+      "v10_clear": -8.944611139807195,
+      "v10_root_safe": false,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -7.589780454503353,
+      "v10_recovery_body_gap": -4.439780454503353,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 438.973,
+      "mode": "v10emergency",
+      "cmd": 246.7,
+      "boost": 0,
+      "v10_clear": -10.235788749494825,
+      "v10_root_safe": false,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -10.235788749494825,
+      "v10_recovery_body_gap": -7.085788749494824,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 439.009,
+      "mode": "v10emergency",
+      "cmd": 246.7,
+      "boost": 0,
+      "v10_clear": -9.590677763056474,
+      "v10_root_safe": false,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -9.590677763056474,
+      "v10_recovery_body_gap": -6.440677763056474,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 439.047,
+      "mode": "v10emergency",
+      "cmd": 246.7,
+      "boost": 0,
+      "v10_clear": -13.350006794072536,
+      "v10_root_safe": false,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -13.350006794072536,
+      "v10_recovery_body_gap": 128,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 439.071,
+      "mode": "v10emergency",
+      "cmd": 246.7,
+      "boost": 0,
+      "v10_clear": -15.936205507418707,
+      "v10_root_safe": false,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -15.936205507418707,
+      "v10_recovery_body_gap": 128,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 439.089,
+      "mode": "v10emergency",
+      "cmd": 246.7,
+      "boost": 0,
+      "v10_clear": -18.542771620562633,
+      "v10_root_safe": false,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -18.542771620562633,
+      "v10_recovery_body_gap": -15.392771620562634,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 439.133,
+      "mode": "v10emergency",
+      "cmd": 275.3,
+      "boost": 0,
+      "v10_clear": -28.42975920590959,
+      "v10_root_safe": false,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -28.42975920590959,
+      "v10_recovery_body_gap": -25.279759205909592,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 439.169,
+      "mode": "v10emergency",
+      "cmd": 255.1,
+      "boost": 0,
+      "v10_clear": -34.090291219521795,
+      "v10_root_safe": false,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -34.090291219521795,
+      "v10_recovery_body_gap": -30.940291219521797,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 439.199,
+      "mode": "v10emergency",
+      "cmd": 253.9,
+      "boost": 0,
+      "v10_clear": -40.08396226415095,
+      "v10_root_safe": false,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -40.08396226415095,
+      "v10_recovery_body_gap": -35.04309740711499,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 439.231,
+      "mode": "v10emergency",
+      "cmd": 282.5,
+      "boost": 0,
+      "v10_clear": -40.08396226415095,
+      "v10_root_safe": false,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -36.90173930102562,
+      "v10_recovery_body_gap": -26.540098727041617,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 439.261,
+      "mode": "v10emergency",
+      "cmd": 262.2,
+      "boost": 1,
+      "v10_clear": -40.08396226415095,
+      "v10_root_safe": false,
+      "v10_recovery": true,
+      "v10_recovery_terminal": -11.649205794566777,
+      "v10_recovery_body_gap": 4.060545446986001,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 439.296,
+      "mode": "v10emergency",
+      "cmd": 261,
+      "boost": 1,
+      "v10_clear": -40.08396226415095,
+      "v10_root_safe": false,
+      "v10_recovery": true,
+      "v10_recovery_terminal": 5.324905763709859,
+      "v10_recovery_body_gap": 22.042275298861103,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 439.324,
+      "mode": "v10emergency",
+      "cmd": 261,
+      "boost": 1,
+      "v10_clear": -40.08396226415095,
+      "v10_root_safe": false,
+      "v10_recovery": true,
+      "v10_recovery_terminal": 5.680160854859219,
+      "v10_recovery_body_gap": 22.40463705449167,
+      "trk_why": "v10_controls"
+    }
+  ],
+  "raw_hashes": {
+    "slp_01_box.json.gz": "5d9b399ad18f183c070277eb8ef8971f86400fd87c2cecbceea741b22279fa92",
+    "slp_01_log.json.gz": "80c82311e9da4f9c426bb94d4ffc90d5b145ce4b9abde77763a0462b714f1eea",
+    "slp_01.json": "d0a04096d57cb43d49c0a1de6ee79037201580d7b1469811b86615b8eb166e17"
+  },
+  "limits": [
+    "Single live game does not establish improved survival rate.",
+    "Near-half-turn wire history is checked against packets, not proof of exact server turn response.",
+    "TRACK_LAT retained; future send gates and server response remain estimates.",
+    "Nearest body in last alive observation is not independently confirmed server killer."
+  ]
+}

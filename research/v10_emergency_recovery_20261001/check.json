@@ -1,0 +1,138 @@
+{
+  "checks": [
+    "continuous_overlap_evaluation",
+    "turn_recovery_beats_straight",
+    "never_certified_safe",
+    "wall_order_independent_depth",
+    "safe_empty_command_unchanged",
+    "last_death_changes_direction"
+  ],
+  "synthetic": {
+    "straightDepth": 1.1929016431704498,
+    "turnDepth": 0.2721630026023908
+  },
+  "replay": [
+    {
+      "t": 143.753,
+      "before": [
+        2.8255795113433337,
+        false
+      ],
+      "after": [
+        2.8255795113433337,
+        false
+      ],
+      "mode": "v10emergency",
+      "recovery": true,
+      "depth": 0,
+      "terminal": 13.051568692873834,
+      "oldMs": 56.76382800000002,
+      "ms": 76.030482
+    },
+    {
+      "t": 143.838,
+      "before": [
+        3.171833059002075,
+        false
+      ],
+      "after": [
+        3.171833059002075,
+        false
+      ],
+      "mode": "v10emergency",
+      "recovery": true,
+      "depth": 0,
+      "terminal": 3.207053729844778,
+      "oldMs": 27.845079999999996,
+      "ms": 48.731183999999985
+    },
+    {
+      "t": 143.936,
+      "before": [
+        3.5808793516514728,
+        false
+      ],
+      "after": [
+        3.0808793516514728,
+        false
+      ],
+      "mode": "v10emergency",
+      "recovery": true,
+      "depth": 0.4665122433561599,
+      "terminal": -7.733549760462149,
+      "oldMs": 14.532656000000031,
+      "ms": 33.017668000000015
+    },
+    {
+      "t": 144.058,
+      "before": [
+        3.580879351651473,
+        false
+      ],
+      "after": [
+        3.080879351651473,
+        false
+      ],
+      "mode": "v10emergency",
+      "recovery": true,
+      "depth": 1.1869136163808274,
+      "terminal": -17.153430108125175,
+      "oldMs": 12.39229400000005,
+      "ms": 33.83675400000004
+    },
+    {
+      "t": 144.143,
+      "before": [
+        3.580879351651473,
+        false
+      ],
+      "after": [
+        3.080879351651473,
+        false
+      ],
+      "mode": "v10emergency",
+      "recovery": true,
+      "depth": 1.739003867484021,
+      "terminal": -24.261491647244814,
+      "oldMs": 19.378250999999977,
+      "ms": 37.03343899999999
+    },
+    {
+      "t": 144.239,
+      "before": [
+        3.580879351651473,
+        false
+      ],
+      "after": [
+        3.080879351651473,
+        false
+      ],
+      "mode": "v10emergency",
+      "recovery": true,
+      "depth": 2.199776931720346,
+      "terminal": -30.145645660710922,
+      "oldMs": 12.507745999999997,
+      "ms": 33.181025999999974
+    },
+    {
+      "t": 144.338,
+      "before": [
+        3.580879351651473,
+        false
+      ],
+      "after": [
+        3.080879351651473,
+        false
+      ],
+      "mode": "v10emergency",
+      "recovery": true,
+      "depth": 3.521326895634865,
+      "terminal": -33.86282308228934,
+      "oldMs": 15.276670999999965,
+      "ms": 34.78551700000003
+    }
+  ],
+  "limits": [
+    "fixed observed world/model replay; actual survival unproven"
+  ]
+}

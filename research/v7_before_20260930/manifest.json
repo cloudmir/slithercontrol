@@ -1,0 +1,46 @@
+{
+  "manifest_version": 3,
+  "name": "SLP MOD (slither.io pilot)",
+  "version": "0.1.0",
+  "description": "Our slither.io pilot in the page: tuning sliders, decision overlay, zoom, scores, death point, server choice.",
+  "content_scripts": [
+    {
+      "matches": [
+        "*://slither.io/*",
+        "*://slither.com/*"
+      ],
+      "js": [
+        "params.js",
+        "pilot.js",
+        "mod.js"
+      ],
+      "world": "MAIN",
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "*://slither.io/*",
+        "*://slither.com/*"
+      ],
+      "js": [
+        "store.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "version_name": "0930-298ee1cb",
+  "permissions": [
+    "storage"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "slp-cat-knock.gif"
+      ],
+      "matches": [
+        "*://slither.io/*",
+        "*://slither.com/*"
+      ]
+    }
+  ]
+}

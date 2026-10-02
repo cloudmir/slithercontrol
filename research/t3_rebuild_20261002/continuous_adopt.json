@@ -1,0 +1,16 @@
+{
+  "old_supervisor": 1238875,
+  "adopted": {
+    "updated": "2026-10-02 10:25:27",
+    "scope": "Continue observed alive-gap measurements; no production safe offset asserted",
+    "state": "collecting",
+    "batch": 3,
+    "pid": 1273748,
+    "start_gap": 15,
+    "speed_request": "cruise",
+    "log": "research/t3_rebuild_20261002/gap16_continued_03.log",
+    "max_additional_batches": 4
+  },
+  "user_request": "계속 모든 데이터를 얻을때까지 중지하지 말고 진행해.",
+  "at": "2026-10-02 10:27:55"
+}

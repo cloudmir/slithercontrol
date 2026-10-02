@@ -1,0 +1,15 @@
+{
+  "straight_offset": 29.5,
+  "both_sides": true,
+  "disconnected_no_bridge": true,
+  "short_enemy_included": true,
+  "invalid_degenerate_finite": true,
+  "curve_offset_passed": true,
+  "old_methods_preserved": 9,
+  "recorded_command_matches": 20,
+  "dense_enemies": 40,
+  "dense_segments": 4000,
+  "dense_rails": 80,
+  "dense_geometry_average_ms": 26.454917399999978,
+  "scope": "geometry display and replay command equivalence; no new live survival trial"
+}

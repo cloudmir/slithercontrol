@@ -1,0 +1,56 @@
+  // Search directly in pose/time space. A rejected motion never becomes a
+  // guide: its parent remains available to try a different turn or speed.
+  v10Route(s,ver){
+    TURN_FIX=!!this.values.TURN_FIX;
+    const begin=performance.now(),V=this.values,W=this.v10World(s),ph=this.v4Physics(s.sc),root=this.v10Root(s,W,ph);
+    const forecast=W.check;
+    const nearH=1.2;
+    // Current body walls constrain the entire route. Moving-head forecasts
+    // constrain the executable prefix; distant forecasts rank alternatives.
+    const planWorld={...W,check:(a,b,t0,t1,pad)=>forecast(a,b,t0,t1,pad,t1<=nearH)};
+    const threat=s.threat||this.v10Threat(s);
+    const risk=(st,t)=>{let value=0;for(const h of threat.heads){for(const v of [h.v,434]){const a=h.h+clip(h.w,-2,2)*t/2,d=hypot(st.x-h.x-Math.cos(a)*v*t,st.y-h.y-Math.sin(a)*v*t);value=Math.max(value,Math.max(0,1-d/250));}}return value;};
+    const deadline=begin+(V.V10_BUDGET??90),horizon=4.2,stage=.6;
+    const routes=[],food=this.v9FoodGoals(s)[0],old=this.v10Committed;
+    const flatPath=pts=>{const path=[];for(let i=0;i<pts.length;i+=5)path.push({x:pts[i+1],y:pts[i+2]});return path;};
+    const result=reason=>({algo:'v10',ver,t0:s.t,routes,certified:routes.length>0,reason,ms:performance.now()-begin,expanded,map:{radius:W.obs,cell:0},walls:W.walls});
+    let expanded=0;
+    if(!root.ok)return result('prefix_collision');
+    // Retain a still traversable plan, but always search alternatives too.
+    if(old&&s.t>=old.t0&&s.t-old.t0<2&&hypot(old.goal[0]-s.x,old.goal[1]-s.y)>180){
+      const r=this.v10Follow(s,planWorld,ph,root,old,Math.min(deadline,begin+15));
+      if(r.ok)routes.push({...old,t0:s.t,pts:r.pts,actions:r.actions,duration:r.duration,clear:r.clear});
+    }
+    let beam=[{st:root.st,t:root.t,pts:root.pts,actions:[],clear:root.clear,length:0,turn:0,family:0}];
+    const complete=[];
+    for(let depth=0;depth<7&&beam.length;depth++){
+      const next=[];
+      for(const n of beam){
+        const angles=depth===0?Array.from({length:16},(_,i)=>s.ang+i*TAU/16):[n.st.h,n.st.h-.7,n.st.h+.7];
+        for(const angle of angles){
+          if(performance.now()>deadline)break;
+          const r=this.v9Roll(s,planWorld,ph,n.st,0,stage,n.t,angle,false);expanded++;if(!r.ok)continue;
+          const distance=hypot(r.st.x-s.x,r.st.y-s.y),length=n.length+hypot(r.st.x-n.st.x,r.st.y-n.st.y),clear=Math.min(n.clear,r.clear),turn=n.turn+Math.abs(wrap(r.st.h-n.st.h));
+          // Prefer progress into open space; food only ranks traversable paths.
+          const gain=food?food.d-hypot(r.st.x-food.x,r.st.y-food.y):0;
+          const score=distance+.25*Math.min(100,clear)-turn*15+gain*.12-risk(r.st,r.t)*400;
+          const q={...r,pts:[...n.pts,...r.pts],actions:[...n.actions,{start:n.t,end:r.t,target:angle,boost:false}],length,clear,turn,score,family:depth===0?Math.round(wrap(angle-s.ang)/(.5)):n.family};
+          next.push(q);
+          if(r.t-root.t>=horizon-.01&&distance>Math.min(500,ph.cs*2.1))complete.push(q);
+        }
+      }
+      // Keep spatially distinct headings, not many copies of the same route.
+      next.sort((a,b)=>b.score-a.score);const seen=new Set(),families=new Map();beam=[];
+      for(const q of next){const key=[Math.round((q.st.x-s.x)/80),Math.round((q.st.y-s.y)/80),Math.round(wrap(q.st.h)/.5)].join(',');if(seen.has(key)||(families.get(q.family)||0)>=2)continue;seen.add(key);families.set(q.family,(families.get(q.family)||0)+1);beam.push(q);if(beam.length>=18)break;}
+    }
+    complete.sort((a,b)=>b.score-a.score);
+    for(const q of complete){
+      const angle=Math.atan2(q.st.y-s.y,q.st.x-s.x);
+      if(routes.some(r=>Math.abs(wrap(Math.atan2(r.goal[1]-s.y,r.goal[0]-s.x)-angle))<.6))continue;
+      const path=flatPath(q.pts),guide={path,goal:[q.st.x,q.st.y],length:q.length,kind:'escape',angle,useBoost:false,lookScale:1};
+      routes.push({...guide,id:`${ver}:${routes.length}`,t0:s.t,certified:true,geometryOnly:false,validation:"static_full_dynamic_prefix",dynamicH:nearH,score:q.score,pts:q.pts,actions:q.actions,duration:q.t,clear:q.clear});
+      if(routes.length>=(V.V9_ROUTES??3))break;
+    }
+    this.v10Committed=routes[0]||null;
+    return result(routes.length?'continuation':performance.now()>deadline?'budget':'no_drivable_route');
+  }

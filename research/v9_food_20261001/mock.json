@@ -1,0 +1,9 @@
+{
+  "version": "1001-53d17b0e",
+  "workerFoodPath": true,
+  "workerBoost": true,
+  "switchOffStopsBoost": true,
+  "rangeChangesTarget": true,
+  "controlsAndPersistence": true,
+  "errors": []
+}

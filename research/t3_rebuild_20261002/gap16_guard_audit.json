@@ -1,0 +1,111 @@
+[
+  {
+    "game": 1,
+    "target_ticks": 293,
+    "near40_ticks": 0,
+    "near_guard_changed": 0,
+    "near_phase": {},
+    "near_reasons": {},
+    "within8px_goal_ticks": 0,
+    "within8px_goal_guard": 0,
+    "within8px_goal_heading_under15": 0,
+    "min_gap": 78.27315116235505,
+    "min_set": 16
+  },
+  {
+    "game": 2,
+    "target_ticks": 332,
+    "near40_ticks": 0,
+    "near_guard_changed": 0,
+    "near_phase": {},
+    "near_reasons": {},
+    "within8px_goal_ticks": 0,
+    "within8px_goal_guard": 0,
+    "within8px_goal_heading_under15": 0,
+    "min_gap": 264.77621727520466,
+    "min_set": 16
+  },
+  {
+    "game": 3,
+    "target_ticks": 552,
+    "near40_ticks": 71,
+    "near_guard_changed": 14,
+    "near_phase": {
+      "align": 71
+    },
+    "near_reasons": {
+      "curve": 36,
+      "entry_no_safe_turn": 4,
+      "head_interference": 31
+    },
+    "within8px_goal_ticks": 33,
+    "within8px_goal_guard": 8,
+    "within8px_goal_heading_under15": 31,
+    "min_gap": 16.88854202363456,
+    "min_set": 16
+  },
+  {
+    "game": 4,
+    "target_ticks": 960,
+    "near40_ticks": 66,
+    "near_guard_changed": 25,
+    "near_phase": {
+      "align": 66
+    },
+    "near_reasons": {
+      "entry_collision_turn": 20,
+      "head_interference": 24,
+      "curve": 22
+    },
+    "within8px_goal_ticks": 33,
+    "within8px_goal_guard": 9,
+    "within8px_goal_heading_under15": 32,
+    "min_gap": 19.297544451472778,
+    "min_set": 16
+  },
+  {
+    "game": 5,
+    "target_ticks": 778,
+    "near40_ticks": 156,
+    "near_guard_changed": 37,
+    "near_phase": {
+      "align": 156
+    },
+    "near_reasons": {
+      "curve": 72,
+      "entry_collision_turn": 13,
+      "clean": 11,
+      "entry_no_safe_turn": 9,
+      "head_interference": 51
+    },
+    "within8px_goal_ticks": 110,
+    "within8px_goal_guard": 21,
+    "within8px_goal_heading_under15": 102,
+    "min_gap": -2.7875211560379647,
+    "min_set": 16
+  },
+  {
+    "game": 6,
+    "target_ticks": 2011,
+    "near40_ticks": 1005,
+    "near_guard_changed": 159,
+    "near_phase": {
+      "align": 584,
+      "follow": 421
+    },
+    "near_reasons": {
+      "curve": 358,
+      "align": 35,
+      "clean": 443,
+      "entry_collision_turn": 31,
+      "entry_no_safe_turn": 12,
+      "head_interference": 121,
+      "body_interference": 5
+    },
+    "within8px_goal_ticks": 827,
+    "within8px_goal_guard": 53,
+    "within8px_goal_heading_under15": 822,
+    "min_gap": -11.031299348530027,
+    "min_set": 7
+  }
+]

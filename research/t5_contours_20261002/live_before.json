@@ -1,0 +1,10 @@
+[
+  {
+    "url": "http://slither.com/io",
+    "version": "1002-317482f8",
+    "playing": false,
+    "bot": false,
+    "preset": "t4_close",
+    "T4_GAP": -5
+  }
+]

@@ -1,0 +1,35 @@
+{
+  "at": "2026-09-24 13:01:49",
+  "ctrl": "staged_coil",
+  "nick": "liilllilillililillli",
+  "status": "finished",
+  "games": 1,
+  "cap_s": 600.0,
+  "day_limit": 5,
+  "authorization": "decision-staged-live-20260924",
+  "browser_executable": "/home/datawave/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome",
+  "decision_period_s": 0.06666666666666667,
+  "latency_assumption_s": 0.1,
+  "server_latency_measured": false,
+  "pending_commands_known": false,
+  "hashes": {
+    "live_staged.py": "858c317397da88bef0a96080e5f20ad7cd436946fc3d563f871bf6d1208a7711",
+    "staged.py": "f4283060b792f66e746da412023b92f2906f4a2909962a59cefb7eb07b81c361",
+    "brain.py": "2b7b2697840d03e55a6158679ef423fc63c7ef474ba2b70f50d04b80cff1c6b9",
+    "geometry.py": "2ac04f03341599edaa90c7a4273519baf497a2984df2dff5b47e7b7be1a9ee68",
+    "live.py": "a5952e9059f0f141153b07ddf55c353e98f2aa4eb5ba72596641689d5c9e58ab",
+    "live_active.py": "4531311ddf74238d8441bc0a2561baf23cfa6c7ee5ef53ae266781c67e41328a"
+  },
+  "reason": "death",
+  "seconds": 102.9,
+  "alive_at_last_observation": false,
+  "L_max": 598,
+  "L_last": 598,
+  "best_rank": 68,
+  "decisions": 885,
+  "mode_counts": {
+    "forage": 810,
+    "escape": 74
+  },
+  "decision_ms_p95": 25.5
+}

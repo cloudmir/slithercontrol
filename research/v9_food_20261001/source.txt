@@ -1,0 +1,341 @@
+V9 food navigation source and local verification — 2026-10-01
+
+Build 1001-53d17b0e
+
+{
+  "ext/pilot.js": "6e66f409110712e1e8d1cd411451d63e05b897400f0bb8bb1de9ee4b06d091f0",
+  "ext/mod.js": "fd181c31714ff3fa1ad6b21248c277a785b3c137fb906291c70c29add9eff211",
+  "params.json": "4e02e3cbea7eb0b59ba6237ab6ba37124afdb80822b79171699c4239ca549eed",
+  "ext/params.js": "122f2fb3b11234cf0908dab17bceac4f718d3f3202ea3a055fc3a69deba9c682",
+  "ext/manifest.json": "e681a8fe0c1580a0baa0ca2cd182be2c2daea677127c54e7f1076eccc28a9120"
+}
+
+## drive_food.json
+
+{
+  "off": {
+    "eaten": 4,
+    "boostTicks": 0,
+    "time": 3.2800000000000002,
+    "minGap": 46
+  },
+  "on": {
+    "eaten": 4,
+    "boostTicks": 31,
+    "time": 1.76,
+    "minGap": 46
+  }
+}
+
+## drive_escape.json
+
+{
+  "corridor": {
+    "safe": true,
+    "escaped": true,
+    "distance": 907.4893500004546,
+    "elapsed": 4.72,
+    "minGap": 6,
+    "routeTicks": 119
+  },
+  "frontWall": {
+    "safe": true,
+    "escaped": true,
+    "distance": 901.1274948026683,
+    "elapsed": 5.4,
+    "minGap": 51.527252234594926,
+    "routeTicks": 136
+  },
+  "uTurn": {
+    "safe": true,
+    "escaped": true,
+    "distance": 905.5866351187944,
+    "elapsed": 6.24,
+    "minGap": 10.18461205065978,
+    "routeTicks": 157
+  }
+}
+
+## mock.json
+
+{
+  "version": "1001-53d17b0e",
+  "workerFoodPath": true,
+  "workerBoost": true,
+  "switchOffStopsBoost": true,
+  "rangeChangesTarget": true,
+  "controlsAndPersistence": true,
+  "errors": []
+}
+
+## windows_applied.json
+
+{
+  "applied": true,
+  "version": "1001-53d17b0e",
+  "existingSettingsPreserved": true,
+  "activePreset": "v8_exact",
+  "newPresetAvailable": true,
+  "playing": false
+}
+
+## edge_cases.json
+
+{
+  "corridor100": {
+    "routes": 0,
+    "reason": "latency_blocked",
+    "ms": 2.3215319999999977
+  },
+  "corridor120": {
+    "routes": 1,
+    "reason": "observed_exit",
+    "ms": 23.009118
+  },
+  "staleRemoved": true,
+  "newWallsInvalidateAll": true,
+  "sweptCrossingRejected": true,
+  "futureTrailRejected": true,
+  "rebasedFromCurrentHead": true,
+  "earlierAlgorithmsUnchanged": true
+}
+
+## V9 parameters
+
+{
+  "V9_ON": 0,
+  "V9_OBS": 1200,
+  "V9_EDGE": 900,
+  "V9_H": 8,
+  "V9_MARGIN": 5,
+  "V9_ROUTES": 3,
+  "V9_BUDGET": 100,
+  "V9_PLAN_MS": 300,
+  "V9_ROUTE_AGE": 0.65,
+  "V9_HEAD_PAD": 20,
+  "V9_FOOD_W": 2,
+  "V9_FOOD_R": 3000,
+  "V9_BOOST_ON": 1,
+  "V9_CENTER_W": 2,
+  "V9_REMAINS_MIN": 12,
+  "V9_HEAP_SIZE": 160,
+  "V9_BOOST_MIN_MASS": 48,
+  "V9_BOOST_MIN_DIST": 180,
+  "V9_TARGET_HOLD": 1.2
+}
+
+## ext/pilot.js v9FoodGoals through v9Step
+
+  v9FoodGoals(s) {
+    const V = this.values, bins = new Map(), cell = V.V9_HEAP_SIZE ?? 160;
+    if (!(V.V9_FOOD_W ?? 2)) { this.v9FoodTarget = null; return []; }
+    for (let i = 0; i + 2 < (s.food || []).length; i += 3) {
+      const [x,y,m] = s.food.slice(i,i+3), d = hypot(x-s.x,y-s.y);
+      if (![x,y,m].every(Number.isFinite) || m < (V.V9_REMAINS_MIN ?? 12) || d > (V.V9_FOOD_R ?? 3000) || d < R*s.sc*.6) continue;
+      const key = Math.floor(x/cell)+','+Math.floor(y/cell);
+      if (!bins.has(key)) bins.set(key,{mass:0,points:[],sx:0,sy:0});
+      const g=bins.get(key);g.mass+=m;g.sx+=x*m;g.sy+=y*m;g.points.push([x,y]);
+    }
+    const goals = [...bins.values()].map(g=>{
+      const cx=g.sx/g.mass,cy=g.sy/g.mass;
+      // Target a real pellet, not a centroid that could lie inside an enemy wall.
+      g.points.sort((a,b)=>hypot(a[0]-cx,a[1]-cy)-hypot(b[0]-cx,b[1]-cy));
+      const [x,y]=g.points[0],d=hypot(x-s.x,y-s.y);
+      return {x,y,mass:g.mass,d,score:g.mass/(d+180)};
+    }).sort((a,b)=>b.score-a.score);
+    const prev=this.v9FoodTarget, old=prev && goals.find(g=>hypot(g.x-prev.x,g.y-prev.y)<cell*.8);
+    if(old && s.t-prev.since<(V.V9_TARGET_HOLD ?? 1.2) && goals[0].score<old.score*1.5) {
+      goals.splice(goals.indexOf(old),1);goals.unshift(old);old.since=prev.since;
+    }
+    if(goals.length) { goals[0].since ??= s.t;this.v9FoodTarget=goals[0]; } else this.v9FoodTarget=null;
+    return goals;
+  }
+  v9Route(s, ver) {
+    TURN_FIX = !!this.values.TURN_FIX;
+    const V = this.values, now = () => performance.now(), started = now(), budget = V.V9_BUDGET ?? 90;
+    const W = this.v9World(s), ph = this.v4Physics(s.sc), root = this.v9Root(s, W, ph), edge = Math.min(V.V9_EDGE ?? 900, W.obs - 80);
+    const foodGoals = this.v9FoodGoals(s), foodTarget = foodGoals[0] || null;
+    const routes = [], C = 32, N = 2 * Math.ceil(W.obs / C) + 1, ox = s.x - (N >> 1) * C, oy = s.y - (N >> 1) * C;
+    const grid = new Uint8Array(N * N), xy = i => ({x: ox + (i % N) * C, y: oy + Math.floor(i / N) * C});
+    const idx = (x, y) => { const i = Math.round((x - ox) / C), j = Math.round((y - oy) / C); return i < 0 || j < 0 || i >= N || j >= N ? -1 : j * N + i; };
+    const result = (reason, expanded = 0) => ({algo: 'v9', ver, t0: s.t, routes, reason, foodTarget, certified: routes.length ? 1 : 0,
+      // Map belongs to this observation, never accumulated stale moving bodies.
+      map: {ox, oy, cell: C, n: N, blocked: Array.from(grid)}, expanded, ms: now() - started});
+    if (!root.ok) return result('latency_blocked');
+    // Cell centres are for topology/heuristics only. Swept capsules below are
+    // authoritative, including all segments between the displayed path points.
+    for (let i = 0; i < grid.length; i++) {
+      const q = xy(i); grid[i] = W.check(q, q, 0, 0, 0, false) < 0 ? 1 : 0;
+      if ((i & 127) === 0 && now() - started > budget) return result('map_budget');
+    }
+    const neighbors = i => { const out = [], x = i % N, y = Math.floor(i / N);
+      for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
+        if ((!dx && !dy) || x + dx < 0 || x + dx >= N || y + dy < 0 || y + dy >= N) continue;
+        const j = i + dx + dy * N; if (grid[j] || (dx && dy && (grid[i + dx] || grid[i + dy * N]))) continue; out.push(j);
+      } return out;
+    };
+    const startCell = idx(root.st.x, root.st.y); if (startCell < 0) return result('outside');
+    // The rounded cell centre can be blocked while the exact root is free;
+    // swept rollout validation decides whether the snake can leave the root.
+    grid[startCell] = 0;
+    const sector = q => (Math.floor((wrap(Math.atan2(q.y - s.y, q.x - s.x) - s.ang) + Math.PI / 8 + TAU) / (Math.PI / 4)) % 8);
+    const goals = Array.from({length: 8}, () => []), distance = new Int32Array(grid.length).fill(-1), queue = [startCell]; distance[startCell] = 0;
+    for (let qi = 0; qi < queue.length; qi++) {
+      const i = queue[qi], q = xy(i), radial = hypot(q.x - s.x, q.y - s.y);
+      if (radial >= edge && radial <= edge + C * 1.5) goals[sector(q)].push(i);
+      for (const j of neighbors(i)) if (distance[j] < 0) { distance[j] = distance[i] + 1; queue.push(j); }
+    }
+    const centerDistance=hypot(s.x-s.wall[0],s.y-s.wall[1]);
+    const preference = q => {
+      const food = foodTarget ? (foodTarget.d-hypot(q.x-foodTarget.x,q.y-foodTarget.y))/edge : 0;
+      const center = (centerDistance-hypot(q.x-s.wall[0],q.y-s.wall[1]))/edge * clip((centerDistance-2000)/2000,0,1);
+      return (V.V9_FOOD_W ?? 2)*food*20+(V.V9_CENTER_W ?? 2)*center*8;
+    };
+    const order = goals.map((g,k)=>({k,cells:g,kind:'escape',d:g.length?Math.min(...g.map(i=>distance[i]))+Math.min(k,8-k)*2-Math.max(...g.map(i=>preference(xy(i)))):Infinity}))
+      .filter(g=>Number.isFinite(g.d)).sort((a,b)=>a.d-b.d);
+    // Food within the observed map gets an exact target; distant food biases
+    // reachable exits only. Never certify the unobserved leg to distant food.
+    const foodJobs=[];
+    for(const target of foodGoals.slice(0,3)) {
+      if(target.d>W.obs-80) continue;
+      const cells=queue.filter(i=>hypot(xy(i).x-target.x,xy(i).y-target.y)<48);
+      if(cells.length) foodJobs.push({kind:'food',target,cells,k:-1,d:-100});
+    }
+    order.unshift(...foodJobs.slice(0,1));
+    if (!order.length) return result('closed_or_narrow');
+    let expanded = 0;
+    const maxRoutes = Math.round(V.V9_ROUTES ?? 3), H = V.V9_H ?? 8;
+    for (const goal of order) {
+      if (routes.length >= maxRoutes || now() - started > budget) break;
+      const dist = new Int32Array(grid.length).fill(-1), q = [...goal.cells]; for (const i of q) dist[i] = 0;
+      for (let qi = 0; qi < q.length; qi++) for (const j of neighbors(q[qi])) if (dist[j] < 0) { dist[j] = dist[q[qi]] + 1; q.push(j); }
+      const deadline = Math.min(started + budget, now() + Math.max(10, (started + budget - now()) / Math.max(1, maxRoutes - routes.length)));
+      const heap = [], seen = new Map();
+      const push = n => { heap.push(n); let i = heap.length - 1; while (i) { const p = (i - 1) >> 1; if (heap[p].f <= n.f) break; heap[i] = heap[p]; i = p; } heap[i] = n; };
+      const pop = () => { const n = heap[0], last = heap.pop(); if (heap.length) { let i = 0; while (2 * i + 1 < heap.length) { let c = 2 * i + 1; if (c + 1 < heap.length && heap[c + 1].f < heap[c].f) c++; if (heap[c].f >= last.f) break; heap[i] = heap[c]; i = c; } heap[i] = last; } return n; };
+      const key = n => [Math.round(n.st.x / 20), Math.round(n.st.y / 20), Math.round(wrap(n.st.h) / (TAU / 32)), Math.round(n.st.v / 30), Math.floor(n.t / .7)].join(',');
+      push({st: root.st, t: root.t, parent: null, part: root.pts, action: null, f: 0, turnCost: 0, clear: root.clear});
+      let found = null, count = 0;
+      // Seed straightforward goals with the same swept physical model. This
+      // avoids exhausting search time on equivalent states in an open field.
+      const aim=goal.target || xy(goal.cells.reduce((best,i)=>{
+        const q=xy(i),b=xy(best),angle=s.ang+goal.k*Math.PI/4;
+        return Math.abs(wrap(Math.atan2(q.y-s.y,q.x-s.x)-angle))<Math.abs(wrap(Math.atan2(b.y-s.y,b.x-s.x)-angle))?i:best;
+      },goal.cells[0]));
+      for(const allowBoost of V.V9_BOOST_ON && (goal.target || foodTarget)?[true,false]:[false]) {
+        if(found) break;
+        let n={st:root.st,t:root.t,parent:null,part:root.pts,action:null,clear:root.clear};
+        for(let k=0;k<100 && n.t<H;k++) {
+          const d=hypot(n.st.x-aim.x,n.st.y-aim.y),target=Math.atan2(aim.y-n.st.y,aim.x-n.st.x);
+          const reached=goal.kind==='food'?d<=Math.max(20,W.ro*.8):hypot(n.st.x-s.x,n.st.y-s.y)>=edge && sector(n.st)===goal.k;
+          if(reached) {
+            const tail=goal.kind==='food'?this.v9Roll(s,W,ph,n.st,0,.6,n.t,n.st.h,false):null;
+            if(!tail || tail.ok) found=tail?{st:tail.st,t:tail.t,parent:n,part:tail.pts,action:{start:n.t,end:tail.t,target:n.st.h,turn:0,boost:false},clear:Math.min(n.clear,tail.clear)}:n;
+            break;
+          }
+          const f=goal.target || foodTarget,fd=f?hypot(f.x-n.st.x,f.y-n.st.y):0;
+          const boost=!!(allowBoost && f && f.mass>=(V.V9_BOOST_MIN_MASS ?? 48) && fd>=(V.V9_BOOST_MIN_DIST ?? 180) && Math.abs(wrap(target-n.st.h))<rad(65) && Math.abs(wrap(Math.atan2(f.y-n.st.y,f.x-n.st.x)-n.st.h))<rad(65));
+          const duration=Math.min(.28,H-n.t,Math.max(.04,(d-W.ro*.5)/Math.max(ph.cs,n.st.v)));
+          const r=this.v9Roll(s,W,ph,n.st,0,duration,n.t,target,boost);if(!r.ok) break;
+          n={st:r.st,t:r.t,parent:n,part:r.pts,action:{start:n.t,end:r.t,target,turn:0,boost},clear:Math.min(n.clear,r.clear)};
+        }
+      }
+      while (!found && heap.length && count++ < 5000) {
+        if ((count & 15) === 0 && now() > deadline) break;
+        const n = pop(); expanded++;
+        const reached = goal.kind==='food' ? hypot(n.st.x-goal.target.x,n.st.y-goal.target.y)<=Math.max(20,W.ro*.8) : hypot(n.st.x-s.x,n.st.y-s.y)>=edge && sector(n.st)===goal.k;
+        if (reached) {
+          // Keep a checked coast after a food pickup; do not end on a pellet
+          // with an untested wall immediately beyond it.
+          const tail=goal.kind==='food'?this.v9Roll(s,W,ph,n.st,0,.6,n.t,n.st.h,false):null;
+          if(!tail || tail.ok) { found=tail?{st:tail.st,t:tail.t,parent:n,part:tail.pts,action:{start:n.t,end:tail.t,target:n.st.h,turn:0,boost:false},clear:Math.min(n.clear,tail.clear)}:n;break; }
+        }
+        if (n.t + .28 > H) continue;
+        const targetFood=goal.target || foodTarget, fd=targetFood?hypot(targetFood.x-n.st.x,targetFood.y-n.st.y):0;
+        const wantsBoost=!!V.V9_BOOST_ON && targetFood && targetFood.mass>=(V.V9_BOOST_MIN_MASS ?? 48) && fd>=(V.V9_BOOST_MIN_DIST ?? 180) && Math.abs(wrap(Math.atan2(targetFood.y-n.st.y,targetFood.x-n.st.x)-n.st.h))<rad(65);
+        for (const boost of wantsBoost?[true,false]:[false]) for (const turn of [0, -.5, .5, -1, 1]) {
+          const target = n.st.h + turn * ph.w * .28;
+          const r = this.v9Roll(s, W, ph, n.st, turn, .28, n.t, target, boost); if (!r.ok) continue;
+          const cell = idx(r.st.x, r.st.y); if (cell < 0 || dist[cell] < 0) continue;
+          const child = {st: r.st, t: r.t, parent: n, part: r.pts, action: {start: n.t, end: r.t, turn, target, boost}, turnCost: n.turnCost + Math.abs(turn) * .08, clear: Math.min(n.clear, r.clear)};
+          const cost = r.t + child.turnCost + (H - Math.min(H, r.clear / 30)) * .01, k = key(child); if ((seen.get(k) ?? Infinity) <= cost) continue;
+          seen.set(k, cost); child.f = cost + dist[cell] * C / ph.cs * 1.4; push(child);
+        }
+      }
+      if (found) {
+        const nodes = []; for (let n = found; n; n = n.parent) nodes.push(n); nodes.reverse();
+        const pts = nodes.flatMap(n => n.part), actions = nodes.map(n => n.action).filter(Boolean);
+        // Different exit sectors; reject almost identical exits near a sector seam.
+        const endAngle = Math.atan2(found.st.y - s.y, found.st.x - s.x);
+        if (goal.kind==='food' || !routes.some(r => r.kind!=='food' && Math.abs(wrap(r.angle - endAngle)) < rad(25))) routes.push({pts, actions, kind:goal.kind, target:goal.target || foodTarget, angle: endAngle, clear: found.clear, duration: found.t, goal: [found.st.x, found.st.y]});
+      }
+    }
+    return result(routes.length ? 'observed_exit' : (now() - started >= budget ? 'search_budget' : 'no_drivable_route'), expanded);
+  }
+  v9Step(s) {
+    TURN_FIX = !!this.values.TURN_FIX;
+    const started = performance.now(), V = this.values, W = this.v9World(s), ph = this.v4Physics(s.sc), root = this.v9Root(s, W, ph);
+    const source = s.route?.algo === 'v9' ? s.route : null, age = source ? s.t - source.t0 : Infinity, valid = [];
+    const foods=this.v9FoodGoals(s), target=foods[0] || null;
+    const hasFood=t=>t && foods.some(f=>hypot(f.x-t.x,f.y-t.y)<(V.V9_HEAP_SIZE ?? 160));
+    let reason = !source ? 'none' : age < 0 || age > (V.V9_ROUTE_AGE ?? .65) ? 'old' : source.reason;
+    if (root.ok && source && age >= 0 && age <= (V.V9_ROUTE_AGE ?? .65)) for (const route of source.routes || []) {
+      if (route.kind==='food' && !hasFood(route.target)) continue;
+      if (route.actions.some(a=>a.boost) && (!V.V9_BOOST_ON || !hasFood(route.target))) continue;
+      let st = root.st, t = root.t, pts = [...root.pts], controls = [], clear = root.clear, ok = true;
+      // Rebase every candidate to the current head/heading/speed and recheck its
+      // ENTIRE remaining route on the fresh map, rather than snapping to old lines.
+      for (const a of route.actions) {
+        const until = a.end - age; if (until <= t + 1e-8) continue;
+        const r = this.v9Roll(s, W, ph, st, a.turn, until - t, t, a.target, !!a.boost);
+        controls.push({start: t, end: until, target: a.target, boost:!!a.boost});
+        if (!r.ok) { ok = false; break; } pts.push(...r.pts); st = r.st; t = r.t; clear = Math.min(clear, r.clear);
+      }
+      const radial = hypot(st.x - s.x, st.y - s.y), edge = Math.min(V.V9_EDGE ?? 900, W.obs - 80);
+      let foodReached=false;
+      if(route.kind==='food') for(let i=0;i<pts.length;i+=5) if(hypot(pts[i+1]-route.target.x,pts[i+2]-route.target.y)<=Math.max(24,W.ro)) {foodReached=true;break;}
+      if (ok && (route.kind==='food' ? foodReached : radial >= edge - ph.cs * (V.V9_ROUTE_AGE ?? .65)) && t > root.t + .1) valid.push({pts, controls, clear, end: st, duration: t, kind:route.kind || 'escape', target:route.target});
+    }
+    if (source?.routes?.length && !valid.length && reason !== 'old') reason = 'changed';
+    const score = r => {
+      let progress=0;
+      if(target) { let closest=target.d;for(let i=0;i<r.pts.length;i+=5) closest=Math.min(closest,hypot(r.pts[i+1]-target.x,r.pts[i+2]-target.y));progress=(target.d-closest)/Math.max(180,target.d); }
+      const centerD=hypot(s.x-s.wall[0],s.y-s.wall[1]),center=(centerD-hypot(r.end.x-s.wall[0],r.end.y-s.wall[1]))/Math.max(300,V.V9_EDGE ?? 900)*clip((centerD-2000)/2000,0,1);
+      return (V.V9_FOOD_W ?? 2)*progress*10+(V.V9_CENTER_W ?? 2)*center - (target ? r.duration*.08 : 0);
+    };
+    valid.sort((a,b)=>score(b)-score(a));
+    let selected = valid[0], unsafe = false;
+    if (!selected) {
+      let best = null;
+      // No full exit: only short collision-checked motion, never drawn as an exit.
+      for (const turn of [0, -.5, .5, -1, 1]) {
+        const target = root.st.h + turn * ph.w;
+        const r = root.ok ? this.v9Roll(s, W, ph, root.st, turn, 1, root.t, target) : root;
+        const score = r.t * 1000 + Math.min(r.clear, 100) - Math.abs(turn) * 2;
+        if (!best || score > best.score) best = {...r, score, target};
+      }
+      selected = {pts: root.ok ? [...root.pts, ...best.pts] : root.pts, controls: [{start: root.t, end: best.t, target: best.target}], clear: best.clear}; unsafe = !best.ok;
+    }
+    const P = selected.pts, plan = P.length >= 10 ? P : null;
+    let k = 0; if (plan) while (k + 5 < P.length && P[k] < (V.TRACK_LAT ?? .17) + .08) k += 5;
+    const cmd = selected.controls?.[0]?.target ?? (plan ? P[k + 3] : s.ang), flat = p => { const a = []; for (let i = 0; i + 4 < p.length; i += 5) a.push(p[i + 1], p[i + 2]); return a; };
+    const trace = {mode: valid.length ? (selected.kind==='food'?'v9food':target?'v9seek':'v9escape') : unsafe ? 'v9blocked' : 'v9local', boost: !!selected.controls?.[0]?.boost, cmd: r1(deg(cmd)), n_safe: valid.length,
+      cause: reason, v9_routes: valid.length, v9_reason: reason, v9_clear: r1(selected.clear), v9_plan_ms: source?.ms ?? 0,
+      v3_route_match: valid.length ? 1 : 0, v3_cert: valid.length ? 1 : 0, v6_intent: selected.kind==='food'?'food':target?'seek':'escape', v9_goal_x:target?.x, v9_goal_y:target?.y, v9_goal_mass:target?.mass || 0, L: s.L, sc: s.sc};
+    this.last = {trace, mode: trace.mode, plan, controls: selected.controls, draw: {chosen: flat(P), localPath: flat(P.slice(0, 5 * 32)), mazePath: [],
+      v9FoodPath: selected.kind==='food', v9At: s.t, v9Paths: valid.map(r => flat(r.pts)), v9Walls: W.walls, v9Map: source && age <= (V.V9_ROUTE_AGE ?? .65) ? source.map : null,
+      v9Reason: reason, localUnsafe: unsafe, safe: [], near: [], gaps: [], goal: target ? [target.x,target.y] : null, ro: W.ro}};
+    this.prev = cmd; this.prevBoost = trace.boost; return [cmd, trace.boost];
+  }
+
+
+
+## ext/mod.js V9 integration
+
+19:   'ttds', 'ttdh', 'branch', 'cause', 'head_hit', 'head_checked', 'ttddyn', 'dyn_id', 'dyn_kind', 'dyn_gap', 'dyn_heads', 'dyn_excluded', 'emergency', 'em_gap', 'em_unavoidable', 'unknown_at', 'verified_s', 'static_hit', 'boost_reason', 'chg', 'exit_width', 'exit_reach', 'exit_close', 'exit_slack', 'exit_unknown', 'exit_reason', 'v3_ms', 'v3_over', 'v3_full', 'v3_hold', 'v3_leaves', 'v3_eval', 'v3_cert', 'v3_ncert', 'v3_exits', 'v3_risk', 'v3_commit', 'v3_shield', 'v3_root', 'v3_keep', 'v3_local', 'v3_goal', 'v3_goal_age', 'v3_route_match', 'v3_cert_reason', 'pred25', 'herr25', 'trk_age', 'trk_cmd', 'trk_why', 'v6_intent', 'v6_goal_x', 'v6_goal_y', 'v6_reason', 'v7_phase', 'v7_heads', 'v7_radius', 'v7_threshold', 'v7_switched', 'v8_phase', 'v8_heads', 'v8_radius', 'v8_threshold', 'v8_switched', 'v81_on', 'v81_density', 'v81_body_trigger', 'v81_reason', 'v9_routes', 'v9_reason', 'v9_clear', 'v9_plan_ms', 'v9_goal_x', 'v9_goal_y', 'v9_goal_mass']
+139:         draw: {v9FoodPath:d.v9FoodPath, v9At: d.v9At, v9Paths: d.v9Paths, v9Walls: d.v9Walls, v9Map: d.v9Map, v9Reason: d.v9Reason, chosen: d.chosen, mazePath: d.mazePath, localPath: d.localPath, mazeState: d.mazeState, localUnsafe: d.localUnsafe, localAvoiding: d.localAvoiding,
+232:   const hx = s.xx, hy = s.yy, R2 = radius * radius, RF2 = (nine ? Math.max(FOOD_RADIUS,S.values.V9_FOOD_R ?? 3000) : seven ? Math.max(S.values.FOOD_R, S.values.V6_FOOD_R ?? 3000) : six ? (S.values.V6_FOOD_R ?? 3000) : FOOD_RADIUS) ** 2;
+379:       tr.ttds, tr.ttdh, tr.branch, tr.cause, tr.head_hit, tr.head_checked, tr.ttddyn, tr.dyn_id, tr.dyn_kind, tr.dyn_gap, tr.dyn_heads, tr.dyn_excluded, tr.emergency, tr.em_gap, tr.em_unavoidable, tr.unknown_at, tr.verified_s, tr.static_hit, tr.boost_reason, tr.chg, tr.exit_width, tr.exit_reach, tr.exit_close, tr.exit_slack, tr.exit_unknown, tr.exit_reason, tr.v3_ms, tr.v3_over, tr.v3_full, tr.v3_hold, tr.v3_leaves, tr.v3_eval, tr.v3_cert, tr.v3_ncert, tr.v3_exits, tr.v3_risk, tr.v3_commit, tr.v3_shield, tr.v3_root, tr.v3_keep, tr.v3_local, tr.v3_goal, tr.v3_goal_age, tr.v3_route_match, tr.v3_cert_reason, pred25, herr25, plan ? Math.round(sent.planAge * 1000) / 1000 : null, Number.isFinite(sent.ang) ? Math.round(sent.ang * 180 / Math.PI * 10) / 10 : null, sent.why, tr.v6_intent, tr.v6_goal_x, tr.v6_goal_y, tr.v6_reason, tr.v7_phase, tr.v7_heads, tr.v7_radius, tr.v7_threshold, tr.v7_switched, tr.v8_phase, tr.v8_heads, tr.v8_radius, tr.v8_threshold, tr.v8_switched, tr.v81_on, tr.v81_density, tr.v81_body_trigger, tr.v81_reason, tr.v9_routes, tr.v9_reason, tr.v9_clear, tr.v9_plan_ms, tr.v9_goal_x, tr.v9_goal_y, tr.v9_goal_mass]);
+611:     applyCmd(action.target, !!action.boost, 'v9_controls'); return;
+750:         ctx.fillText(candidates.length ? `V9 · ${d.v9FoodPath ? '잔해 경로' : '관측 내 탈출'} ${candidates.length}개` : 'V9 · 탈출 경로 미확보', X(me.xx), Y(me.yy) - 48);
+1284:       ? [sw('V9_FOOD_W', '잔해 추종 가중치', '관측된 큰 먹이를 향하는 경로 선호. 0이면 잔해 목표 끔'), sw('V9_FOOD_R', '잔해 탐색 범위', '보이는 잔해의 목표 탐색 반경 (px). 미로 밖 구간은 접근 방향만 안내'), sw('V9_BOOST_ON', '잔해 적극 부스트', '검사에 통과한 잔해 접근 경로에서 부스트 사용'), sw('V9_CENTER_W', '중앙 이동 가중치', '안전 후보의 맵 중심 접근 선호. 중심 2000px 안에서는 해제. 0이면 끔'), sw('V9_REMAINS_MIN', '잔해 판정 최소 크기', '크기로 사체 먹이를 추정. 기본12; 일반 작은 먹이 제외'), sw('V9_HEAP_SIZE', '잔해 묶음 범위', '가까운 잔해를 하나의 목표로 묶는 범위 (px)'), sw('V9_BOOST_MIN_MASS', '부스트 최소 잔해량', '이 크기 합계 이상인 잔해 묶음에 부스트 허용'), sw('V9_BOOST_MIN_DIST', '부스트 최소 거리', '목표 가까이에서는 부스트를 끄고 감속 (px)'), sw('V9_TARGET_HOLD', '목표 유지 시간', '비슷한 목표 사이의 잦은 전환을 억제. 먹이가 사라지면 즉시 해제'), sw('V9_OBS', '미로 지도 반경', '현재 관측된 몸통을 벽으로 만드는 범위', '🗺'), sw('V9_EDGE', '탈출 목표 거리', '지도 안 탐색 경계까지의 목표. 지도 반경보다 80px 이상 작게 제한', '↗'), sw('V9_MARGIN', '몸통·벽 여유', '내 두께와 적 두께에 더할 여유 (px)', '↔'), sw('V9_ROUTES', '탈출 후보 수', '서로 다른 출구 방향의 통과 검증 경로만 표시', '⑶'), sw('V9_H', '미로 탐색 시간', '실제 회전·속도로 탐색할 최대 시간 (s)', '⏱'), sw('V9_HEAD_PAD', '적 머리 예측 여유', '적의 현재 진행 예측에 더하는 불확실성 여유', '🛡')]

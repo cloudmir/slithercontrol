@@ -1,0 +1,68 @@
+{
+  "code_sha256": "1d5615a4fcc4f51796c7c8975258d9ca942c07a7a74c9eebcdf2db4d3d07583b",
+  "post_selection_clamp": {
+    "obstacle": [
+      280.0,
+      0.0
+    ],
+    "mode": "feed",
+    "boost": true,
+    "checked_heading_deg": 29.999999999999996,
+    "emitted_heading_deg": 2.9999999999999916,
+    "checked_gap": 63.85658264160156,
+    "emitted_gap": -14.5,
+    "emitted_exact_segment_gap": -30.824318202985864,
+    "straight_cruise_safe": true
+  },
+  "coil_emergency_reversal": {
+    "iteration": 8,
+    "segments": [
+      [
+        148.08075876960163,
+        11.590294034085417,
+        50.14608583723792,
+        139.812789503614,
+        17.171969253996174
+      ],
+      [
+        -50.37382747112184,
+        127.23354454442386,
+        -133.0894142913284,
+        -31.82931282669154,
+        21.12294573252841
+      ],
+      [
+        -66.6151018610548,
+        129.31520273985018,
+        -136.43700488079637,
+        50.44737014716242,
+        18.265853420252597
+      ],
+      [
+        129.71289262731338,
+        -74.18762452415224,
+        103.57793770339961,
+        107.70723730275601,
+        17.93485121406421
+      ]
+    ],
+    "command_deg": -75.0,
+    "coil_dir": 1,
+    "selected_hit": 15,
+    "best_allowed_hit": 6,
+    "boost": false
+  },
+  "coil_rollout_mismatch": {
+    "held_command_endpoint": [
+      62.820219159520434,
+      171.95693549590192
+    ],
+    "continued_turn_endpoint": [
+      -24.77170938400254,
+      57.81458083095973
+    ],
+    "endpoint_difference": 143.8778060523272,
+    "note": "Same speed and turn model; continuous full-rate coil after initial LAT, no disturbance."
+  },
+  "outside_field_surface_distance": 1000.0
+}

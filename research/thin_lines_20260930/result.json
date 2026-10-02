@@ -1,0 +1,18 @@
+{
+  "version": "0930-fb9a7ef9",
+  "bothRadiiPx": [
+    350,
+    500
+  ],
+  "centerAndZoomCorrect": true,
+  "independentSwitches": true,
+  "homeShowTabSync": true,
+  "toggleValuesUnchanged": true,
+  "saved": [
+    false,
+    false
+  ],
+  "botAndPathOffStillDraw": true,
+  "errors": [],
+  "algorithmAndParametersUnchanged": true
+}

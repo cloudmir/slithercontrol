@@ -1,0 +1,13 @@
+{
+ "version": "0930-26721c69",
+ "onePerRow": true,
+ "rows": 9,
+ "numericSliders": 9,
+ "sliderWidth": 228,
+ "sliderAndNumberSync": true,
+ "saved": true,
+ "V81Removed": true,
+ "oldV81MigratedToV8": true,
+ "pilotUnchangedFromV8": true,
+ "errors": []
+}

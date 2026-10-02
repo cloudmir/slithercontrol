@@ -1,0 +1,18 @@
+{
+  "corridor100": {
+    "routes": 0,
+    "reason": "latency_blocked",
+    "ms": 2.3215319999999977
+  },
+  "corridor120": {
+    "routes": 1,
+    "reason": "observed_exit",
+    "ms": 23.009118
+  },
+  "staleRemoved": true,
+  "newWallsInvalidateAll": true,
+  "sweptCrossingRejected": true,
+  "futureTrailRejected": true,
+  "rebasedFromCurrentHead": true,
+  "earlierAlgorithmsUnchanged": true
+}

@@ -1,0 +1,17 @@
+{
+  "build": "1001-e3606de6",
+  "hashes": {
+    "ext/pilot.js": "b75a2a04e59b7f49871ae1553091ad422dd0ee8d5c1d12061ec7658ef5e805da",
+    "ext/mod.js": "6500e8a9804f3fc8654d8b711ae6fcb22baba6685e4f68fa916a883b1312b860",
+    "params.json": "9aeaae724d77a8b3f6f7dfe2be2ff4a64c50d3f0276f891c5386bd24fc548378",
+    "ext/params.js": "0ff0bc922f7efef8795c9af79e40dbce5ca48c25a1358689a5b71ac676f6f00b",
+    "ext/manifest.json": "d42c80383f09a93d8bdb796d8bf1c7ea052b170663d73930f3124062bbb12e76"
+  },
+  "scope": "V10 controls, food-risk route evaluation, per-route risk overlay. No new live game. Prior game analysis remains stopped.",
+  "test_scope": {
+    "check": "8 functional checks; route budget 150 ms, local default 12 ms",
+    "regression": "11 functional regressions; map budget 500 ms/local override 100 ms to separate clock deadlines from path correctness. Earlier 150 ms/12 ms runs hit budget. Does not certify default-budget performance.",
+    "mock": "real Chromium, 3 Workers, default map 90 ms and local 12 ms; synthetic world; slider set to 75 then reload."
+  },
+  "default_risk": 0
+}

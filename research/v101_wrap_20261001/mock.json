@@ -1,0 +1,13 @@
+{
+  "workerWrapCommand": "v10replan",
+  "coverage": 0.6666666666666666,
+  "noCrowdTrigger": true,
+  "uiToggleWorks": true,
+  "offMode": "unwrap",
+  "returnToFood": true,
+  "togglePersisted": true,
+  "onlyTwoVersionButtons": true,
+  "V8SelectionPreserved": true,
+  "errors": [],
+  "scope": "local mock with real Workers; no live game"
+}

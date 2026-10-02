@@ -1,0 +1,15 @@
+{
+  "applied": true,
+  "version": "1001-3cf85fbe",
+  "existingSettingsPreserved": false,
+  "activePreset": "v10_layered",
+  "newPresetAvailable": true,
+  "playing": false,
+  "intentionalChanges": {
+    "TRACK_LAT": {
+      "before": 0.17,
+      "after": 0.06
+    }
+  },
+  "otherSettingsPreserved": true
+}

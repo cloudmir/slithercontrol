@@ -1,0 +1,6 @@
+{
+  "deathCandidateRequiresCleanFollow": true,
+  "fastApproachExcluded": true,
+  "capNotDeath": true,
+  "syntheticFixtureOnly": true
+}

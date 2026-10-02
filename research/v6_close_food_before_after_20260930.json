@@ -1,0 +1,26 @@
+[
+ {
+  "file": "research/v6_remains_before_20260930/pilot.js",
+  "intent": "food",
+  "goal": {
+   "x": 30072,
+   "y": 30024,
+   "kind": "food"
+  },
+  "local_end_dx": 201.2887045068819,
+  "local_end_dy": 105.30976824509344,
+  "cmd": 5.6
+ },
+ {
+  "file": "ext/pilot.js",
+  "intent": "food",
+  "goal": {
+   "x": 30072,
+   "y": 30024,
+   "kind": "food"
+  },
+  "local_end_dx": 201.2887045068819,
+  "local_end_dy": 105.30976824509344,
+  "cmd": 5.6
+ }
+]

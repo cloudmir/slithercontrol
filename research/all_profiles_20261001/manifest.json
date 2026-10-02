@@ -1,0 +1,11 @@
+{
+  "build": "1001-641f8e58",
+  "hashes": {
+    "ext/mod.js": "68f02a5e8eac46c4e2f77e2b7764fbd98d4d50ea372be5007504e3f4eee4154f",
+    "ext/pilot.js": "fc521c49f42e7e9dadafbdcccb3c05e0f2245311b556bc8fdb6dd6371a36c0f4",
+    "ext/params.js": "1e5bbc324228dd04220f8864b8c83221496960fd3f5532e63a4fc073bbf62b4a",
+    "ext/manifest.json": "f45a7156ff4e93d04a7b2b0d4db57d071b605c3b52268bda2090b63705a3bbc2",
+    "params.json": "98b757bc70c65662793e2709f8ddc2205166acc75c20004d60dcc036f16a7af1"
+  },
+  "concurrentVA1ChangesPreserved": true
+}

@@ -1,0 +1,82 @@
+{
+  "gap_sc1_off0": {
+    "safe": true,
+    "escaped": true,
+    "distance": 1462.0436673682307,
+    "elapsed": 3.6,
+    "minGap": 4,
+    "boostTicks": 91
+  },
+  "gap_sc1_off2": {
+    "safe": true,
+    "escaped": true,
+    "distance": 1462.0436673682307,
+    "elapsed": 3.6,
+    "minGap": 2,
+    "boostTicks": 91
+  },
+  "gap_sc2_off0": {
+    "safe": true,
+    "escaped": true,
+    "distance": 1467.0842999998058,
+    "elapsed": 3.6,
+    "minGap": 4,
+    "boostTicks": 91
+  },
+  "gap_sc2_off2": {
+    "safe": true,
+    "escaped": true,
+    "distance": 1467.0842999998058,
+    "elapsed": 3.6,
+    "minGap": 2,
+    "boostTicks": 91
+  },
+  "gap_sc3.5_off0": {
+    "safe": true,
+    "escaped": true,
+    "distance": 1458.8633610524594,
+    "elapsed": 3.56,
+    "minGap": 4,
+    "boostTicks": 90
+  },
+  "gap_sc3.5_off2": {
+    "safe": true,
+    "escaped": true,
+    "distance": 1458.8633610524594,
+    "elapsed": 3.56,
+    "minGap": 2,
+    "boostTicks": 90
+  },
+  "frontWall": {
+    "safe": true,
+    "escaped": true,
+    "distance": 1452.8934409102503,
+    "elapsed": 6.68,
+    "minGap": 46.50458888345125,
+    "boostTicks": 23
+  },
+  "u": {
+    "safe": true,
+    "escaped": true,
+    "distance": 1457.201497202175,
+    "elapsed": 7.4,
+    "minGap": 20.02686468068714,
+    "boostTicks": 31
+  },
+  "attack": {
+    "safe": true,
+    "escaped": true,
+    "distance": 1453.8373876509763,
+    "elapsed": 7.640000000000001,
+    "minGap": 4.132799189161894,
+    "boostTicks": 6
+  },
+  "arena": {
+    "safe": true,
+    "escaped": true,
+    "distance": 1453.0187958158022,
+    "elapsed": 8.120000000000001,
+    "minGap": 55.697794929743395,
+    "boostTicks": 26
+  }
+}

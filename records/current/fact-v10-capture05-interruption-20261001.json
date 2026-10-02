@@ -1,0 +1,28 @@
+{
+  "kind": "fact",
+  "status": "confirmed",
+  "as_of": "2026-10-01",
+  "build": "1001-8385d1b4",
+  "run": "runs/v10_capture05_20261001_114410",
+  "observations": {
+    "game_1_full_record_seconds": 19,
+    "game_2_capture_count": 9,
+    "game_2_last_capture_s": 4.005,
+    "game_2_last_trace_s": 4.236,
+    "collector_error": "Execution context was destroyed, most likely because of a navigation",
+    "browser_inspection": {
+      "playing": false,
+      "lastRecord": null,
+      "lastBox": false,
+      "lastLog": false
+    }
+  },
+  "limitation": "Game 2 last saved screenshot shows the snake alive. It is not confirmed to depict the death requested by the user. Latest death cannot be analysed from this partial capture.",
+  "user_choice": "Screenshot target interval 0.5 seconds",
+  "evidence": {
+    "runs/v10_capture05_20261001_114410/navigation.jsonl": "04b97dc74cea8797cded06f2776c4dd9b380fbfc6d6f00b83da6269039b487fe",
+    "runs/v10_capture05_20261001_114410/game_02_camera.jsonl": "4ebaa276453dcbdeb830f11689f1c0c013a01686cc02ff024601f99af939e6db",
+    "runs/v10_capture05_20261001_114410/game_02_trace_live.jsonl": "1b2f43860b8dbfad0d3b0b9363251152ebdbe4506330ed3c64830698c318fb35",
+    "research/v10_continuation_20261001/browser_death_now.txt": "4e5b1e450dd45331e30a0791aad58c7e3ffd49fba49a0d267ec3b66bbe89812a"
+  }
+}

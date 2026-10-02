@@ -1,0 +1,16 @@
+{
+  "ext": "1001-2331f7d6",
+  "preset": "v11_near",
+  "seconds": 37,
+  "profile": "aggressive",
+  "modes": {
+    "feed": 861,
+    "evade": 4,
+    "v10replan": 8,
+    "v10route": 128,
+    "v10emergency": 20
+  },
+  "errors": 0,
+  "changes": [],
+  "claim": "last completed observed V11 game, not proof of causal death reason"
+}

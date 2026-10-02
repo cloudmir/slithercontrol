@@ -1,0 +1,36 @@
+Build 1001-09a967d3
+
+ext/mod.js SHA256 5e2308591cd7adf2b392995e09e94d9a2dd3b628612c8a659a70c70e359b611a
+
+result.json
+
+{
+  "version": "1001-09a967d3",
+  "radiusCenterZoomCorrect": true,
+  "thinLine": 0.5,
+  "homeShowToggleSync": true,
+  "toggleLeavesParamsUnchanged": true,
+  "savedOffAfterReload": true,
+  "botPathIndependent": true,
+  "errors": []
+}
+
+windows_applied.json
+
+{
+  "applied": false,
+  "reason": "game_in_progress"
+}
+
+24: const BASIC = [['v9FoodRadius', 'V9 잔해 탐색 범위'], ['v9Map', 'V9 몸통 벽 지도'], ['v9Routes', 'V9 탈출 후보'], ['bodyRadius', '몸통 밀도 반경'], ['headRadius', '머리 개수 판단 반경'], ['path', '예측 경로'], ['mazePath', 'V6 미로 경로'], ['localPath', 'V6 근접 회피 경로'], ['gaps', '가장 가까운 3점(경계까지 px)·틈'], ['scores', '적 길이'], ['border', '경계'], ['death', '사망 지점'], ['goal', '먹이 목표']];
+681:   // Food search radius is a display-only ring, independent of bot/path visibility.
+682:   if (window.playing && !me.dead && S.values.V9_ON && S.show.v9FoodRadius) {
+683:     const radius = S.values.V9_FOOD_R * g;
+684:     if (Number.isFinite(radius) && radius > 0) {
+685:       ctx.save(); ctx.strokeStyle = '#ffbf69'; ctx.lineWidth = OVERLAY_LINE_WIDTH;
+686:       ctx.setLineDash([6, 5]); ctx.beginPath(); ctx.arc(X(me.xx), Y(me.yy), radius, 0, 2 * Math.PI); ctx.stroke(); ctx.restore();
+687:     }
+688:   }
+689:   // Trigger radii are world distances; visibility is independent of bot/path display.
+1264:       const displayKey = {V9_FOOD_R: 'v9FoodRadius', V9_OBS: 'v9Map', V9_ROUTES: 'v9Routes', V81_BODY_R: 'bodyRadius', V8_HEAD_R: 'headRadius', V7_HEAD_R: 'headRadius'}[key];
+1265:       const displayName = {v9FoodRadius: 'V9 잔해 탐색 범위 표시', v9Map: 'V9 몸통 벽 지도 표시', v9Routes: 'V9 탈출 후보 표시', bodyRadius: '몸통 밀도 반경 표시', headRadius: '머리 개수 판단 반경 표시'}[displayKey];

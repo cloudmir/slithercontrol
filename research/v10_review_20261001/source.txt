@@ -1,0 +1,273 @@
+# V10 actual live failure review, 2026-10-01
+
+## Input SHA256
+
+{
+  "ext/pilot.js": "46dd849c404a3448aadc4bd16e9e30ddc013870afa0b5c1efbe4f5f9c3174999",
+  "ext/mod.js": "39802278d345c6a92d9c85bf90900eb11e1b56e41000932b352a686f14e55a01",
+  "params.json": "8a96b47af1df40761df2e8934e71c50f61596e14495a907f0164ad791d476d01",
+  "research/v10_review_20261001/page_0.json": "92f4f9209387350c1039d715b13ec105ae2b96d97756313ad26f4a07e54cca18",
+  "research/v10_review_20261001/page_0_box.json.gz": "a1a652e17c959e38cbb09ad99a2ef330f239c25d67f165b81f113d9d767f05ee",
+  "research/v10_review_20261001/page_0_log.json.gz": "9646bad507138b01ed256702d2cc6e97860ad2b02228638de0675f4a3d2d3e40"
+}
+
+## Derived log observations (reproducible by review.py)
+
+{
+  "build": "1001-9654ed9d",
+  "seconds": 58.9,
+  "ticks": 1539,
+  "errors": 0,
+  "decide_ms": {
+    "p50": 1,
+    "p95": 3.3
+  },
+  "obs_to_cmd_ms": {
+    "p50": 3.8,
+    "p95": 14.1
+  },
+  "route_reason_counts": {
+    "pending": 4,
+    "mapped": 1244,
+    "budget": 291
+  },
+  "route_count_counts": {
+    "0": 295,
+    "3": 749,
+    "2": 164,
+    "1": 331
+  },
+  "tracker_reason_counts": {
+    "v10_expired": 9,
+    "v9_controls": 1529,
+    "v10_stale_result": 1
+  },
+  "last_frames": [
+    {
+      "t": 58.519,
+      "ang": 4.396370935416956,
+      "cmd": [
+        3.8181385813856767,
+        false
+      ],
+      "actualCommand": {
+        "id": 6213,
+        "ang": 3.8181385813856767,
+        "boost": false,
+        "why": "v9_controls",
+        "at": 58.5315
+      },
+      "nearest": {
+        "sid": 66,
+        "head_center_to_body_surface": 84.1830781544086,
+        "heading_vs_segment_degrees": 104.78582951661416
+      }
+    },
+    {
+      "t": 58.547,
+      "ang": 4.209483860986551,
+      "cmd": [
+        3.8181385813856767,
+        false
+      ],
+      "actualCommand": {
+        "id": 6214,
+        "ang": 4.209483860986551,
+        "boost": false,
+        "why": "v10_expired",
+        "at": 58.55459999996424
+      },
+      "nearest": {
+        "sid": 66,
+        "head_center_to_body_surface": 67.26725843375044,
+        "heading_vs_segment_degrees": 94.0779889062047
+      }
+    },
+    {
+      "t": 58.582,
+      "ang": 4.03370926932114,
+      "cmd": [
+        3.6553739179178346,
+        false
+      ],
+      "actualCommand": {
+        "id": 6215,
+        "ang": 4.03370926932114,
+        "boost": false,
+        "why": "v10_expired",
+        "at": 58.58989999997616
+      },
+      "nearest": {
+        "sid": 66,
+        "head_center_to_body_surface": 59.512345734178474,
+        "heading_vs_segment_degrees": 85.24306398904719
+      }
+    },
+    {
+      "t": 58.648,
+      "ang": 3.907503220924772,
+      "cmd": [
+        4.03370926932114,
+        false
+      ],
+      "actualCommand": {
+        "id": 6216,
+        "ang": 4.147884050442774,
+        "boost": false,
+        "why": "v10_expired",
+        "at": 58.66569999998808
+      },
+      "nearest": {
+        "sid": 66,
+        "head_center_to_body_surface": 52.01732155046869,
+        "heading_vs_segment_degrees": 78.01199006691151
+      }
+    },
+    {
+      "t": 58.676,
+      "ang": 4.085574775047312,
+      "cmd": [
+        4.033104909001954,
+        false
+      ],
+      "actualCommand": {
+        "id": 6217,
+        "ang": 4.085574775047312,
+        "boost": false,
+        "why": "v10_expired",
+        "at": 58.68430000001192
+      },
+      "nearest": {
+        "sid": 66,
+        "head_center_to_body_surface": 39.6838189872097,
+        "heading_vs_segment_degrees": 88.21473856946841
+      }
+    },
+    {
+      "t": 58.708,
+      "ang": 4.025165587411922,
+      "cmd": [
+        4.03370926932114,
+        false
+      ],
+      "actualCommand": {
+        "id": 6218,
+        "ang": 4.025165587411922,
+        "boost": false,
+        "why": "v10_expired",
+        "at": 58.71819999998808
+      },
+      "nearest": {
+        "sid": 66,
+        "head_center_to_body_surface": 33.67831520846189,
+        "heading_vs_segment_degrees": 84.7535470741467
+      }
+    },
+    {
+      "t": 58.741,
+      "ang": 4.025165587411922,
+      "cmd": [
+        4.099333518676213,
+        false
+      ],
+      "actualCommand": {
+        "id": 6219,
+        "ang": 4.123340357836604,
+        "boost": false,
+        "why": "v10_expired",
+        "at": 58.747899999976156
+      },
+      "nearest": {
+        "sid": 66,
+        "head_center_to_body_surface": 24.922081228656616,
+        "heading_vs_segment_degrees": 85.48719614691356
+      }
+    },
+    {
+      "t": 58.809,
+      "ang": 4.123340357836604,
+      "cmd": [
+        4.123340357836604,
+        false
+      ],
+      "actualCommand": {
+        "id": 6219,
+        "ang": 4.123340357836604,
+        "boost": false,
+        "why": "v10_expired",
+        "at": 58.8265
+      },
+      "nearest": {
+        "sid": 66,
+        "head_center_to_body_surface": 19.38145859944988,
+        "heading_vs_segment_degrees": 91.11219614691365
+      }
+    }
+  ],
+  "limitations": [
+    "Last alive frame is not the exact server collision position.",
+    "One completed live game; not evidence of failure rate across games.",
+    "Expired fallback is observed; whether a different late command would prevent death remains unproven.",
+    "Map budget counts are decision frames reusing route results, not independent planner executions."
+  ]
+}
+
+## ext/mod.js
+
+634:   if (!game || !S.bot || !plan || !window.playing || !window.slither || window.slither.dead) return;
+635:   const s = window.slither, now = performance.now(), tau = (now - plan.T0) / 1000; sent.planAge = tau;
+636:   if (tau > plan.tEnd) { if(S.values.V10_ON){applyCmd(s.ang,false,'v10_expired');plan=null;} sent.why = 'plan_end'; return; }                                 // beyond the trajectory: keep the last command
+637:   if ((S.values.V10_ON || S.values.V9_ON) && plan.controls?.length) {
+638:     const when = tau + (S.values.TRACK_LAT ?? .17);
+639:     const nextAction=plan.controls.find(a=>a.end>when+1e-8);
+640:     if(S.values.V10_ON&&!nextAction){applyCmd(s.ang,false,'v10_expired');plan=null;return;}
+641:     const action = nextAction || plan.controls[plan.controls.length - 1];
+642:     applyCmd(action.target, !!action.boost, 'v9_controls'); return;
+643:   }
+644:   let ang, why, tb, th;
+645:   if ((S.values.V10_ON || S.values.V9_ON) || S.values.TRACK_MODE) {
+
+## ext/pilot.js
+
+2153:   v10Root(s,W,ph){
+2154:     const lag=Math.max(0,this.values.TRACK_LAT??.17),age=Math.max(0,s.inputAgeMs??0)/1000;
+2155:     const until=lag+age+Math.min(.03,(this.v10ComputeMs??3)/1000),history=s.cmdHistory||[];
+2156:     let st={x:s.x,y:s.y,h:s.ang,v:s.sp*PX_PER_SP},t=0,clear=Infinity;
+2157:     const pts=[0,s.x,s.y,s.ang,s.boostNow?1:0];
+2158:     while(t<until-1e-8){const stamp=s.t+t-lag;let active={ang:Number.isFinite(s.cmdNow)?s.cmdNow:s.ang,boost:!!s.boostNow};
+2159:       if(history.length){active=history[0];for(const q of history){if(q.t>stamp+1e-8)break;active=q;}}
+2160:       const next=history.find(q=>q.t>stamp+1e-8),dt=Math.min(.04,until-t,next?next.t-stamp:Infinity);
+2161:       const r=this.v9Roll(s,W,ph,st,0,dt,t,active.ang,!!active.boost);pts.push(...r.pts);st=r.st;t=r.t;clear=Math.min(clear,r.clear);
+2162:       if(!r.ok)return {...r,pts,clear};
+2163:     }return {ok:true,st,t,pts,clear};
+2164:   }
+2165:   v10Step(s){
+
+## ext/pilot.js
+
+2210:       const escape=T.strategy!=='cruise';
+2211:       if(boost&&!(escape?(V.V10_ESCAPE_BOOST??1):(V.V9_BOOST_ON&&food&&food.mass>=(V.V9_BOOST_MIN_MASS??48)&&food.d>(V.V9_BOOST_MIN_DIST??180))))continue;
+2212:       // A complete first trajectory is always checked. Budget never converts an
+2213:       // unchecked path into a safe candidate; count actual overruns in telemetry.
+2214:       if(checked>=4&&performance.now()-begin>(V.V10_LOCAL_MS??3)){budgetHit=true;continue;}
+2215:       const horizon=V.V10_LOCAL_H??.9;
+2216:       const r=this.v9Roll(s,W,ph,root.st,0,horizon,root.t,c.angle,boost);checked++;
+2217:       const movement=hypot(r.st.x-root.st.x,r.st.y-root.st.y);
+2218:       let score=(r.ok?10000:0)+r.t*600+Math.min(50,Math.max(-100,r.clear))*.6;
+2219:       score+=movement*(.5+Math.cos(wrap(c.angle-base))*.35);
+2220:       if(c.route>=0)score+=100-c.route*15;
+2221:       if(this.v10LastAngle!==undefined)score+=20*Math.cos(wrap(c.angle-this.v10LastAngle));
+2222:       if(escape)score+=30*(V.V10_TAIL_W??2)*T.attack*Math.cos(wrap(c.angle-T.tail))+70*T.coverage*Math.cos(wrap(c.angle-T.away));
+2223:       if(boost)score+=escape?70:30;
+2224:       if(!r.ok)score=r.t*10000+Math.max(-100,r.clear)-Math.abs(wrap(c.angle-root.st.h));
+2225:       choices.push({...c,...r,score,boost});
+2226:     }
+2227:     choices.sort((a,b)=>b.score-a.score);const best=choices[0];this.v10LastAngle=best.angle;
+2228:     const unsafe=!root.ok||!best.ok,pts=[...root.pts,...best.pts],flat=p=>{const out=[];for(let i=0;i<p.length;i+=5)out.push(p[i+1],p[i+2]);return out;};
+2229:     // Only one short command slice may be executed. Expired plans are discarded
+2230:     // by the browser tracker; a guide is never replayed as actuator commands.
+2231:     const controls=[{start:root.t,end:Math.min(best.t,root.t+.13),target:best.angle,boost:best.boost}],ms=performance.now()-begin;this.v10ComputeMs=ms;
+2232:     const trace={mode:'v10'+(unsafe?'emergency':T.strategy),cmd:r1(deg(best.angle)),boost:best.boost,n_safe:root.ok?choices.filter(q=>q.ok).length:0,cause:source?.reason??'pending',v10_strategy:T.strategy,v10_local_ms:ms,v10_world_ms:worldMs,v10_budget_hit:budgetHit||ms>(V.V10_LOCAL_MS??3),v10_checked:checked,v10_clear:best.clear,v10_root_safe:root.ok,v10_map_ms:source?.ms??0,v10_map_age:source?s.t-source.t0:-1,v10_routes:guides.length,v10_threat_ms:T.ms,v10_attack:T.attack,v10_closing:T.closing,v10_coverage:T.coverage,v10_geometry_only:1,L:s.L,sc:s.sc};
+2233:     const guideLines=candidates.filter(c=>c.route>=0&&c.aim&&W.check({x:s.x,y:s.y},c.aim,0,0,.3,false)>=0).map(c=>[s.x,s.y,c.aim.x,c.aim.y,...guides[c.route].path.slice(c.joinIndex).flatMap(p=>[p.x,p.y])]);
+2234:     this.last={trace,mode:trace.mode,plan:pts,controls,draw:{chosen:flat(pts),localPath:flat(pts),localUnsafe:unsafe,v9At:s.t,v9Paths:guideLines,v9Walls:source?.walls??W.walls,v9Reason:source?.reason??'pending',v9FoodPath:guides[0]?.kind==='food',mazePath:[],safe:[],near:[],gaps:[],goal:food?[food.x,food.y]:null,ro:W.ro}};
+2235:     this.prev=best.angle;this.prevBoost=best.boost;return [best.angle,best.boost];

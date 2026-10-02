@@ -1,0 +1,310 @@
+--- before/pilot.js
++++ ext/pilot.js
+@@ -1816,9 +1816,9 @@
+     }
+     return {ok: true, st, t, pts, clear};
+   }
+-  v9FoodGoals(s) {
++  v9FoodGoals(s, enabled = this.values.V9_FOOD_W ?? 2) {
+     const V = this.values, bins = new Map(), cell = V.V9_HEAP_SIZE ?? 160;
+-    if (!(V.V9_FOOD_W ?? 2)) { this.v9FoodTarget = null; return []; }
++    if (!enabled) { this.v9FoodTarget = null; return []; }
+     for (let i = 0; i + 2 < (s.food || []).length; i += 3) {
+       const [x,y,m] = s.food.slice(i,i+3), d = hypot(x-s.x,y-s.y);
+       if (![x,y,m].every(Number.isFinite) || m < (V.V9_REMAINS_MIN ?? 12) || d > (V.V9_FOOD_R ?? 3000) || d < R*s.sc*.6) continue;
+@@ -2150,54 +2150,82 @@
+     }
+     return {risk:weight?exposure/weight:0,slack:Number.isFinite(slack)?slack:null,first:Number.isFinite(first)?first:null,enemy,certified:slack>0,scope:'observed_heads_turn_speed_bounds',segments};
+   }
++  // One policy for beam pruning, completed probes and current revalidation.
++  // Risk and food value are bounded indices, not calibrated probabilities.
++  v10FoodRewards(s,pts,foods,previous=[]) {
++    return foods.map((g,k)=>{
++      let best=previous[k]||0;
++      for(let i=5;i<pts.length;i+=5){
++        const ax=pts[i-4],ay=pts[i-3],dx=pts[i+1]-ax,dy=pts[i+2]-ay;
++        const u=clip(((g.x-ax)*dx+(g.y-ay)*dy)/Math.max(1e-9,dx*dx+dy*dy),0,1);
++        const gap=Math.max(0,hypot(g.x-ax-u*dx,g.y-ay-u*dy)-R*s.sc);
++        const t=pts[i-5]+u*(pts[i]-pts[i-5]);
++        best=Math.max(best,Math.exp(-gap/120)/(1+t/4));
++      }
++      return best;
++    });
++  }
++  v10FoodValue(foods,rewards) {
++    return Math.min(1,foods.reduce((sum,g,k)=>sum+(rewards[k]||0)*g.mass/(g.mass+80),0));
++  }
+   v10Compare(a,b) {
+-    // Timing dominates width and food. Never use an additive width bonus to
+-    // overrule a lower closure risk. Commitment resolves near-equal costs only.
+-    return Number(b.closure.certified)-Number(a.closure.certified)||a.closure.risk-b.closure.risk||
+-      (b.closure.first??1e6)-(a.closure.first??1e6)||b.score-a.score;
++    const appetite=clip((this.values.V10_FOOD_RISK??0)/100,0,1);
++    const risk=q=>q.closure?.risk??q.risk??0,food=q=>q.foodValue??0;
++    // 0 preserves risk-first selection. Higher values accept extra risk only
++    // in return for reachable food along the path; no food means no incentive.
++    return (risk(a)-appetite*food(a))-(risk(b)-appetite*food(b))||
++      Number(!!b.closure?.certified)-Number(!!a.closure?.certified)||risk(a)-risk(b)||
++      (b.closure?.first??1e6)-(a.closure?.first??1e6)||b.score-a.score;
+   }
+   v10Route(s,ver) {
+     TURN_FIX=!!this.values.TURN_FIX;
+     const begin=performance.now(),V=this.values,W=this.v10World(s),PW=this.v10ProbeWorld(W),ph=this.v4Physics(s.sc),root=this.v10Root(s,W,ph);
+     const deadline=begin+(V.V10_BUDGET??90),edge=Math.min(Math.max(V.V10_EDGE??1450,(s.viewRadius??0)*.85),W.obs-150);
+-    const heads=this.v10Blockers(s,W),food=this.v9FoodGoals(s)[0],routes=[],complete=[];let expanded=0;
++    const heads=this.v10Blockers(s,W),foods=this.v9FoodGoals(s,true).slice(0,3),food=foods[0],routes=[],complete=[];let expanded=0;
+     const result=reason=>({algo:'v10',ver,t0:s.t,routes,certified:routes.some(r=>r.certified),reason,ms:performance.now()-begin,expanded,map:{radius:W.obs,target:edge},walls:W.walls});
+     if(!root.ok)return result('prefix_collision');
+     const accept=(guide,id)=>{
+       const r=this.v10Follow(s,PW,ph,root,guide,deadline);
+       if(!r.ok)return false;
+-      const closure=this.v10Closure(r.pts,heads);
+-      routes.push({...guide,id,t0:s.t,geometryOnly:false,drivable:true,certified:closure.certified,closure,pts:r.pts,actions:r.actions,clear:r.clear,duration:r.duration,length:r.travel,score:guide.score??0});return true;
++      const closure=this.v10Closure(r.pts,heads),foodValue=this.v10FoodValue(foods,this.v10FoodRewards(s,r.pts,foods));
++      routes.push({...guide,id,t0:s.t,geometryOnly:false,drivable:true,certified:closure.certified,closure,foodValue,pts:r.pts,actions:r.actions,clear:r.clear,duration:r.duration,length:r.travel,score:guide.score??0});return true;
+     };
+     const old=this.v10Committed;
+     if(old&&s.t>=old.t0&&s.t-old.t0<2&&hypot(old.goal[0]-s.x,old.goal[1]-s.y)>220)accept(old,old.id);
+-    const canBoost=s.L>=(V.V2_MINL??30)&&((V.V10_ESCAPE_BOOST??1)||(V.V9_BOOST_ON&&food?.mass>=(V.V9_BOOST_MIN_MASS??48)));
++    const canBoost=s.L>=(V.V2_MINL??30)&&(V.V10_ESCAPE_BOOST??1);
+     const stage=.6,depths=Math.min(60,Math.ceil(edge/Math.max(80,ph.cs)/stage*2)+3);
+-    let beam=[{st:root.st,t:root.t,pts:root.pts,actions:[],clear:root.clear,length:0,turn:0,family:0,boost:false,risk:0}];
++    let beam=[{st:root.st,t:root.t,pts:root.pts,actions:[],clear:root.clear,length:0,turn:0,family:0,boost:false,risk:0,riskSum:0,riskWeight:0,foodRewards:[]}];
+     for(let depth=0;depth<depths&&beam.length&&performance.now()<deadline-10;depth++){
+       const next=[];
+       for(const n of beam){
+         const angles=depth===0?Array.from({length:16},(_,i)=>s.ang+i*TAU/16):[n.st.h,n.st.h-.65,n.st.h+.65];
++        // Include food-directed controls in the same long-route search.
++        if(food && (V.V10_FOOD_RISK??0)>0 && (n.foodRewards?.[0]||0)<.2){
++          const a=Math.atan2(food.y-n.st.y,food.x-n.st.x);
++          if(!angles.some(b=>Math.abs(wrap(a-b))<.05)){
++            if(depth===0)angles.push(a);else angles[wrap(a-n.st.h)>0?2:1]=a;
++          }
++        }
+         for(const angle of angles)for(const boost of depth===0&&canBoost?[false,true]:[n.boost]){
+           if(performance.now()>=deadline-10)break;
+           const r=this.v9Roll(s,PW,ph,n.st,0,stage,n.t,angle,boost);expanded++;if(!r.ok)continue;
+           const distance=hypot(r.st.x-s.x,r.st.y-s.y),length=n.length+hypot(r.st.x-n.st.x,r.st.y-n.st.y),turn=n.turn+Math.abs(wrap(r.st.h-n.st.h));
+           let close=Infinity;for(const h of heads)close=Math.min(close,this.v10EarliestBlock(h,n.st,r.st,4));
+-          const risk=n.risk+stage*clip((r.t+.1-close)/.6,0,1)/(1+r.t);
+-          const gain=food?food.d-hypot(r.st.x-food.x,r.st.y-food.y):0;
++          const riskWeight=n.riskWeight+stage/(1+r.t),riskSum=n.riskSum+stage*clip((r.t+.1-close)/.6,0,1)/(1+r.t),risk=riskSum/riskWeight;
++          const foodRewards=this.v10FoodRewards(s,[n.t,n.st.x,n.st.y,n.st.h,0,...r.pts],foods,n.foodRewards),foodValue=this.v10FoodValue(foods,foodRewards);
+           const centerGain=hypot(s.x-s.wall[0],s.y-s.wall[1])-hypot(r.st.x-s.wall[0],r.st.y-s.wall[1]);
+-          const score=distance-turn*12+gain*(V.V9_FOOD_W??2)*.08+(food?0:centerGain*(V.V9_CENTER_W??2)*.03);
+-          const q={...r,pts:[...n.pts,...r.pts],actions:[...n.actions,{start:n.t,end:r.t,target:angle,boost}],length,clear:Math.min(n.clear,r.clear),turn,score,risk,boost,family:depth===0?Math.floor((wrap(angle-s.ang)+PI)/(.5)):n.family};
++          const score=distance-turn*12+foodValue*edge*.8+(food?0:centerGain*(V.V9_CENTER_W??2)*.03);
++          const q={...r,pts:[...n.pts,...r.pts],actions:[...n.actions,{start:n.t,end:r.t,target:angle,boost}],length,clear:Math.min(n.clear,r.clear),turn,score,risk,riskSum,riskWeight,foodRewards,foodValue,boost,family:depth===0?Math.floor((wrap(angle-s.ang)+PI)/(.5)):n.family};
+           if(distance>=edge){complete.push(q);continue;}next.push(q);
+         }
+       }
+       // Preserve distinct initial branches and speed choices while extending
+       // all of them towards the requested probe boundary (not a 4.2 s cutoff).
+-      next.sort((a,b)=>a.risk-b.risk||b.score-a.score);const cells=new Set(),families=new Map();beam=[];
++      next.sort((a,b)=>this.v10Compare(a,b));const cells=new Set(),families=new Map();beam=[];
+       for(const q of next){const key=[Math.round((q.st.x-s.x)/80),Math.round((q.st.y-s.y)/80),Math.round(wrap(q.st.h)/.5),q.boost].join(',');const family=q.family+':'+q.boost;if(cells.has(key)||(families.get(family)||0)>=1)continue;cells.add(key);families.set(family,(families.get(family)||0)+1);beam.push(q);if(beam.length>=12)break;}
+       if(complete.length>=6)break;
+     }
+-    complete.sort((a,b)=>a.risk-b.risk||b.score-a.score);
++    complete.sort((a,b)=>this.v10Compare(a,b));
+     for(const q of complete){
+       if(performance.now()>=deadline)break;
+       const angle=Math.atan2(q.st.y-s.y,q.st.x-s.x);
+@@ -2236,7 +2264,7 @@
+         remaining-=available;u=0;
+       }
+       const angle=Math.atan2(aim.y-st.y,aim.x-st.x),distance=hypot(goal.x-st.x,goal.y-st.y);
+-      const boost=!!route.useBoost && Math.abs(wrap(angle-st.h))<.35 && distance>180;
++      const boost=!!route.useBoost && !!(this.values.V10_ESCAPE_BOOST??1) && Math.abs(wrap(angle-st.h))<.35 && distance>180;
+       const r=this.v9Roll(s,W,ph,st,0,.13,t,angle,boost);
+       clear=Math.min(clear,r.clear);
+       if(!r.ok){reason='collision';break;}
+@@ -2272,18 +2300,18 @@
+   v10Step(s) {
+     TURN_FIX=!!this.values.TURN_FIX;
+     const begin=performance.now(),V=this.values,W=this.v10World(s),PW=this.v10ProbeWorld(W),ph=this.v4Physics(s.sc),root=this.v10Root(s,W,ph);
+-    const worldMs=performance.now()-begin,heads=this.v10Blockers(s,W);
++    const worldMs=performance.now()-begin,heads=this.v10Blockers(s,W),foods=this.v9FoodGoals(s,true).slice(0,3);
+     const source=s.route?.algo==='v10'&&s.t>=s.route.t0&&s.t-s.route.t0<(V.V10_ROUTE_AGE??.9)?s.route:null;
+     const valid=[],flat=pts=>{const a=[];for(let i=0;i<pts.length;i+=5)a.push(pts[i+1],pts[i+2]);return a;};
+     let reject=source?'invalid':'pending',checked=0;
+     // Recheck full remaining probes in one model; the local layer cannot
+     // silently substitute an unrelated food/centre objective for a valid route.
+-    const deadline=begin+Math.max(12,V.V10_LOCAL_MS??3);
++    const deadline=begin+Math.max(12,V.V10_LOCAL_MS??12);
+     if(root.ok)for(const guide of source?.routes||[]){
+       if(!guide.drivable)continue;
+       if(hypot(guide.goal[0]-s.x,guide.goal[1]-s.y)<150){reject='completed';continue;}
+       const r=this.v10Follow(s,PW,ph,root,guide,deadline);checked++;
+-      if(r.ok&&r.actions.length){const closure=this.v10Closure(r.pts,heads);valid.push({...guide,...r,closure,score:(guide.score??0)+(guide.id===this.v10RouteId?10:0)});}
++      if(r.ok&&r.actions.length){const closure=this.v10Closure(r.pts,heads);valid.push({...guide,...r,closure,foodValue:this.v10FoodValue(foods,this.v10FoodRewards(s,r.pts,foods)),score:(guide.score??0)+(guide.id===this.v10RouteId?10:0)});}
+       else reject=r.reason;
+       if(performance.now()>deadline)break;
+     }
+@@ -2300,7 +2328,7 @@
+       action={start:root.t,end:root.t+.13,target:best.angle,boost:best.boost};pts=[...root.pts,...best.pts];clear=best.clear;safe=root.ok&&best.ok;mode=safe?'v10replan':'v10emergency';
+     }
+     const ms=performance.now()-begin;this.v10ComputeMs=ms;
+-    const trace={mode,cmd:r1(deg(action.target)),boost:action.boost,n_safe:root.ok?valid.length:0,cause:source?.reason??'pending',v10_strategy:picked?'route':'replan',v10_local_ms:ms,v10_world_ms:worldMs,v10_budget_hit:ms>(V.V10_LOCAL_MS??3),v10_checked:checked,v10_clear:clear,v10_root_safe:root.ok,v10_map_ms:source?.ms??0,v10_map_age:source?s.t-source.t0:-1,v10_routes:valid.length,v10_geometry_only:0,v10_route_id:picked?.id??null,v10_continuation_s:picked?picked.duration-root.t:0,v10_closure_risk:picked?.closure.risk??null,v10_closure_slack:picked?.closure.slack??null,v10_closure_cert:picked?.closure.certified??false,v10_replan:picked?0:1,v10_reject:picked?null:reject,L:s.L,sc:s.sc};
++    const trace={mode,cmd:r1(deg(action.target)),boost:action.boost,n_safe:root.ok?valid.length:0,cause:source?.reason??'pending',v10_strategy:picked?'route':'replan',v10_local_ms:ms,v10_world_ms:worldMs,v10_budget_hit:ms>(deadline-begin),v10_checked:checked,v10_clear:clear,v10_root_safe:root.ok,v10_map_ms:source?.ms??0,v10_map_age:source?s.t-source.t0:-1,v10_routes:valid.length,v10_geometry_only:0,v10_route_id:picked?.id??null,v10_continuation_s:picked?picked.duration-root.t:0,v10_closure_risk:picked?.closure.risk??null,v10_closure_slack:picked?.closure.slack??null,v10_closure_cert:picked?.closure.certified??false,v10_food_risk:V.V10_FOOD_RISK??0,v10_food_value:picked?.foodValue??0,v10_replan:picked?0:1,v10_reject:picked?null:reject,L:s.L,sc:s.sc};
+     this.last={trace,mode,plan:pts,controls:[{...action,end:Math.min(action.end,action.start+.13)}],draw:{chosen:flat(pts),localPath:flat(pts.filter((_,i)=>pts[i-i%5]<=root.t+.6)),localUnsafe:!safe,v9At:s.t,v9Paths:valid.map(r=>flat(r.pts)),v10Closures:valid.map(r=>({risk:r.closure.risk,certified:r.closure.certified,slack:r.closure.slack})),v9Walls:W.walls,v9Reason:picked?'long_probe':'replan',mazePath:[],safe:[],near:[],gaps:[],goal:picked?.goal??null,ro:W.ro}};
+     this.prev=action.target;this.prevBoost=action.boost;return [action.target,action.boost];
+   }
+--- before/mod.js
++++ ext/mod.js
+@@ -16,7 +16,7 @@
+ // of every wrap episode (a snake covering >= 30% of the bearings within 500 px) from 2 s before it until it ends.
+ const LOG_KEYS = ['t', 'x', 'y', 'ang', 'sp', 'sc', 'L', 'mode', 'boost', 'cmd', 'clear', 'hard', 'n_safe', 'wrap', 'cov', 'cov_id',
+   'cov_free', 'esc', 'enclosed', 'gap_now', 'threat', 'goal', 'nh', 'eat', 'pred', 'sized', 'raid', 'guard', 'gforce', 'gatk', 'giant', 'pph', 'pset', 'pgap', 'ptr', 'ptid', 'pstab', 'ttd', 'v2obj',
+-  'ttds', 'ttdh', 'branch', 'cause', 'head_hit', 'head_checked', 'ttddyn', 'dyn_id', 'dyn_kind', 'dyn_gap', 'dyn_heads', 'dyn_excluded', 'emergency', 'em_gap', 'em_unavoidable', 'unknown_at', 'verified_s', 'static_hit', 'boost_reason', 'chg', 'exit_width', 'exit_reach', 'exit_close', 'exit_slack', 'exit_unknown', 'exit_reason', 'v3_ms', 'v3_over', 'v3_full', 'v3_hold', 'v3_leaves', 'v3_eval', 'v3_cert', 'v3_ncert', 'v3_exits', 'v3_risk', 'v3_commit', 'v3_shield', 'v3_root', 'v3_keep', 'v3_local', 'v3_goal', 'v3_goal_age', 'v3_route_match', 'v3_cert_reason', 'pred25', 'herr25', 'trk_age', 'trk_cmd', 'trk_why', 'v6_intent', 'v6_goal_x', 'v6_goal_y', 'v6_reason', 'v7_phase', 'v7_heads', 'v7_radius', 'v7_threshold', 'v7_switched', 'v8_phase', 'v8_heads', 'v8_radius', 'v8_threshold', 'v8_switched', 'v81_on', 'v81_density', 'v81_body_trigger', 'v81_reason', 'v9_routes', 'v9_reason', 'v9_clear', 'v9_plan_ms', 'v9_goal_x', 'v9_goal_y', 'v9_goal_mass','v10_strategy','v10_local_ms','v10_world_ms','v10_budget_hit','v10_checked','v10_clear','v10_root_safe','v10_map_ms','v10_map_age','v10_routes','v10_threat_ms','v10_attack','v10_closing','v10_coverage','v10_geometry_only','v10_route_id','v10_continuation_s','v10_replan','v10_reject','v10_closure_risk','v10_closure_slack','v10_closure_cert','v10_observe_ms','v10_queue_ms','v10_result_age_ms','v10_command_id']
++  'ttds', 'ttdh', 'branch', 'cause', 'head_hit', 'head_checked', 'ttddyn', 'dyn_id', 'dyn_kind', 'dyn_gap', 'dyn_heads', 'dyn_excluded', 'emergency', 'em_gap', 'em_unavoidable', 'unknown_at', 'verified_s', 'static_hit', 'boost_reason', 'chg', 'exit_width', 'exit_reach', 'exit_close', 'exit_slack', 'exit_unknown', 'exit_reason', 'v3_ms', 'v3_over', 'v3_full', 'v3_hold', 'v3_leaves', 'v3_eval', 'v3_cert', 'v3_ncert', 'v3_exits', 'v3_risk', 'v3_commit', 'v3_shield', 'v3_root', 'v3_keep', 'v3_local', 'v3_goal', 'v3_goal_age', 'v3_route_match', 'v3_cert_reason', 'pred25', 'herr25', 'trk_age', 'trk_cmd', 'trk_why', 'v6_intent', 'v6_goal_x', 'v6_goal_y', 'v6_reason', 'v7_phase', 'v7_heads', 'v7_radius', 'v7_threshold', 'v7_switched', 'v8_phase', 'v8_heads', 'v8_radius', 'v8_threshold', 'v8_switched', 'v81_on', 'v81_density', 'v81_body_trigger', 'v81_reason', 'v9_routes', 'v9_reason', 'v9_clear', 'v9_plan_ms', 'v9_goal_x', 'v9_goal_y', 'v9_goal_mass','v10_strategy','v10_local_ms','v10_world_ms','v10_budget_hit','v10_checked','v10_clear','v10_root_safe','v10_map_ms','v10_map_age','v10_routes','v10_threat_ms','v10_attack','v10_closing','v10_coverage','v10_geometry_only','v10_route_id','v10_continuation_s','v10_replan','v10_reject','v10_closure_risk','v10_closure_slack','v10_closure_cert','v10_food_risk','v10_food_value','v10_observe_ms','v10_queue_ms','v10_result_age_ms','v10_command_id']
+ const CLIP_MAX_FRAMES = 3600;
+ const OVERLAY_LINE_WIDTH = 0.5;
+ const PROFILES = {safe: '안전형', aggressive: '공격형'};
+@@ -140,7 +140,7 @@
+       if(m.s && pilot.values.V10_ON){pilot.last.trace.v10_observe_ms=m.s.observationMs;pilot.last.trace.v10_queue_ms=queueMs;pilot.last.trace.v10_command_id=m.id;}
+       const d = pilot.last.draw;
+       reply({id: m.id, cmd, boost, ms: performance.now() - t0, trace: pilot.last.trace, plan: pilot.last.plan || null, controls: pilot.last.controls || null,
+-        draw: {v9FoodPath:d.v9FoodPath, v9At: d.v9At, v9Paths: d.v9Paths, v9Walls: d.v9Walls, v9Map: d.v9Map, v9Reason: d.v9Reason, chosen: d.chosen, mazePath: d.mazePath, localPath: d.localPath, mazeState: d.mazeState, localUnsafe: d.localUnsafe, localAvoiding: d.localAvoiding,
++        draw: {v10Closures:d.v10Closures, v9FoodPath:d.v9FoodPath, v9At: d.v9At, v9Paths: d.v9Paths, v9Walls: d.v9Walls, v9Map: d.v9Map, v9Reason: d.v9Reason, chosen: d.chosen, mazePath: d.mazePath, localPath: d.localPath, mazeState: d.mazeState, localUnsafe: d.localUnsafe, localAvoiding: d.localAvoiding,
+           guideCert: d.guideCert, guideWidth: d.guideWidth, near: d.near, gaps: d.gaps.map(g => ({m: g.m, w: g.w})), goal: d.goal, crowdAt: d.crowdAt,
+           wp: d.wp, attacker: d.attacker, ro: d.ro, an: d.analysis}});
+     } catch (err) { reply({id: m.id, error: String((err && err.stack) || err)}); }
+@@ -400,7 +400,7 @@
+     game.log.push([frame.t, q(frame.x, 10), q(frame.y, 10), q(frame.ang, 1000), q(frame.sp, 100), q(frame.sc, 100), frame.L, tr.mode,
+       tr.boost ? 1 : 0, tr.cmd, tr.clear, tr.hard, tr.n_safe, tr.wrap, tr.cov, tr.cov_id, tr.cov_free, tr.esc, tr.enclosed, q(gapNow, 10), tr.threat,
+       tr.goal, tr.nh, tr.eat, pred, tr.sized, tr.raid, tr.guard, tr.gforce, tr.gatk, tr.giant, tr.pph, tr.pset, tr.pgap, tr.ptr, tr.ptid, tr.pstab, tr.ttd, tr.v2obj,
+-      tr.ttds, tr.ttdh, tr.branch, tr.cause, tr.head_hit, tr.head_checked, tr.ttddyn, tr.dyn_id, tr.dyn_kind, tr.dyn_gap, tr.dyn_heads, tr.dyn_excluded, tr.emergency, tr.em_gap, tr.em_unavoidable, tr.unknown_at, tr.verified_s, tr.static_hit, tr.boost_reason, tr.chg, tr.exit_width, tr.exit_reach, tr.exit_close, tr.exit_slack, tr.exit_unknown, tr.exit_reason, tr.v3_ms, tr.v3_over, tr.v3_full, tr.v3_hold, tr.v3_leaves, tr.v3_eval, tr.v3_cert, tr.v3_ncert, tr.v3_exits, tr.v3_risk, tr.v3_commit, tr.v3_shield, tr.v3_root, tr.v3_keep, tr.v3_local, tr.v3_goal, tr.v3_goal_age, tr.v3_route_match, tr.v3_cert_reason, pred25, herr25, plan ? Math.round(sent.planAge * 1000) / 1000 : null, Number.isFinite(sent.ang) ? Math.round(sent.ang * 180 / Math.PI * 10) / 10 : null, sent.why, tr.v6_intent, tr.v6_goal_x, tr.v6_goal_y, tr.v6_reason, tr.v7_phase, tr.v7_heads, tr.v7_radius, tr.v7_threshold, tr.v7_switched, tr.v8_phase, tr.v8_heads, tr.v8_radius, tr.v8_threshold, tr.v8_switched, tr.v81_on, tr.v81_density, tr.v81_body_trigger, tr.v81_reason, tr.v9_routes, tr.v9_reason, tr.v9_clear, tr.v9_plan_ms, tr.v9_goal_x, tr.v9_goal_y, tr.v9_goal_mass,tr.v10_strategy,tr.v10_local_ms,tr.v10_world_ms,tr.v10_budget_hit,tr.v10_checked,tr.v10_clear,tr.v10_root_safe,tr.v10_map_ms,tr.v10_map_age,tr.v10_routes,tr.v10_threat_ms,tr.v10_attack,tr.v10_closing,tr.v10_coverage,tr.v10_geometry_only,tr.v10_route_id,tr.v10_continuation_s,tr.v10_replan,tr.v10_reject,tr.v10_closure_risk,tr.v10_closure_slack,tr.v10_closure_cert,tr.v10_observe_ms,tr.v10_queue_ms,tr.v10_result_age_ms,tr.v10_command_id]);
++      tr.ttds, tr.ttdh, tr.branch, tr.cause, tr.head_hit, tr.head_checked, tr.ttddyn, tr.dyn_id, tr.dyn_kind, tr.dyn_gap, tr.dyn_heads, tr.dyn_excluded, tr.emergency, tr.em_gap, tr.em_unavoidable, tr.unknown_at, tr.verified_s, tr.static_hit, tr.boost_reason, tr.chg, tr.exit_width, tr.exit_reach, tr.exit_close, tr.exit_slack, tr.exit_unknown, tr.exit_reason, tr.v3_ms, tr.v3_over, tr.v3_full, tr.v3_hold, tr.v3_leaves, tr.v3_eval, tr.v3_cert, tr.v3_ncert, tr.v3_exits, tr.v3_risk, tr.v3_commit, tr.v3_shield, tr.v3_root, tr.v3_keep, tr.v3_local, tr.v3_goal, tr.v3_goal_age, tr.v3_route_match, tr.v3_cert_reason, pred25, herr25, plan ? Math.round(sent.planAge * 1000) / 1000 : null, Number.isFinite(sent.ang) ? Math.round(sent.ang * 180 / Math.PI * 10) / 10 : null, sent.why, tr.v6_intent, tr.v6_goal_x, tr.v6_goal_y, tr.v6_reason, tr.v7_phase, tr.v7_heads, tr.v7_radius, tr.v7_threshold, tr.v7_switched, tr.v8_phase, tr.v8_heads, tr.v8_radius, tr.v8_threshold, tr.v8_switched, tr.v81_on, tr.v81_density, tr.v81_body_trigger, tr.v81_reason, tr.v9_routes, tr.v9_reason, tr.v9_clear, tr.v9_plan_ms, tr.v9_goal_x, tr.v9_goal_y, tr.v9_goal_mass,tr.v10_strategy,tr.v10_local_ms,tr.v10_world_ms,tr.v10_budget_hit,tr.v10_checked,tr.v10_clear,tr.v10_root_safe,tr.v10_map_ms,tr.v10_map_age,tr.v10_routes,tr.v10_threat_ms,tr.v10_attack,tr.v10_closing,tr.v10_coverage,tr.v10_geometry_only,tr.v10_route_id,tr.v10_continuation_s,tr.v10_replan,tr.v10_reject,tr.v10_closure_risk,tr.v10_closure_slack,tr.v10_closure_cert,tr.v10_food_risk,tr.v10_food_value,tr.v10_observe_ms,tr.v10_queue_ms,tr.v10_result_age_ms,tr.v10_command_id]);
+     if (r.plan && r.plan.length >= 10) { const P = r.plan, n = P.length / 5, at = tt => { let i = 0; while (i + 1 < n && P[5 * (i + 1)] < tt) i++;
+         if (i + 1 >= n) { const k = 5 * (n - 1); return [P[k + 1], P[k + 2], P[k + 3]]; }
+         const k = 5 * i, t0 = P[k], t1 = P[k + 5], f = t1 > t0 ? Math.min(1, Math.max(0, (tt - t0) / (t1 - t0))) : 0, dh = ((P[k + 8] - P[k + 3] + 3 * Math.PI) % (2 * Math.PI)) - Math.PI;
+@@ -800,7 +800,18 @@
+       if (S.show.v9Routes) {
+         const colors = ['#45f08a', '#53baff', '#ffd269', '#d69aff', '#ff93bd'];
+         candidates.forEach((p, i) => { ctx.strokeStyle = colors[i % colors.length]; ctx.globalAlpha = i ? .7 : 1;
+-          ctx.setLineDash(S.values.V10_ON ? (d.v10Closures?.[i]?.certified ? [] : [5,4]) : i ? [5, 4] : []); polyline(ctx, p, X, Y); });
++          ctx.setLineDash(S.values.V10_ON ? (d.v10Closures?.[i]?.certified ? [] : [5,4]) : i ? [5, 4] : []); polyline(ctx, p, X, Y);
++          const risk=d.v10Closures?.[i]?.risk;
++          if(S.values.V10_ON && Number.isFinite(risk)) {
++            // Anchor on a visible point of this exact route, not its offscreen end.
++            let at=-1,dist=Infinity;
++            for(let k=2;k<p.length;k+=2){const x=X(p[k]),y=Y(p[k+1]);if(x<16||x>innerWidth-105||y<24||y>innerHeight-20)continue;
++              const delta=Math.abs(Math.hypot(x-X(me.xx),y-Y(me.yy))-(100+i*38));if(delta<dist){dist=delta;at=k;}}
++            if(at>=0){const x=X(p[at])+6,y=Y(p[at+1])-6,label=`RISK ${risk.toFixed(2)}`;
++              ctx.save();ctx.textAlign='left';ctx.font='9.6px system-ui';ctx.fillStyle='rgba(0,0,0,.8)';ctx.fillRect(x-3,y-10,ctx.measureText(label).width+6,14);
++              ctx.fillStyle=colors[i%colors.length];ctx.fillText(label,x,y);ctx.restore();}
++          }
++        });
+         ctx.globalAlpha = 1; ctx.setLineDash([]); ctx.fillStyle = candidates.length ? '#45f08a' : '#ffb83d'; ctx.font = '9.6px system-ui';
+         ctx.fillText(S.values.V10_ON ? (candidates.length ? `V10 · 긴 경로 ${candidates.length}개 · ${Number(last?.trace?.v10_continuation_s||0).toFixed(1)}초 · ${last?.trace?.v10_closure_cert ? "관측 적 차단 불가(모델)" : "차단 위험지수 "+Number(last?.trace?.v10_closure_risk||0).toFixed(2)}` : 'V10 · 주행 경로 재탐색') : candidates.length ? `V9 · ${d.v9FoodPath ? '잔해 경로' : '관측 내 탈출'} ${candidates.length}개` : 'V9 · 탈출 경로 미확보', X(me.xx), Y(me.yy) - 48);
+       }
+@@ -1337,7 +1348,7 @@
+       el('button', {class: 'sw' + (bOn === BUNDLE.length ? ' on' : bOn ? ' half' : ''), title: '묶음 전체 켜기/끄기',
+         onclick: () => { const on = bOn === BUNDLE.length ? 0 : 1; for (const k of BUNDLE) setValue(k, on); render(); }}, el('i')));
+     const rows = S.values.V10_ON
+-      ? [sw('V9_FOOD_W','잔해 추종 가중치','작은 일반 먹이는 제외'),sw('V9_FOOD_R','잔해 탐색 범위','현재 관측된 큰 먹이만 탐색'),sw('V9_BOOST_ON','잔해 부스트','안전 후보 중 잔해 접근 부스트'),sw('V9_CENTER_W','중앙 이동 가중치','잔해가 없을 때 중앙 접근'),sw('V10_ESCAPE_BOOST','탈출 부스트','위험 상황에서 먹이 없이도 가속 후보 검사'),sw('V10_OBS','지도 최소 반경','전체 화면 범위를 항상 포함하며 더 큰 설정값까지 관측'),sw('V10_EDGE','지도 목표 거리','긴 경로를 탐색할 관측 내 거리. 전 구간 통과·차단 시간을 비교'),sw('V10_MARGIN','몸통·벽 여유','표시 두께 기준 추가 여유, 실측 사망점 확정값 아님'),sw('V10_HEAD_UNCERT','머리 예측 오차 배율','사망 로그에서 측정한 0.35초 이내 오차 여유'),sw('V10_LOCAL_H','근접 검사 시간','지연 후 실제 회전 원호 검사'),sw('V10_LOCAL_MS','근접 계산 목표 ms','검사 완료 후보만 사용. 실제 초과는 기록'),sw('V9_ROUTES','지도 후보 수','출구까지 주행 검증할 후보 수')]
++      ? [sw('V10_FOOD_RISK','먹이 위험 감수','0 안전 우선 ↔ 100 적극 수집. 경로상 잔해 이득에 한해 차단 위험 감수. 사망 확률 % 아님'),sw('V9_FOOD_R','잔해 탐색 범위','현재 관측된 큰 먹이만 탐색'),sw('V9_CENTER_W','중앙 이동 가중치','잔해가 없을 때 중앙 접근'),sw('V10_ESCAPE_BOOST','부스트 허용','잔해 수집·탈출 경로 모두 가속 후보 검사'),sw('V10_OBS','지도 최소 반경','전체 화면 범위를 포함'),sw('V10_EDGE','지도 목표 거리','긴 경로의 전 구간 통과·차단 시간 비교'),sw('V10_MARGIN','몸통·벽 여유','표시 두께 기준 추가 여유'),sw('V10_HEAD_UNCERT','머리 예측 오차 배율','근접 머리 예측 여유'),sw('V10_LOCAL_H','근접 검사 시간','긴 경로가 없을 때 검사할 시간'),sw('V9_ROUTES','지도 후보 수','출구까지 주행 검증할 후보 수')]
+       : v9
+       ? [sw('V9_FOOD_W', '잔해 추종 가중치', '관측된 큰 먹이를 향하는 경로 선호. 0이면 잔해 목표 끔'), sw('V9_FOOD_R', '잔해 탐색 범위', '보이는 잔해의 목표 탐색 반경 (px). 미로 밖 구간은 접근 방향만 안내'), sw('V9_BOOST_ON', '잔해 적극 부스트', '검사에 통과한 잔해 접근 경로에서 부스트 사용'), sw('V9_CENTER_W', '중앙 이동 가중치', '안전 후보의 맵 중심 접근 선호. 중심 2000px 안에서는 해제. 0이면 끔'), sw('V9_REMAINS_MIN', '잔해 판정 최소 크기', '크기로 사체 먹이를 추정. 기본12; 일반 작은 먹이 제외'), sw('V9_HEAP_SIZE', '잔해 묶음 범위', '가까운 잔해를 하나의 목표로 묶는 범위 (px)'), sw('V9_BOOST_MIN_MASS', '부스트 최소 잔해량', '이 크기 합계 이상인 잔해 묶음에 부스트 허용'), sw('V9_BOOST_MIN_DIST', '부스트 최소 거리', '목표 가까이에서는 부스트를 끄고 감속 (px)'), sw('V9_TARGET_HOLD', '목표 유지 시간', '비슷한 목표 사이의 잦은 전환을 억제. 먹이가 사라지면 즉시 해제'), sw('V9_OBS', '미로 지도 반경', '현재 관측된 몸통을 벽으로 만드는 범위', '🗺'), sw('V9_EDGE', '탈출 목표 거리', '지도 안 탐색 경계까지의 목표. 지도 반경보다 80px 이상 작게 제한', '↗'), sw('V9_MARGIN', '몸통·벽 여유', '내 두께와 적 두께에 더할 여유 (px)', '↔'), sw('V9_ROUTES', '탈출 후보 수', '서로 다른 출구 방향의 통과 검증 경로만 표시', '⑶'), sw('V9_H', '미로 탐색 시간', '실제 회전·속도로 탐색할 최대 시간 (s)', '⏱'), sw('V9_HEAD_PAD', '적 머리 예측 여유', '적의 현재 진행 예측에 더하는 불확실성 여유', '🛡')]
+       : v8
+@@ -1400,14 +1411,17 @@
+       };
+       return wrapRow(el('div', {class: 'it sl'}, el('div', {class: 'row'}, lab, num, rst), r));      // slider full width: finer steps
+     };
+-    for (const grp of DEF.ui) {
++    const v10Shared=new Set(['V9_FOOD_R','V9_CENTER_W','V9_REMAINS_MIN','V9_HEAP_SIZE','V9_TARGET_HOLD','V9_ROUTES','V2_MINL','TRACK_LAT','TURN_FIX']);
++    for (const originalGroup of DEF.ui) {
++      const grp=S.values.V10_ON?{...originalGroup,items:originalGroup.items.filter(it=>it[0].startsWith('V10_')||v10Shared.has(it[0]))}:originalGroup;
++      if(!grp.items.length)continue;
+       // a group of advanced items only starts folded and shows them all when opened (user 2026-09-26: "옵션 창이 안펴진다");
+       // a mixed group shows its core items, the advanced ones behind its own button or the global "고급 항목"
+       const gk = 'g:' + grp.group, nCore = grp.items.filter(it => it[5]).length, nAdv = grp.items.length - nCore;
+       const folded = S.openGroup !== gk, advOn = S.adv || !nCore || !!S.open[grp.group];   // accordion: one group open (2026-09-29)
+       const nChg = grp.items.filter(it => S.values[it[0]] !== cur[it[0]]).length;
+       const box_ = el('div', {class: 'grp' + (folded ? '' : ' open')}, el('h4', {onclick: () => { S.openGroup = folded ? gk : null; save(); render(); }, title: folded ? '펼치기' : '접기'},
+-        el('span', {class: 'lab'}, `${folded ? '▸' : '▾'} ${String.fromCharCode(65 + DEF.ui.indexOf(grp))}. ${grp.group}${folded ? ` (${grp.items.length})` : ''}`),
++        el('span', {class: 'lab'}, `${folded ? '▸' : '▾'} ${String.fromCharCode(65 + DEF.ui.indexOf(originalGroup))}. ${grp.group}${folded ? ` (${grp.items.length})` : ''}`),
+         ...(!folded && nCore && nAdv && !S.adv ? [btn(advOn ? `고급 ${nAdv} 숨기기` : `고급 ${nAdv} 보기`, advOn,
+           e => { e.stopPropagation(); S.open[grp.group] = !S.open[grp.group]; save(); render(); }, '이 그룹의 고급 항목')] : []),
+         ...(nChg ? [el('span', {class: 'badge mod'}, `수정 ${nChg}`)] : [])));
+@@ -1423,7 +1437,7 @@
+     filter();
+     const nOff = Object.values(rstate).filter(s => s.off).length, nWarn = Object.values(rstate).filter(s => !s.off).length;
+     B(el('div', {class: 'hint'}, `↺ 또는 이름 더블클릭: 프리셋 값으로 · 숫자 칸에 직접 입력 가능 · 이름에 마우스를 올리면 키와 범위 · ⊘ 비활성 ${nOff}(관계 규칙으로 잠김) · ⚠ 주의 ${nWarn}`),
+-      el('div', {class: 'hint'}, '판단 순서: 안전 필터(여유 → 앞길 → 공격자 충돌 시각 → 거대 뱀 몸 → 회전 일관성) → 남은 후보의 점수 합(먹이·잔해·전진·회피·출구…) → 후보 0이면 비상. 필터가 지운 후보에는 점수 항이 작용하지 않음.'));
++      el('div', {class: 'hint'}, S.values.V10_ON ? '몸통·근접 충돌 검사 → 긴 경로 평가. 먹이 위험 감수가 높을수록 경로상 잔해 이득을 위해 차단 위험을 허용합니다. RISK는 사망 확률이 아닙니다.' : '판단 순서: 안전 필터(여유 → 앞길 → 공격자 충돌 시각 → 거대 뱀 몸 → 회전 일관성) → 남은 후보의 점수 합(먹이·잔해·전진·회피·출구…) → 후보 0이면 비상. 필터가 지운 후보에는 점수 항이 작용하지 않음.'));
+   } else if (S.tab === 'show') {
+     const onA = ANALYSIS.filter(([k]) => S.show[k]).length, setAll = on => { for (const [k] of ANALYSIS) S.show[k] = on; save(); render(); };
+     B(el('h5', {}, '기본 표시'),
+--- before/params.json
++++ params.json
+@@ -272,10 +272,10 @@
+     "V10_ROUTE_AGE": 0.9,
+     "V10_PLAN_MS": 300,
+     "V10_ESCAPE_BOOST": 1,
+-    "V10_LOCAL_MS": 3,
+     "V10_LOCAL_H": 0.9,
+     "V10_HEAD_PAD": 12,
+-    "V10_HEAD_UNCERT": 1
++    "V10_HEAD_UNCERT": 1,
++    "V10_FOOD_RISK": 0
+   },
+   "profiles": {
+     "safe": {},
+@@ -940,10 +940,10 @@
+         "V10_ROUTE_AGE": 0.9,
+         "V10_PLAN_MS": 300,
+         "V10_ESCAPE_BOOST": 1,
+-        "V10_LOCAL_MS": 3,
+         "V10_LOCAL_H": 0.9,
+         "V10_HEAD_PAD": 12,
+-        "V10_HEAD_UNCERT": 1
++        "V10_HEAD_UNCERT": 1,
++        "V10_FOOD_RISK": 0
+       }
+     }
+   },
+@@ -957,6 +957,14 @@
+           0,
+           1,
+           1,
++          true
++        ],
++        [
++          "V10_FOOD_RISK",
++          "먹이 위험 감수 · 0 안전 ↔ 100 적극",
++          0,
++          100,
++          5,
+           true
+         ],
+         [
+@@ -985,7 +993,7 @@
+         ],
+         [
+           "V10_ESCAPE_BOOST",
+-          "탈출 부스트",
++          "부스트 허용",
+           0,
+           1,
+           1,
+@@ -1002,17 +1010,9 @@
+         [
+           "V10_LOCAL_H",
+           "근접 검사 시간 s",
+-          0.5,
++          0.6,
+           1.5,
+           0.1,
+-          true
+-        ],
+-        [
+-          "V10_LOCAL_MS",
+-          "근접 계산 목표 ms",
+-          1,
+-          12,
+-          0.5,
+           true
+         ],
+         [

@@ -1,0 +1,74 @@
+[
+  {
+    "t": 28.039,
+    "routes": 0,
+    "reason": "no_drivable_route",
+    "ms": 56.125843,
+    "mode": "v10replan",
+    "localms": 6.400652000000008,
+    "reject": "invalid"
+  },
+  {
+    "t": 43.165,
+    "routes": 4,
+    "reason": "maze_routes",
+    "ms": 89.40527600000001,
+    "mode": "v10route",
+    "localms": 11.37628699999999,
+    "reject": null
+  },
+  {
+    "t": 80.678,
+    "routes": 5,
+    "reason": "maze_routes",
+    "ms": 69.53278399999999,
+    "mode": "v10route",
+    "localms": 9.059962999999982,
+    "reject": null
+  },
+  {
+    "t": 91.082,
+    "routes": 2,
+    "reason": "maze_routes",
+    "ms": 65.71748300000002,
+    "mode": "v10route",
+    "localms": 4.559241999999983,
+    "reject": null
+  },
+  {
+    "t": 123.826,
+    "routes": 5,
+    "reason": "maze_routes",
+    "ms": 78.33841899999999,
+    "mode": "v10route",
+    "localms": 9.942671999999959,
+    "reject": null
+  },
+  {
+    "t": 143.748,
+    "routes": 3,
+    "reason": "maze_routes",
+    "ms": 83.95759400000003,
+    "mode": "v10route",
+    "localms": 8.82495700000004,
+    "reject": null
+  },
+  {
+    "t": 159.223,
+    "routes": 5,
+    "reason": "maze_routes",
+    "ms": 63.649110000000064,
+    "mode": "v10route",
+    "localms": 12.704602000000023,
+    "reject": null
+  },
+  {
+    "t": 183.574,
+    "routes": 5,
+    "reason": "maze_routes",
+    "ms": 66.43572399999994,
+    "mode": "v10route",
+    "localms": 8.355774999999994,
+    "reject": null
+  }
+]

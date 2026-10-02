@@ -1,0 +1,15 @@
+{
+  "frames": {
+    "feed": 100,
+    "near": 100,
+    "avoid": 100
+  },
+  "commandDifferences": 0,
+  "planDifferences": 0,
+  "originalV41BodyUnchanged": true,
+  "crowdPriority": true,
+  "V8ReturnDelayPreserved": true,
+  "oneHeadOnly": true,
+  "rangeBoundaryAndDedup": true,
+  "liveParams": true
+}

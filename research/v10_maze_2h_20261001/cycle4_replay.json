@@ -1,0 +1,227 @@
+[
+  {
+    "t": 90.211,
+    "routes": 1,
+    "reason": "maze_routes",
+    "ms": 51.16104999999999,
+    "mode": "v10route",
+    "localms": 10.992089000000021,
+    "reject": null
+  },
+  {
+    "t": 90.852,
+    "routes": 4,
+    "reason": "maze_routes",
+    "ms": 74.556714,
+    "mode": "v10route",
+    "localms": 6.694373000000013,
+    "reject": null
+  },
+  {
+    "t": 91.477,
+    "routes": 4,
+    "reason": "maze_routes",
+    "ms": 63.270576000000005,
+    "mode": "v10route",
+    "localms": 10.757452999999998,
+    "reject": null
+  },
+  {
+    "t": 92.1,
+    "routes": 5,
+    "reason": "maze_routes",
+    "ms": 59.21633200000002,
+    "mode": "v10route",
+    "localms": 6.9596540000000005,
+    "reject": null
+  },
+  {
+    "t": 92.756,
+    "routes": 5,
+    "reason": "maze_routes",
+    "ms": 63.961607000000015,
+    "mode": "v10route",
+    "localms": 10.112297000000012,
+    "reject": null
+  },
+  {
+    "t": 93.494,
+    "routes": 5,
+    "reason": "maze_routes",
+    "ms": 44.691913,
+    "mode": "v10route",
+    "localms": 5.7089189999999235,
+    "reject": null
+  },
+  {
+    "t": 94.088,
+    "routes": 5,
+    "reason": "maze_routes",
+    "ms": 47.99543499999993,
+    "mode": "v10route",
+    "localms": 6.551015000000007,
+    "reject": null
+  },
+  {
+    "t": 94.664,
+    "routes": 5,
+    "reason": "maze_routes",
+    "ms": 65.17154399999993,
+    "mode": "v10route",
+    "localms": 3.4826940000000377,
+    "reject": null
+  },
+  {
+    "t": 95.212,
+    "routes": 5,
+    "reason": "maze_routes",
+    "ms": 52.288545,
+    "mode": "v10route",
+    "localms": 11.644106999999963,
+    "reject": null
+  },
+  {
+    "t": 95.86,
+    "routes": 5,
+    "reason": "maze_routes",
+    "ms": 52.76834699999995,
+    "mode": "v10route",
+    "localms": 7.642600000000016,
+    "reject": null
+  },
+  {
+    "t": 96.451,
+    "routes": 5,
+    "reason": "maze_routes",
+    "ms": 42.782579000000055,
+    "mode": "v10route",
+    "localms": 7.492662999999993,
+    "reject": null
+  },
+  {
+    "t": 96.979,
+    "routes": 5,
+    "reason": "maze_routes",
+    "ms": 43.73287499999992,
+    "mode": "v10route",
+    "localms": 5.5823879999999235,
+    "reject": null
+  },
+  {
+    "t": 97.508,
+    "routes": 1,
+    "reason": "maze_routes",
+    "ms": 36.29981299999997,
+    "mode": "v10route",
+    "localms": 2.2221819999999752,
+    "reject": null
+  },
+  {
+    "t": 97.972,
+    "routes": 5,
+    "reason": "maze_routes",
+    "ms": 30.87243799999999,
+    "mode": "v10route",
+    "localms": 7.518418999999994,
+    "reject": null
+  },
+  {
+    "t": 98.53,
+    "routes": 0,
+    "reason": "no_drivable_route",
+    "ms": 24.183329999999955,
+    "mode": "v10replan",
+    "localms": 2.2550840000000107,
+    "reject": "invalid"
+  },
+  {
+    "t": 99.095,
+    "routes": 3,
+    "reason": "maze_routes",
+    "ms": 46.62991999999997,
+    "mode": "v10route",
+    "localms": 8.300539999999955,
+    "reject": null
+  },
+  {
+    "t": 99.752,
+    "routes": 0,
+    "reason": "grid_disconnected",
+    "ms": 16.131433000000015,
+    "mode": "v10replan",
+    "localms": 9.984544000000142,
+    "reject": "invalid"
+  },
+  {
+    "t": 100.29,
+    "routes": 0,
+    "reason": "grid_disconnected",
+    "ms": 17.029932000000144,
+    "mode": "v10replan",
+    "localms": 7.9517819999998665,
+    "reject": "invalid"
+  },
+  {
+    "t": 100.741,
+    "routes": 0,
+    "reason": "grid_disconnected",
+    "ms": 5.45933500000001,
+    "mode": "v10replan",
+    "localms": 10.133637000000135,
+    "reject": "invalid"
+  },
+  {
+    "t": 101.17,
+    "routes": 0,
+    "reason": "grid_disconnected",
+    "ms": 5.716344999999819,
+    "mode": "v10replan",
+    "localms": 7.6603670000001785,
+    "reject": "invalid"
+  },
+  {
+    "t": 101.638,
+    "routes": 0,
+    "reason": "grid_disconnected",
+    "ms": 11.677197999999862,
+    "mode": "v10replan",
+    "localms": 2.1176490000000285,
+    "reject": "invalid"
+  },
+  {
+    "t": 102.1,
+    "routes": 0,
+    "reason": "prefix_collision",
+    "ms": 1.644898000000012,
+    "mode": "v10emergency",
+    "localms": 4.642432999999983,
+    "reject": "invalid"
+  },
+  {
+    "t": 102.521,
+    "routes": 0,
+    "reason": "grid_disconnected",
+    "ms": 12.44117499999993,
+    "mode": "v10replan",
+    "localms": 5.9683719999998175,
+    "reject": "invalid"
+  },
+  {
+    "t": 103,
+    "routes": 0,
+    "reason": "grid_disconnected",
+    "ms": 9.367119999999886,
+    "mode": "v10replan",
+    "localms": 4.298281000000088,
+    "reject": "invalid"
+  },
+  {
+    "t": 103.416,
+    "routes": 0,
+    "reason": "prefix_collision",
+    "ms": 2.1867420000000948,
+    "mode": "v10emergency",
+    "localms": 0.5238890000000538,
+    "reject": "invalid"
+  }
+]

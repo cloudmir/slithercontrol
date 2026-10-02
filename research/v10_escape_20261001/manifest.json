@@ -1,0 +1,18 @@
+{
+  "hashes": {
+    "ext/pilot.js": "8f13081b0b3a8e4aee540136ca96caca0ecbe4f3a17f61c9570c326a599eaf20",
+    "ext/mod.js": "06f48c5f14fb1ae71d482cd50597186d258f43f106f432935e5dfd33cc2917f4",
+    "params.json": "c73f6a324c0de7461693698f11b705be2a3756e348b8d80acfabb0c48da3b6e1",
+    "ext/params.js": "a669e2561bc5d9bea9cf63ae3848164c30f275f7bac34a6c711c03c379a2b6b3",
+    "ext/manifest.json": "8a8eb16d12aec773521c7c30ffff206f1a5534e6c9afea0dbefe221b1028e968",
+    "research/v10_escape_20261001/check.json": "faebd2cd839a176b96db8575e731628f2d63d0699bb5945e21d1b7c0d63ce531",
+    "research/v10_escape_20261001/bounds.json": "16973c6c58d50406d4bcd004765fd060443019303882c1107ff873ef3812fbd6",
+    "research/v10_escape_20261001/closed_loop.json": "e49f757183d0cd88564971634c44c222505ca3c539dcab89abdd6ebda9b3418a",
+    "research/v10_escape_20261001/mock.json": "8423d9c1f27c0fdc784f38be780a5bef40f4ab4f064049886e86876eae0023c6",
+    "research/v10_escape_20261001/preview_data.json": "7ddb8725120760fb07c3df66335cf939b5991e0531d165553a3fa3e9c31c9ff7"
+  },
+  "unchanged": {
+    "non_v10_suffix_unchanged": true,
+    "non_v10_prefix_unchanged_except_reset": true
+  }
+}

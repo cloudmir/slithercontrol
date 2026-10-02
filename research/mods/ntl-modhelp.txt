@@ -1,0 +1,1283 @@
+
+NTL MOD for Slither.io
+NTL MOD for Slither.io
+This is an information page describing most of the features of my slither.io mod with the new ones first.
+NTL MOD is available for download and installation in 
+chrome webstore here: 
+ or as a zip file from this site (read below).
+For donations, teamIDs, tags, reporting bugs or features requests you can reach me via e-mail 
+ or telegram: 
+An introduction in 
+ NTL mod日本語マニュアル
+Although this is a team oriented mod, anyone can use it as a standalone slither mod (free download here or in webstore)
+If you want to use this mod to play with your friends and form a team you need to donate using the link on this page to get your own auth keys and teamID.
+If you want to join an already existing team you need to contact the team owner for keys.
+Donations are as follows:
+- 50 EURO / server ip for listing in realtime leaderboards as custom
+- 50 EURO / teamID for unlimited players & keys
+- 10 EURO / teamID for max 3 simultaneous players
+- 20 EURO / teamID for max 6 simultaneous players
+- 30 EURO / teamID for max 9 simultaneous players
+- 50 EURO / custom tag integration (not design) 
+- 
+click here for info on how to build your tag
+* Note: 
+TeamID access can be suspended anytime and without notice if used for immoral and/or abnormal behavior such as: insults, humiliation, targeted hate and trolling, public attacks against me and my services, hacking attempts etc
+All donations are needed one time only, with lifetime team validity.
+Donations stimulate me to keep updating the mod and adding features and also help me pay for infrastructure and hosting.
+** Note: 
+The donation is voluntary and does not give the right to any withdrawal, refund, guarantee or assistance. Thank you!
+Announcement:
+Due to chrome webstore dev team's new policy and code auditing taking even up to a month to publish updates, my mod is also available for download as a zip file, to be installed using developer mode of browser.
+I will still push the new updates to webstore so you can wait for them to become available or, for the impatient, all new features will be available in this zip file. This will usually be the version you see me playing with and testing new features.
+Feel free to check the build date on this page as the zip mod will not auto-update.
+If you want auto-update you're better off using the webstore one. This one is meant for the impatient and people helping me test things.
+Zip is completely independent and stand-alone so if you like a specific version and don't care about new updates you are now in control.
+Installing zip extension is easy: chrome menu -> more tools -> extensions -> enable developer mode toggle switch -> load unpacked button -> select ntlmod folder (where you unzipped the file).
+If you always unzip in the same folder (say in downloads) overwriting previous version all you need to do is close and restart browser (without going in any menus). For major updates you might need to reload or remove-readd it. Starting with mod v7+ (because of the manifest v3) when you first install extension from folder chrome will create a subfolder called _metadata. This subfolder might need to be deleted if in the future the extension will be re-added. Or simply delete all and re-extract the original zip.
+Current mod (manifest v3) version: 9.68 - GMT build date:  2026-09-17 21:42:56 
+ Get the zip file here 
+ Get the last manifest v2 mod version 6.67 here 
+ Get the last stable version before webgl rendering v9.19 here 
+ Get the last stable version before mobile controls v9.47 here 
+Learn how to use chrome without it being energy efficient for slither 
+here.
+Learn how to benchmark your mod settings 
+here.
+Installation tutorial (webstore, zip file, joining a team): 
+Learn how to resize everything and how to unlock cosmetics if previous codes used: 
+Learn how to use border assist here: 
+Stardust's slither training guide #1: 
+Stardust's slither training guide #2: 
+RELENTLESS's NTL MOD settings #1: 
+RELENTLESS's NTL MOD settings #2 (Master Overview): 
+Version changelog:
+v9.68
+- added a 16 chars randomly generated playerID at first load of mod for custom servers (noaha) events. It will help keep track for proper scoring regardless of nick / skin / ip. it will be sent after the riddle answer and before the nick/skin combo packet on eligible servers (read below). id 67 (:)) followed by the 16 bytes.
+- added 3 chat commands for it: !id outputs the playerID ready for copy-paste (give to server host for event registration), !idlist shows the current server list that will use the playerID packet (it can update on reload like the tags), !idforce toggles whether to send the packetID to any server regardless of the list above - mainly for dev use - (does not get saved so by default only the server list will use it).
+v9.67
+- tab key (assist focus) now available in remap keys
+- code cleanup around recent assist focus
+v9.66
+- reset all to defaults keeps fav servers
+- added option assist focus which goes skinless turning all snakes in shades of grey with red heads while the teammates get shades of green
+- tab key now enables front laser and own spine regardless of assist options
+v9.65
+- coiling announced in chat (F1, F2)
+- if coiling is on TT bot not allowed and vice-versa
+- esc can be used to save and exit the skin browsers
+- custom tags are now first in tag selector
+- made room for future public and custom tags expansion. soon older versions will not be able to see the new tags added in v9.65+
+v9.64
+- added country flags in select server by ping list
+- made the 2 skin browsers be scrollable with touch
+v9.63
+- added an option to disable dynamic ring spacing while zooming. computers with webgl should not need the back and forth of skins while zooming out/in. high quality preset will have this while all others will have it default as it was
+- in change skin menu there are now 2 buttons that can open skin browsers that can show 10+ skins at once with fast scrollbars. the one for custom skins also has buttons to delete and swap index numbers in case you want most used to be #1 #2 #3 etc
+v9.62
+- fixed a potential coordinates shift of a dying snake (exacerbated by lag?)
+- added checkbox for favorites in server list which shows them first. 
+*Thanks spectre for the idea*
+- added checkbox in server ip field if not among the official list and if not already fav. this can pin custom servers on top of server list.
+v9.61
+- all doublepress action keys must now take place within 1s apart. before, pressing 9 then another 9 after 1 hour without any other keys in between would still quit the game as if 99
+- minor code cleanup
+v9.60
+- added option rings spacing for snake body
+- added option mobile UI to force it various ways
+v9.59
+- fixed clicking inside RTL during game canceled KK if it was on.
+- better handling in case of team/ws server timeouts
+v9.58
+- updated timings logic. 
+*Thanks Hypah for pinpointing the problem*
+- fixed default center ellipse not being restored automatically when a previous custom one used on a different server which now could be out-of-bounds
+v9.57
+- fixed semaphore border line colors ignored transparency from border line color
+v9.56
+- if autorespawned KK (if used) keeps its state from the moment of death
+- made the border (when no semaphore) / ellipse color picker respect transparency and set default to 0.25
+- added a demo ellipse command in q6 with 0 0 500 500 (current head position as center)
+- made ellipse command interpret -1 -1 as map center and modified q5 to use -1 -1
+- made the confirmation of ellipse cmd output in chat be preselectable and auto-copied to clipboard for easy sharing
+- minor code cleanup around the border and ellipse rendering
+v9.55
+- added gameover to websocket close in case of forced disconnects
+- timers of mouse,keyb,boost set to 33,50,50
+- changed always own spine to dropdown own spine with values disabled, always, skinless only
+v9.54
+- fixed boost effect too bright
+- minor tunings
+v9.53
+- suspicion of webgl tags causing issues so they are back to soft rendering
+v9.52
+- added option for assist to hide own tag and cosmetic
+- made TMS work without team
+- made Players list work without team and respect the details option
+v9.51
+- fixed tag constantly repositioning +- few px when swing >1
+- minor general code cleanup and tuning
+v9.50
+- mobile thumb joystick has 2 modes now, D and M. D based only on direction with a fixed distance, M based on magnitude of thumb travel from original touch. Both can be observed by the length of front laser.
+- small updates and finetuning for mobile UI
+v9.49
+- made mobile button T stay highlighted when bot is on
+v9.48
+- added support for mobile controls in browsers that support chrome extensions. I tested it with Quetta browser. treat as beta.
+v9.47
+- fixed own dot selector in settings causing low fps and increased dots size
+- code cleanup and performance tuning
+v9.46
+- added option "Disable tags for everyone". Applies to any graphic mode. W peek will override.
+- added option sliders for tag chain length and swing
+v9.45
+- fixed blinking background due to cosmetic alpha bleed from v9.44
+v9.44
+- added new button in settings to disable WebGL for those who can't fix/tune their computers/browsers. A dot will appear after fps value if webgl disabled.
+- renamed option "skinless own spine" to "always own spine" so now spine can be visible with any graphics/textures
+- fixed cosmetics fade-out when dying
+- minor general tunings
+v9.43
+- new attempt to fix some preys randomly flying off the screen
+- made tags show in skinless
+- made angles @50ms and boost @150ms like in vanilla game (to prevent potential server side throttling)
+- made settings dark mode with opacity setting, added sliders and color pickers instead of named colors
+v9.42
+- new attempt to fix some preys/foods randomly flying off the screen (bugged since 9.38 and still present in 9.40)
+v9.41
+- added monochrome food color option
+- more overall various code cleanup and small tunings
+v9.40
+- much faster overall rendering whenever skinless is involved
+- better warnings in settings when skinless options (although much less negative impact vs previous versions)
+- fixed preys/foods randomly flying off the screen (bugged since 9.38)
+v9.39
+- fixed chat hidden with hh would become visible after autorespawn
+- fixed opening settings didn't show the skinless warning when already selected
+v9.38
+- replaced textures for food glow in high graphics and boost glow
+- various code cleanup and small tunings
+v9.37
+- removed option assist instant full tail as no longer needed with the new snake segments assembly mechanics
+- extended resolution slider and added a "snap to" button that autocalculates best multiplier for you. use it in fullscreen or however you actually play
+- added a warning near the graphics dropdown if skinless is selected (skinless is not using webgl gpu acceleration)
+v9.36
+- fixed boost glow effect barely visible (bugged in 9.35)
+v9.35
+- added webgl status in popup as simple no clutter click anytime in case maybe it failed to initialize
+- added slider for the resolutions that now calculates and warns when bigger than browser window (should be used in full screen or however you actually play)
+- W peek now assumes if foods are squared or 2016 some OG is playing and uses 2016 big foods. if default small used (new) then W will show Default (new big)
+- more tuning and cleanup for high graphics
+- attempted some gl context restores after focus is lost (gl is much more sensitive to tab or window changes in chrome as it stops threads, sleeps gpu etc). If problems when returning to game best is to reload. I start my chrome with these flags: "...\chrome.exe" --disable-background-timer-throttling --disable-renderer-backgrounding --disable-backgrounding-occluded-windows
+v9.34
+- fixed minimap not visible when keep playing from settings
+- assist turn path now only sideways half circles that become orangered when enemy body intersected
+v9.33
+- added default 2016 food textures to dropdown list
+- slightly more quality new food textures
+v9.32
+- fixed (hopefully) the new snake segment mechanics
+- swapped food textures with the new ones
+- added a square food size option that controls their accelerated textures
+v9.31
+- fixed choosing skin broked since 9.30
+v9.30
+- implemented the new snake segments positioning with tight curves etc
+- added a resolution multiplier for more crisp and clear images as original game is rendered lower than current displays then stretched to fit your browser window. This is not like the scaller [[ ]] and truly renders in this multiplied canvas resolution with the purpose to get near native resolution of your display. 1 = original game default, 1.2-1.3 = sharper around 1080p, 1.7 = sharper around 1440p, 2.5 = sharper for 4K+. Beware this increases the load on your gpu exponentially: multiplier of 2 = 4x more gpu load. Monitor your fps
+v9.29
+- fixed EEmenu not hiding when keep play from settings
+- added a new graphics preset which resembles the until-recently traditional mod default (basically how I play :))
+v9.28
+- added 2 qq messages. they can now have ! in front so you can put in chat commands. q5 is prefilled with an ellipse to cover exactly the battledome food border ring. if things change adjust as needed. remember that x,y as dead center map are exactly the active server size. useful if assist hides food so you don't crash
+- fixed some render bugs like atypical heads filled with textures, invisible tiny foods when zoomed out
+- changed some graphical defaults to make visible all skin types in mod default
+- opening settings from main menu now allows to continue play with button keep playing
+- when loading if empty in the server ip field it will try to autofill the best one
+- zooming out using default textures no longer spreads out snake segments (no need on decent computers). So for max performance NTL textures are still the best for edge cases or competitions on weaker computers
+- word of caution: with new rendering using skinless (even just one snake due to various options) instantly drops performace advantages. In fact skinless is now less performant than the accelerated defaults
+v9.27
+- more performance improvements
+- removed obsolete options from settings
+- added option for assist turn path to only activate above score limit
+- there is still a bug: own tag will not hide under enemy bodies as it did until v9.25 but not a priority for now
+v9.26
+- performance improvements
+v9.25
+- added remap keys button in settings to use whatever shortcutkeys you want with the exception of a few reserved ones
+- fixed hover over nick history list not visible
+- fixed settings quicksearch always matched own dot and nick filter
+v9.24
+- select server by ping only probes active servers and also now includes free slots.red means crowded servers
+- fixed food jiggle was not ON by default in clean installs
+- made assist turn path show both sides when going straight
+v9.23
+- fixed when infoboxes disabled by [vv] they weren't re-disabled after respawn
+- fixed when settings opened from menu bot didn't re-engage after respawn
+- added assist min turn path that predicts the space needed to turn and an option to disable it
+v9.22
+- slither.io logo back to original size since histogram moved
+- opening settings focuses directly the quicksearch bar for fast modifications
+- moved server widget directly into the server ip button
+v9.21
+- eh who needs osl fonts, removed
+- moved histogram default lower left
+v9.20
+- embedded some free fonts and used these for more consistency across platforms and browsers
+- all infoboxes get visible when back to main menu
+- added histogram for past 2 minutes for ping and fps. you can move resize like an infobox, (un)hide with F8
+- added option to keep histogram hidden until F8 pressed. it will still record so you can always inspect last 2 minutes
+- squashed main menu logo to make room for default histogram location
+- rebuilt the select server by ping list to include ipv6 and server id, clicking on the ipv6 part fills in ipv6 otherwise ipv4 is used. ping on ipv6 is also tested, list sortable by both pings. while the servers are probed a progress bar indicates status in that button
+- when typing into the server ip address it quicksearches matching servers including server ids. list contains only official servers list. for anything else use realtime leaderboards.
+- added server status widget in main menu center bottom whenever an official server is selected and refreshes "signal power" every 5s. widget uses ipv6 for /ptc status if ipv6 selected in server ip field
+v9.19
+- various code cleanups improvements and bugfixes
+- peek (W) with show big food ON now has much less of an impact on fps
+- ffmt changed to 2 threads by default (multithread foods)
+- added option to disable food glow in high graphics (it kills fps)
+- better management for saving large settings like menu image, public and custom tags updates. when updating at first run will move them to new storage
+- made backup all settings and export skins button enable the download bar for 10s so depending on browser "keep" can be clicked
+- added option to quicksearch in settings (searches in option name and also its description)
+- added a custom background tile uploader
+- hopefully fixed the random cosmetic bug that rendered oversized
+v9.18
+- fixed nick history button position
+v9.17
+- added F1/F2 for snake rotate left/right (coiled as tight as possible)
+- faster autorespawn (88) which happens as soon as death impact occurs without going to menu regardless of the instant gameover setting
+v9.16
+- changed ids for teams and tags - again incompatible with previous versions (during game players will not be properly identified)
+- minor tweaks
+v9.15
+- fixed black screen when zoom was disabled if starting zoom was set very low
+- tags no longer get cleared off snakes when losing connection to my websocket server during play. some ppl had disconnects for several secconds and tags would disappear until connection re-established. when tag websocket connection is lost a dot appears between NTL and MOD in the version line
+v9.14
+- when multithread food rendering was on some very small food pellets were rounded down to 0. now are limited to 1px. this caused battledome border to be invisible
+- unless changed with chat commands, by default activating multithreaded food now only uses 1 dedicated thread as 2 or more cause more often garbage collection in longer play sessions, that could cause small hickups on weak computers
+v9.13
+- fixed previous bugs introduced due to fast recycle of ids. For teaming and tags 9.13 is incompatible with previous versions (during game players will not be properly identified)
+*Thanks Hypah for support*
+- fixed long standing bug where a snake with id 1 automatically had your tag but much more evident due to recent changes
+- now also using a secondary id for team and tag identification in-game which should prevent seemingly random temporary membership of snakes, or random tag allocation
+v9.12
+- atypical skins now visible only without custom skin as they were sometimes weird looking. 
+*Thanks Saya for detailed bug report*
+- better tags websocket cleanup and retry on disconnects. some users reported their tag being visible on random snakes even bots nearby. though I couldn't reproduce this behavior, it can't be tag hacks like in the old days but only a mod bug (due to some reused snake ids?) and this is what I could come up with so far attempting to prevent it.
+v9.11
+- fixed undefined nick on own snake when pressing W
+v9.10
+- fixed keeping W pressed during death caused respawn to behave like W still on
+- removed cosmetics codes support and fixed a bug which caused green glasses to be used in certain conditions
+- fixed a bug which caused stealth players in team to sometimes have the random skin instead
+v9.9
+- fixed selecting from nick history list didn't propagate change to teaming scripts
+- nick dropdown history list now stays opened after deleting a nick until clicked outside to speedup cleanup
+v9.8
+- removed join communities from main menu. news feed should be enough
+v9.7
+- increased chat scroll buffer to 160 lines as a full !history was not visible
+v9.6
+- fixed players on ipv6 using team were considered on isolated server compared with same but on ipv4
+v9.5
+- fixed default textures being replaced by ntl textures (bugged since 9.3)
+v9.4
+- removed a scriptbot msg in chat when ws gets disconnected (forgot on since 9.3)
+- added unlimited storage permission as I realized tag updates + custom main menu background image can now easily fill the ~5MB localstorage limit.
+v9.3
+- fixed random 00 bug not reconnecting ok instantly. 
+*Thanks Challenge me! for bug details*
+- code cleanup with potential performance improvements.
+v9.2
+- fixed menu background image not stretched
+- added nick history drop-down list button near nickname field. It is kept when reset all to defaults.
+v9.1
+- restricted !loadtag cmd to when playing or choosing skin as it brakes things otherwise. 
+*Thanks Norielle for the bug report*
+- fixed a bug in saving tags of custom skins 
+*Thanks Thunder for the bug report*
+- fixed a bug that would overwrite the recently loaded test tag while playing with the one the snake had on connect so no longer needed to have no tag in order to !loadtag while play
+v9.0
+- probably implemented some bugs ahaha be patient will be solved in the next few days if found
+- custom tags will be transported via my own server where they are server-side authenticated. tag owners will need to contact me (through the same channels they used when they got them) to receive their ids and tag adminkeys
+- added !tag command to activate custom tags: !tag id pass. successful ones are saved for automatic reactivation on next reload.
+- added !rst command to reset pass of tags: !rst id adminkey newpass. will apply instantly to playing users.
+- added chat command history that remembers the last 100 commands scrollable with up/down arrows + last line of text. it is saved in local settings between reloads and kept when reset all to defaults.
+- added !history and !clearhistory to manage command history
+- enabled custom tags are now visible and usable from select tag menu located after the original no-tag icon
+- added the no-tag icon to first position for easier removal
+- mod will verify on load against my server if any new public or custom tags updates since the last mod version but limited to 1/minute. the hope is not to need to publish new mod version just for adding tags.as this happens on reload as it needs to initialize available resources depending on your internet it might slow down mod loading. these tags get saved in local settings and they are NOT kept when reset all to defaults just in case some corruption occurs.
+- added !forceupdate command which clears the update timer check so it will check for update on next reload.
+- added !forcecleanupdate command which deletes all updated tags so it will check and re-download on next reload.
+- added tag uploader button in change skin in mod which can automatically send the new commands !loadtag and !newtag with their respective parameters. it will activate the tag and the commands will await you in chat history (up arrow) for further tuning.
+v8.19-14
+- repack
+v8.13
+- faster minimap location dots init on connect due to (previuosly unprocessed) info available in A packet with dynamic minimap servers
+ *Thanks Aylina for pinpointing the code*
+- added [server id] before IP when playing - received on connect due to (previuosly unprocessed) info available in A packet with dynamic minimap servers
+ *Thanks Aylina for pinpointing the code*
+v8.12-07
+- repack
+v8.06
+- fixed .kr flag was mirror flipped instead of rotated. 
+*Thanks Gemma Ha for reporting it*
+v8.05
+- minor code cleanup with potential performance improvements
+v8.04
+- added .kr public flag
+v8.03
+- added no translate attribute to top10 in case auto-translators are used. 
+*Thanks Saya for the suggestion*
+v8.02
+- renamed previous option to Enable multithreaded food rendering and added some more details to checkbox hint. Any food related option that is not supported by multithread engine will automatically and on-the-fly disable it for instance W(peek), no small food or no faster small food.
+- improved food rendering if enabled it now runs by default on 2 threads instead of 1 and at 14ms interframe (around 70fps)
+- added 2 chat commands for advanced users to tune it: !ffms to change ms [4..16] and !ffmt to change threads [1..8]. Decrease ms until happy with no food flicker. divide 1000 by ffms and get the estimate of out-of-context food rendering. Adding too many threads will add too much overhead to main thread due to issues with chrome. In my testing 4 is a practical useful limit but 2 seems to go along ok with older computers as well.
+v8.01
+- re-added glow for normal foods
+- added option to disable food jiggle (the tiny bounce it makes)
+- added option to enable food async thread. Enable this if you have higher fps capabilities (above the standard 60fps). This will cause foods to be rendered on a separate thread @~60fps thereby freeing main thread for normal game and boosting fps and responsiveness considerably. It also disables food glow and it works best with food jiggle disabled and faster small food as squares disabled. Counter-intuitive but it helps more those that have spare cpu power and are not limited to 60fps. On my computer it gives 3x-7x more fps (depending on context) in the most bot busy areas possible with very fluent gameplay. It is default disabled.
+v8.00
+- removed glow for original(big) food both in normal and high graphics as it always annoyed me
+- increased minimap contrast like in the newer original game
+- new out-of-context and threaded rendering for faster small food (~3x fps in very food-busy areas). beware that enableing faster small food as squares is a bit slower since around chrome ~100
+v7.99
+- repack
+v7.98-97
+- modified the way bot forms the circle
+v7.96-94
+- repack
+v7.93
+- fixed semaphore bug where it kept last red/green status instead of orange when standing still. 
+*Thanks Norielle for the bug report*
+- when typing in chat pressing UP ARROW will act as a one line history bringing back the last input entered. It allows faster modifications to commands like !ellipse without the need to re-copy-paste
+- fixed a bug where as ellipse is part of the minimap background it only readjusted on mm size toggle(44) but with dynamic mm it didn't have a chance to account for % changes during gameplay
+v7.92
+- added option dynamic border semaphore which uses red border for shrinking, green for expanding and orange when it stands still. it helps in fights near border and also signals when it's safer to use border assist/safewall (green and orange)
+v7.91
+- added support for dynamic minimap V subpacket. lack of it could cause minimap to appear frozen for several seconds
+- made active server size take into account original border at 98% so the ratio could get to 100%
+- added a new public tag
+v7.90
+- minimap is instant again and no more fade-in like in v7.89
+- the option dynamic minimap off has an issue rendering own location dot due to a change in server-side component
+- fixed a cosmetic bug where opening settings sometimes showed dynamic minimap as off if previously visited a non dynamic server even though it honored the saved setting as shown on refresh
+v7.89
+- added support for dynamic minimap. 
+*Thanks Hypah for server side support for older protocols*
+- added an option to toggle dynamic minimap off/on. (off gets the minimap with border czar and whole server size)
+- moved rank on same line as length to make room for active server size as dynamic percentage showing shrinkage
+- assist spine is now on top if laser is also on top
+v7.88
+- small bugfixes in border rendering
+v7.87
+- added initial support for dynamic border. 
+*Thanks Hypah for the code*
+- for now the minimap is not dynamic (border czar visible on minimap showing how much shrink took place)
+- protocol 12 will show the border czar snake as the limit while v13 will see the correct and clean dynamic border
+- made chat default unselectable (to prevent lack of boost over it, ghost dragging selection etc). 
+*Thanks J.K. for the bug report*
+- added an option to make chat selectable permanently (there's also the backtick ` to temporary allow selection while pressed)
+- added an option to control default zoom level when game starts 
+*Thanks Ms.7 for the idea*
+v7.86-85
+- repack
+v7.84
+- boost @ 75ms
+- repack
+v7.83
+- mouse angle and boost @ 60ms
+v7.82
+- repack
+v7.81
+- lowered mouse angle and boost to 50ms
+- fixed safewall 2 random disengage
+- improved circle bot squeeze resistance (trying to make it very hard to kill above 8K in size)
+- removed ws errors from chat
+v7.80
+- fixed a bug with normal skins with tag not allowing custom tag override
+v7.79-76
+- repack and small code cleanup
+v7.75
+- turns out they were fake duplicates in 7.74 due to randomly corrupted arrays when abusing 00 respawn. hopefully this fixes it.
+v7.74
+- added a chat alert for incoming duplicate id that might get sent by servers
+- updated a potential null check bug
+v7.73-72
+- ip:port now allows ipv6 in brackets form [ipv6]:port
+v7.71
+- repack
+v7.70
+- added spectator support for custom servers
+v7.69-68
+- safewall script 2 now uses border assist offset for finetuning
+v7.67
+- re-added mouse boost while bot
+v7.66
+- fixed same id collision
+- fixed bot not avoiding other snakes while growing
+- disabled bot boost
+v7.65-64
+- minor code cleanup/improvements
+- better and faster init
+- new protocol v13 with high res minimap is now default
+- fps limiter 50 and 60 are sent through raf instead of setinterval like the others to prevent some jerkiness
+- added another safewall script and an option to select between 1(Smile Turk original safewall) and 2 (Numer0us). 
+*Thanks Numer0us for the code*
+- safewall v2 made default. (Border Assist still overrides any safewall if enabled in settings and pressing R, even if already auto-driving with safewall)
+- in game default preset the uk skin has been sacrificed :D different rendering annoyed me
+v7.63-62
+- made border assist activate when closer to the edge
+v7.61-60
+- etm made 0
+v7.59
+- fixed a typo that caused 1 fps in certain conditions
+- chat is now selectable
+- small tags (JJ) is now slightly bigger
+v7.58
+- updated border assist to handle small/custom radius
+- new border rendering to handle small/custom radius
+- fixed choosing skin background issues on small servers
+- updated connection riddle to prevent potential exploits and code execution
+v7.57-56
+- added !protocol cmd to toggle to experimental v13 (for now just high resolution minimap)
+- fixed main menu and connections to ignore if server list fails to load for whatever reason and also added a backup link with a server list from my realtime leaderboards. settings should also open even if no srv available
+- fixed default ellipse not being in dead center after radius change
+- added !help cmd that lists available chat commands as a quick review
+v7.55-54
+- repack
+v7.53
+- updated border assist to handle new radius
+v7.52
+- workarounds (temporary?) to handle new domain and redirects madness
+v7.51-47
+- repack
+v7.46
+- repack
+v7.45
+- decreased dynamic tail rendering by a factor of 4 (from ~1000 to ~250ms @240FPS). Aims to reduce the impact and duration of invisible tails bug. 
+*Thanks Saya for pinpointing the code*
+- added option "assist instant full tails" that skips over the dynamic rendering of tails. Might cause some tail jerkiness especially with low quantity of food but guarantees full tail body even in fast kill-eat-repeat gaming (where the tail might never be fully complete for several seconds).
+v7.44
+- repack
+v7.43
+- minimap(radar) now gets cleared if changing servers
+v7.42-41
+- repack
+v7.40
+- fix : forgot a lil debug on in chat for border assist in 7.39
+v7.39
+- made border assist work with non-standard world sizes
+v7.38
+- repack
+v7.37
+- new radar dots 
+*Thanks Numer0us for artwork*
+v7.36-35
+- repack
+v7.34-32
+- removed paypal donation link from mod to unclutter chat box
+- fixed W when KK not bringing nicks on top
+v7.31
+- fixed nicks not dimming when assist on
+v7.30
+- made nicks when sos and food be visible while assist is on 
+*Thanks Worm Buns for the idea*
+- minor code cleanup and speed improvements
+- dropped google analytics (I no longer care for it)
+v7.29
+- repack
+v7.28
+- removed mouse ignore radius inside snake's head. 
+*Thanks M A R T I N E Z for suggestion*
+v7.27
+- minor performance improvements when using W key
+- minor code cleanup regarding AA infobox
+- fixed faster small food appearing within a new sector being rendered slightly misplaced 
+*Thanks Numer0us for the bug report*
+- fixed W replaying SOS sound if new sos arrived recently (last 4s update cycle) 
+*Thanks M A R T I N E Z for the bug report*
+v7.26-24
+- repack
+v7.23-22
+- improved border rendering at all zoom levels when within display range
+- added a default dead center ellipse (as a circle) with params 21600 21600 64 64
+- added chat command !ellipse with positive parameters x y rx ry relative to slither world coordinates. It moves/resizes the default ellipse with the purpose of delimiting an area for special events. It will be translated to the radar map as well. If any of x or y is 0 current snake position will be used as ellipse's center. You can then fiddle with coords to position it anywhere you want. It will have the same color as the border. 
+*Thanks Worm Buns and Numer0us for the idea and support*
+v7.21
+- added option "Faster small food as squares" which makes it easier to spot worthy food. 
+*Thanks Aylina for the idea*
+v7.20-18
+- repack
+v7.17
+- added new option "small tags" and keyb shortcut JJ which limits tag size to snake width. 
+*Thanks Worm Buns for the idea*
+- added new public tags 
+*Thanks Анастасія Кажук for the artwork*
+v7.16
+- repack
+v7.15
+- corrected a typo in skin builder
+v7.14
+- added tiny positional markers on the snake's rings during text-building of skin
+v7.13
+- moved skin builder shortcut key symbols to lower right corner. 
+*Thanks p s y b a b e for the idea*
+v7.12
+- new simple, fast and enhanced skin builder. use keyboard and/or type in input field to fill in and edit anywhere. you can for instance then select/copy and paste it in chat later on for some events. 
+*Thanks Worm Buns / Relentless for the idea*
+v7.11
+- repack
+v7.10
+- fixed safewall not engaging right after enabling it in options (but would engage after a reload)
+v7.9-7.7
+- repack
+v7.6
+- fixed bugs with SG server 134. 
+*Thanks Ali Hamza for the bug report*
+v7.5
+- repack
+v7.4
+- added a new option "Peek (W) shows big food" to quickly spot worthy pellets around. 
+*Thanks Worm Buns for the idea*
+- added a new public tag 
+*Thanks psybabe for the artwork*
+v7.3
+- canceled auto-refresh on server list retrieval timeout due to slow slither.io site. In case it doesn't load you need to refresh it yourself.
+v7.2
+- added a new background called flowers 
+*Thanks Анастасія Кажук for the artwork*
+- added a new option "assist hide tags&cosmetics" 
+*Thanks Worm Buns for the idea*
+v7.1
+- fixed bugs (introduced with update to v3 type extension) with performance that manifests on windows systems
+v7.0
+- switched to manifest v3
+v6.63-6.62
+- repack
+v6.61-59 (2022-05-01)
+- added more tags 
+*Thanks Анастасія Кажук for the artwork*
+v6.58 (2022-05-01)
+- changing own dot in settings during play instantly applys it also on radar
+- respawn (00) will no longer be honored above 1k score to prevent accidental typing (but 99 still works)
+v6.57 (2022-04-15)
+- minor bugfixes and improvement to some menus and windows 
+- added 20 new radar dots 
+*Thanks sizematters for the artwork*
+v6.56 (2022-04-15)
+- increased max zoom-in for settings (X) as well 
+v6.55 (2022-04-11)
+- added 13 new tags from FS
+- increased max zoom 
+*Thanks M A R T I N E Z for the idea*
+- made laser thinner 
+*Thanks M A R T I N E Z for the idea*
+- minor tags bugfixes
+v6.54-6.49
+- repack
+- beware v6.50 had a typo bug which prevented the game from running
+v6.48-46
+- added option for instant gameover (no spectation after death)
+- minor improvements
+v6.45
+- fixed bug realtime in mod not showing play button in certain conditions (bug introduced recently)
+v6.44-43
+- Added a new Striped plain faster skins options. It comes in handy for computers more 2D oriented for users who don't like the squared plain one. Remember to benchmark your options for your best performance/quality ratio. Depending on your browser settings and the GPU type you have you will noticed some 2D shapes are faster or slower to render than the textured options like game official (disabled option) or the NTL textured ones
+- Made slow cpu graphics preset have 50 fps limiter for the lowest possible cpu usage in slither as chances are some old computers might have high refresh rates on their newer displays. 
+v6.42
+- minor bugfixes and improvements
+v6.41
+- added option to invert zoom in/out operation by mouse scroll. 
+*Thanks sizematters for the idea*
+v6.40-38
+- added option instant gameover with no spectating delay after death
+- minor bugfixes
+v6.37-34
+- repack
+v6.32
+- fixed a bug preventing connection to slither server when complex skins used. 
+*Thanks Worm Buns for the bug report*
+v6.31
+- repack
+v6.30
+- fixed big foods and preys sizes. 
+*Thanks Aylina for the bug report*
+- added select tag icon artwork from FS
+- added option to enable/disable peek (W) showing key owners on snakes (in players list it will still be shown regardless). 
+*Thanks MOIZ for the idea*
+- minor code cleanup
+v6.29
+- fixed map dots not working after mouse over player dying. 
+*Thanks Aylina for the bug report*
+v6.28
+- fixed random map dots not working after mouse over playerlist event. 
+*Thanks Aylina for the bug report*
+- renamed option "disable alpha skin rendering" to "disable atypical skins" and now also disables slugs and one_eyed 
+*Thanks sizematters for the idea*
+- peek key (W) now temporarily also shows key owners in playerlist and in-game snake nicks 
+*Thanks TraXarT for the idea*
+v6.27-26
+- repack
+v6.25
+- fixed rank incompatibility with KK score recorder
+v6.24
+- repack
+v6.23
+- built a few new backgrounds based on ideas from various users
+v6.22
+- added links to easily join discord and reddit communities
+v6.21-19
+- repack
+v6.18
+- added 6 new tags 
+*Thanks psybabe for the artwork*
+- fixed random minor bug when own snake is dying
+v6.17
+- repack
+v6.16-15
+- added benchmark commands !timedemo and !timedemo1 for use especially during choosing skin. 
+Read more about it here
+ or 
+here.
+- repack
+v6.14-13
+- fixed pumpkin tag bug.
+*Thanks M A R T I N E Z for the bug report*
+v6.12-10
+- fixed menu logo animation when enabled and alternative menu layout, both messed up around the migration to v6.
+- fixed jiggly tag at browser default fps limiter and higher refresh rate display. 
+*Thanks Aylina for the bug report*
+- fixed rare random menu bug crashing the mod after death. 
+*Thanks Aylina for the bug report*
+- various improvements and code cleanup
+v6.9
+- added 50 FPS limiter for weak computers. Old 'max fps' renamed to 'slow cpu' (to avoid some confusion) and switches to 50 fps. this should squeeze max performance from any old junk computer.
+- added 2 more graphics presets
+- slighlty rearranged the options into their corresponding categories
+v6.8
+- added safewall and border assist options for enable/disable
+- made 'max fps' set to 61 fps limiter to help weak computers with high refresh rate displays
+- code cleanup and minor bugfixes
+v6.7
+- sanitization of server ip field in order to not cause errors when malformed text written
+v6.6
+- repack
+- changed FPS limiter to use common fixed values instead of numeric ones and also increased to 300 fps as 300hz displays became more common (although chrome is still limited to 240 it seems)
+v6.5
+- fixed background bug introduced in 6.4
+v6.4
+- added new frontier tags
+v6.3
+- fixed a bug in leaderboard with long nicks overlapping score. 
+*Thanks Aylina for the bug report*
+- fixed a bug in main menu regarding management of failed connect attempts when switching between play /open settings / change skin while in slither server timeout. 
+*Thanks Aylina for the bug report*
+v6.2
+- fixed a bug: snake not instantly following mouse after respawn
+v6.1
+- minor bugfixes
+- added packets per second counter (pps) after the connected ip information. This will show why higher FPS is useful: game sends up to 300 pps of info in busy places but due to low fps it becomes a waste of bandwidth :)
+v6.0
+- various improvements and code cleanup
+- added new NTL textures for faster rendering but much of the looks of the original ones
+- mod's default is now with NTL textures enabled
+- estimated performance gains with faster skins at 60 FPS with 60Hz display compared to disabled: Rounded Plain - 20%, NTL textured - 33%, Squared Plain - 62%.
+- estimated performance gains with faster skins at 240 FPS with any display refresh compared to disabled: Rounded Plain - 30%, NTL textured - 55%, Squared Plain - 270% (not a typo). Squared Plain performs almost as fast as skinless (sometimes even faster depending on how many snakes and their size) but still allows you to see the true colors of skins
+- added a button to reset all options to make the game look like the original (for those with no time to understand/read the options). If you want to get back to NTL MOD's defaults you need to press the red button "Reset all to defaults"
+v5.79-78
+- minor bugfixes
+v5.77-75
+- minor bugfixes and improvements
+- fixed a bug disengaging the bot not instantly following the static mouse. 
+*Thanks Aylina for the bug report*
+- added a chat cmd to toggle border assist for those who do not want it but still want to keep the laser: !borderassist. 
+*Thanks Aylina for the idea*
+v5.74-73
+- fixed sticky shift scroll bug in choosing skin
+v5.72-71
+- added FS tags and compatibility
+- added option to play chat sound on incoming message
+- in change skin menu now n,m scrolls normal skins, N,M scrolls custom skins, mouse wheel scrolls normal skins, SHIFT + mouse wheel scrolls custom skins.
+- can take screenshots with Z in any change skin menu/submenu (press hh to view chat confirmation, or 55 to enable download status bar if not sure
+- fixed a bug when double opening realtime during play
+v5.70-69
+- minor bugfixes and improvements
+v5.68
+- fixed uk skin bug
+v5.67-66
+- repack
+v5.65-63
+- fixed max-fps button bug and some other minor bugs
+v5.62
+- repack
+v5.61
+- fixed compatibility with kamikaze score recorder
+v5.60
+- code cleanup
+v5.59-58
+- fixed glitch when KK on then W
+v5.57
+- fixed new graphics options not saved
+v5.56
+- fixed assist skinless bug: when pressed after death there were no skins
+v5.55
+- fixed "normal" food smaller than original even when small food disabled (bug from 5.53)
+- added option for assist to temporarily switch to skinless mode 
+*Thanks Raichou for the idea*
+v5.54
+- fixed bot cirleing bug introduced in 5.53
+v5.53
+- code cleanup
+v5.52
+- readded some from 5.47
+v5.51
+- reverted everything back to 5.46 because it annoyed me :)
+v5.50-47
+- removed high graphics option and related code as noone ever uses it anyway
+- the 2 remaining grapghics options are now called Low and Normal
+- added 2 options for textures rendering for Normal mode: faster foods and faster skins
+- faster food aplies to any mode (low or normal) and can get up to 30-40% faster rendering (fps) for weak computers especially in places with much food (botstorms, big snakes dying etc)
+- faster skins will allow you to see the actual skin rings colors in Normal mode (by comparison to low mode) but will use faster rendering units instead of the normal textured ones. It will gain depending on conditions (useful in more busy areas) up to 15-30% speed increase.
+- Max FPS button now controls more options to get better performance
+v5.46
+- repack
+v5.45
+- TMS now always on top
+v5.44-42
+- repack
+v5.42
+- fixed various glitches with the infoboxes (they will now be relative to borders even after customization). As always, press the red button "reset infoboxes" if in trouble. Remember you can also drag the settings floating window by the titlebar
+- added Smile Turk's safewall which is a different implementation of border assist, based on recalibrating coordinates relative to real mouse position. For now it can only be enabled (& remembered after reload) with the chat command !safewall . It will autoengage when mouse is outside the border. If border assist is in use it will take precedence and safewall will not engage. The snake goes closer or further from the border depending on how far away the mouse is from the head. After a period of testing it will appear in main settings. 
+*Thanks Smile Turk for the code*
+v5.41-5.39
+- new tags. 
+*Thanks psybabe for the artwork*
+v5.38-37
+- repack
+v5.36
+- fixed minor glitch with cosmetics in low graph when abusing W
+- slight adjust of black background so the empty skin builder is still visible and not confusing
+v5.35
+- radar/minimap can now be repositioned anywhere
+- reactivated cosmetics for low graph
+- added options to control drawing of spine on own snake in low graph and/or when assist is on even in medium/high graph
+- added an option that enables/disables emoji icon from chat. Some people don't use it and prefer it to not display anything if accidentally clicked. It defaults to disabled on new install
+- added button to remove all slither related settings (almost like delete browser cache) but keeping important data like: team keys, skins, highscore, nick filter list, and realtime leaderboards preferences. It will keep KA MI KA ZE UUID. The end result is default values for everything without losing team membership etc. It automatically saves current values, then removes everything, then causes a reload
+- added button to export just the custom skins (no tags, no cosmetics) to be safely shared with friends. Some people have extensive collection of skins. The number #x in the filename means how many skins are exported. Pay attention when sharing files to not give away the full settings and just the slither-skins-#.ntlmod file
+- added button to import saved skins. It will add only the new ones to your own so that if you import the same file twice, the 2nd time it will say 0 skins imported
+- fixed skin builder button nrsave (non repeat save) not working anymore
+v5.34
+- added options to control snakes dying animation and low graph transparency
+v5.33
+- settings adjustments for very low vertical resolution
+v5.32
+- fixed background bug introduced in 5.31
+v5.31
+- bugfix slow target detect when uk skin
+- map size increased to 4x
+- various options added from EE hotkey menu to settings (map size, snake nicks+, small food, auto no prey)
+- added MAX FPS button that sets everything to lowest cpu usage possible for people with weak computers and/or who do not understand yet what every option does or how it affects performance
+- reset infoboxes button made more visible in case it is needed
+- bugfix chat not resizable with chrome v5x, 6x (yes, I prefer to keep code compatible with older browsers since they are faster in certain circumstances ;))
+- added spine for low graph own snake when not true skin used
+- performance tunings for low graph (tested on junk computers). On some it is needed to keep FPS limiter in 60 for more fluidity, others stutter and need 144 (on latest chrome with cpu i3 3xxx)
+- other minor bugfixes and code cleanups
+- made snakes transparent in low graph for more visibility and overlap clarity
+v5.30-27
+- minor bugfix (choosing skin)
+- moved [66] top10 color to settings top10 section and removed hot key and its eemenu status
+v5.26
+- top10 is now also draggable and resizable
+- small food applies instantly also to already existing food
+v5.25
+- all infoboxes are now draggable and resizable
+v5.24
+- made settings draggable only by the title
+v5.23
+- can open settings simply with .. during skin selection
+- minor bugfixes
+v5.22
+- uk skin replaced with blue/red stripes (was too ugly) when skin alpha rendering is disabled
+- made settings window draggable so you can better see what changes underneath
+v5.21
+- added option to disable skin alpha rendering which affects uk and neon skins but has less FPS drop especially near big snakes. It basically makes neon skins look like a normal one-colored skin, while the uk is streched with rough edges
+*Thanks sizematters for the idea*
+v5.20
+- repack
+v5.19
+- addedoptions to control glass border and high visibility skins
+- more code cleanup and bugfixes. Transition to new format seems stable
+v5.18
+- more code cleanup and bugfixes
+v5.17-5.16
+- removed tag during build a slither so the rings are more visible
+- high visibility skins
+v5.16-14
+- fixed missing highquality icon pic
+- various optimizations and bugfixes
+v5.13
+- minor bugfixes
+v5.12
+- repack
+v5.11
+- fixed missing arrows from custom skin selector (bug introduced in v5.10 conversions)
+v5.10
+- fixed custom menu background image not streching the whole screen (bug introduced in v5.09)
+v5.09
+- further improvements in loading speed and size footprint
+v5.08
+- fixed a bug introduced in 5.07 that caused 00 to sometimes connect on another server on timeout
+v5.07
+- border line color option
+- border is now glass like transparent
+- TMS can no longer target team members (they are not enemies right?)
+- EE hint will show nick in italic if stealth is ON
+- added team name (whatever is written in save-as field) to EE hints
+v5.06
+- repack
+v5.05-5.04
+- improvements in loading speed on weak computers (also no more loading animation)
+v5.03
+- added EU tag. 
+*Thanks dvheld*
+v5.02-4.99
+- repack
+v4.98
+- new loading animation. 
+*Thanks Nadya30 for artwork*
+v4.97-96
+- saved screenshots have new more meaningful names and also contain server address
+*Thanks Tiger for the idea*
+v4.95
+- reverted the min 50 fps change as it causes issues with tags in certain conditions
+v4.94
+- fixed tag not always applied from saved skins
+- removed TMS confirmations (they tend to fill the chat)
+- snakes nick font size can now be lowered to min 8 from 15
+- FPS limiter can now be lowered to 50 (like in the original game)
+- new mini-benchmark: Loading time is announced as first line in chat. mine is 0.750 seconds
+v4.93
+- repack
+v4.92-90
+- fixed bug with multiple keypresses at same time with enter in chat
+v4.89
+- code cleanup & minor tunings
+v4.88
+- fixed shortcut keys not working when caps lock on
+- made chat commands case insensitive
+- added cardinal NWSE guidance to minimap radar (I refuse to add useless ABCD style :))
+- emoji cleanup - removed lower line with daily emoji/modified size
+- added Target Marking System (TMS) 
+*Thanks Smile Turk for the idea*
+How TMS works:
+When enabled with backspace each visible snake (regardless of team or not) will have a one letter identifier above the head (as opposed to below the head like the nickname). This letter could be any of 0..9 and A..Z.
+While TMS is on all other keyboard shortcuts are ignored and the first key pressed is interpreted as the selector of the new target (0..9,A..Z) with the exception of backspace and will be shared to the team. Upon arrival of target info the designated snake will have a bullseye below his nickname. Each team member will contribute from now on by reporting seeing the target to everyone else. 5 minutes after the last seen message by any member the target will be discarded. The target is guaranteed to be unique (ie no false after original target is dead) in 99.9(9)% of cases.
+v4.87-86
+- added support for emoji in chat. 
+*Thanks MAIKOLANYELOW for the idea*
+v4.85
+- repack
+v4.84
+- added 2 more tag flags
+- made standard tagged skins correctly visible to phone users. 
+*Thanks mimizu-san for the idea*
+v4.83
+- repack
+v4.82
+- minor bugfixes
+v4.81-80
+- new loading animation. 
+*Thanks Nadya30 for artwork*
+- minor improvements
+v4.79
+- added option to disable zoom that makes mod zoom like original game. Can be changed while playing (like almost all options) taking you to the default zoom for your snake size
+- added option "dynamic slow zoom release" that after zooming as you wish will slowly zoom in/out as necessary to take you to game's default zoom level for the snake size
+- added option to peek (W) at own skin when in low graphics. 
+*Thanks BRB for the idea*
+- moved option "own true skin in low graph" from team options to general section of settings
+v4.78
+- fixed kill counter bug always adding 1 even when multiple kills at once. 
+*Thanks Saya for reporting it*
+v4.77
+- mod is now working with Kamikaze's score recorder extension v1.3.4 added
+- PS: export settings saves everything slither related including kamikatze's score ID (for persistance)
+v4.76
+- loading animation
+- easily accessible donation button (Thanks many users for wishing for an easier way to donate!)
+- better confirmation & suggestions when invalid(banned) keys used with regard to team logging (also appended to privacy policy)
+v4.75
+- minor improvements and bugfixes
+v4.74
+- unlocked google play store skin. 
+*Thanks Flying Tacos for the idea*
+v4.73-72
+- repack 
+v4.71
+- added new tag
+- fixed own/team skin in low graph when in stealth and not shown as true skin
+v4.69
+- added 2 more options to control new features: enable W peek at own nick and enable EE menu hint
+v4.68
+- unlocked all cosmetics now are visible by mobile users also, even crown and bunny ears.
+*Thanks mimizu-san for the idea*
+- if you enter a slither code, this will take priority over my unlock and cosmetics will reflect your newly enabled code (who knows maybe in the future my unlock will not work anymore). You will be announced what cosmetics will not be visible to mobile
+- new option in settings for snake nick font size 
+*Thanks mimizu-san for the idea*
+- brightness of snake nicks slightly increased 
+*Thanks mimizu-san for the idea*
+- snake nick of team now also reflects SOS and FOOD flags by altering shadow color in red/green 
+*Thanks BRB for the idea*
+- peek button (W) now also displays your own snake's nickname. If you belong in a team you can quickly test color settings, flags (sos,food) without needing to encounter a team member 
+- dropped "slither visible nick" under EE menu: pointless since the censoring is announced in chat
+- keyboard shortcuts are no longer layout dependent, they got changed to letters so they should now work regardless of keyboard internationalization setting 
+*Thanks mimizu-san for the idea*
+v4.67
+- fixed death point not working sometimes
+- when EE menu is hidden small info is now displayed like nickname entered in main menu and nickname registered in slither server - the nickname other people see you with (could be empty due to stealth option ON or could be the censored one)
+v4.66
+- nick filter added to options: if any nicks contains any of the filtered words it will become nameless. You can still peek at them during game by pressing the skin/nick peek button W. It is ONLY a locally managed filter list so that each user controls his own unwanted words. It can be opened on the fly and will provide quick suggestions for copy-paste. 
+*Thanks Tracie for the idea*
+v4.65
+- faster 'select server by ping' list
+- minor improvements
+v4.64
+- fixed mod not working when ad blockers or dns filters were in use
+v4.63
+- better skin management (zoom controls can be used to scroll)
+- fixed tag bug in skin selector
+v4.62
+- tag adjustments for high fps
+v4.61-60
+- repack with fps limiter defaulted to 144
+v4.59
+- added 2 new tags
+- adjusted tags and cosmetics to fit in lower resolution 800x600 +
+- fixed skin selector for neon to look like in-game skin
+- regenerated 190 new neon skins (some of the first ones didn't have any effect)
+v4.58
+- fixed "select server by ping" sometimes not loading due to timeouts
+v4.57
+- new "neon" skins added. 
+*Thanks ARG MANDA for creating them*
+- better skin management
+v4.56
+- fixed nick peek bug (if pressed while dying nicks were on next respawn)
+- minor improvements
+v4.55
+- fixed slither skin bug
+v4.54
+- minor settings improvement
+- mod no longer tries to validate auth keys every 1 minute like it does if they were previously filled in and declared invalid. With the button "no team" which resets auth keys to empty (like default clean install of mod) there is no point in trying to contact my server in order to validate keys since the user does not explicitely belong in any team
+v4.53-52
+- added new tags
+v4.51-50
+- added a news feed to chat for first connect
+- various code cleanup and performance improvements (higher fps on older hardware with latest chrome)
+v4.49
+- code cleanup
+v4.48
+- keypressing ' (single quote) enables chat text to be mouse-selectable during play
+v4.47
+- skin peek (W) now also has nick peek (for when playing with all nameless)
+- made chat window selectable again while playing (needed for select based translations)
+- when bot is ON near border, border assist is disabled
+- when bot is ON, assist front laser is disabled
+- when border assist is in use, front laser is ON even if disabled in options
+v4.46
+- added border assist to assist function (it will autodrive the snake along the border when R or KK active). Presentation here: 
+click for video
+v4.45
+- code cleanup
+- snake size in nick now has @ in front
+v4.44
+- Graphics engine is now unlocked, anyone can try their rigs and hope for the best: FPS limiter 
+ 60 raw power unlocked. Default is 60 when in doubt. For max fps set graphics to low and check "disable boost glow effect", then work your way up
+v4.43-40
+- code cleanup
+- Escape can now close realtime and settings.
+*Thanks H A L  9 0 0 0 for the idea*
+v4.39
+- fixed chat select/send bug when left mouse clicked. Chat input line is meant to be activated with enter or right click into it during play. Before this it could be activated with left click as well. Also disabled selectable text during play.
+v4.38-36
+- code cleanup, various optimizations
+v4.35
+- fixed EE menu glitch due to latest chrome update bug
+v4.34-30
+- minor bugfixes and design changes
+v4.29
+- fixed AA shortcut bug caused in chrome v81
+v4.28
+- minor settings bugfixes
+v4.27
+- fixed bug with change skin buttons
+v4.26
+- option to disable cosmetics for snakes outside team
+v4.25
+- option to control boost effect around snakes
+- W option (skin peek) now also brings temporary nicks on top
+v4.24
+- mod ready for 144+ FPS
+v4.23
+- small bugfixes
+v4.22
+- added some more tags
+*Thanks mimizu-san for contributing the snow flake*
+v4.21
+- small bugfixes
+v4.02
+- fixed bug regarding own skin in low graph
+- fixed bug with max scaling not filling entire screen
+v4.01
+- all NTL MOD users are now joined in NTL NETWORK & can see other NTL MOD users' cosmetic and tag even if no team membership
+- unlocked cosmetics for jelly, slug and one-eyed skins
+- improved resize
+v3.25
+- added option fps limiter. some weak computers will benefit from limiting to 50 or 45 fps, while strong ones can benefit from rising to ~90 (if higher refresh rate).
+v3.24
+- user selectable menu theme
+- change in-game aspect ratio with new scalling function (keys [[ & ]]). Scriptbot triggers a chat message when sharpness is at maximum for crystal clear game image. You won't get back to the original blurry game after this :)
+- lots of overall improvements for windows users with older hardware
+- fixed bug with game stuttering when used with displays with higher refresh rate. 
+*Thanks V O R T X  for the bug report*
+v3.23
+- game's servers in main menu are now sorted by connect ping. Useless compared to in-game network delay (the most accurate value indicating your game fluidity), but in case you don't know the geographic area you live in, now you can just select the server closest to you. This doesn't mean it will perform the best as many factors depend on a fluent game, like slither server load, in-game network packets, local cpu load and so on.
+v3.22-21
+- added settings button to quickly drop out of any team and make all authkeys blank
+- small bugfix
+v3.20
+- increased visibility of default location dot on radar/map
+- added option nicks always on top & high visibility (shadow) 
+*Thanks PVO for the idea*
+- added ~500 custom dots for players to pick from, also no more random ones. 
+*Thanks sizematters for the idea & artwork*
+- added assist function (R or KK keys) : activates front directional laser, disables food for better enemy visibility, puts nicks back behind snakes. 
+*Thanks TraXarT for the idea*
+- added option to make skin peek always on: you can play with just your snake in low graph while all other snakes have true medium graph skins. 
+*Thanks PXXR for the idea*
+- various improvements of game's design flaws.
+- new mod icon. 
+*Thanks BRB for the idea & artwork*
+v3.19
+- W option (skin peek when in low graph) now shows just true skins of other snakes and not your own to prevent low fps.
+v3.18
+- fixed skin peek bug (if pressed while dying game would start in medium until w pressed again)
+v3.16
+- increased visibility of death point keep option when ON (not recording new death location)
+- hopefully fixed reported random instability around death point location
+v3.15
+- added skin peek option (pressing W while in low graph briefly shows true skins until W is released) 
+*Thanks sizematters for the idea*
+v3.14
+- custom built skins can now be saved and reused anytime later on 
+*Thanks Nadya30 & Xarxes for the idea*
+v3.13
+- added backup/restore functionality for all settings
+- better keys management (pairs of keys can be saved) 
+*Thanks sizematters & PVO for the idea*
+v3.12
+- chat bugfix
+- added mod version in players status (v0 means any version before v3.12)
+v3.11
+- all game graphics are now loaded from locally stored subfolder named s. You can replace graphics saving them with the same name to enhance your gaming experience with your own tags or cosmetics (like flags and such) but they won't be visible to your team (they will be replaced by the original one unless they make the same change as you)
+- chat timestamps. 
+*Thanks stabmyselfintheears for the idea*
+- new delay measurement shown as x(y): x= max delay in the last second, y= max delay in the past 10s. Before it was the last second average so expect higher and more accurate values.
+- player details (like fps, khh, delay) 
+*Thanks sizematters for the idea*
+- sound alert for SOS. 
+*Thanks Xarxes for the idea*
+- alternate menu (Big Shaq's design) 
+*Thanks Big Shaq for the idea*
+- bot near border. 
+*Thanks Xarxes for the idea*
+- chat line stays active during death
+- nickname censorship announcement in chat (if the case)
+- unlocked all cosmetics (visible only to team users, so not server wide)
+- cosmetics are visible within team (or applied to all team with your one)
+- menu animation disabler
+- predefined chat lines 
+*Thanks Toby / forman bros for the idea*
+- option QQ to show the current predefined chat lines (does not work if scriptbot messages are disabled in chat)
+- zoom speed setting 
+*Thanks Not My Main Account for the idea*
+- online players status 
+*Thanks PVO for the idea*
+- 2016 background
+- hide addon windows while choosing skin
+- many items and flags (only of countries hosting slither servers) now available as tags on any snake, custom or predefined, visible to team members
+v2.53
+- added option to disable SCRIPTBOT alert when new player joins (some people have timeouts in connection or just too many players). 
+*Thanks TraXarT for the idea*
+- added option to disable all SCRIPTBOT messages
+- added option to select SCRIPTBOT chat color. 
+*Thanks sizematters for the idea*
+v2.52
+- joining player is also announced in chat by SCRIPTBOT (besides beep)
+- added new flag "*" in players list meaning that player has "all nameless" option turned ON
+v2.51-50
+- team nick color is now used for team players in leaderboard as well
+- added stealth mode option: everyone else outside the team script will see a nameless snake (in leaderboard as well) with a random skin changed with each respawn. Those in same script will see your nick (if nicks+ is ON) and true skin. The idea of not being able to control what nick or skin the others see was to discourage outside script teaming. Players list now contains a "!" letter near the BSF flags that means that player uses stealth mode. Also in EE menu the status appears as well.
+- added option to make all other snakes nameless (that are not part of your team). 
+- added option to automatically send chat message "Help me!" when SOS flag is turned ON. 
+*Thanks KKBB for the idea*
+v2.44
+- added Del button when building skin to delete last ring 
+*Thanks SilverSlayer for the idea*
+v2.43
+- zoom disabled while in settings for changing numeric values with scroll wheel
+- added option to set default reset zoom ratio (during setting it zoom changes to reflect the value)
+v2.42
+- added mouse hover in players list to easily identify one player of interest 
+*Thanks MAIKOLANYELOW for the idea*
+v2.40
+- added server time in RealTime Leaderboards and in mod during play. This represents the slither server's date / time (local time of that country's capital city with respect to Daylight Savings Time) 
+*Thanks Raichou for the idea*
+v2.33
+- added settings options transparency and minimum bot circleing score 
+*Thanks SlitherBoss for the idea*
+- added seconds to times (local time & game duration) 
+*Thanks Raichou for the idea*
+v2.32
+- added 2nd scroll click to reset zoom (1st scroll click or key X resets zoom to default set in options, then the 2nd scroll click or X press bring the zoom back to where it were) 
+*Thanks PVO for the idea*
+v2.31-2.0
+- various fine tunings and bug fixes of new format
+- true skin when in low graphics for you and your team: high visibility + anti fake + ability to play with higher FPS while having nice skins for what matters most
+- shortcut added to easily change graphics mode during game.
+- all snakes have white nick except special color for team: anti fake
+- ability to open settings and realtime leaderboard during play (if bot is enabled)
+- ability to switch between teams on-the-fly (say u have 100K snake and need help from another team?:))
+- slither server communication delay near FPS (try to find a server under 100ms for best performance. You can see the freezes spiking up :)). This is not networking ping that has nothing to do with how busy the slither application server really is.
+- completely redesigned settings with lots of customizations
+- long skin builder (ultra custom skins) 
+*Thanks sizematters for the idea*
+- high visibility leadearboard (if enabled)
+- screenshot on death as well 
+*Thanks KKBB for the idea*
+- beep when player joins 
+*Thanks KKBB for the idea*
+- auto no prey: if ON preys are available under 1K then they turn Off. It re-enables them again automatically if under 1K
+- added new online players window correlated with server side key owner from admin page: anti spies, intruders and fakes
+Privacy Policy:
+My servers log very basic information about each computer connecting to my site, such as IP address, device characteristics, and browser type as required to interact by web server software. None of this information is associated with any identified person at the time it is collected, but it could potentially be tied to you somehow if we are required to disclose our server logs as a result of a subpoena or other legal process.
+The mod and webpages including team admin login at 
+https://ntl-slither.com/team
+do not
+ use cookies or any other technologies to track, collect or uniquely identify you or your device, but google analytics is used for reporting anonymous usage statistics in accordance with their terms (they process your data). Login form uses strictly just authkeys/teamid and no personal data is ever asked, needed, associated nor collected and requiered anywhere for any services, not even an e-mail address.
+To be part of and share game data with the team (like any other online game or any internet resource for that matter), mod connects to my servers using the IP provided by your ISP or proxy/vpn, auth keys, nickname, score, chat message and so on. If keys are valid, it resends data once every 4 seconds. If not valid or no connection to my server, it slows down re-checking to once every minute to not uselessly consume resources, in the eventuality that keys might became valid (connection re-established, key unbanned, team re-activated etc).
+Current score, final scores, nicknames, auth keys, and IP address of player and of slither server (chat is not saved) are stored for up to one month in the team log from where the team owner can see the players accessing his team. When log is displayed in browser, only the second least significant part of player's ip is displayed (for privacy reasons). Geoip data (that has max accuracy of city) is (re)computed using local database (maxmind.com) at the time of web log display. GeoIP along with the second half of ip helps team owners to identify keys that were leaked to 3rd persons, team spies, impersonators of players, multiple suspicious usage or any other general abuse.
+For those who have less technical knowledge regarding IP addresses and geoip:
+- Anything you communicate with on the internet can only be done because you have an IP address. Without a working ip address you are offline. Without a court order to your Internet Service Provider to force them to disclose to whom they had leased that ip address at the time in question, noone can use your ip address to identify you. Ip addresses are requiered to be logged by law by all parties involved in a communication starting with your isp, midway carriers and final server that provides the services you access. IP address is regarded to be the equivalent of your car's license plates.
+- Geoip is a public service used constantly everywhere starting with your own phone with the intent to provide more relevant services for your area (language, time offset, nearby services etc). GeoIP is a collaborative effort of making a database that is able to estimate where a class of ips is located (your ip represents just one in a class of several tens of thousands). It is by no means 100% reliable or complete and it depends of how ISP's around the world volunteered to declare these aspects. Considering that the authority in IP address allocation keeps redistributing ip classes, do not expect to see accurate results.
+In the case of team's log it should be enough and quite useful in order to spot keys used in different areas than they should. Although mod is built with friendship in mind, it seems there will always be ill-intentioned people... team owners were faced with abuse so these tools were developed to address these issues.
+Here is a screenshot of how entries look like in team log:
+By default (clean install) or if "no team" button selected, the mod does not attempt to connect for team membership therefore your game session is entirely anonymous 
+but if however you were part of a team and you were banned, as long as teamID and authkey fields have something filled in, the mod will try to validate them retrying each minute and you will appear in that team's log as red flagged (attempt of connection)
+. Whenever you want to drop out of any team, remember to press the "no team" button which erases the teamid and authkey fields.
+If any of the above is a concern or you do not agree with something that was explained, the safe choice for you would be to uninstall the mod and stop using any of my services hosted on ntl-slither.com.
+How to build a custom tag:
+- Starting with v9+ you can load, test and fine tune the tag directly in the mod: Change skin > Upload tag button
+- Begin by visiting and following the instructions in the uploader 
+link
+How to use chrome for slither:
+For windows users:
+You need to have latest chrome installed.
+Then create a slither.cmd file on your desktop with the following content. This will create a folder called "slither_profile" in your downloads folder and start a default chrome process pointing to this new clean profile.
+@echo off
+setlocal
+set "CHROME="
+for /f "delims=" %%I in ('where chrome.exe 2^>nul') do if not defined CHROME set "CHROME=%%I"
+if not defined CHROME if exist "%ProgramFiles%\Google\Chrome\Application\chrome.exe"      set "CHROME=%ProgramFiles%\Google\Chrome\Application\chrome.exe"
+if not defined CHROME if exist "%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe" set "CHROME=%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe"
+if not defined CHROME if exist "%LocalAppData%\Google\Chrome\Application\chrome.exe"      set "CHROME=%LocalAppData%\Google\Chrome\Application\chrome.exe"
+if not defined CHROME (
+    echo chrome.exe not found in PATH or standard install locations.
+    exit /b 1
+)
+start "" "%CHROME%" ^
+  --user-data-dir="%USERPROFILE%\Downloads\slither_profile" ^
+  --no-first-run ^
+  --no-default-browser-check ^
+  --dns-prefetch-disable ^
+  --ignore-gpu-blocklist ^
+  --enable-gpu-rasterization ^
+  --enable-zero-copy ^
+  --canvas-oop-rasterization ^
+  --disable-background-timer-throttling ^
+  --disable-renderer-backgrounding ^
+  --disable-backgrounding-occluded-windows ^
+  --disable-occlusion-tracking ^
+  --disable-domain-reliability ^
+  --no-pings ^
+  --blink-settings="dnsPrefetchingEnabled=false" ^
+  --disable-features=^
+Prerender2,^
+PreloadMediaEngagementData,^
+OmniboxTriggerForNoStatePrefetch,^
+SpeculationRulesPrefetchProxy,^
+NavigationRequestPreconnect,^
+OptimizationHints,^
+OptimizationHintsFetching,^
+OptimizationHintsFetchingAnonymousDataConsent,^
+OptimizationHintsFieldTrials,^
+ContextMenuPerformanceInfoAndRemoteHintFetching,^
+NetworkTimeServiceQuerying,^
+SafeBrowsingBetterTelemetryAcrossReports,^
+CalculateNativeWinOcclusion,^
+UseEcoQoSForBackgroundProcess
+Then start it, just type "ntl webstore" > add to chrome > pin extension icon > click > play
+That's it, enjoy!
+PS: I also prepared a 
+slither.cmd
+ file. Depending on your trust/browser/antivirus etc you might be able to download and use it directly.
+The Rest:
+Keyboard / mouse controls
+Shortcut keys can be used only during play, not in game menu.
+[X] means single press key "x", [TT] means dublepress key "T". This is to prevent triggering potentially dangerous controls while thinking you type in chat line.
+Boost/speed is done with SHIFT, SPACEBAR, left mouse button.
+While chat line is activated after Enter, you can send message with Enter (if not empty) or with right mouse button (even if empty).
+Using the BOT
+Smart bot OFF means it won't gather food when small, does not bother to detect food or being trapped or anything other than avoiding collision, it only circles if above 2000 points big circle counterclockwise, tiny coil clockwise. This prevents some occasions in which when pressing TT to activate circle bot, the bot does some dumb moves and kills himself as he is a bit confused by enemies around, food or figuring out circleing direction.
+Default is smart bot ON which gathers food and starts circleing above 2k (2000 points) in any direction.
+The best way to engage circle bot is to form the biggest possible circle by yourself and overlap head with tail for about 3-4 snake segments at least then press TT and confirm in chatbox or key menu that the bot is ON.(sometimes you might write TT in chatline :))
+Circle bot will do its best to be expanded as much as possible while keeping a small overlap.
+Teaming
+TeamID key is used to identify a certain team in a unique way. This represents an isolated database of players that share common location and chat.
+Auth key if valid gives one the right to query the team database in order to be a part of that team.
+Any key can be used multiple times, by any number of players. It's only the validity that matters.
+A team can request to have multiple auth keys so that each player can have its own. This is useful for untrusted environments where someone needs to be kicked out for bad behavior without forcing the other players to update their keys with new ones.
+Colored own line in players list
+For easy distinguishing of your info line even if nick is the same as others. Chat command available to change the color, eg: "!mnc white" "!mnc magenta" etc.
+Unlocked skin builder
+*Thanks sizematters and KKBB for the idea*
+Allows truly unique skins. New button added "nrSave". Means non-repeat Save. It allows a skin that does not repeat the whole group of rings that you built, instead it repeats only the last ring. Also even if not visible (yet, maybe in a future version?) you can continue to click and define colored rings past the allowed visible ones then as your snake will grow during play, you will see them.
+Bigger radar (map)
+Double press 4 to toggle between 1x 2x 3x size map.
+Snake scores
+*Thanks SlitherBoss for the idea*
+Double press 1 to add to the nickname of any near snakes its score in k (1k = 1000 points). Snakes under 1k will have 0k which looks like "ok" and seemed funny to me. No decimal as it will distract you by constantly changing. Much added bonus: no nameless snakes ever again so easier spotting them.
+No prey
+Double press 2 to disable the flying round free point giver called "prey". Why? because it blinded me when I needed to see. Besides by disableing it the game has less things to draw on screen so slight speed increase.
+Small food
+Press 33 for the new food to appear smaller, like the pellets on the floor. Relax after a snake dies the trail of food will be clearly visible. Why? it blinds me, small snakes can spawn right into it, and again less work for cpu/gpu to draw it.
+Death Point
+*Thanks The Rekterer for the idea*
+The blue circle dot that tracks where you last died so you can easily return. After respawn you have 1 minute to decide if it's worth keeping it (Death point keep ON - button \) if not it will self destruct.
+Food circle green dot
+*Thanks sizematters for the idea*
+Smaller than SOS circle dot, does not overlap with SOS one, can be used independent from SOS.
+It means food to offer.
+Current time and Rates
+It shows in lower left corner the current date/time for various reasons (recording info, don't forget that meeting and so on:)) and also the GMT offset.
+In lower right there are 4 more counters:
+- 1. time: it shows how much time has passed since last respawn
+- 2. rate in K/m or k/hh: it shows an average of how fast you scored expressed in K(score)/minute up to 40K then it switches to K/hh(half hour ie.: 30 mins). Why hh(half hour)? because that's what it takes for a fast player that is constantly agrressive, kills and eats successfully to reach 100K score. My personal best in solo gameplay is 100K in 27 mins meaning 111K/hh, and 460K in 2h25m meaning 95K/hh. In short, the goal of scoring with 100K/hh is a perfect round number you want to reach. The faster you will play you'll notice sometimes you can score even 200K/hh or more (I'm not talking about bot rain here) but as you grow it will be harder to keep up with that rate, but nevertheless keep murdering around and try to keep that rate around 100K/hh.
+- 3. kills: a dumb counter that keeps track of how many snakes hit your body and died. That means even if they hit you without you attacking them, or they hit further at the end of your tail and so on. It doesn't count and can't count snakes you cause death to by pushing them in others or in the red border.
+- 4. rate in K/k: it's an average of how much K of score you got per 1 kill. It gives some hints about your game style, like if you score in a map with bots it will be very low, if you are a circler and being donated mass, if will be very high. Usually for fast players it is around 2K/k. Not particularily reliable, but useful.
+Time and scoring rate in k/hh can be toggled on/off with / (
+*Thanks KKBB for the idea*
+).
+to be continued
+If anyone that made suggestions of improving the mod is not mentioned here note that is was not intentionally but out of mistake. Contact me for proper crediting :)
+© NTL - Nothing To Lose
+ 

@@ -1,0 +1,11 @@
+{
+  "version": "1001-1d9eee2a",
+  "multipleWorkerRoutes": true,
+  "thinLines": true,
+  "corridorRoute": true,
+  "displayTogglePreservesValues": true,
+  "sliderWorks": true,
+  "v1SwitchOff": true,
+  "saved": true,
+  "errors": []
+}

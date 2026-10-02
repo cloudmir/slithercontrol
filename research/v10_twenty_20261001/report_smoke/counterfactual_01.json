@@ -1,0 +1,499 @@
+{
+  "best": {
+    "lead": 0.8,
+    "start": 438.501,
+    "offset": 1,
+    "angle": 4.1303807796200465,
+    "boost": false,
+    "clear": -12.361379637661502,
+    "depth": 2.456061711897675,
+    "rootSafe": true,
+    "modelClear": false,
+    "path": [
+      {
+        "t": 438.501,
+        "x": 32720.401107878894,
+        "y": 33043.01068321455
+      },
+      {
+        "t": 438.501,
+        "x": 32720.401107878894,
+        "y": 33043.01068321455
+      },
+      {
+        "t": 438.5173000000119,
+        "x": 32717.475362342713,
+        "y": 33043.9892644766
+      },
+      {
+        "t": 438.53419999998806,
+        "x": 32714.48155638126,
+        "y": 33044.7777771491
+      },
+      {
+        "t": 438.5563999999761,
+        "x": 32710.42690086799,
+        "y": 33045.51851525703
+      },
+      {
+        "t": 438.5895999999642,
+        "x": 32703.871149230385,
+        "y": 33045.99020521496
+      },
+      {
+        "t": 438.6295999999642,
+        "x": 32696.033036131765,
+        "y": 33045.4247135749
+      },
+      {
+        "t": 438.6695999999642,
+        "x": 32688.85955789467,
+        "y": 33043.75089415736
+      },
+      {
+        "t": 438.7095999999642,
+        "x": 32682.163366625897,
+        "y": 33041.02618380474
+      },
+      {
+        "t": 438.74959999996423,
+        "x": 32675.97634771339,
+        "y": 33037.28668905411
+      },
+      {
+        "t": 438.7895999999642,
+        "x": 32670.451101181898,
+        "y": 33032.624642853145
+      },
+      {
+        "t": 438.8295999999642,
+        "x": 32665.72390473954,
+        "y": 33027.155032464
+      },
+      {
+        "t": 438.86959999996424,
+        "x": 32661.59396616801,
+        "y": 33021.221514838755
+      },
+      {
+        "t": 438.9095999999642,
+        "x": 32657.619991714902,
+        "y": 33015.18242955539
+      },
+      {
+        "t": 438.9495999999642,
+        "x": 32653.646017261795,
+        "y": 33009.14334427202
+      },
+      {
+        "t": 438.98959999996424,
+        "x": 32649.67204280869,
+        "y": 33003.10425898866
+      },
+      {
+        "t": 439.0295999999642,
+        "x": 32645.69806835558,
+        "y": 32997.06517370529
+      },
+      {
+        "t": 439.0695999999642,
+        "x": 32641.724093902474,
+        "y": 32991.026088421924
+      },
+      {
+        "t": 439.1095999999642,
+        "x": 32637.750119449367,
+        "y": 32984.98700313856
+      },
+      {
+        "t": 439.1495999999642,
+        "x": 32633.77614499626,
+        "y": 32978.94791785519
+      },
+      {
+        "t": 439.18959999996423,
+        "x": 32629.802170543153,
+        "y": 32972.908832571826
+      },
+      {
+        "t": 439.2295999999642,
+        "x": 32625.828196090046,
+        "y": 32966.86974728846
+      },
+      {
+        "t": 439.2695999999642,
+        "x": 32621.85422163694,
+        "y": 32960.83066200509
+      },
+      {
+        "t": 439.30959999996423,
+        "x": 32617.88024718383,
+        "y": 32954.79157672173
+      },
+      {
+        "t": 439.324,
+        "x": 32616.449616377155,
+        "y": 32952.617506014314
+      }
+    ]
+  },
+  "candidates": [
+    {
+      "lead": 0.8,
+      "start": 438.501,
+      "offset": 1,
+      "angle": 4.1303807796200465,
+      "boost": false,
+      "clear": -12.361379637661502,
+      "depth": 2.456061711897675,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 2,
+      "start": 437.312,
+      "offset": 0,
+      "angle": 0.8761413774951614,
+      "boost": false,
+      "clear": -18.8968109976788,
+      "depth": 4.579814370564244,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 0.8,
+      "start": 438.501,
+      "offset": 3.141592653589793,
+      "angle": 6.25815269639401,
+      "boost": false,
+      "clear": -19.755695010936822,
+      "depth": 4.6607571773104,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 0.8,
+      "start": 438.501,
+      "offset": 2,
+      "angle": 5.131685211043088,
+      "boost": false,
+      "clear": -29.17571156816728,
+      "depth": 6.0189399805980095,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 0.8,
+      "start": 438.501,
+      "offset": -1,
+      "angle": 2.1277719167739635,
+      "boost": true,
+      "clear": -40.07547169811321,
+      "depth": 6.895905978465132,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 0.8,
+      "start": 438.501,
+      "offset": -0.5,
+      "angle": 2.6284241324854842,
+      "boost": true,
+      "clear": -40.07547169811321,
+      "depth": 6.914963664523842,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 0.8,
+      "start": 438.501,
+      "offset": -2,
+      "angle": 1.1264674853509218,
+      "boost": true,
+      "clear": -40.07547169811321,
+      "depth": 6.9388642218087515,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 0.8,
+      "start": 438.501,
+      "offset": 0,
+      "angle": 3.129076348197005,
+      "boost": true,
+      "clear": -40.07547169811321,
+      "depth": 7.775719058208877,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 0.8,
+      "start": 438.501,
+      "offset": 3.141592653589793,
+      "angle": 6.25815269639401,
+      "boost": true,
+      "clear": -40.07547169811321,
+      "depth": 8.561213162625457,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 0.8,
+      "start": 438.501,
+      "offset": 2,
+      "angle": 5.131685211043088,
+      "boost": true,
+      "clear": -40.07547169811321,
+      "depth": 8.613016059635736,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 0.8,
+      "start": 438.501,
+      "offset": 1,
+      "angle": 4.1303807796200465,
+      "boost": true,
+      "clear": -40.07547169811321,
+      "depth": 8.883290589321112,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 2,
+      "start": 437.312,
+      "offset": -0.5,
+      "angle": 0.37548916178364056,
+      "boost": false,
+      "clear": -29.546564678808984,
+      "depth": 8.927043979947486,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 0.8,
+      "start": 438.501,
+      "offset": 0.5,
+      "angle": 3.6297285639085257,
+      "boost": true,
+      "clear": -40.07547169811321,
+      "depth": 9.523090454092847,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 0.8,
+      "start": 438.501,
+      "offset": -0.5,
+      "angle": 2.6284241324854842,
+      "boost": false,
+      "clear": -40.07547169811321,
+      "depth": 10.54703448499331,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 0.8,
+      "start": 438.501,
+      "offset": -1,
+      "angle": 2.1277719167739635,
+      "boost": false,
+      "clear": -40.07547169811321,
+      "depth": 10.561800603230122,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 0.8,
+      "start": 438.501,
+      "offset": 0,
+      "angle": 3.129076348197005,
+      "boost": false,
+      "clear": -40.07547169811321,
+      "depth": 12.45352592424805,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 0.8,
+      "start": 438.501,
+      "offset": -2,
+      "angle": 1.1264674853509218,
+      "boost": false,
+      "clear": -40.07547169811321,
+      "depth": 13.284038052677275,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 2,
+      "start": 437.312,
+      "offset": 0.5,
+      "angle": 1.351760982421106,
+      "boost": false,
+      "clear": -40.07547169811321,
+      "depth": 13.472418692277559,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 0.8,
+      "start": 438.501,
+      "offset": 0.5,
+      "angle": 3.6297285639085257,
+      "boost": false,
+      "clear": -40.07547169811321,
+      "depth": 13.758745819216912,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 2,
+      "start": 437.312,
+      "offset": 3.141592653589793,
+      "angle": 4.005217725692167,
+      "boost": true,
+      "clear": -40.07547169811321,
+      "depth": 14.836329226145978,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 2,
+      "start": 437.312,
+      "offset": 2,
+      "angle": 2.8537176295556685,
+      "boost": true,
+      "clear": -43.77547169811321,
+      "depth": 18.409908783367122,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 2,
+      "start": 437.312,
+      "offset": 0.5,
+      "angle": 1.351760982421106,
+      "boost": true,
+      "clear": -73.80246726450653,
+      "depth": 19.43139721208557,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 2,
+      "start": 437.312,
+      "offset": 1,
+      "angle": 1.852413198132627,
+      "boost": true,
+      "clear": -47.57547169811321,
+      "depth": 22.59213075292423,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 2,
+      "start": 437.312,
+      "offset": 1,
+      "angle": 1.852413198132627,
+      "boost": false,
+      "clear": -40.07547169811321,
+      "depth": 23.06466193898037,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 2,
+      "start": 437.312,
+      "offset": 3.141592653589793,
+      "angle": 4.005217725692167,
+      "boost": false,
+      "clear": -40.07547169811321,
+      "depth": 24.794163224307166,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 2,
+      "start": 437.312,
+      "offset": 2,
+      "angle": 2.8537176295556685,
+      "boost": false,
+      "clear": -40.07547169811321,
+      "depth": 26.6653227830952,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 2,
+      "start": 437.312,
+      "offset": -1,
+      "angle": 6.158022253251706,
+      "boost": false,
+      "clear": -50.4754716981132,
+      "depth": 32.45840359729051,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 2,
+      "start": 437.312,
+      "offset": 0,
+      "angle": 0.8761413774951614,
+      "boost": true,
+      "clear": -128.69508360550415,
+      "depth": 41.44012257501491,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 2,
+      "start": 437.312,
+      "offset": -2,
+      "angle": 5.156717821828664,
+      "boost": false,
+      "clear": -50.4754716981132,
+      "depth": 41.64031266653292,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 2,
+      "start": 437.312,
+      "offset": -0.5,
+      "angle": 0.37548916178364056,
+      "boost": true,
+      "clear": -188.31088920915855,
+      "depth": 56.94407686295267,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 2,
+      "start": 437.312,
+      "offset": -1,
+      "angle": 6.158022253251706,
+      "boost": true,
+      "clear": -230.68354239800865,
+      "depth": 78.52748467756612,
+      "rootSafe": true,
+      "modelClear": false
+    },
+    {
+      "lead": 2,
+      "start": 437.312,
+      "offset": -2,
+      "angle": 5.156717821828664,
+      "boost": true,
+      "clear": -218.896343573461,
+      "depth": 117.36687302527388,
+      "rootSafe": true,
+      "modelClear": false
+    }
+  ],
+  "limits": [
+    "Recorded moving-enemy future, observed interval only; not an interactive counterfactual",
+    "No enemy response to different own trajectory; server physics and variable delay unconfirmed",
+    "Model clearance is not proven real survival"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "version": "0930-984f4809",
+  "status": {
+    "bot": false,
+    "game": false,
+    "ticks": null,
+    "fps": 0,
+    "ping": null,
+    "errors": null,
+    "last": null,
+    "squeeze_ticks": null
+  },
+  "values": {
+    "V6_ON": 1,
+    "V6_OBS": 1400,
+    "V6_EDGE": 1000,
+    "V6_H": 8,
+    "V6_MARGIN": 10,
+    "V6_SAFETY": 0.3
+  },
+  "show": {
+    "path": true,
+    "mazePath": true,
+    "localPath": true,
+    "gaps": false,
+    "scores": false,
+    "border": false,
+    "death": false,
+    "goal": false,
+    "why": false,
+    "terms": false,
+    "heads": false,
+    "ring": false,
+    "margin": false,
+    "rays": true,
+    "held": false,
+    "timeline": false,
+    "deathSum": false,
+    "heaps": false,
+    "squeeze": false
+  }
+}

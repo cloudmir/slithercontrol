@@ -1,0 +1,1017 @@
+{
+  "smallOnly": {
+    "mode": "v9escape",
+    "boost": false,
+    "routes": [
+      {
+        "kind": "escape",
+        "boost": false,
+        "ms": 29.335608000000008
+      },
+      {
+        "kind": "escape",
+        "boost": false,
+        "ms": 29.335608000000008
+      },
+      {
+        "kind": "escape",
+        "boost": false,
+        "ms": 29.335608000000008
+      }
+    ],
+    "controls": [
+      {
+        "start": 0.17,
+        "end": 0.4499999999999999,
+        "target": 0.811355533034594,
+        "boost": false
+      },
+      {
+        "start": 0.4499999999999999,
+        "end": 0.73,
+        "target": 0.8346683981723326,
+        "boost": false
+      },
+      {
+        "start": 0.73,
+        "end": 1.01,
+        "target": 0.8347821737616156,
+        "boost": false
+      },
+      {
+        "start": 1.01,
+        "end": 1.29,
+        "target": 0.8347827697650916,
+        "boost": false
+      },
+      {
+        "start": 1.29,
+        "end": 1.57,
+        "target": 0.834782773134307,
+        "boost": false
+      },
+      {
+        "start": 1.57,
+        "end": 1.85,
+        "target": 0.8347827731549745,
+        "boost": false
+      },
+      {
+        "start": 1.85,
+        "end": 2.13,
+        "target": 0.8347827731551039,
+        "boost": false
+      },
+      {
+        "start": 2.13,
+        "end": 2.41,
+        "target": 0.8347827731551051,
+        "boost": false
+      },
+      {
+        "start": 2.41,
+        "end": 2.6900000000000004,
+        "target": 0.8347827731551064,
+        "boost": false
+      },
+      {
+        "start": 2.6900000000000004,
+        "end": 2.9700000000000006,
+        "target": 0.8347827731551083,
+        "boost": false
+      },
+      {
+        "start": 2.9700000000000006,
+        "end": 3.250000000000001,
+        "target": 0.8347827731551106,
+        "boost": false
+      },
+      {
+        "start": 3.250000000000001,
+        "end": 3.530000000000001,
+        "target": 0.8347827731551138,
+        "boost": false
+      },
+      {
+        "start": 3.530000000000001,
+        "end": 3.8100000000000014,
+        "target": 0.8347827731551185,
+        "boost": false
+      },
+      {
+        "start": 3.8100000000000014,
+        "end": 4.090000000000002,
+        "target": 0.8347827731551256,
+        "boost": false
+      },
+      {
+        "start": 4.090000000000002,
+        "end": 4.370000000000002,
+        "target": 0.834782773155138,
+        "boost": false
+      },
+      {
+        "start": 4.370000000000002,
+        "end": 4.650000000000002,
+        "target": 0.8347827731551659,
+        "boost": false
+      },
+      {
+        "start": 4.650000000000002,
+        "end": 4.751895008751589,
+        "target": 0.8347827731552812,
+        "boost": false
+      },
+      {
+        "start": 4.751895008751589,
+        "end": 4.791895008751589,
+        "target": 0.8347827731554252,
+        "boost": false
+      },
+      {
+        "start": 4.791895008751589,
+        "end": 4.831895008751589,
+        "target": 0.8347827731557939,
+        "boost": false
+      }
+    ]
+  },
+  "remains": {
+    "mode": "v9food",
+    "boost": true,
+    "goal": 30612,
+    "routes": [
+      {
+        "kind": "food",
+        "boost": true,
+        "ms": 25.708857999999992
+      },
+      {
+        "kind": "escape",
+        "boost": true,
+        "ms": 25.708857999999992
+      },
+      {
+        "kind": "escape",
+        "boost": true,
+        "ms": 25.708857999999992
+      }
+    ],
+    "controls": [
+      {
+        "start": 0.17,
+        "end": 0.4499999999999999,
+        "target": 0,
+        "boost": true
+      },
+      {
+        "start": 0.4499999999999999,
+        "end": 0.73,
+        "target": 0,
+        "boost": true
+      },
+      {
+        "start": 0.73,
+        "end": 1.01,
+        "target": 0,
+        "boost": true
+      },
+      {
+        "start": 1.01,
+        "end": 1.29,
+        "target": 0,
+        "boost": true
+      },
+      {
+        "start": 1.29,
+        "end": 1.57,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 1.57,
+        "end": 1.7088494158734757,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 1.7088494158734757,
+        "end": 2.3088494158734756,
+        "target": 0,
+        "boost": false
+      }
+    ]
+  },
+  "boostOff": {
+    "mode": "v9food",
+    "boost": false,
+    "goal": 30612,
+    "routes": [
+      {
+        "kind": "food",
+        "boost": false,
+        "ms": 30.145426999999984
+      },
+      {
+        "kind": "escape",
+        "boost": false,
+        "ms": 30.145426999999984
+      },
+      {
+        "kind": "escape",
+        "boost": false,
+        "ms": 30.145426999999984
+      }
+    ],
+    "controls": [
+      {
+        "start": 0.17,
+        "end": 0.4499999999999999,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 0.4499999999999999,
+        "end": 0.73,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 0.73,
+        "end": 1.01,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 1.01,
+        "end": 1.29,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 1.29,
+        "end": 1.57,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 1.57,
+        "end": 1.85,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 1.85,
+        "end": 2.13,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 2.13,
+        "end": 2.41,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 2.41,
+        "end": 2.6900000000000004,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 2.6900000000000004,
+        "end": 2.9700000000000006,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 2.9700000000000006,
+        "end": 3.1341127720953765,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 3.1341127720953765,
+        "end": 3.7341127720953766,
+        "target": 0,
+        "boost": false
+      }
+    ]
+  },
+  "outOfRange": {
+    "mode": "v9escape",
+    "boost": false,
+    "routes": [
+      {
+        "kind": "escape",
+        "boost": false,
+        "ms": 16.781803999999994
+      },
+      {
+        "kind": "escape",
+        "boost": false,
+        "ms": 16.781803999999994
+      },
+      {
+        "kind": "escape",
+        "boost": false,
+        "ms": 16.781803999999994
+      }
+    ],
+    "controls": [
+      {
+        "start": 0.17,
+        "end": 0.4499999999999999,
+        "target": 0.811355533034594,
+        "boost": false
+      },
+      {
+        "start": 0.4499999999999999,
+        "end": 0.73,
+        "target": 0.8346683981723326,
+        "boost": false
+      },
+      {
+        "start": 0.73,
+        "end": 1.01,
+        "target": 0.8347821737616156,
+        "boost": false
+      },
+      {
+        "start": 1.01,
+        "end": 1.29,
+        "target": 0.8347827697650916,
+        "boost": false
+      },
+      {
+        "start": 1.29,
+        "end": 1.57,
+        "target": 0.834782773134307,
+        "boost": false
+      },
+      {
+        "start": 1.57,
+        "end": 1.85,
+        "target": 0.8347827731549745,
+        "boost": false
+      },
+      {
+        "start": 1.85,
+        "end": 2.13,
+        "target": 0.8347827731551039,
+        "boost": false
+      },
+      {
+        "start": 2.13,
+        "end": 2.41,
+        "target": 0.8347827731551051,
+        "boost": false
+      },
+      {
+        "start": 2.41,
+        "end": 2.6900000000000004,
+        "target": 0.8347827731551064,
+        "boost": false
+      },
+      {
+        "start": 2.6900000000000004,
+        "end": 2.9700000000000006,
+        "target": 0.8347827731551083,
+        "boost": false
+      },
+      {
+        "start": 2.9700000000000006,
+        "end": 3.250000000000001,
+        "target": 0.8347827731551106,
+        "boost": false
+      },
+      {
+        "start": 3.250000000000001,
+        "end": 3.530000000000001,
+        "target": 0.8347827731551138,
+        "boost": false
+      },
+      {
+        "start": 3.530000000000001,
+        "end": 3.8100000000000014,
+        "target": 0.8347827731551185,
+        "boost": false
+      },
+      {
+        "start": 3.8100000000000014,
+        "end": 4.090000000000002,
+        "target": 0.8347827731551256,
+        "boost": false
+      },
+      {
+        "start": 4.090000000000002,
+        "end": 4.370000000000002,
+        "target": 0.834782773155138,
+        "boost": false
+      },
+      {
+        "start": 4.370000000000002,
+        "end": 4.650000000000002,
+        "target": 0.8347827731551659,
+        "boost": false
+      },
+      {
+        "start": 4.650000000000002,
+        "end": 4.751895008751589,
+        "target": 0.8347827731552812,
+        "boost": false
+      },
+      {
+        "start": 4.751895008751589,
+        "end": 4.791895008751589,
+        "target": 0.8347827731554252,
+        "boost": false
+      },
+      {
+        "start": 4.791895008751589,
+        "end": 4.831895008751589,
+        "target": 0.8347827731557939,
+        "boost": false
+      }
+    ]
+  },
+  "foodWeightZero": {
+    "mode": "v9escape",
+    "boost": false,
+    "routes": [
+      {
+        "kind": "escape",
+        "boost": false,
+        "ms": 19.983554999999996
+      },
+      {
+        "kind": "escape",
+        "boost": false,
+        "ms": 19.983554999999996
+      },
+      {
+        "kind": "escape",
+        "boost": false,
+        "ms": 19.983554999999996
+      }
+    ],
+    "controls": [
+      {
+        "start": 0.17,
+        "end": 0.4499999999999999,
+        "target": 0.811355533034594,
+        "boost": false
+      },
+      {
+        "start": 0.4499999999999999,
+        "end": 0.73,
+        "target": 0.8346683981723326,
+        "boost": false
+      },
+      {
+        "start": 0.73,
+        "end": 1.01,
+        "target": 0.8347821737616156,
+        "boost": false
+      },
+      {
+        "start": 1.01,
+        "end": 1.29,
+        "target": 0.8347827697650916,
+        "boost": false
+      },
+      {
+        "start": 1.29,
+        "end": 1.57,
+        "target": 0.834782773134307,
+        "boost": false
+      },
+      {
+        "start": 1.57,
+        "end": 1.85,
+        "target": 0.8347827731549745,
+        "boost": false
+      },
+      {
+        "start": 1.85,
+        "end": 2.13,
+        "target": 0.8347827731551039,
+        "boost": false
+      },
+      {
+        "start": 2.13,
+        "end": 2.41,
+        "target": 0.8347827731551051,
+        "boost": false
+      },
+      {
+        "start": 2.41,
+        "end": 2.6900000000000004,
+        "target": 0.8347827731551064,
+        "boost": false
+      },
+      {
+        "start": 2.6900000000000004,
+        "end": 2.9700000000000006,
+        "target": 0.8347827731551083,
+        "boost": false
+      },
+      {
+        "start": 2.9700000000000006,
+        "end": 3.250000000000001,
+        "target": 0.8347827731551106,
+        "boost": false
+      },
+      {
+        "start": 3.250000000000001,
+        "end": 3.530000000000001,
+        "target": 0.8347827731551138,
+        "boost": false
+      },
+      {
+        "start": 3.530000000000001,
+        "end": 3.8100000000000014,
+        "target": 0.8347827731551185,
+        "boost": false
+      },
+      {
+        "start": 3.8100000000000014,
+        "end": 4.090000000000002,
+        "target": 0.8347827731551256,
+        "boost": false
+      },
+      {
+        "start": 4.090000000000002,
+        "end": 4.370000000000002,
+        "target": 0.834782773155138,
+        "boost": false
+      },
+      {
+        "start": 4.370000000000002,
+        "end": 4.650000000000002,
+        "target": 0.8347827731551659,
+        "boost": false
+      },
+      {
+        "start": 4.650000000000002,
+        "end": 4.751895008751589,
+        "target": 0.8347827731552812,
+        "boost": false
+      },
+      {
+        "start": 4.751895008751589,
+        "end": 4.791895008751589,
+        "target": 0.8347827731554252,
+        "boost": false
+      },
+      {
+        "start": 4.791895008751589,
+        "end": 4.831895008751589,
+        "target": 0.8347827731557939,
+        "boost": false
+      }
+    ]
+  },
+  "farRemains": {
+    "mode": "v9seek",
+    "boost": false,
+    "goal": 32300,
+    "routes": [
+      {
+        "kind": "escape",
+        "boost": false,
+        "ms": 12.973495000000014
+      },
+      {
+        "kind": "escape",
+        "boost": false,
+        "ms": 12.973495000000014
+      },
+      {
+        "kind": "escape",
+        "boost": false,
+        "ms": 12.973495000000014
+      }
+    ],
+    "controls": [
+      {
+        "start": 0.17,
+        "end": 0.4499999999999999,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 0.4499999999999999,
+        "end": 0.73,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 0.73,
+        "end": 1.01,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 1.01,
+        "end": 1.29,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 1.29,
+        "end": 1.57,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 1.57,
+        "end": 1.85,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 1.85,
+        "end": 2.13,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 2.13,
+        "end": 2.41,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 2.41,
+        "end": 2.6900000000000004,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 2.6900000000000004,
+        "end": 2.9700000000000006,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 2.9700000000000006,
+        "end": 3.250000000000001,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 3.250000000000001,
+        "end": 3.530000000000001,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 3.530000000000001,
+        "end": 3.8100000000000014,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 3.8100000000000014,
+        "end": 4.090000000000002,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 4.090000000000002,
+        "end": 4.370000000000002,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 4.370000000000002,
+        "end": 4.650000000000002,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 4.650000000000002,
+        "end": 4.791600314712695,
+        "target": 0,
+        "boost": false
+      }
+    ]
+  },
+  "disappeared": {
+    "mode": "v9local",
+    "boost": false
+  },
+  "nearNoBoost": {
+    "mode": "v9food",
+    "boost": false,
+    "goal": 30112,
+    "routes": [
+      {
+        "kind": "food",
+        "boost": false,
+        "ms": 21.518192
+      },
+      {
+        "kind": "escape",
+        "boost": false,
+        "ms": 21.518192
+      },
+      {
+        "kind": "escape",
+        "boost": false,
+        "ms": 21.518192
+      }
+    ],
+    "controls": [
+      {
+        "start": 0.17,
+        "end": 0.4499999999999999,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 0.4499999999999999,
+        "end": 0.5115059008654403,
+        "target": 0,
+        "boost": false
+      },
+      {
+        "start": 0.5115059008654403,
+        "end": 1.1115059008654402,
+        "target": 0,
+        "boost": false
+      }
+    ]
+  },
+  "foodBehindClosedWall": {
+    "mode": "v9seek",
+    "boost": true,
+    "goal": 30612,
+    "routes": [
+      {
+        "kind": "escape",
+        "boost": true,
+        "ms": 33.38119599999999
+      },
+      {
+        "kind": "escape",
+        "boost": true,
+        "ms": 33.38119599999999
+      },
+      {
+        "kind": "escape",
+        "boost": true,
+        "ms": 33.38119599999999
+      }
+    ],
+    "controls": [
+      {
+        "start": 0.17,
+        "end": 0.4499999999999999,
+        "target": -0.4300491276914028,
+        "boost": true
+      },
+      {
+        "start": 0.4499999999999999,
+        "end": 0.73,
+        "target": -0.8600982553828058,
+        "boost": true
+      },
+      {
+        "start": 0.73,
+        "end": 1.01,
+        "target": -1.2901473830742087,
+        "boost": false
+      },
+      {
+        "start": 1.01,
+        "end": 1.29,
+        "target": -1.2901473830742087,
+        "boost": false
+      },
+      {
+        "start": 1.29,
+        "end": 1.57,
+        "target": -1.7201965107656116,
+        "boost": false
+      },
+      {
+        "start": 1.57,
+        "end": 1.85,
+        "target": -1.290147383074209,
+        "boost": false
+      },
+      {
+        "start": 1.85,
+        "end": 2.13,
+        "target": -0.43004912769140313,
+        "boost": false
+      },
+      {
+        "start": 2.13,
+        "end": 2.41,
+        "target": -0.4300491276914045,
+        "boost": false
+      },
+      {
+        "start": 2.41,
+        "end": 2.6900000000000004,
+        "target": -0.4300491276914045,
+        "boost": false
+      },
+      {
+        "start": 2.6900000000000004,
+        "end": 2.9700000000000006,
+        "target": -0.4300491276914045,
+        "boost": false
+      },
+      {
+        "start": 2.9700000000000006,
+        "end": 3.250000000000001,
+        "target": -0.4300491276914045,
+        "boost": false
+      },
+      {
+        "start": 3.250000000000001,
+        "end": 3.530000000000001,
+        "target": -0.4300491276914045,
+        "boost": false
+      },
+      {
+        "start": 3.530000000000001,
+        "end": 3.8100000000000014,
+        "target": -0.4300491276914045,
+        "boost": false
+      },
+      {
+        "start": 3.8100000000000014,
+        "end": 4.090000000000002,
+        "target": -0.4300491276914045,
+        "boost": false
+      },
+      {
+        "start": 4.090000000000002,
+        "end": 4.370000000000002,
+        "target": 0.4300491276914011,
+        "boost": false
+      },
+      {
+        "start": 4.370000000000002,
+        "end": 4.650000000000002,
+        "target": 0.8600982553828038,
+        "boost": false
+      },
+      {
+        "start": 4.650000000000002,
+        "end": 4.930000000000002,
+        "target": 0.8600982553828036,
+        "boost": true
+      },
+      {
+        "start": 4.930000000000002,
+        "end": 5.210000000000003,
+        "target": 0.8600982553828036,
+        "boost": true
+      },
+      {
+        "start": 5.210000000000003,
+        "end": 5.490000000000003,
+        "target": 1.2901473830742063,
+        "boost": false
+      }
+    ]
+  },
+  "center": {
+    "mode": "v9escape",
+    "boost": false,
+    "routes": [
+      {
+        "kind": "escape",
+        "boost": false,
+        "ms": 18.844540000000052
+      },
+      {
+        "kind": "escape",
+        "boost": false,
+        "ms": 18.844540000000052
+      },
+      {
+        "kind": "escape",
+        "boost": false,
+        "ms": 18.844540000000052
+      }
+    ],
+    "controls": [
+      {
+        "start": 0.17,
+        "end": 0.4499999999999999,
+        "target": -3.106701754266974,
+        "boost": false
+      },
+      {
+        "start": 0.4499999999999999,
+        "end": 0.73,
+        "target": -3.0541506267446885,
+        "boost": false
+      },
+      {
+        "start": 0.73,
+        "end": 1.01,
+        "target": -3.0322523618321258,
+        "boost": false
+      },
+      {
+        "start": 1.01,
+        "end": 1.29,
+        "target": -3.0321490757782406,
+        "boost": false
+      },
+      {
+        "start": 1.29,
+        "end": 1.57,
+        "target": -3.032148554161693,
+        "boost": false
+      },
+      {
+        "start": 1.57,
+        "end": 1.85,
+        "target": -3.032148551327005,
+        "boost": false
+      },
+      {
+        "start": 1.85,
+        "end": 2.13,
+        "target": -3.032148551310314,
+        "boost": false
+      },
+      {
+        "start": 2.13,
+        "end": 2.41,
+        "target": -3.032148551310199,
+        "boost": false
+      },
+      {
+        "start": 2.41,
+        "end": 2.6900000000000004,
+        "target": -3.032148551310176,
+        "boost": false
+      },
+      {
+        "start": 2.6900000000000004,
+        "end": 2.9700000000000006,
+        "target": -3.032148551310148,
+        "boost": false
+      },
+      {
+        "start": 2.9700000000000006,
+        "end": 3.250000000000001,
+        "target": -3.0321485513101716,
+        "boost": false
+      },
+      {
+        "start": 3.250000000000001,
+        "end": 3.530000000000001,
+        "target": -3.032148551310145,
+        "boost": false
+      },
+      {
+        "start": 3.530000000000001,
+        "end": 3.8100000000000014,
+        "target": -3.032148551310175,
+        "boost": false
+      },
+      {
+        "start": 3.8100000000000014,
+        "end": 4.090000000000002,
+        "target": -3.0321485513101387,
+        "boost": false
+      },
+      {
+        "start": 4.090000000000002,
+        "end": 4.370000000000002,
+        "target": -3.0321485513101827,
+        "boost": false
+      },
+      {
+        "start": 4.370000000000002,
+        "end": 4.650000000000002,
+        "target": -3.032148551310125,
+        "boost": false
+      },
+      {
+        "start": 4.650000000000002,
+        "end": 4.930000000000002,
+        "target": -3.0321485513102036,
+        "boost": false
+      },
+      {
+        "start": 4.930000000000002,
+        "end": 5.1741736647069505,
+        "target": -3.0321485513100637,
+        "boost": false
+      }
+    ]
+  },
+  "retention": true
+}

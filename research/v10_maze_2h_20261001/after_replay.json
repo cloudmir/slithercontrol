@@ -1,0 +1,56 @@
+[
+  {
+    "t": 129.971,
+    "routes": 0,
+    "reason": "grid_budget",
+    "ms": 82.25985999999999,
+    "mode": "v10replan",
+    "localms": 37.89731500000002,
+    "reject": "invalid"
+  },
+  {
+    "t": 139.997,
+    "routes": 2,
+    "reason": "maze_routes",
+    "ms": 69.040681,
+    "mode": "v10route",
+    "localms": 9.741872999999998,
+    "reject": null
+  },
+  {
+    "t": 150.017,
+    "routes": 4,
+    "reason": "maze_routes",
+    "ms": 73.52093500000001,
+    "mode": "v10route",
+    "localms": 12.908051999999998,
+    "reject": null
+  },
+  {
+    "t": 160.01,
+    "routes": 3,
+    "reason": "maze_routes",
+    "ms": 81.37083200000001,
+    "mode": "v10route",
+    "localms": 10.776567999999997,
+    "reject": null
+  },
+  {
+    "t": 170.014,
+    "routes": 3,
+    "reason": "maze_routes",
+    "ms": 63.789800000000014,
+    "mode": "v10route",
+    "localms": 4.3440180000000055,
+    "reject": null
+  },
+  {
+    "t": 180.02,
+    "routes": 5,
+    "reason": "maze_routes",
+    "ms": 55.823743000000036,
+    "mode": "v10route",
+    "localms": 8.231523000000038,
+    "reject": null
+  }
+]

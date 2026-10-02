@@ -1,0 +1,13 @@
+{
+  "V6_tight": {
+    "V6_ON": 1,
+    "V41_ON": 0,
+    "V5_ON": 0,
+    "V4_ON": 0,
+    "V3_ON": 0,
+    "V2_ON": 0,
+    "V6_MARGIN": 5,
+    "V6_SAFETY": 0.1,
+    "V6_CLEAR_W": 0.2
+  }
+}

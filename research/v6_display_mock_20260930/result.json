@@ -1,0 +1,26 @@
+{
+  "labels": [
+    "미로 · 경로 없음 / 재탐색",
+    "근접 · 회피 경로",
+    "미로 · 출구 경로"
+  ],
+  "status": {
+    "bot": true,
+    "game": true,
+    "ticks": 10,
+    "fps": 0,
+    "ping": null,
+    "errors": 0,
+    "last": {
+      "ms": 1,
+      "mode": "v6guide",
+      "squeeze": null
+    },
+    "squeeze_ticks": 0
+  },
+  "toggle": {
+    "maze": false,
+    "local": true
+  },
+  "errors": []
+}

@@ -1,0 +1,133 @@
+{
+  "independentNoFallback": true,
+  "activeApproach": [
+    {
+      "direction": 0,
+      "side": 1,
+      "min": 5.926252926492452,
+      "levels": 7
+    },
+    {
+      "direction": 3.141592653589793,
+      "side": 1,
+      "min": 5.926252926492452,
+      "levels": 7
+    },
+    {
+      "direction": 0,
+      "side": -1,
+      "min": 5.926252926492452,
+      "levels": 7
+    },
+    {
+      "direction": 3.141592653589793,
+      "side": -1,
+      "min": 5.926252926492452,
+      "levels": 7
+    }
+  ],
+  "originalFunctionsPreserved": 6,
+  "stableLevels": [
+    {
+      "serial": 1,
+      "t": 11.24,
+      "target": 9,
+      "own_r": 14.5,
+      "enemy_r": 20,
+      "set": 12,
+      "gap": 12,
+      "gap_min": 12,
+      "gap_max": 12,
+      "samples": 26,
+      "duration": 1,
+      "speed": 5.79,
+      "heading": 0,
+      "lateral": 0
+    },
+    {
+      "serial": 2,
+      "t": 12.48,
+      "target": 9,
+      "own_r": 14.5,
+      "enemy_r": 20,
+      "set": 11,
+      "gap": 11.551579395065346,
+      "gap_min": 11.346327613660833,
+      "gap_max": 11.847589678374788,
+      "samples": 26,
+      "duration": 1,
+      "speed": 5.79,
+      "heading": 0.002750081350732181,
+      "lateral": 0.5026071998145082
+    },
+    {
+      "serial": 3,
+      "t": 13.72,
+      "target": 9,
+      "own_r": 14.5,
+      "enemy_r": 20,
+      "set": 10,
+      "gap": 10.733393403919763,
+      "gap_min": 10.460485633910139,
+      "gap_max": 11.12697301204389,
+      "samples": 26,
+      "duration": 1,
+      "speed": 5.79,
+      "heading": 0.003656578713750136,
+      "lateral": 0.6682787804493415
+    },
+    {
+      "serial": 4,
+      "t": 14.96,
+      "target": 9,
+      "own_r": 14.5,
+      "enemy_r": 20,
+      "set": 9,
+      "gap": 9.793323731468263,
+      "gap_min": 9.498114899037319,
+      "gap_max": 10.219064566623274,
+      "samples": 26,
+      "duration": 1,
+      "speed": 5.79,
+      "heading": 0.003955382955003639,
+      "lateral": 0.7228881704577195
+    },
+    {
+      "serial": 5,
+      "t": 16.2,
+      "target": 9,
+      "own_r": 14.5,
+      "enemy_r": 20,
+      "set": 8,
+      "gap": 8.813078227740334,
+      "gap_min": 8.510518421724555,
+      "gap_max": 9.249420187003125,
+      "samples": 26,
+      "duration": 1,
+      "speed": 5.79,
+      "heading": 0.004053876189927141,
+      "lateral": 0.7408887560814195
+    },
+    {
+      "serial": 6,
+      "t": 17.44,
+      "target": 9,
+      "own_r": 14.5,
+      "enemy_r": 20,
+      "set": 7,
+      "gap": 7.819589791066392,
+      "gap_min": 7.514606925029511,
+      "gap_max": 8.259426139149582,
+      "samples": 26,
+      "duration": 1,
+      "speed": 5.79,
+      "heading": 0.004086341968709384,
+      "lateral": 0.7468221876478716
+    }
+  ],
+  "acquisitionExcluded": true,
+  "headInterferenceExcluded": true,
+  "thicknessTargetEffective": true,
+  "defaultModeParity": true,
+  "scope": "synthetic follower geometry; no measured death threshold yet"
+}

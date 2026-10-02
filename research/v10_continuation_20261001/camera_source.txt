@@ -1,0 +1,12 @@
+Original run_live.py camera: await asyncio.sleep(.5); deque(maxlen=8).
+This V10 batch before fix: live5_before_camera.py await asyncio.sleep(2), screenshot when elapsed>shot*30. First game 18.4s has game_01_000.png and game_01_end.png, no pre-death capture.
+Changed collector only: camera.py saves JPEG every 1 second as a separate async task, records timestamps, retains every capture. Algorithm unchanged.
+Local actual Chromium check:
+{"frames": 3, "intervals_s": [1.0010000000000001, 1.0010000000000001], "all_files_saved": true}
+Hashes:
+{
+  "run_live.py": "4fa4ed875d91d849722b0d51eab2ec1bd94c99f104519479694847273e279f89",
+  "research/v10_continuation_20261001/live5_before_camera.py": "94079fa720e740d0901d6ab8454a967afcf7325bf9f66cbd000ab2459701302d",
+  "research/v10_continuation_20261001/camera.py": "cb1af875a1ea3868cd64e637facded80bf7cb35b902e206ab9ebdedfa07d782a",
+  "research/v10_continuation_20261001/live5.py": "547a457adfbdcf93b9e80b3e7e43e871ec6a0509b835071abcb95ad01440832b"
+}

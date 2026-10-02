@@ -1,0 +1,145 @@
+# T1 implementation and experiment start — original verification outputs
+User request: T1을 만들고 각 두께별 적을 따라가며 접근 사망 수치를 실측; 개발용 MD와 전체 조사 데이터 누적 시각화.
+Scope: independent T1 follower; default existing controllers preserved; 20-game maximum, 300s per game, 3600s per batch; earlier VA1 work retained but not selected or claimed live-validated.
+Source functions: ext/pilot.js t1Step, step dispatch. ext/mod.js T1 selector, trace columns. params.json t1_thickness preset. Raw outputs: research/t1_20261001/check.json, mock.json, started_verified.json. Runtime: runs/t1_20261001_222536/. Report: research/t1_20261001/T1_THICKNESS.md and report.html. Each game retains original log/blackbox/camera and frozen code.
+Last-alive gaps from deaths are candidates only, not exact server collision or a universally safe boundary.
+
+{
+  "job": {
+    "pid": 3957191,
+    "log": "research/t1_20261001/batch.log",
+    "command": "research/t1_20261001/batch.py"
+  },
+  "progress": {
+    "out": "runs/t1_20261001_222536",
+    "state": "중단 · 오류 기록",
+    "game": 1,
+    "build": "1001-85c553bf",
+    "updated": "2026-10-01 22:28:20"
+  },
+  "build": "1001-85c553bf",
+  "local_check": {
+    "originalFunctionsPreserved": 6,
+    "stableLevels": [
+      {
+        "serial": 1,
+        "t": 11.24,
+        "target": 9,
+        "own_r": 14.5,
+        "enemy_r": 20,
+        "set": 12,
+        "gap": 12,
+        "gap_min": 12,
+        "gap_max": 12,
+        "samples": 26,
+        "duration": 1,
+        "speed": 5.79,
+        "heading": 0,
+        "lateral": 0
+      },
+      {
+        "serial": 2,
+        "t": 12.48,
+        "target": 9,
+        "own_r": 14.5,
+        "enemy_r": 20,
+        "set": 11,
+        "gap": 11.195967763789668,
+        "gap_min": 11.053977194562322,
+        "gap_max": 11.64428192098785,
+        "samples": 26,
+        "duration": 1,
+        "speed": 5.79,
+        "heading": 0.002705007075678445,
+        "lateral": 0.5108332517920526
+      },
+      {
+        "serial": 3,
+        "t": 13.72,
+        "target": 9,
+        "own_r": 14.5,
+        "enemy_r": 20,
+        "set": 10,
+        "gap": 10.205023587714095,
+        "gap_min": 10.056471533240256,
+        "gap_max": 10.674053398695833,
+        "samples": 26,
+        "duration": 1,
+        "speed": 5.79,
+        "heading": 0.0028300067979531995,
+        "lateral": 0.5344390133359526
+      },
+      {
+        "serial": 4,
+        "t": 14.96,
+        "target": 9,
+        "own_r": 14.5,
+        "enemy_r": 20,
+        "set": 9,
+        "gap": 9.205442069382116,
+        "gap_min": 9.05658679998669,
+        "gap_max": 9.675429174090823,
+        "samples": 26,
+        "duration": 1,
+        "speed": 5.79,
+        "heading": 0.002835783198874342,
+        "lateral": 0.5355298661925066
+      },
+      {
+        "serial": 5,
+        "t": 16.2,
+        "target": 9,
+        "own_r": 14.5,
+        "enemy_r": 20,
+        "set": 8,
+        "gap": 8.205461407989787,
+        "gap_min": 8.056592126620671,
+        "gap_max": 8.675492750538979,
+        "samples": 26,
+        "duration": 1,
+        "speed": 5.79,
+        "heading": 0.0028360501341953004,
+        "lateral": 0.5355802759368203
+      },
+      {
+        "serial": 6,
+        "t": 17.44,
+        "target": 9,
+        "own_r": 14.5,
+        "enemy_r": 20,
+        "set": 7,
+        "gap": 7.205462301648367,
+        "gap_min": 7.056592372766318,
+        "gap_max": 7.67549568848699,
+        "samples": 26,
+        "duration": 1,
+        "speed": 5.79,
+        "heading": 0.0028360624695729086,
+        "lateral": 0.5355826054255524
+      }
+    ],
+    "acquisitionExcluded": true,
+    "headInterferenceExcluded": true,
+    "thicknessTargetEffective": true,
+    "defaultModeParity": true,
+    "scope": "synthetic follower geometry; no measured death threshold yet"
+  },
+  "mock_check": {
+    "realWorkerT1Following": true,
+    "cruiseOnlyWhileFollowing": true,
+    "measurementColumnsPresent": true,
+    "T1Persistence": true,
+    "modeSwitchOff": true,
+    "dashboardFilters": true,
+    "pageErrors": [],
+    "scope": "local synthetic browser, no live samples"
+  },
+  "observed_follow_samples": 286,
+  "completed_games": 1,
+  "stable_alive_levels": 0,
+  "hashes": {
+    "ext/pilot.js": "b5a1dd29359cdbb3277a255f4bc767c43ff3455af2419ce63d2fe93c0d11b5d5",
+    "ext/mod.js": "a822b679b0dcf3b8425906a592e09a94412935134ca5e5e5ebfe1584f328e5fc",
+    "params.json": "d3e195673755552b4324ae6836470775ab7e94dbb625570e8c7b7b9290bc4fdc"
+  }
+}

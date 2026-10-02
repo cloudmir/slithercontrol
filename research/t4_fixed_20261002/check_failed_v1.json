@@ -1,0 +1,185 @@
+{
+  "tests": [
+    {
+      "normal": 0,
+      "angle": 0,
+      "side": 1,
+      "tailMedianGap": 1.5406958925341314,
+      "tailMedianError": 6.540695892534131,
+      "nearTicks": 0,
+      "minGap": -3.593695434006804,
+      "boostTicks": 36
+    },
+    {
+      "normal": 0,
+      "angle": 0,
+      "side": -1,
+      "tailMedianGap": 1.1820732249470893,
+      "tailMedianError": 6.182073224947089,
+      "nearTicks": 0,
+      "minGap": -3.5391298260365147,
+      "boostTicks": 36
+    },
+    {
+      "normal": 0,
+      "angle": 1.5707963267948966,
+      "side": 1,
+      "tailMedianGap": 1.3591135496499192,
+      "tailMedianError": 6.359113549649919,
+      "nearTicks": 0,
+      "minGap": -3.5689005978565547,
+      "boostTicks": 3
+    },
+    {
+      "normal": 0,
+      "angle": 1.5707963267948966,
+      "side": -1,
+      "tailMedianGap": 1.102027651253593,
+      "tailMedianError": 6.102027651253593,
+      "nearTicks": 0,
+      "minGap": -3.4341735779235023,
+      "boostTicks": 13
+    },
+    {
+      "normal": 0,
+      "angle": 3.141592653589793,
+      "side": 1,
+      "tailMedianGap": 3.439002696741227,
+      "tailMedianError": 8.439002696741227,
+      "nearTicks": 0,
+      "minGap": -3.8507542404659034,
+      "boostTicks": 4
+    },
+    {
+      "normal": 0,
+      "angle": 3.141592653589793,
+      "side": -1,
+      "tailMedianGap": 1.5157528108356928,
+      "tailMedianError": 6.515752810835693,
+      "nearTicks": 0,
+      "minGap": -3.608739734503615,
+      "boostTicks": 0
+    },
+    {
+      "normal": 20,
+      "angle": 0,
+      "side": 1,
+      "tailMedianGap": -1.5454401807255636,
+      "tailMedianError": 3.4545598192744364,
+      "nearTicks": 33,
+      "minGap": -3.160025023858907,
+      "boostTicks": 36
+    },
+    {
+      "normal": 20,
+      "angle": 0,
+      "side": -1,
+      "tailMedianGap": 13.937204799331084,
+      "tailMedianError": 18.937204799331084,
+      "nearTicks": 0,
+      "minGap": 8.595742561647057,
+      "boostTicks": 34
+    },
+    {
+      "normal": 20,
+      "angle": 1.5707963267948966,
+      "side": 1,
+      "tailMedianGap": -1.0852081478624314,
+      "tailMedianError": 3.9147918521375686,
+      "nearTicks": 0,
+      "minGap": -1.933198610699037,
+      "boostTicks": 16
+    },
+    {
+      "normal": 20,
+      "angle": 1.5707963267948966,
+      "side": -1,
+      "tailMedianGap": 13.725008522531425,
+      "tailMedianError": 18.725008522531425,
+      "nearTicks": 0,
+      "minGap": 8.574282692137785,
+      "boostTicks": 12
+    },
+    {
+      "normal": 20,
+      "angle": 3.141592653589793,
+      "side": 1,
+      "tailMedianGap": -1.1125979365788226,
+      "tailMedianError": 3.8874020634211774,
+      "nearTicks": 0,
+      "minGap": -2.4559711585934565,
+      "boostTicks": 4
+    },
+    {
+      "normal": 20,
+      "angle": 3.141592653589793,
+      "side": -1,
+      "tailMedianGap": 14.272697390810208,
+      "tailMedianError": 19.272697390810208,
+      "nearTicks": 0,
+      "minGap": 8.571951250742131,
+      "boostTicks": 5
+    },
+    {
+      "normal": -20,
+      "angle": 0,
+      "side": 1,
+      "tailMedianGap": 13.779302514820301,
+      "tailMedianError": 18.7793025148203,
+      "nearTicks": 0,
+      "minGap": 8.634405282638909,
+      "boostTicks": 34
+    },
+    {
+      "normal": -20,
+      "angle": 0,
+      "side": -1,
+      "tailMedianGap": -1.1224273043044377,
+      "tailMedianError": 3.8775726956955623,
+      "nearTicks": 0,
+      "minGap": -2.4173097516031703,
+      "boostTicks": 36
+    },
+    {
+      "normal": -20,
+      "angle": 1.5707963267948966,
+      "side": 1,
+      "tailMedianGap": 13.837922019592952,
+      "tailMedianError": 18.837922019592952,
+      "nearTicks": 0,
+      "minGap": 8.594353087886702,
+      "boostTicks": 3
+    },
+    {
+      "normal": -20,
+      "angle": 1.5707963267948966,
+      "side": -1,
+      "tailMedianGap": -1.5977624737097358,
+      "tailMedianError": 3.402237526290264,
+      "nearTicks": 38,
+      "minGap": -3.02638708325685,
+      "boostTicks": 7
+    },
+    {
+      "normal": -20,
+      "angle": 3.141592653589793,
+      "side": 1,
+      "tailMedianGap": 13.645883710978524,
+      "tailMedianError": 18.645883710978524,
+      "nearTicks": 0,
+      "minGap": 8.804333570085873,
+      "boostTicks": 4
+    },
+    {
+      "normal": -20,
+      "angle": 3.141592653589793,
+      "side": -1,
+      "tailMedianGap": -1.0808623415250622,
+      "tailMedianError": 3.919137658474938,
+      "nearTicks": 0,
+      "minGap": -3.1950163539659115,
+      "boostTicks": 0
+    }
+  ],
+  "scope": "synthetic 251-code +160ms delay; not server boundary"
+}

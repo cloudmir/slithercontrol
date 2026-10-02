@@ -1,0 +1,1115 @@
+# 지연·물리 한계 주장 검증 근거 — 2026-09-25
+
+기존 P18 기록의 오프라인 재분석. 실사이트 실행·코드 수정 없음. 분석 스크립트: research/verify_latency_claims_20260925.py.
+
+## 재계산 출력
+```json
+{
+  "hashes": {
+    "pilot.py": "ddffaf1dc2a8f6a561d04e15cb477fddcee3f26a4c2192a5c638850bddf93920",
+    "run_live.py": "8110ad7bbfc88aef2c0cf28e2ea7d6d8ea30371ef5050146100317c5b551b423",
+    "research/game.js": "5ad8aa8f06d1e71bad2945001bab077f8d4d279c093a046d19b6f26ac6b62095"
+  },
+  "p18_files": [
+    {
+      "file": "runs/live_20260925_170651/blackbox.pkl.gz",
+      "sha256": "ae07754f1e07be8c72b014657262bebdd33c736a60fa0da5c5c0013a572d4e53",
+      "n": 900,
+      "loop_ms": {
+        "p50": 36.7,
+        "p95": 71.8
+      },
+      "stage_ms": {
+        "observe": [
+          6.2,
+          18.5
+        ],
+        "decide": [
+          22.2,
+          42.1
+        ],
+        "obs_to_cmd": [
+          35.3,
+          70.5
+        ]
+      },
+      "best_lag_ms": 90,
+      "agreement_zero": 0.8914209115281502,
+      "agreement_best": 0.959731543624161
+    },
+    {
+      "file": "runs/live_20260925_171431/blackbox.pkl.gz",
+      "sha256": "e8bef9d3ae8cdab8c919da264fd6503446cc7752e48b9f8b73107398c1ccf3e4",
+      "n": 900,
+      "loop_ms": {
+        "p50": 35.7,
+        "p95": 66.7
+      },
+      "stage_ms": {
+        "observe": [
+          5.8,
+          14.1
+        ],
+        "decide": [
+          20.6,
+          46.5
+        ],
+        "obs_to_cmd": [
+          34.3,
+          65.3
+        ]
+      },
+      "best_lag_ms": 90,
+      "agreement_zero": 0.9034267912772586,
+      "agreement_best": 0.9547581903276131
+    },
+    {
+      "file": "runs/live_20260925_171635/blackbox.pkl.gz",
+      "sha256": "ffd3f667dd3b1eab12bb20d3cca00532e0a7498082a47ddb2375e2d66d451181",
+      "n": 900,
+      "loop_ms": {
+        "p50": 35.1,
+        "p95": 56.3
+      },
+      "stage_ms": {
+        "observe": [
+          5.7,
+          13.0
+        ],
+        "decide": [
+          21.1,
+          33.7
+        ],
+        "obs_to_cmd": [
+          33.7,
+          54.6
+        ]
+      },
+      "best_lag_ms": 60,
+      "agreement_zero": 0.8931818181818182,
+      "agreement_best": 0.9726027397260274
+    },
+    {
+      "file": "runs/live_20260925_171833/blackbox.pkl.gz",
+      "sha256": "93918483c945ae45557ac1e6b9b81c2e1b4689cd823c77e59d7155825a77ce88",
+      "n": 900,
+      "loop_ms": {
+        "p50": 36.9,
+        "p95": 69.1
+      },
+      "stage_ms": {
+        "observe": [
+          6.4,
+          17.7
+        ],
+        "decide": [
+          21.2,
+          41.4
+        ],
+        "obs_to_cmd": [
+          35.5,
+          68.0
+        ]
+      },
+      "best_lag_ms": 90,
+      "agreement_zero": 0.8262910798122066,
+      "agreement_best": 0.9073783359497645
+    },
+    {
+      "file": "runs/live_20260925_172034/blackbox.pkl.gz",
+      "sha256": "58ba39a1f165afc58afda154e7063faaa32318a712af6d4c0c6578725f553957",
+      "n": 900,
+      "loop_ms": {
+        "p50": 47.4,
+        "p95": 103.4
+      },
+      "stage_ms": {
+        "observe": [
+          7.0,
+          27.6
+        ],
+        "decide": [
+          30.7,
+          61.3
+        ],
+        "obs_to_cmd": [
+          46.0,
+          102.0
+        ]
+      },
+      "best_lag_ms": 90,
+      "agreement_zero": 0.8640915593705293,
+      "agreement_best": 0.9598853868194842
+    },
+    {
+      "file": "runs/live_20260925_172303/blackbox.pkl.gz",
+      "sha256": "f459d5f7d63c35d1fd30fd482358061b29a6b4baf14f4c037b20be9f7e717ac7",
+      "n": 900,
+      "loop_ms": {
+        "p50": 44.3,
+        "p95": 78.4
+      },
+      "stage_ms": {
+        "observe": [
+          6.8,
+          21.8
+        ],
+        "decide": [
+          28.3,
+          48.3
+        ],
+        "obs_to_cmd": [
+          43.0,
+          77.0
+        ]
+      },
+      "best_lag_ms": 60,
+      "agreement_zero": 0.8330019880715706,
+      "agreement_best": 0.9442231075697212
+    },
+    {
+      "file": "runs/live_20260925_172548/blackbox.pkl.gz",
+      "sha256": "bb830edcdcad7246caea6e8765a1ed977ed2084de6ef69033ce1569e9e1b1a92",
+      "n": 900,
+      "loop_ms": {
+        "p50": 39.0,
+        "p95": 65.3
+      },
+      "stage_ms": {
+        "observe": [
+          6.0,
+          15.4
+        ],
+        "decide": [
+          26.1,
+          41.4
+        ],
+        "obs_to_cmd": [
+          37.6,
+          63.9
+        ]
+      },
+      "best_lag_ms": 90,
+      "agreement_zero": 0.8648648648648649,
+      "agreement_best": 0.9696969696969697
+    },
+    {
+      "file": "runs/live_20260925_173206/blackbox.pkl.gz",
+      "sha256": "2af98846706c639ddefec0815740993ceff9182044df88be758220467dcd2699",
+      "n": 900,
+      "loop_ms": {
+        "p50": 48.0,
+        "p95": 83.2
+      },
+      "stage_ms": {
+        "observe": [
+          7.6,
+          23.1
+        ],
+        "decide": [
+          29.1,
+          49.9
+        ],
+        "obs_to_cmd": [
+          46.5,
+          81.6
+        ]
+      },
+      "best_lag_ms": 90,
+      "agreement_zero": 0.8463768115942029,
+      "agreement_best": 0.9521044992743106
+    },
+    {
+      "file": "runs/live_20260925_173418/blackbox.pkl.gz",
+      "load_error": "EOFError"
+    }
+  ],
+  "original_sign_method": {
+    "lags_ms": [
+      0,
+      30,
+      60,
+      90,
+      120,
+      150,
+      180,
+      210,
+      240,
+      270,
+      300,
+      330,
+      360,
+      390,
+      420,
+      450
+    ],
+    "game_mean_agreement": [
+      0.8653319780875751,
+      0.9149443574747566,
+      0.9401892459593728,
+      0.9424049650607846,
+      0.9012832767413608,
+      0.8441002603901621,
+      0.7952274486203179,
+      0.7581562893992395,
+      0.7341661250812146,
+      0.7135469913821385,
+      0.6913160979679852,
+      0.6776120341607741,
+      0.6659513868803622,
+      0.6590037143791585,
+      0.6492927686720913,
+      0.6407175268866344
+    ],
+    "expanded_lags_ms": [
+      -150,
+      -120,
+      -90,
+      -60,
+      -30,
+      0,
+      30,
+      60,
+      90,
+      120,
+      150,
+      180,
+      210,
+      240,
+      270,
+      300,
+      330,
+      360,
+      390,
+      420,
+      450
+    ],
+    "expanded_agreement": [
+      0.7076809722080454,
+      0.7219125498989101,
+      0.7476400730485087,
+      0.7510375506842039,
+      0.8159365720293725,
+      0.8653319780875751,
+      0.9149443574747566,
+      0.9401892459593728,
+      0.9424049650607846,
+      0.9012832767413608,
+      0.8441002603901621,
+      0.7952274486203179,
+      0.7581562893992395,
+      0.7341661250812146,
+      0.7135469913821385,
+      0.6913160979679852,
+      0.6776120341607741,
+      0.6659513868803622,
+      0.6590037143791585,
+      0.6492927686720913,
+      0.6407175268866344
+    ]
+  },
+  "obs_to_cmd_summary": {
+    "game_p50_range": 12.799999999999997,
+    "game_p50_minmax": [
+      33.7,
+      46.5
+    ],
+    "median_game_p50": 36.55,
+    "game_p95_minmax": [
+      54.6,
+      102.0
+    ]
+  },
+  "synthetic_exact_tracking": {
+    "true_delay_ms": 0,
+    "qualifying_samples": 0
+  },
+  "synthetic_sustained_turn": {
+    "note": "Constant positive angular velocity and target 0.5 rad ahead: every lag matches.",
+    "agreement": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "p18b_three_deaths": [
+    {
+      "file": "live_20260925_183803",
+      "seconds": 18.4,
+      "terminal_emergency_s": 0.18077086200002768,
+      "last_observed_body_gap": 28.633373772699116,
+      "inferred_nearest_owner": 14,
+      "samples": [
+        {
+          "lead_s": 2.0,
+          "trace": {
+            "mode": "feed",
+            "boost": true,
+            "cmd": -126.4,
+            "clear": 58.1,
+            "hard": 28.1,
+            "n_safe": 41,
+            "threat": 0.0,
+            "enclosed": 0.08,
+            "wrap": 0.0,
+            "thr": 5.0,
+            "eat": 812.7,
+            "goal": 945.0,
+            "thread": [
+              220.4,
+              398.2,
+              false
+            ],
+            "L": 181,
+            "sc": 1.09,
+            "died_near": 0,
+            "kills": 0,
+            "big": 0.0,
+            "curl": 0.0,
+            "prof": "aggressive",
+            "onward": 241.8,
+            "nh": 2,
+            "crowd": 840,
+            "gap": null,
+            "esc": null
+          },
+          "nearest_body_owner_head": [
+            39198.25390625,
+            39866.41015625,
+            4.982369422912598,
+            5.789999961853027,
+            1.1132075786590576
+          ],
+          "head_dist": 465.91001618471324,
+          "our_sp": 13,
+          "our_sc": 1.0943396226415094
+        },
+        {
+          "lead_s": 1.0,
+          "trace": {
+            "mode": "emergency",
+            "boost": false,
+            "cmd": -158.4,
+            "clear": 26.4,
+            "hard": -3.6,
+            "n_safe": 0,
+            "threat": 0.69,
+            "enclosed": 0.33,
+            "wrap": 0.0,
+            "thr": 18.0,
+            "eat": 122.9,
+            "goal": 703.2,
+            "thread": [
+              96.3,
+              149.9,
+              true
+            ],
+            "L": 363,
+            "sc": 1.2,
+            "died_near": 0,
+            "kills": 0,
+            "big": 0.0,
+            "curl": 0.04,
+            "prof": "aggressive",
+            "onward": 45.0,
+            "nh": 4,
+            "crowd": 255,
+            "gap": [
+              123.3,
+              16.1,
+              17.0,
+              17.4,
+              true
+            ],
+            "esc": null
+          },
+          "nearest_body_owner_head": [
+            39063.76953125,
+            39832.6796875,
+            2.9452431201934814,
+            5.789999961853027,
+            1.1132075786590576
+          ],
+          "head_dist": 253.60947911875095,
+          "our_sp": 11.666666666666666,
+          "our_sc": 1.1981132075471699
+        },
+        {
+          "lead_s": 0.5,
+          "trace": {
+            "mode": "emergency",
+            "boost": false,
+            "cmd": 138.3,
+            "clear": 2.1,
+            "hard": -17.9,
+            "n_safe": 0,
+            "threat": 0.75,
+            "enclosed": 0.71,
+            "wrap": 0.0,
+            "thr": 18.0,
+            "eat": 0.0,
+            "goal": 712.8,
+            "thread": [
+              44.2,
+              52.0,
+              true
+            ],
+            "L": 431,
+            "sc": 1.24,
+            "died_near": 0,
+            "kills": 0,
+            "big": 0.0,
+            "curl": 0.04,
+            "prof": "aggressive",
+            "onward": 57.7,
+            "nh": 4,
+            "crowd": 127,
+            "gap": [
+              79.4,
+              17.8,
+              26.0,
+              17.9,
+              false
+            ],
+            "esc": null
+          },
+          "nearest_body_owner_head": [
+            39004.67578125,
+            39783.60546875,
+            4.491495609283447,
+            5.789999961853027,
+            1.1132075786590576
+          ],
+          "head_dist": 149.9754976474972,
+          "our_sp": 8.555555555555555,
+          "our_sc": 1.2358490566037736
+        },
+        {
+          "lead_s": 0.0,
+          "trace": {
+            "mode": "emergency",
+            "boost": false,
+            "cmd": -28.6,
+            "clear": 3.1,
+            "hard": -22.9,
+            "n_safe": 0,
+            "threat": 0.77,
+            "enclosed": 0.75,
+            "wrap": 0.42,
+            "thr": 18.0,
+            "eat": 45.4,
+            "goal": 727.8,
+            "thread": [
+              28.6,
+              90.4,
+              true
+            ],
+            "L": 466,
+            "sc": 1.25,
+            "died_near": 0,
+            "kills": 0,
+            "big": 0.0,
+            "curl": 0.04,
+            "prof": "aggressive",
+            "onward": -0.2,
+            "nh": 4,
+            "crowd": 234,
+            "gap": [
+              95.8,
+              16.1,
+              18.5,
+              18.2,
+              true
+            ],
+            "esc": -172.5
+          },
+          "nearest_body_owner_head": [
+            38929.13671875,
+            39728.703125,
+            3.558835506439209,
+            5.789999961853027,
+            1.1132075786590576
+          ],
+          "head_dist": 139.59213288268228,
+          "our_sp": 5.888888888888889,
+          "our_sc": 1.2547169811320755
+        }
+      ]
+    },
+    {
+      "file": "live_20260925_183834",
+      "seconds": 28.9,
+      "terminal_emergency_s": 0.2564413239999759,
+      "last_observed_body_gap": 30.28526479482361,
+      "inferred_nearest_owner": 29,
+      "samples": [
+        {
+          "lead_s": 2.0,
+          "trace": {
+            "mode": "feed",
+            "boost": true,
+            "cmd": -19.6,
+            "clear": 37.9,
+            "hard": 10.7,
+            "n_safe": 24,
+            "threat": 0.0,
+            "enclosed": 0.58,
+            "wrap": 0.0,
+            "thr": 18.0,
+            "eat": 43.0,
+            "goal": 542.6,
+            "thread": [
+              35.2,
+              125.7,
+              true
+            ],
+            "L": 385,
+            "sc": 1.22,
+            "died_near": 0,
+            "kills": 0,
+            "big": 0.0,
+            "curl": 0.08,
+            "prof": "aggressive",
+            "onward": 18.4,
+            "nh": 5,
+            "crowd": 291,
+            "gap": null,
+            "esc": null
+          },
+          "nearest_body_owner_head": [
+            28132.904296875,
+            32576.89453125,
+            1.0407196283340454,
+            14.0,
+            1.2264150381088257
+          ],
+          "head_dist": 601.7305261515459,
+          "our_sp": 13.944444444444445,
+          "our_sc": 1.2169811320754718
+        },
+        {
+          "lead_s": 1.0,
+          "trace": {
+            "mode": "feed",
+            "boost": false,
+            "cmd": 91.8,
+            "clear": 57.5,
+            "hard": 29.5,
+            "n_safe": 17,
+            "threat": 0.0,
+            "enclosed": 0.42,
+            "wrap": 0.0,
+            "thr": 10.0,
+            "eat": 10.2,
+            "goal": 143.4,
+            "thread": [
+              143.3,
+              320.1,
+              false
+            ],
+            "L": 394,
+            "sc": 1.22,
+            "died_near": 0,
+            "kills": 0,
+            "big": 0.0,
+            "curl": 0.46,
+            "prof": "aggressive",
+            "onward": 60.4,
+            "nh": 7,
+            "crowd": 467,
+            "gap": [
+              43.8,
+              23.1,
+              25.4,
+              17.6,
+              false
+            ],
+            "esc": null
+          },
+          "nearest_body_owner_head": [
+            28001.453125,
+            32679.896484375,
+            4.319689750671387,
+            8.05555534362793,
+            1.2169811725616455
+          ],
+          "head_dist": 784.323457294573,
+          "our_sp": 5.833333333333333,
+          "our_sc": 1.2169811320754718
+        },
+        {
+          "lead_s": 0.5,
+          "trace": {
+            "mode": "evade",
+            "boost": true,
+            "cmd": 92.6,
+            "clear": 22.8,
+            "hard": 10.8,
+            "n_safe": 20,
+            "threat": 0.29,
+            "enclosed": 0.33,
+            "wrap": 0.0,
+            "thr": 10.0,
+            "eat": 14.5,
+            "goal": 143.4,
+            "thread": [
+              58.7,
+              383.1,
+              false
+            ],
+            "L": 389,
+            "sc": 1.22,
+            "died_near": 0,
+            "kills": 0,
+            "big": 0.0,
+            "curl": 0.5,
+            "prof": "aggressive",
+            "onward": 86.7,
+            "nh": 8,
+            "crowd": 509,
+            "gap": null,
+            "esc": null
+          },
+          "nearest_body_owner_head": [
+            28010.69140625,
+            32457.248046875,
+            4.835107326507568,
+            14.0,
+            1.2169811725616455
+          ],
+          "head_dist": 428.77316652804114,
+          "our_sp": 10.222222222222221,
+          "our_sc": 1.2169811320754718
+        },
+        {
+          "lead_s": 0.0,
+          "trace": {
+            "mode": "emergency",
+            "boost": true,
+            "cmd": -116.3,
+            "clear": -19.6,
+            "hard": -31.6,
+            "n_safe": 0,
+            "threat": 0.89,
+            "enclosed": 0.38,
+            "wrap": 0.0,
+            "thr": 18.0,
+            "eat": 4.9,
+            "goal": 143.4,
+            "thread": [
+              30.3,
+              126.0,
+              false
+            ],
+            "L": 388,
+            "sc": 1.22,
+            "died_near": 0,
+            "kills": 0,
+            "big": 0.0,
+            "curl": 0.08,
+            "prof": "aggressive",
+            "onward": 91.4,
+            "nh": 7,
+            "crowd": 509,
+            "gap": null,
+            "esc": null
+          },
+          "nearest_body_owner_head": [
+            27870.896484375,
+            32303.57421875,
+            3.4852044582366943,
+            14.0,
+            1.2264150381088257
+          ],
+          "head_dist": 65.71450932210057,
+          "our_sp": 13.833333333333334,
+          "our_sc": 1.2169811320754718
+        }
+      ]
+    },
+    {
+      "file": "live_20260925_183915",
+      "seconds": 47.5,
+      "terminal_emergency_s": 0.1164572409999991,
+      "last_observed_body_gap": 8.995367010672688,
+      "inferred_nearest_owner": 159,
+      "samples": [
+        {
+          "lead_s": 2.0,
+          "trace": {
+            "mode": "evade",
+            "boost": false,
+            "cmd": 135.2,
+            "clear": 43.3,
+            "hard": 41.3,
+            "n_safe": 4,
+            "threat": 0.71,
+            "enclosed": 0.62,
+            "wrap": 0.0,
+            "thr": 18.0,
+            "eat": 71.6,
+            "goal": 979.0,
+            "thread": [
+              40.4,
+              133.1,
+              true
+            ],
+            "L": 618,
+            "sc": 1.34,
+            "died_near": 4,
+            "kills": 1,
+            "big": 0.95,
+            "curl": 0.04,
+            "prof": "aggressive",
+            "onward": 62.1,
+            "nh": 6,
+            "crowd": 203,
+            "gap": null,
+            "esc": null
+          },
+          "nearest_body_owner_head": [
+            33673.3984375,
+            33302.31640625,
+            5.914856433868408,
+            5.789999961853027,
+            1.3867924213409424
+          ],
+          "head_dist": 606.7242411817889,
+          "our_sp": 5.888888888888889,
+          "our_sc": 1.3396226415094339
+        },
+        {
+          "lead_s": 1.0,
+          "trace": {
+            "mode": "evade",
+            "boost": true,
+            "cmd": 157.7,
+            "clear": 72.6,
+            "hard": 53.7,
+            "n_safe": 8,
+            "threat": 0.25,
+            "enclosed": 0.62,
+            "wrap": 0.0,
+            "thr": 18.0,
+            "eat": 116.4,
+            "goal": 983.6,
+            "thread": [
+              70.1,
+              120.6,
+              true
+            ],
+            "L": 666,
+            "sc": 1.36,
+            "died_near": 4,
+            "kills": 1,
+            "big": 0.61,
+            "curl": 0.08,
+            "prof": "aggressive",
+            "onward": 107.5,
+            "nh": 6,
+            "crowd": 98,
+            "gap": null,
+            "esc": null
+          },
+          "nearest_body_owner_head": [
+            33656.6015625,
+            33383.85546875,
+            3.877903461456299,
+            5.789999961853027,
+            1.4150943756103516
+          ],
+          "head_dist": 449.4514517980299,
+          "our_sp": 6.333333333333333,
+          "our_sc": 1.3584905660377358
+        },
+        {
+          "lead_s": 0.5,
+          "trace": {
+            "mode": "escape",
+            "boost": true,
+            "cmd": 143.4,
+            "clear": 38.6,
+            "hard": 22.6,
+            "n_safe": 7,
+            "threat": 0.0,
+            "enclosed": 0.62,
+            "wrap": 0.0,
+            "thr": 10.0,
+            "eat": 54.5,
+            "goal": 983.6,
+            "thread": [
+              120.7,
+              142.4,
+              true
+            ],
+            "L": 683,
+            "sc": 1.37,
+            "died_near": 4,
+            "kills": 1,
+            "big": 0.6,
+            "curl": 0.04,
+            "prof": "aggressive",
+            "onward": 201.9,
+            "nh": 4,
+            "crowd": 649,
+            "gap": null,
+            "esc": null
+          },
+          "nearest_body_owner_head": [
+            33591.1640625,
+            33330.71875,
+            3.7306413650512695,
+            5.789999961853027,
+            1.4150943756103516
+          ],
+          "head_dist": 403.52372152910704,
+          "our_sp": 11.11111111111111,
+          "our_sc": 1.3679245283018868
+        },
+        {
+          "lead_s": 0.0,
+          "trace": {
+            "mode": "emergency",
+            "boost": true,
+            "cmd": -38.4,
+            "clear": -15.8,
+            "hard": -19.8,
+            "n_safe": 0,
+            "threat": 0.55,
+            "enclosed": 0.62,
+            "wrap": 0.0,
+            "thr": 18.0,
+            "eat": 141.3,
+            "goal": 983.6,
+            "thread": [
+              9.0,
+              195.3,
+              false
+            ],
+            "L": 680,
+            "sc": 1.37,
+            "died_near": 4,
+            "kills": 1,
+            "big": 0.6,
+            "curl": 0.04,
+            "prof": "aggressive",
+            "onward": -3.0,
+            "nh": 5,
+            "crowd": 993,
+            "gap": [
+              116.5,
+              20.7,
+              35.7,
+              19.8,
+              false
+            ],
+            "esc": null
+          },
+          "nearest_body_owner_head": [
+            33512.2109375,
+            33255.9453125,
+            4.663301467895508,
+            5.789999961853027,
+            1.4245283603668213
+          ],
+          "head_dist": 267.4078879878864,
+          "our_sp": 10,
+          "our_sc": 1.3679245283018868
+        }
+      ]
+    }
+  ],
+  "toy_wall_geometry": {
+    "speed_px_s": 180.0,
+    "omega_deg_s": 230,
+    "radius": 44.8401752711079,
+    "turn90_s": 0.391304347826087,
+    "definition": "g is free forward head clearance to a static infinite perpendicular wall; constant speed, turn after latency.",
+    "required_gap_at_latency_100ms": 62.8401752711079,
+    "required_gap_at_latency_70ms": 57.440175271107904,
+    "at_gap60_latency100ms_safe": false,
+    "at_gap60_latency70ms_safe": true,
+    "saving30ms_cruise_px": 5.3999999999999995,
+    "saving30ms_boost_px": 13.02,
+    "saving200ms_boost_px": 86.80000000000001
+  }
+}
+```
+
+## run_live.py:34–42
+```python
+34: import win_chrome
+35: 
+36: VIEW_W, VIEW_H = 960, 600
+37: RADIUS = 1150            # px of bodies sent each tick
+38: FOOD_RADIUS = 3000       # px of food sent (user: far remains were never seen; the client holds what its sectors hold)
+39: NICKS = ('momo', 'toto', 'nana', 'coco', 'lulu', 'kiki', 'dodo', 'bibi', 'mimi', 'popo')
+40: 
+41: OBSERVE_JS = """([R, RF]) => {
+42:   const s = window.slither;
+```
+
+## run_live.py:71–78
+```python
+71: COMMAND_JS = """([a, b]) => {
+72:   if (!window.playing || !window.slither || window.slither.dead || window.__stop) return false;
+73:   window.__lastCmd = Date.now();
+74:   window.xm = Math.cos(a) * 250; window.ym = Math.sin(a) * 250;
+75:   window.setAcceleration(b ? 1 : 0);
+76:   return true;
+77: }"""
+78: SETUP_JS = """() => {
+```
+
+## run_live.py:134–155
+```python
+134:     try:
+135:         while True:
+136:             tick = time.monotonic(); ticks.append(tick)
+137:             raw = await asyncio.wait_for(page.evaluate(OBSERVE_JS, [RADIUS, FOOD_RADIUS]), timeout=5)
+138:             if raw is None:
+139:                 break
+140:             t_obs = time.monotonic()
+141:             s = unpack(raw); s['t'] = tick-start
+142:             L_max = max(L_max, s['L'])
+143:             cmd, _ = await asyncio.wait_for(asyncio.to_thread(ctrl, s), timeout=1.)
+144:             work.append(time.monotonic()-tick)
+145:             last = dict(getattr(ctrl, 'last', {}))
+146:             modes[last.get('mode')] = modes.get(last.get('mode'), 0)+1
+147:             if 'trace' in last: trace.append(dict(t=round(s['t'], 3), **last['trace']))
+148:             box.append(dict(state={k: (v.astype(np.float32) if isinstance(v, np.ndarray) else v) for k, v in s.items()},
+149:                             cmd=(float(cmd[0]), bool(cmd[1])), last=last))
+150:             t_dec = time.monotonic()
+151:             sent = await asyncio.wait_for(page.evaluate(COMMAND_JS, [float(cmd[0]), bool(cmd[1])]), timeout=5)
+152:             stage.append(((t_obs-tick)*1e3, (t_dec-t_obs)*1e3, (time.monotonic()-tick)*1e3))
+153:             if not sent:
+154:                 reason = 'user_escape' if await page.evaluate('window.__stop') else 'death'
+155:                 break
+```
+
+## run_live.py:173–178
+```python
+173:     d = np.diff(ticks)*1000 if len(ticks) > 2 else np.zeros(1)
+174:     return dict(nick=nick, reason=reason, seconds=round(time.monotonic()-start, 1), L_max=int(L_max), modes=modes,
+175:                 loop_ms=dict(p50=round(float(np.percentile(d, 50)), 1), p95=round(float(np.percentile(d, 95)), 1)),
+176:                 work_ms_p95=round(float(np.percentile(work, 95))*1000, 1) if work else None,
+177:                 stage_ms={k: [round(float(v), 1) for v in np.percentile(np.array(stage)[:, i], [50, 95])] for i, k in
+178:                           enumerate(('observe', 'decide', 'obs_to_cmd'))} if stage else None, trace=trace)
+```
+
+## pilot.py:98–104
+```python
+98: def cruise_sp(sc):
+99:     return np.interp(sc, [1, 1.4, 1.9, 2.6, 3.5], [5.79, 5.89, 6.12, 6.33, 6.83])
+100: 
+101: 
+102: def turn_rate(sc):
+103:     return np.radians(np.interp(sc, [1, 2, 3.5], [230, 200, 130]))
+104: 
+```
+
+## pilot.py:178–190
+```python
+178: def head_paths(h, omega=0.):
+179:     """Where a head will be over the next 1.2 s: at its speed and on a surprise boost, straight and,
+180:     when it is turning (omega rad/s measured between ticks), along that arc (circling attackers)."""
+181:     t = np.arange(1, N+1)*DT
+182:     rate = (BOOST_SP-cruise_sp(h[4]))/RAMP
+183:     omega = float(np.clip(omega, -turn_rate(h[4]), turn_rate(h[4])))
+184:     out = []
+185:     for w in ((0., omega) if abs(omega) > .5 else (0.,)):
+186:         hdg = h[2]+w*(t-DT/2)
+187:         u = np.stack((np.cos(hdg), np.sin(hdg)), -1)
+188:         for v in (np.full(N, max(h[3], 4.)), np.minimum(BOOST_SP, max(h[3], 4.)+rate*t)):
+189:             out.append(h[:2]+np.cumsum((v*PX_PER_SP*DT)[:, None]*u, axis=0))
+190:     return np.vstack(out), np.tile(t, len(out))
+```
+
+## pilot.py:285–310
+```python
+285:         lim = CALM_RATE*self.period
+286:         # Codex 2026-09-25 #1: every command we may emit is a candidate we evaluated. Calm turns (+-lim) are
+287:         # candidates, not a clamp after the choice; nothing aims beyond +-150 deg (straight behind is ambiguous:
+288:         # the game, not we, would pick the turn side - P16).
+289:         rel = np.clip(np.r_[ANGLES, lim, -lim, gap_rel, wrap(prev-ang)], -MAX_REL, MAX_REL)   # last: the previous command
+290:         C, crel = len(rel), rel                   # crel: candidate turns (`rel` is reused below)
+291:         hd = np.r_[ang+rel, ang+rel]
+292:         bst = np.r_[np.zeros(C, bool), np.ones(C, bool)]
+293:         pos, t = paths(p, ang, sp, sc, prev, hd, bst, self.prev_boost)
+294:         P = pos.reshape(-1, 2)
+295:         credit = CREDIT*np.tile(t, 2*C)
+296: 
+297:         # Bodies and the wall: worst drawn gap along each path.
+298:         gap = field_gap(field, P)-ro
+299:         w = s['wall']
+300:         gap = np.minimum(gap, w[2]-np.hypot(P[:, 0]-w[0], P[:, 1]-w[1])-ro)
+301:         # Heads lay new body where they go: our point at time t meets forecast points laid before t.
+302:         threat, attacker, hpaths = 0., None, []
+303:         straight = len(ANGLES)//2*N            # index of our straight cruise path (ANGLES[len//2] == 0)
+304:         for h, om in zip(heads, omegas):
+305:             hp, ht = head_paths(h, om)
+306:             hpaths.append((hp, ht, R*h[4]))
+307:             d2 = ((P[:, None, :]-hp[None])**2).sum(-1)
+308:             d2 = np.where(ht[None] <= np.tile(t, 2*C)[:, None]+.15, d2, 1e8)
+309:             hg = np.sqrt(d2.min(1))-ro-R*h[4]
+310:             gap = np.minimum(gap, hg)
+```
+
+## pilot.py:459–461
+```python
+459:         safe = (clear >= thr) & (hard >= np.minimum(thr, HARD_PHYS))
+460:         if (safe & (onward >= LONG_SAFE)).any():      # dead ends (no way on within 3 s) are not safe while others exist
+461:             safe &= onward >= LONG_SAFE
+```
+
+## pilot.py:578–607
+```python
+578:         commit = self.coil_dir if ring else self.turn_sign if self.turn_sign != 0 else (self.side if s['t'] < self.side_until else 0.)
+579:         against = (commit != 0) & (np.sign(turn) == -commit) & (abs(turn) > np.radians(30))
+580:         if (safe & ~against).any():
+581:             safe = safe & ~against
+582:         if ring:        # judge the coil on the path it really drives (continuous full-rate turn), not a fixed heading
+583:             cp, ct = coil_path(p, ang, sp, sc, prev, self.coil_dir, self.prev_boost)
+584:             wl = s['wall']
+585:             coil_hard = min(float((field_gap(field, cp)-ro).min()), float((wl[2]-np.hypot(*(cp-np.array(wl[:2])).T)-ro).min()))
+586:             for hp, ht, hr in hpaths:
+587:                 d2 = ((cp[:, None, :]-hp[None])**2).sum(-1)
+588:                 d2 = np.where(ht[None] <= ct[:, None]+.15, d2, 1e8)
+589:                 coil_hard = min(coil_hard, float(np.sqrt(d2.min())-ro-hr))
+590:         calm = (not ring and wrap_esc is None and attacker is None and big_risk < .5 and threat == 0 and not heap_chase
+591:                 and safe[int(np.argmin(abs(ANGLES)))])
+592:         if ring and coil_hard > HARD:
+593:             # Coiling: full-rate turn every tick (no boost) -> the same circle lap after lap; leave it only if
+594:             # that very circle is predicted to touch something.
+595:             mode, i = 'coil', kc
+596:         elif safe.any():
+597:             mode = 'unwrap' if wrap_esc is not None else 'loop' if looping else 'evade' if attacker is not None else 'escape' if enclosed > .6 else 'feed' if eat.max() > 0 or goal_val > 0 else 'cruise'
+598:             i = int(np.argmax(np.where(safe, score, -np.inf)))
+599:             # Hold the previous plan (same boost, heading nearest the previous command) while it stays safe
+600:             # and nearly as good: the path we evaluate is only the path we drive if we keep commanding it.
+601:             held = 2*C-1 if self.prev_boost else C-1
+602:             if safe[held] and score[held] >= score[i]-SWITCH: i = held
+603:             # Calm modes turn at most CALM_RATE (large arcs, no spinning, user): toward the chosen side, through the
+604:             # evaluated +-lim candidate with the chosen boost (Codex #1: no unchecked clamp after the choice).
+605:             if calm and abs(crel[i % C]) > lim+1e-6:
+606:                 j = len(ANGLES)+(0 if crel[i % C] > 0 else 1)+(C if bst[i] else 0)
+607:                 if safe[j]: i = j
+```
+
+## 보관 게임 클라이언트의 전송 간격 조건
+research/game.js, 약 219–220행. 현재 서버 동작을 새로 관측한 것이 아닌 로컬 보관본 정적 확인.
+`slither.md!=slither.wmd&&ctm-last_accel_mtm>50`
+`if(want_e&&ctm-last_e_mtm>33)`

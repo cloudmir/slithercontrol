@@ -1,0 +1,32 @@
+{
+  "selfRatio01": 0.14212956065641447,
+  "selfRatio10": 1.4212956065641447,
+  "selfRatio100": 14.212956065641446,
+  "ownOverlapNotAdded": true,
+  "enemyOverlapNotAdded": true,
+  "zeroSelfParityScenes": 30,
+  "observer": {
+    "one": {
+      "phase": "feed",
+      "heads": 0,
+      "radius": 450,
+      "threshold": 3,
+      "switched": 0,
+      "bodyDensity": 17.148151265483804,
+      "bodyTrigger": 0,
+      "reason": "clear"
+    },
+    "tenth": {
+      "phase": "feed",
+      "heads": 0,
+      "radius": 450,
+      "threshold": 3,
+      "switched": 0,
+      "bodyDensity": 1.714815126548381,
+      "bodyTrigger": 0,
+      "reason": "clear"
+    }
+  },
+  "dyingAndDuplicatesExcluded": true,
+  "originalControllersUnchanged": true
+}

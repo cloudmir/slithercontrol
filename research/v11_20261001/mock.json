@@ -1,0 +1,11 @@
+{
+  "feedMode": "cruise",
+  "avoidMode": "v10replan",
+  "singleNearHead": true,
+  "bodyOnlyTrigger": true,
+  "returnHold": true,
+  "presetPersistence": true,
+  "standaloneV10Preserved": true,
+  "errors": [],
+  "scope": "local mock and real Workers; no live game"
+}

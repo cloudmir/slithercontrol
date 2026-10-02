@@ -1,0 +1,65 @@
+{
+  "perpendicular_no_target": {
+    "old_command": [
+      -1.5707963267948966,
+      false
+    ],
+    "new_command": [
+      -3.141592653589793,
+      false
+    ],
+    "reason": "entry_collision_turn",
+    "model_clear": 11.80630858335644
+  },
+  "recorded_frames": [
+    {
+      "game": 1,
+      "guarded_turns": 7,
+      "model_clear": 50,
+      "model_no_safe_turn": 3,
+      "target_frames": 31
+    },
+    {
+      "game": 2,
+      "guarded_turns": 4,
+      "model_clear": 24,
+      "model_no_safe_turn": 3,
+      "target_frames": 27
+    },
+    {
+      "game": 3,
+      "guarded_turns": 1,
+      "model_clear": 67,
+      "model_no_safe_turn": 1,
+      "target_frames": 68
+    },
+    {
+      "game": 4,
+      "guarded_turns": 2,
+      "model_clear": 46,
+      "model_no_safe_turn": 2,
+      "target_frames": 26
+    },
+    {
+      "game": 5,
+      "guarded_turns": 5,
+      "model_clear": 25,
+      "model_no_safe_turn": 4,
+      "target_frames": 29
+    },
+    {
+      "game": 6,
+      "guarded_turns": 3,
+      "model_clear": 67,
+      "model_no_safe_turn": 1,
+      "target_frames": 43
+    }
+  ],
+  "scope": "Static observed-body turn prediction; no live survival claim.",
+  "cost_ms": {
+    "p50": 1.3268100000000231,
+    "p95": 18.859667000000172,
+    "max": 46.398938000000044,
+    "frames": 293
+  }
+}

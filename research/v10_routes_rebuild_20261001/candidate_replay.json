@@ -1,0 +1,667 @@
+{
+  "note": "Offline replay of fixed observations. Original threat worker state and timing not fully recorded; recomputed. Does not prove survival.",
+  "samples": [
+    {
+      "offset": 5,
+      "t": 26.004,
+      "x": 31565.096925854854,
+      "y": 35012.3653444575,
+      "heading": 4.198760146202956,
+      "actual": {
+        "id": 735,
+        "ang": -1.1903050262631447,
+        "boost": false,
+        "why": "v10_controls",
+        "at": 26.00960000002384
+      },
+      "recordedRoute": {
+        "algo": "v10",
+        "ver": 187,
+        "t0": 25.8932000000477,
+        "certified": false,
+        "reason": "budget",
+        "ms": 50.40000003576279,
+        "routes": []
+      },
+      "variants": [
+        {
+          "budget": 90,
+          "edge": 2100,
+          "follows": [],
+          "recordedCommand12s": {
+            "ok": true,
+            "hitOrEnd": 1.378,
+            "clear": 128
+          },
+          "reason": "continuation",
+          "ms": 72.00946600000003,
+          "routes": [
+            {
+              "goal": [
+                31877.596555534263,
+                34317.5262668452
+              ],
+              "duration": 4.378,
+              "clear": 2.563317483602042
+            },
+            {
+              "goal": [
+                32193.63006839393,
+                34662.77290264935
+              ],
+              "duration": 4.378,
+              "clear": 128
+            },
+            {
+              "goal": [
+                31231.104000302414,
+                34353.76961386084
+              ],
+              "duration": 4.378,
+              "clear": 16.383302532204354
+            }
+          ],
+          "rootSafe": true,
+          "rootClear": 128,
+          "safe12sAngles": [
+            0,
+            10,
+            20,
+            30,
+            40,
+            50,
+            60,
+            70,
+            80,
+            90,
+            100,
+            110,
+            120,
+            130,
+            140,
+            150,
+            160,
+            170,
+            180,
+            190,
+            200,
+            210,
+            220,
+            230,
+            240,
+            250,
+            260,
+            270,
+            280,
+            290,
+            300,
+            310,
+            320,
+            330,
+            340,
+            350
+          ],
+          "geometry": []
+        },
+        {
+          "budget": 500,
+          "edge": 2100,
+          "follows": [],
+          "recordedCommand12s": {
+            "ok": true,
+            "hitOrEnd": 1.378,
+            "clear": 128
+          },
+          "reason": "continuation",
+          "ms": 41.43360100000001,
+          "routes": [
+            {
+              "goal": [
+                31877.596555534263,
+                34317.5262668452
+              ],
+              "duration": 4.378,
+              "clear": 2.563317483602042
+            },
+            {
+              "goal": [
+                32193.63006839393,
+                34662.77290264935
+              ],
+              "duration": 4.378,
+              "clear": 128
+            },
+            {
+              "goal": [
+                31231.104000302414,
+                34353.76961386084
+              ],
+              "duration": 4.378,
+              "clear": 16.383302532204354
+            }
+          ],
+          "rootSafe": true,
+          "rootClear": 128,
+          "safe12sAngles": [
+            0,
+            10,
+            20,
+            30,
+            40,
+            50,
+            60,
+            70,
+            80,
+            90,
+            100,
+            110,
+            120,
+            130,
+            140,
+            150,
+            160,
+            170,
+            180,
+            190,
+            200,
+            210,
+            220,
+            230,
+            240,
+            250,
+            260,
+            270,
+            280,
+            290,
+            300,
+            310,
+            320,
+            330,
+            340,
+            350
+          ],
+          "geometry": []
+        }
+      ],
+      "nearest": {
+        "id": 196,
+        "gap": 316.7514405944193,
+        "tangent": 1.7607846147137163,
+        "relative": 139.68570851049714
+      }
+    },
+    {
+      "offset": 3,
+      "t": 28.011,
+      "x": 31655.548233321086,
+      "y": 34665.74038598996,
+      "heading": 4.7860200582032,
+      "actual": {
+        "id": 786,
+        "ang": 4.7860200582032,
+        "boost": false,
+        "why": "v10_controls",
+        "at": 28.014
+      },
+      "recordedRoute": {
+        "algo": "v10",
+        "ver": 203,
+        "t0": 27.85270000004769,
+        "certified": false,
+        "reason": "budget",
+        "ms": 50.89999997615814,
+        "routes": []
+      },
+      "variants": [
+        {
+          "budget": 90,
+          "edge": 2100,
+          "follows": [],
+          "recordedCommand12s": {
+            "ok": true,
+            "hitOrEnd": 1.378,
+            "clear": 128
+          },
+          "reason": "continuation",
+          "ms": 22.413280999999984,
+          "routes": [
+            {
+              "goal": [
+                32218.87956507737,
+                34133.66940959394
+              ],
+              "duration": 4.378,
+              "clear": 47.77649910307844
+            },
+            {
+              "goal": [
+                31066.018328007132,
+                34247.88822672651
+              ],
+              "duration": 4.378,
+              "clear": 6.921375834090647
+            },
+            {
+              "goal": [
+                32356.032563039807,
+                34603.4448663448
+              ],
+              "duration": 4.378,
+              "clear": 40.60045148691229
+            }
+          ],
+          "rootSafe": true,
+          "rootClear": 128,
+          "safe12sAngles": [
+            0,
+            10,
+            20,
+            30,
+            40,
+            50,
+            60,
+            70,
+            80,
+            90,
+            100,
+            110,
+            120,
+            130,
+            140,
+            150,
+            160,
+            170,
+            180,
+            190,
+            200,
+            210,
+            220,
+            230,
+            240,
+            250,
+            260,
+            270,
+            280,
+            290,
+            300,
+            310,
+            320,
+            330
+          ],
+          "geometry": []
+        },
+        {
+          "budget": 500,
+          "edge": 2100,
+          "follows": [],
+          "recordedCommand12s": {
+            "ok": true,
+            "hitOrEnd": 1.378,
+            "clear": 128
+          },
+          "reason": "continuation",
+          "ms": 26.66561999999999,
+          "routes": [
+            {
+              "goal": [
+                32218.87956507737,
+                34133.66940959394
+              ],
+              "duration": 4.378,
+              "clear": 47.77649910307844
+            },
+            {
+              "goal": [
+                31066.018328007132,
+                34247.88822672651
+              ],
+              "duration": 4.378,
+              "clear": 6.921375834090647
+            },
+            {
+              "goal": [
+                32356.032563039807,
+                34603.4448663448
+              ],
+              "duration": 4.378,
+              "clear": 40.60045148691229
+            }
+          ],
+          "rootSafe": true,
+          "rootClear": 128,
+          "safe12sAngles": [
+            0,
+            10,
+            20,
+            30,
+            40,
+            50,
+            60,
+            70,
+            80,
+            90,
+            100,
+            110,
+            120,
+            130,
+            140,
+            150,
+            160,
+            170,
+            180,
+            190,
+            200,
+            210,
+            220,
+            230,
+            240,
+            250,
+            260,
+            270,
+            280,
+            290,
+            300,
+            310,
+            320,
+            330
+          ],
+          "geometry": []
+        }
+      ],
+      "nearest": {
+        "id": 240,
+        "gap": 201.66511833225906,
+        "tangent": -0.03911048105568574,
+        "relative": -83.54038450078286
+      }
+    },
+    {
+      "offset": 2,
+      "t": 29.007,
+      "x": 31614.348108951606,
+      "y": 34447.917380953,
+      "heading": 4.270602513473625,
+      "actual": {
+        "id": 809,
+        "ang": 4.458048414178274,
+        "boost": true,
+        "why": "v10_controls",
+        "at": 29.01460000002384
+      },
+      "recordedRoute": {
+        "algo": "v10",
+        "ver": 212,
+        "t0": 28.944000000000017,
+        "certified": false,
+        "reason": "budget",
+        "ms": 52.10000002384186,
+        "routes": []
+      },
+      "variants": [
+        {
+          "budget": 90,
+          "edge": 2100,
+          "follows": [],
+          "recordedCommand12s": {
+            "ok": false,
+            "hitOrEnd": 0.258,
+            "clear": -17.00042996541644
+          },
+          "reason": "no_drivable_route",
+          "ms": 5.490470999999957,
+          "routes": [],
+          "rootSafe": true,
+          "rootClear": 128,
+          "safe12sAngles": [],
+          "geometry": []
+        },
+        {
+          "budget": 500,
+          "edge": 2100,
+          "follows": [],
+          "recordedCommand12s": {
+            "ok": false,
+            "hitOrEnd": 0.258,
+            "clear": -17.00042996541644
+          },
+          "reason": "no_drivable_route",
+          "ms": 2.6520229999999856,
+          "routes": [],
+          "rootSafe": true,
+          "rootClear": 128,
+          "safe12sAngles": [],
+          "geometry": []
+        }
+      ],
+      "nearest": {
+        "id": 337,
+        "gap": 254.15684297622406,
+        "tangent": 1.4048489275055194,
+        "relative": 164.19558560045357
+      }
+    },
+    {
+      "offset": 1,
+      "t": 29.997,
+      "x": 31243.493537997787,
+      "y": 34300.97349362007,
+      "heading": 3.2888548092268146,
+      "actual": {
+        "id": 834,
+        "ang": 3.313398501832984,
+        "boost": false,
+        "why": "v10_controls",
+        "at": 30.005400000035763
+      },
+      "recordedRoute": {
+        "algo": "v10",
+        "ver": 219,
+        "t0": 29.853100000023858,
+        "certified": false,
+        "reason": "budget",
+        "ms": 50.89999997615814,
+        "routes": []
+      },
+      "variants": [
+        {
+          "budget": 90,
+          "edge": 2100,
+          "follows": [],
+          "recordedCommand12s": {
+            "ok": false,
+            "hitOrEnd": 1.0180000000000002,
+            "clear": -0.39774550737475745
+          },
+          "reason": "continuation",
+          "ms": 9.242853999999966,
+          "routes": [
+            {
+              "goal": [
+                31625.614481433797,
+                34763.66368874735
+              ],
+              "duration": 4.378,
+              "clear": 5.263620373102958
+            }
+          ],
+          "rootSafe": true,
+          "rootClear": 79.51888473158235,
+          "safe12sAngles": [
+            10,
+            20,
+            30,
+            40
+          ],
+          "geometry": []
+        },
+        {
+          "budget": 500,
+          "edge": 2100,
+          "follows": [],
+          "recordedCommand12s": {
+            "ok": false,
+            "hitOrEnd": 1.0180000000000002,
+            "clear": -0.39774550737475745
+          },
+          "reason": "continuation",
+          "ms": 7.443069000000037,
+          "routes": [
+            {
+              "goal": [
+                31625.614481433797,
+                34763.66368874735
+              ],
+              "duration": 4.378,
+              "clear": 5.263620373102958
+            }
+          ],
+          "rootSafe": true,
+          "rootClear": 79.51888473158235,
+          "safe12sAngles": [
+            10,
+            20,
+            30,
+            40
+          ],
+          "geometry": []
+        }
+      ],
+      "nearest": {
+        "id": 196,
+        "gap": 95.9039575808787,
+        "tangent": -0.18586394582198162,
+        "relative": -160.91328034075227
+      }
+    },
+    {
+      "offset": 0.5,
+      "t": 30.495,
+      "x": 31157.2291990639,
+      "y": 34289.19183694174,
+      "heading": 3.3002391593388998,
+      "actual": {
+        "id": 844,
+        "ang": 3.3002391593388998,
+        "boost": false,
+        "why": "v10_controls",
+        "at": 30.503400000035764
+      },
+      "recordedRoute": {
+        "algo": "v10",
+        "ver": 223,
+        "t0": 30.382000000000005,
+        "certified": false,
+        "reason": "budget",
+        "ms": 57,
+        "routes": []
+      },
+      "variants": [
+        {
+          "budget": 90,
+          "edge": 2100,
+          "follows": [],
+          "recordedCommand12s": {
+            "ok": false,
+            "hitOrEnd": 0.578,
+            "clear": -0.921130054630893
+          },
+          "reason": "no_drivable_route",
+          "ms": 6.399740999999949,
+          "routes": [],
+          "rootSafe": true,
+          "rootClear": 51.870055812132755,
+          "safe12sAngles": [],
+          "geometry": []
+        },
+        {
+          "budget": 500,
+          "edge": 2100,
+          "follows": [],
+          "recordedCommand12s": {
+            "ok": false,
+            "hitOrEnd": 0.578,
+            "clear": -0.921130054630893
+          },
+          "reason": "no_drivable_route",
+          "ms": 3.4654150000000072,
+          "routes": [],
+          "rootSafe": true,
+          "rootClear": 51.870055812132755,
+          "safe12sAngles": [],
+          "geometry": []
+        }
+      ],
+      "nearest": {
+        "id": 196,
+        "gap": 66.662999880243,
+        "tangent": -0.22743660306956834,
+        "relative": -157.87906732339985
+      }
+    },
+    {
+      "offset": 0,
+      "t": 31.008,
+      "x": 31066.618987588325,
+      "y": 34270.51854271021,
+      "heading": 3.6570101983193686,
+      "actual": {
+        "id": 858,
+        "ang": 3.7253832354178122,
+        "boost": false,
+        "why": "v10_controls",
+        "at": 31.015100000023843
+      },
+      "recordedRoute": {
+        "algo": "v10",
+        "ver": 227,
+        "t0": 30.863600000023865,
+        "certified": false,
+        "reason": "budget",
+        "ms": 51.90000003576279,
+        "routes": []
+      },
+      "variants": [
+        {
+          "budget": 90,
+          "edge": 2100,
+          "follows": [],
+          "recordedCommand12s": {
+            "ok": false,
+            "hitOrEnd": 0.17800000000000002,
+            "clear": -8.551546479193313
+          },
+          "reason": "prefix_collision",
+          "ms": 1.7343740000000025,
+          "routes": [],
+          "rootSafe": false,
+          "rootClear": -8.661462874115678,
+          "safe12sAngles": [],
+          "geometry": []
+        },
+        {
+          "budget": 500,
+          "edge": 2100,
+          "follows": [],
+          "recordedCommand12s": {
+            "ok": false,
+            "hitOrEnd": 0.17800000000000002,
+            "clear": -8.551546479193313
+          },
+          "reason": "prefix_collision",
+          "ms": 2.4576020000000653,
+          "routes": [],
+          "rootSafe": false,
+          "rootClear": -8.661462874115678,
+          "safe12sAngles": [],
+          "geometry": []
+        }
+      ],
+      "nearest": {
+        "id": 196,
+        "gap": 5.230337697182835,
+        "tangent": -1.6233793884059102,
+        "relative": -57.455962495812564
+      }
+    }
+  ]
+}

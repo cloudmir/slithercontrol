@@ -1,0 +1,12 @@
+{
+ "applied": true,
+ "version": "0930-f2e18a44",
+ "playing": false,
+ "bot": false,
+ "preset": "v7_remains",
+ "v7": 1,
+ "radius": 450,
+ "heads": 3,
+ "clearSeconds": 1,
+ "foodWeight": 250
+}

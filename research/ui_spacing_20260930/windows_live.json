@@ -1,0 +1,10 @@
+{
+  "version": "0930-26721c69",
+  "panel": {
+    "width": 431.14288330078125,
+    "height": 469.83929443359375
+  },
+  "bot": true,
+  "preset": "v8_exact",
+  "stateUnchanged": true
+}

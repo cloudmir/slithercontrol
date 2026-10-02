@@ -1,0 +1,520 @@
+사용자 지시: 수정을 해줘, 그리고 테스트를 돌리자. 추가: 옆 먹이를 못 먹음; V8 먹이 추종을 연구해봐. 후자는 사용자 관찰이며 우월성 확정 아님.
+
+{
+  "build": "1001-3e1c3608",
+  "hashes": {
+    "ext/pilot.js": "2027d2c89901ec2f0dd65d4fc8a3d64d31ab5aaf74cbe50c35690f63aab2a7cf",
+    "ext/mod.js": "564492ea002a880d30008b9eb060f6c6d4d9001a05b21f53eca0fb5f696f6145",
+    "params.json": "f6649974e852f6aeced20aa042469cbdbcb2149480d6012bc7267f48cdee4f5c",
+    "ext/params.js": "b193d6658987e0966b9536f6e147344467022ed12b31be2df2ba571ebce013b3",
+    "ext/manifest.json": "c37bc4a8aaffa8a6c99c06fd221f2946069c29df3e41d670ea9ce7ea610d5bd6"
+  },
+  "test_budget_ms": 150,
+  "production_budget_ms": 90,
+  "boost_cost": "heuristic time penalty 0.04/second; not calibrated mass loss",
+  "risk": "index, not probability"
+}
+
+{
+  "slider_trades_risk_for_food_monotonically": {
+    "pass": true,
+    "foodRouteSelected": [
+      false,
+      false,
+      true,
+      true,
+      true
+    ]
+  },
+  "no_food_cannot_reward_risk": {
+    "pass": true
+  },
+  "swept_food_contact_is_valued_and_time_discounted": {
+    "pass": true,
+    "fast": 0.8888888888888888,
+    "slow": 0.6666666666666666
+  },
+  "long_food_route_reaches_pellets_and_continues": {
+    "pass": true,
+    "routes": 1,
+    "foodDistance": 5.3439900789651755,
+    "foodValue": 0.42231215907091324,
+    "length": 2229.2812680949814,
+    "ms": 50.42875199999999
+  },
+  "food_removed_from_world_removes_reward": {
+    "pass": true
+  },
+  "max_risk_does_not_cross_wall": {
+    "pass": true
+  },
+  "boost_off_disables_all_route_boosts": {
+    "pass": true
+  },
+  "v9_legacy_food_switch_preserved": {
+    "pass": true
+  },
+  "empty_world_cruises": {
+    "pass": true,
+    "routes": 3
+  },
+  "center_value_applies_with_food": {
+    "pass": true
+  },
+  "distant_food_progress_and_boost_cost": {
+    "pass": true
+  }
+}
+
+{
+  "applied": true,
+  "version": "1001-3e1c3608",
+  "existingSettingsPreserved": true,
+  "activePreset": "v10_layered",
+  "newPresetAvailable": true,
+  "playing": false
+}
+
+V10 먹이 위험 감수 실게임 1판 검증 원문
+runs/v10_growth_live_20261001_131328
+{
+  "build": "1001-3e1c3608",
+  "seconds": 189,
+  "capped": false,
+  "server": "181.41.140.170:444",
+  "players_max_observed": 409,
+  "L_first": 11,
+  "L_last": 652,
+  "L_max": 652,
+  "net_L_per_min": 203.49,
+  "settings_changes": [],
+  "food_risk_values": {
+    "100": 3901
+  },
+  "modes": {
+    "v10replan": 2023,
+    "v10route": 1804,
+    "v10emergency": 74
+  },
+  "route_frame_percent": 46.2,
+  "boost_frame_percent": 14.0,
+  "food_value_on_routes": {
+    "p50": 0.00015357571673003657,
+    "p95": 1,
+    "max": 1
+  },
+  "closure_risk_on_routes": {
+    "p50": 0.6263378794012016,
+    "p95": 0.7748873129334267,
+    "max": 0.8649167405934008
+  },
+  "remains_observation_samples": 443,
+  "samples_with_remains": 328,
+  "samples_with_remains_within100px": 17,
+  "nearest_remains_px": {
+    "p50": 712.0365372416538,
+    "p95": 1338.2189421792923,
+    "max": 1816.2225495303915
+  },
+  "decision_errors": 0,
+  "page_errors": [],
+  "decision_ms": {
+    "p50": 7.1,
+    "p95": 14.2
+  },
+  "observation_to_command_ms": {
+    "p50": 14.7,
+    "p95": 50.9
+  },
+  "screenshots": 351,
+  "capture_interval_s": {
+    "p50": 0.5,
+    "p95": 0.5329999999999995,
+    "max": 2.174999999999983
+  },
+  "camera_error": null,
+  "windows": [
+    {
+      "start_s": 0,
+      "end_s": 30.0,
+      "L_start": 11,
+      "L_end": 79,
+      "L_max": 79,
+      "route_frames": 734,
+      "frames": 804,
+      "boost_frames": 0
+    },
+    {
+      "start_s": 30,
+      "end_s": 59.96,
+      "L_start": 79,
+      "L_end": 82,
+      "L_max": 86,
+      "route_frames": 282,
+      "frames": 660,
+      "boost_frames": 104
+    },
+    {
+      "start_s": 60,
+      "end_s": 89.97,
+      "L_start": 81,
+      "L_end": 79,
+      "L_max": 91,
+      "route_frames": 264,
+      "frames": 637,
+      "boost_frames": 109
+    },
+    {
+      "start_s": 90,
+      "end_s": 119.97,
+      "L_start": 79,
+      "L_end": 536,
+      "L_max": 539,
+      "route_frames": 184,
+      "frames": 587,
+      "boost_frames": 113
+    },
+    {
+      "start_s": 120,
+      "end_s": 149.98,
+      "L_start": 536,
+      "L_end": 544,
+      "L_max": 554,
+      "route_frames": 127,
+      "frames": 529,
+      "boost_frames": 90
+    },
+    {
+      "start_s": 150,
+      "end_s": 179.96,
+      "L_start": 544,
+      "L_end": 598,
+      "L_max": 605,
+      "route_frames": 96,
+      "frames": 495,
+      "boost_frames": 78
+    },
+    {
+      "start_s": 180,
+      "end_s": 188.91,
+      "L_start": 598,
+      "L_end": 652,
+      "L_max": 652,
+      "route_frames": 117,
+      "frames": 189,
+      "boost_frames": 54
+    }
+  ],
+  "limits": [
+    "One live game; any setting changes are split into observational segments, not a causal A/B comparison.",
+    "Net length change includes boost loss; observed food is not proven reachable food.",
+    "Risk is a heuristic index, not calibrated death probability.",
+    "Decision-frame shares are not independent escape success rates."
+  ],
+  "hashes": {
+    "slp_01_box.json.gz": "88e18858456552fe6d9e2ed6f7e752b12e43f636b98cf6bfd74ca15c56657f57",
+    "slp_01_log.json.gz": "5aed26d2e1676a8d6f5fad574d6ce3e8595e5bb01a3ee9120a72254351377acc",
+    "slp_01.json": "0b6894f0e21179e1ce5bf929099879bbd830161210541065ac7f75ab1a39e66c"
+  },
+  "end_reason": "death",
+  "risk_segments": [
+    {
+      "risk_setting": 100,
+      "from_s": 0.003,
+      "to_s": 188.909,
+      "L_start": 11,
+      "L_end": 652,
+      "L_max": 652,
+      "net_L_per_min": 203.59,
+      "frames": 3901,
+      "boost_frame_percent": 14.0,
+      "food_value": {
+        "p50": 0,
+        "p95": 0.7783531554162567,
+        "max": 1
+      },
+      "remains_samples": 442,
+      "samples_with_remains": 327,
+      "within100px": 16
+    }
+  ]
+}
+
+Current code SHA256 2027d2c89901ec2f0dd65d4fc8a3d64d31ab5aaf74cbe50c35690f63aab2a7cf
+
+1819:   v9FoodGoals(s, enabled = this.values.V9_FOOD_W ?? 2) {
+1820:     const V = this.values, bins = new Map(), cell = V.V9_HEAP_SIZE ?? 160;
+1821:     if (!enabled) { this.v9FoodTarget = null; return []; }
+1822:     for (let i = 0; i + 2 < (s.food || []).length; i += 3) {
+1823:       const [x,y,m] = s.food.slice(i,i+3), d = hypot(x-s.x,y-s.y);
+1824:       if (![x,y,m].every(Number.isFinite) || m < (V.V9_REMAINS_MIN ?? 12) || d > (V.V9_FOOD_R ?? 3000) || d < R*s.sc*.6) continue;
+1825:       const key = Math.floor(x/cell)+','+Math.floor(y/cell);
+1826:       if (!bins.has(key)) bins.set(key,{mass:0,points:[],sx:0,sy:0});
+1827:       const g=bins.get(key);g.mass+=m;g.sx+=x*m;g.sy+=y*m;g.points.push([x,y]);
+1828:     }
+1829:     const goals = [...bins.values()].map(g=>{
+1830:       const cx=g.sx/g.mass,cy=g.sy/g.mass;
+1831:       // Target a real pellet, not a centroid that could lie inside an enemy wall.
+1832:       g.points.sort((a,b)=>hypot(a[0]-cx,a[1]-cy)-hypot(b[0]-cx,b[1]-cy));
+1833:       const [x,y]=g.points[0],d=hypot(x-s.x,y-s.y);
+1834:       return {x,y,mass:g.mass,d,score:g.mass/(d+180)};
+1835:     }).sort((a,b)=>b.score-a.score);
+1836:     const prev=this.v9FoodTarget, old=prev && goals.find(g=>hypot(g.x-prev.x,g.y-prev.y)<cell*.8);
+1837:     if(old && s.t-prev.since<(V.V9_TARGET_HOLD ?? 1.2) && goals[0].score<old.score*1.5) {
+1838:       goals.splice(goals.indexOf(old),1);goals.unshift(old);old.since=prev.since;
+1839:     }
+1840:     if(goals.length) { goals[0].since ??= s.t;this.v9FoodTarget=goals[0]; } else this.v9FoodTarget=null;
+1841:     return goals;
+1842:   }
+1843:   v9Route(s, ver) {
+1844:     TURN_FIX = !!this.values.TURN_FIX;
+1845:     const V = this.values, now = () => performance.now(), started = now(), budget = V.V9_BUDGET ?? 90;
+
+2155:   v10FoodRewards(s,pts,foods,previous=[]) {
+2156:     return foods.map((g,k)=>{
+2157:       let best=previous[k]||0;
+2158:       for(let i=5;i<pts.length;i+=5){
+2159:         const ax=pts[i-4],ay=pts[i-3],dx=pts[i+1]-ax,dy=pts[i+2]-ay;
+2160:         const u=clip(((g.x-ax)*dx+(g.y-ay)*dy)/Math.max(1e-9,dx*dx+dy*dy),0,1);
+2161:         const gap=Math.max(0,hypot(g.x-ax-u*dx,g.y-ay-u*dy)-R*s.sc);
+2162:         const t=pts[i-5]+u*(pts[i]-pts[i-5]);
+2163:         best=Math.max(best,Math.exp(-gap/120)/(1+t/4));
+2164:       }
+2165:       return best;
+2166:     });
+2167:   }
+2168:   v10FoodValue(foods,rewards) {
+2169:     return Math.min(1,foods.reduce((sum,g,k)=>sum+(rewards[k]||0)*g.mass/(g.mass+80),0));
+2170:   }
+2171:   v10Utility(s,pts,foods,actions=[]) {
+2172:     if(pts.length<5)return {centerValue:0,approachValue:0,boostCost:0};
+2173:     const end=pts.length-5,x=pts[end+1],y=pts[end+2];
+2174:     const radius=hypot(s.x-s.wall[0],s.y-s.wall[1]);
+2175:     const centerValue=clip((radius-hypot(x-s.wall[0],y-s.wall[1]))/1500,-1,1)*Math.min(1,radius/3000);
+2176:     // Progress towards distant heaps remains valuable before contact. It is
+2177:     // measured from the current observation, never accumulated by circling.
+2178:     let approachValue=0;
+2179:     for(const g of foods){const d=hypot(g.x-s.x,g.y-s.y);let left=d;for(let i=0;i<pts.length;i+=5)left=Math.min(left,hypot(g.x-pts[i+1],g.y-pts[i+2]));
+2180:       approachValue=Math.max(approachValue,clip((d-left)/Math.max(300,d),0,1)*g.mass/(g.mass+80));}
+2181:     const boostSeconds=actions.reduce((n,a)=>n+(a.boost?Math.max(0,a.end-a.start):0),0);
+2182:     return {centerValue,approachValue,boostCost:boostSeconds*.04};
+2183:   }
+2184:   v10Compare(a,b) {
+2185:     const V=this.values,appetite=clip((V.V10_FOOD_RISK??0)/100,0,1);
+2186:     const risk=q=>q.closure?.risk??q.risk??0;
+2187:     const cost=q=>(8-7*appetite)*risk(q)-(V.V10_FOOD_W??2)*((q.foodValue??0)+.45*(q.approachValue??0))
+2188:       -(V.V9_CENTER_W??2)*.08*(q.centerValue??0)+(q.boostCost??0);
+2189:     return cost(a)-cost(b)||risk(a)-risk(b)||Number(!!b.closure?.certified)-Number(!!a.closure?.certified)||b.score-a.score;
+2190:   }
+2191:   v10Route(s,ver) {
+2192:     TURN_FIX=!!this.values.TURN_FIX;
+2193:     const begin=performance.now(),V=this.values,W=this.v10World(s),PW=this.v10ProbeWorld(W),ph=this.v4Physics(s.sc),root=this.v10Root(s,W,ph);
+2194:     const deadline=begin+(V.V10_BUDGET??90),edge=Math.min(Math.max(V.V10_EDGE??1450,(s.viewRadius??0)*.85),W.obs-150);
+2195:     const heads=this.v10Blockers(s,W),foods=this.v9FoodGoals(s,true).slice(0,3),food=foods[0],routes=[],complete=[];let expanded=0;
+2196:     const result=reason=>({algo:'v10',ver,t0:s.t,routes,certified:routes.some(r=>r.certified),reason,ms:performance.now()-begin,expanded,map:{radius:W.obs,target:edge},walls:W.walls});
+2197:     if(!root.ok)return result('prefix_collision');
+2198:     const accept=(guide,id)=>{
+2199:       const r=this.v10Follow(s,PW,ph,root,guide,deadline);
+2200:       if(!r.ok)return false;
+2201:       const closure=this.v10Closure(r.pts,heads),foodValue=this.v10FoodValue(foods,this.v10FoodRewards(s,r.pts,foods));
+2202:       routes.push({...guide,id,t0:s.t,geometryOnly:false,drivable:true,certified:closure.certified,closure,foodValue,...this.v10Utility(s,r.pts,foods,r.actions),pts:r.pts,actions:r.actions,clear:r.clear,duration:r.duration,length:r.travel,score:guide.score??0});return true;
+2203:     };
+2204:     const old=this.v10Committed;
+2205:     if(old&&s.t>=old.t0&&s.t-old.t0<2&&hypot(old.goal[0]-s.x,old.goal[1]-s.y)>220)accept(old,old.id);
+2206:     const canBoost=s.L>=(V.V2_MINL??30)&&(V.V10_ESCAPE_BOOST??1)&&(foods.length>0||heads.length>0);
+2207:     const stage=.6,depths=Math.min(60,Math.ceil(edge/Math.max(80,ph.cs)/stage*2)+3);
+2208:     let beam=[{st:root.st,t:root.t,pts:root.pts,actions:[],clear:root.clear,length:0,turn:0,family:0,boost:false,risk:0,riskSum:0,riskWeight:0,foodRewards:[]}];
+2209:     for(let depth=0;depth<depths&&beam.length&&performance.now()<deadline-10;depth++){
+2210:       const next=[];
+2211:       for(const n of beam){
+2212:         const angles=depth===0?Array.from({length:16},(_,i)=>s.ang+i*TAU/16):[n.st.h,n.st.h-.65,n.st.h+.65];
+2213:         // Include food-directed controls in the same long-route search.
+2214:         if(food && (V.V10_FOOD_W??2)>0 && (n.foodRewards?.[0]||0)<.2){
+2215:           const a=Math.atan2(food.y-n.st.y,food.x-n.st.x);
+2216:           if(!angles.some(b=>Math.abs(wrap(a-b))<.05)){
+2217:             if(depth===0)angles.push(a);else angles[wrap(a-n.st.h)>0?2:1]=a;
+2218:           }
+2219:         }
+2220:         for(const angle of angles)for(const boost of depth===0&&canBoost?[false,true]:[n.boost]){
+2221:           if(performance.now()>=deadline-10)break;
+2222:           const r=this.v9Roll(s,PW,ph,n.st,0,stage,n.t,angle,boost);expanded++;if(!r.ok)continue;
+2223:           const distance=hypot(r.st.x-s.x,r.st.y-s.y),length=n.length+hypot(r.st.x-n.st.x,r.st.y-n.st.y),turn=n.turn+Math.abs(wrap(r.st.h-n.st.h));
+2224:           let close=Infinity;for(const h of heads)close=Math.min(close,this.v10EarliestBlock(h,n.st,r.st,4));
+2225:           const riskWeight=n.riskWeight+stage/(1+r.t),riskSum=n.riskSum+stage*clip((r.t+.1-close)/.6,0,1)/(1+r.t),risk=riskSum/riskWeight;
+2226:           const foodRewards=this.v10FoodRewards(s,[n.t,n.st.x,n.st.y,n.st.h,0,...r.pts],foods,n.foodRewards),foodValue=this.v10FoodValue(foods,foodRewards);
+2227:           const score=distance-turn*12;
+2228:           const q={...r,pts:[...n.pts,...r.pts],actions:[...n.actions,{start:n.t,end:r.t,target:angle,boost}],length,clear:Math.min(n.clear,r.clear),turn,score,risk,riskSum,riskWeight,foodRewards,foodValue,boost,family:depth===0?Math.floor((wrap(angle-s.ang)+PI)/(.5)):n.family};
+2229:           Object.assign(q,this.v10Utility(s,q.pts,foods,q.actions));if(distance>=edge){complete.push(q);continue;}next.push(q);
+2230:         }
+2231:       }
+2232:       // Preserve distinct initial branches and speed choices while extending
+2233:       // all of them towards the requested probe boundary (not a 4.2 s cutoff).
+2234:       next.sort((a,b)=>this.v10Compare(a,b));const cells=new Set(),families=new Map();beam=[];
+2235:       for(const q of next){const key=[Math.round((q.st.x-s.x)/80),Math.round((q.st.y-s.y)/80),Math.round(wrap(q.st.h)/.5),q.boost].join(',');const family=q.family+':'+q.boost;if(cells.has(key)||(families.get(family)||0)>=1)continue;cells.add(key);families.set(family,(families.get(family)||0)+1);beam.push(q);if(beam.length>=12)break;}
+2236:       if(complete.length>=6)break;
+2237:     }
+2238:     complete.sort((a,b)=>this.v10Compare(a,b));
+2239:     for(const q of complete){
+2240:       if(performance.now()>=deadline)break;
+2241:       const angle=Math.atan2(q.st.y-s.y,q.st.x-s.x);
+2242:       if(routes.some(r=>Math.abs(wrap(Math.atan2(r.goal[1]-s.y,r.goal[0]-s.x)-angle))<.5))continue;
+2243:       const path=[];for(let i=0;i<q.pts.length;i+=5)path.push({x:q.pts[i+1],y:q.pts[i+2]});
+2244:       accept({path,goal:[q.st.x,q.st.y],length:q.length,kind:'escape',angle,useBoost:q.boost,lookScale:.65,score:q.score},`${ver}:${routes.length}`);
+2245:       if(routes.length>=(V.V9_ROUTES??3))break;
+2246:     }
+2247:     routes.sort((a,b)=>this.v10Compare(a,b));this.v10Committed=routes[0]||null;
+2248:     return result(routes.length?'long_probe':performance.now()>=deadline-10?'budget':'no_drivable_route');
+
+2310:   }
+2311:   v10Step(s) {
+2312:     TURN_FIX=!!this.values.TURN_FIX;
+2313:     const begin=performance.now(),V=this.values,W=this.v10World(s),PW=this.v10ProbeWorld(W),ph=this.v4Physics(s.sc),root=this.v10Root(s,W,ph);
+2314:     const worldMs=performance.now()-begin,heads=this.v10Blockers(s,W),foods=this.v9FoodGoals(s,true).slice(0,3);
+2315:     const source=s.route?.algo==='v10'&&s.t>=s.route.t0&&s.t-s.route.t0<(V.V10_ROUTE_AGE??.9)?s.route:null;
+2316:     const valid=[],flat=pts=>{const a=[];for(let i=0;i<pts.length;i+=5)a.push(pts[i+1],pts[i+2]);return a;};
+2317:     let reject=source?'invalid':'pending',checked=0;
+2318:     // Recheck full remaining probes in one model; the local layer cannot
+2319:     // silently substitute an unrelated food/centre objective for a valid route.
+2320:     const deadline=begin+Math.max(12,V.V10_LOCAL_MS??12);
+2321:     if(root.ok)for(const guide of source?.routes||[]){
+2322:       if(!guide.drivable)continue;
+2323:       if(hypot(guide.goal[0]-s.x,guide.goal[1]-s.y)<150){reject='completed';continue;}
+2324:       const r=this.v10Follow(s,PW,ph,root,guide,deadline);checked++;
+2325:       if(r.ok&&r.actions.length){const closure=this.v10Closure(r.pts,heads);valid.push({...guide,...r,closure,foodValue:this.v10FoodValue(foods,this.v10FoodRewards(s,r.pts,foods)),...this.v10Utility(s,r.pts,foods,r.actions),score:(guide.score??0)+(guide.id===this.v10RouteId?10:0)});}
+2326:       else reject=r.reason;
+2327:       if(performance.now()>deadline)break;
+2328:     }
+2329:     valid.sort((a,b)=>this.v10Compare(a,b));const picked=valid[0];let action,pts,clear,safe,mode;
+2330:     if(picked){action=picked.actions[0];pts=picked.pts;clear=picked.clear;safe=true;mode='v10route';this.v10RouteId=picked.id;}
+2331:     else {
+2332:       const options=[],horizon=Math.max(.6,V.V10_LOCAL_H??.9);
+2333:       const canBoost=s.L>=(V.V2_MINL??30)&&(V.V10_ESCAPE_BOOST??1)&&(foods.length>0||heads.length>0);
+2334:       for(const offset of [0,-.5,.5,-1,1,-2,2,PI])for(const boost of canBoost?[false,true]:[false]){
+2335:         const angle=root.st.h+offset,r=this.v9Roll(s,W,ph,root.st,0,horizon,root.t,angle,boost);checked++;
+2336:         options.push({...r,angle,boost,score:r.t*1000+Math.min(100,r.clear)-Math.abs(offset)});
+2337:       }
+2338:       options.sort((a,b)=>Number(b.ok)-Number(a.ok)||b.score-a.score);const best=options[0];
+2339:       action={start:root.t,end:root.t+.13,target:best.angle,boost:best.boost};pts=[...root.pts,...best.pts];clear=best.clear;safe=root.ok&&best.ok;mode=safe?'v10replan':'v10emergency';
+2340:     }
+2341:     const ms=performance.now()-begin;this.v10ComputeMs=ms;
+2342:     const trace={mode,cmd:r1(deg(action.target)),boost:action.boost,n_safe:root.ok?valid.length:0,cause:source?.reason??'pending',v10_strategy:picked?'route':'replan',v10_local_ms:ms,v10_world_ms:worldMs,v10_budget_hit:ms>(deadline-begin),v10_checked:checked,v10_clear:clear,v10_root_safe:root.ok,v10_map_ms:source?.ms??0,v10_map_age:source?s.t-source.t0:-1,v10_routes:valid.length,v10_geometry_only:0,v10_route_id:picked?.id??null,v10_continuation_s:picked?picked.duration-root.t:0,v10_closure_risk:picked?.closure.risk??null,v10_closure_slack:picked?.closure.slack??null,v10_closure_cert:picked?.closure.certified??false,v10_food_risk:V.V10_FOOD_RISK??0,v10_food_value:picked?.foodValue??0,v10_replan:picked?0:1,v10_reject:picked?null:reject,L:s.L,sc:s.sc};
+2343:     this.last={trace,mode,plan:pts,controls:[{...action,end:Math.min(action.end,action.start+.13)}],draw:{chosen:flat(pts),localPath:flat(pts.filter((_,i)=>pts[i-i%5]<=root.t+.6)),localUnsafe:!safe,v9At:s.t,v9Paths:valid.map(r=>flat(r.pts)),v10Closures:valid.map(r=>({risk:r.closure.risk,certified:r.closure.certified,slack:r.closure.slack})),v9Walls:W.walls,v9Reason:picked?'long_probe':'replan',mazePath:[],safe:[],near:[],gaps:[],goal:picked?.goal??null,ro:W.ro}};
+2344:     this.prev=action.target;this.prevBoost=action.boost;return [action.target,action.boost];
+2345:   }
+2346: 
+2347:   v8Values(six) {
+2348:     return {...this.values, V8_ON: 0, V7_ON: 0, V6_ON: six ? 1 : 0,
+2349:       V41_ON: 0, V5_ON: 0, V4_ON: 0, V3_ON: 0, V2_ON: 0, PROBE_ON: 0};
+2350:   }
+2351:   v8Route(s, ver) {
+2352:     if (!this.v8Plan) this.v8Plan = new Pilot(this.v8Values(true), this.profile);
+2353:     TURN_FIX = !!this.v8Plan.values.TURN_FIX;
+2354:     return this.v8Plan.v6Route(s, ver);
+2355:   }
+2356:   v8Step(s) {
+2357:     const K = this.v8 || (this.v8 = {phase: 'feed', clearSince: null});
+2358:     // Browser decides before observing, so each branch receives its original observation radius.
+2359:     const c = s.v8Control || v8Choice(K, countHeads(s, this.values.V8_HEAD_R ?? 450), s.t, this.values,
+2360:       this.values.V81_BODY_ON ? bodyDensity(s, this.values.V81_BODY_R ?? 450, this.values.V81_BODY_NEAR_W ?? 2, this.values.V81_BODY_SELF_W ?? .1) : 0);
+2361:     const key = c.phase === 'avoid' ? 'v8Avoid' : 'v8Feed';
+2362:     if (!this[key]) this[key] = new Pilot(this.v8Values(c.phase === 'avoid'), this.profile);
+2363:     const child = this[key]; TURN_FIX = !!child.values.TURN_FIX;
+2364:     const result = child.step(s); this.last = child.last;
+2365:     Object.assign(this.last.trace, {v8_phase: c.phase, v8_heads: c.heads, v8_radius: c.radius,
+2366:       v8_threshold: c.threshold, v8_switched: c.switched,
+2367:       v81_on: this.values.V81_BODY_ON ? 1 : 0, v81_density: c.bodyDensity ?? 0,
+2368:       v81_body_trigger: c.bodyTrigger ?? 0, v81_reason: c.reason || ''});
+2369:     this.prev = result[0]; this.prevBoost = result[1]; return result;
+2370:   }
+2371: 
+2372:   // V7 switches between the unchanged V1 feed controller and V6 escape controller.
+2373:   // Each controller owns its history; no mode flag is mutated in the user's settings.
+2374:   v7Values(six) {
+
+2765:     const eat = new Float64Array(C2);
+2766:     let goal = null, goalVal = 0, heaps = [];
+2767:     const food = [];
+2768:     for (let f = 0; f < nf; f++) {
+2769:       const d = hypot(F[3 * f] - px, F[3 * f + 1] - py);
+2770:       if (d < P.FOOD_R) food.push([F[3 * f], F[3 * f + 1], F[3 * f + 2], d]);
+2771:     }
+2772:     if (food.length) {
+2773:       const val = food.map(f => f[2] >= P.REMAINS ? 4 * f[2] : f[2]);
+2774:       const reachD = BOOST_SP * PX_PER_SP * DT * N + ro + P.EAT, er2 = (ro + P.EAT) ** 2;
+2775:       for (let f = 0; f < food.length; f++) {
+2776:         if (!(food[f][3] < reachD)) continue;
+2777:         for (let c = 0; c < C2; c++) {
+2778:           for (let k = 0; k < N; k++) {
+2779:             const q = c * N + k;
+2780:             if ((pos[2 * q] - food[f][0]) ** 2 + (pos[2 * q + 1] - food[f][1]) ** 2 <= er2) { eat[c] += val[f] * Math.exp(-t[k]); break; }
+2781:           }
+2782:         }
+2783:       }
+2784:       const cells = new Map();
+2785:       food.forEach((f, k) => {
+2786:         if (P.REMAINS_ONLY && f[2] < P.REMAINS) return;      // REMAINS_ONLY: heaps are made of dead-snake food only (sz 14-16; ambient 3-9)
+2787:         const key = Math.floor(f[0] / 250) + ',' + Math.floor(f[1] / 250);
+2788:         if (!cells.has(key)) cells.set(key, [Math.floor(f[0] / 250), Math.floor(f[1] / 250), 0]);
+2789:         cells.get(key)[2] += val[k];
+2790:       });
+2791:       const keys = [...cells.values()].sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+2792:       if (keys.length) {
+2793:       let bk = 0, bv = -Infinity;
+2794:       keys.forEach((k, j) => {
+2795:         const cx = (k[0] + .5) * 250, cy = (k[1] + .5) * 250, v = k[2] / (hypot(cx - px, cy - py) + 400);
+2796:         if (v > bv) { bv = v; bk = j; }
+2797:       });
+2798:       goal = [(keys[bk][0] + .5) * 250, (keys[bk][1] + .5) * 250]; goalVal = keys[bk][2];
+2799:       heaps = keys.map(k => {      // overlay: the richest cells, their pull and rivals
+2800:         const x = (k[0] + .5) * 250, y = (k[1] + .5) * 250;
+2801:         return {x, y, mass: k[2], value: k[2] / (hypot(x - px, y - py) + 400), rivals: heads.filter(h => hypot(h[0] - x, h[1] - y) < 350).length};
+2802:       }).sort((a, b) => b.value - a.value).slice(0, 8);
+2803:       }
+2804:     }
+2805: 
+
+2830:     if (deadEnds) safe = safe.map((v, c) => v && onward[c] >= P.LONG_SAFE);
+2831:     const endX = c => pos[2 * (c * N + N - 1)], endY = c => pos[2 * (c * N + N - 1) + 1];
+2832:     const wFood = wrapEsc !== null ? 0 : P.W_FOOD * (threat > 0 ? .5 : 1);
+2833:     const score = new Float64Array(C2), plen = new Float64Array(C2), terms = {};
+2834:     // Score terms for the overlay: each addition goes to score exactly as before and is also kept by name.
+2835:     const term = (name, c, v) => { (terms[name] || (terms[name] = new Float64Array(C2)))[c] += v; };
+2836:     const add = (name, c, v) => { score[c] += v; term(name, c, v); };
+2837:     for (let c = 0; c < C2; c++) {
+2838:       const room = Math.min(300, fieldGap(field, endX(c), endY(c)) - ro);
+2839:       const tb = threadBonus[c];
+2840:       score[c] = wFood * eat[c] + P.W_OPEN * room - P.W_TURN * deg(Math.abs(wrap(hd[c] - prev))) + tb;
+2841:       term('food', c, wFood * eat[c]); term('open', c, P.W_OPEN * room);
+2842:       term('turn', c, -(P.W_TURN * deg(Math.abs(wrap(hd[c] - prev))))); term('thread', c, tb);
+2843:       let L = 0, x0 = px, y0 = py;
+2844:       for (let k = 0; k < N; k++) { const q = c * N + k; L += hypot(pos[2 * q] - x0, pos[2 * q + 1] - y0); x0 = pos[2 * q]; y0 = pos[2 * q + 1]; }
+2845:       plen[c] = L;
+
+2914:     if (looping) for (let c = 0; c < C2; c++) add('loop', c, P.W_WP * Math.cos(wrap(hd[c] - Math.atan2(this.wp[1] - py, this.wp[0] - px))));
+2915:     let heapChase = false;
+2916:     if (goal !== null && wrapEsc === null) {
+2917:       const ga = Math.atan2(goal[1] - py, goal[0] - px);
+2918:       // RIVAL_R (2026-09-27): heads within RIVAL_R heading for the heap (within 30 deg) count as rivals too
+2919:       const rivalHeads = heads.filter(h => { const d = hypot(h[0] - goal[0], h[1] - goal[1]);
+2920:         return d < 350 || (P.RIVAL_R > 0 && d < P.RIVAL_R && Math.abs(wrap(h[2] - Math.atan2(goal[1] - h[1], goal[0] - h[0]))) < rad(30)); });
+2921:       const rivals = rivalHeads.length, rivalBoost = rivalHeads.some(h => h[3] > 8);
+2922:       const pull = Math.min(1, goalVal / 40) * Math.pow(.75, rivals);
+2923:       for (let c = 0; c < C2; c++) add('goal', c, P.W_GOAL * pull * Math.cos(wrap(hd[c] - ga)));
+2924:       // HEAP_GATE: the aggressive profile skips the heap boost too when a rival is boosting for it (or we are big), or under threat
+2925:       const gated = (aggressive ? !!P.HEAP_GATE && ((rivals > 0 && (rivalBoost || sc >= 2.5)) || threat > 0) : (rivals > 0 || threat > 0));
+2926:       if (goalVal >= 4 * P.REMAINS * 2 && hypot(goal[0] - px, goal[1] - py) > 150 && s.L >= 80 && !gated) {
+2927:         const bonus = Math.max(P.BOOST_COST, 0) + 10 + Math.min(20, goalVal / 100);
+2928:         for (let c = 0; c < C2; c++) {
+2929:           const cg = Math.cos(wrap(hd[c] - ga));
+2930:           add('heap', c, (bst[c] ? bonus : 0) * (aggressive ? (1 + cg) / 2 : (cg > .9 ? 1 : 0)));
+2931:         }
+2932:         heapChase = aggressive;
+2933:       }
+2934:     }
+2935:     if (wrapEsc !== null) {
+2936:       for (let c = 0; c < C2; c++) {
+2937:         const cw = Math.cos(wrap(hd[c] - wrapEsc));
+2938:         add('wrap', c, P.W_WRAP * wrapCov * cw + (bst[c] ? P.BOOST_COST + 25 : 0) * (cw > .8 ? 1 : 0));
+2939:       }
+
+Code interpretation: V8 feed dispatches to V1. V1 scores actual short-horizon pellet contacts (all sizes; large pellets x4), plus distant cluster directional pull. V10 only considers top3 remains clusters (size>=V9_REMAINS_MIN), requires long complete exit routes, and fallback score uses duration/clearance/turn without food. This can miss adjacent food. Proposal, not yet implemented: share V8-style pellet contact and target utility with V10 short control and long planning, preserving V10 swept collision and escape viability checks. No blind V8 switch. One live game does not prove relative performance. Boost cost currently heuristic per second, not mass-loss calibration. Local tests use150ms versus production90ms. Actual live state and errors in attached results.

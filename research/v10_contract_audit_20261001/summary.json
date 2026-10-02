@@ -1,0 +1,135 @@
+{
+  "build": "1001-a21cb2ff",
+  "regression_before": {
+    "queued_collision_keeps_arrival_time": {
+      "pass": false,
+      "error": "The expression evaluated to a falsy value:\n\n  assert(root.t>=.17)\n"
+    },
+    "safe_candidate_precedes_unsafe": {
+      "pass": false,
+      "error": "The expression evaluated to a falsy value:\n\n  assert(!p.last.draw.localUnsafe)\n"
+    },
+    "fresh_emergency_command_not_canceled": {
+      "pass": false,
+      "error": "Expected values to be strictly equal:\n\n0 !== 1.2\n"
+    },
+    "expired_command_retains_turn_and_cuts_boost": {
+      "pass": false,
+      "error": "Expected values to be strictly equal:\n\n0 !== 1.2\n"
+    },
+    "per_goal_timeout_is_not_no_route": {
+      "pass": false,
+      "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'no_map_route'\n- 'budget'\n"
+    }
+  },
+  "regression_after": {
+    "queued_collision_keeps_arrival_time": {
+      "pass": true
+    },
+    "safe_candidate_precedes_unsafe": {
+      "pass": true
+    },
+    "fresh_emergency_command_not_canceled": {
+      "pass": true
+    },
+    "expired_command_retains_turn_and_cuts_boost": {
+      "pass": true
+    },
+    "per_goal_timeout_is_not_no_route": {
+      "pass": true
+    }
+  },
+  "replay": {
+    "before": {
+      "frames": 191,
+      "rootUnsafe": 14,
+      "expiredFresh": 14,
+      "selectedUnsafeWithSafeAvailable": 0,
+      "safeFrames": 142,
+      "p95_ms": 30.6367809999997
+    },
+    "after": {
+      "frames": 191,
+      "rootUnsafe": 14,
+      "expiredFresh": 0,
+      "selectedUnsafeWithSafeAvailable": 0,
+      "safeFrames": 141,
+      "p95_ms": 26.97878700000001
+    },
+    "horizon09": {
+      "frames": 191,
+      "rootUnsafe": 14,
+      "expiredFresh": 0,
+      "selectedUnsafeWithSafeAvailable": 0,
+      "safeFrames": 115,
+      "p95_ms": 25.69252300000062
+    },
+    "horizon12": {
+      "frames": 191,
+      "rootUnsafe": 14,
+      "expiredFresh": 0,
+      "selectedUnsafeWithSafeAvailable": 0,
+      "safeFrames": 90,
+      "p95_ms": 35.914114000001064
+    }
+  },
+  "replay_limit": "Fixed observations, recorded command history, fresh threat calculation, no recorded macro route available; this is command-contract reproduction, not counterfactual survival. Horizon sweep diagnostics cannot prove benefit.",
+  "closed_loop": {
+    "before": {
+      "passed": 9,
+      "total": 10,
+      "uses_actual_tracker": true,
+      "server_latency_is_simulated": true
+    },
+    "after": {
+      "passed": 10,
+      "total": 10,
+      "uses_actual_tracker": true,
+      "server_latency_is_simulated": true
+    }
+  },
+  "browser_mock": {
+    "version": "1001-a21cb2ff",
+    "workers": 3,
+    "expiredCommandDisablesBoost": true,
+    "modeSwitch": true,
+    "controlsAndPersistence": true,
+    "status": {
+      "bot": true,
+      "game": true,
+      "ticks": 40,
+      "fps": 40,
+      "ping": null,
+      "errors": 0,
+      "last": {
+        "ms": 0.4000000059604645,
+        "mode": "v10cruise",
+        "v10_routes": 3,
+        "v10_strategy": "cruise",
+        "v10_map_ms": 1.9000000059604645,
+        "v10_threat_ms": 0.09999999403953552,
+        "v10_result_age_ms": 1.199999988079071,
+        "v9_routes": null,
+        "v9_reason": null,
+        "squeeze": null,
+        "v7_phase": null,
+        "v7_heads": null,
+        "v8_phase": null,
+        "v8_heads": null,
+        "v81_density": null,
+        "v81_reason": null
+      },
+      "squeeze_ticks": 0
+    },
+    "errors": []
+  },
+  "params_unchanged": true,
+  "hashes": {
+    "ext/pilot.js": "cf33a3b8c847444cd280c83ef2b0c7a87b57377db9ffa250cfcd027f2c0062ba",
+    "ext/mod.js": "3e39d158887bde19844e9f4bbfaf01d75b3817e9b6080ab32f8ddf88d92328a3",
+    "params.json": "8a96b47af1df40761df2e8934e71c50f61596e14495a907f0164ad791d476d01",
+    "ext/params.js": "9f9979d74fe9de6dbb64935f39d7224c70731c8803407d2416b7f1cce7a8ad69",
+    "ext/manifest.json": "dd4714b6605fcab0f3df3b16863d2454b79c5c5eac67c774baf6878b3d4efc00"
+  },
+  "release": "Local build only; Windows extension not reloaded; no new live games in this turn."
+}

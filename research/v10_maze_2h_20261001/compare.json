@@ -1,0 +1,114 @@
+{
+  "before": [
+    {
+      "t": 129.971,
+      "routeN": 0,
+      "reason": "budget",
+      "mapMs": 173.634848,
+      "localMs": 151.67223099999995,
+      "mode": "v10replan",
+      "reject": "invalid"
+    },
+    {
+      "t": 139.997,
+      "routeN": 0,
+      "reason": "budget",
+      "mapMs": 81.08860899999996,
+      "localMs": 27.28609599999993,
+      "mode": "v10replan",
+      "reject": "invalid"
+    },
+    {
+      "t": 150.017,
+      "routeN": 0,
+      "reason": "budget",
+      "mapMs": 82.13385299999993,
+      "localMs": 74.18021399999998,
+      "mode": "v10replan",
+      "reject": "invalid"
+    },
+    {
+      "t": 160.01,
+      "routeN": 0,
+      "reason": "budget",
+      "mapMs": 80.16027900000006,
+      "localMs": 70.48114799999996,
+      "mode": "v10replan",
+      "reject": "invalid"
+    },
+    {
+      "t": 170.014,
+      "routeN": 0,
+      "reason": "budget",
+      "mapMs": 81.91614100000004,
+      "localMs": 39.7397830000001,
+      "mode": "v10replan",
+      "reject": "invalid"
+    },
+    {
+      "t": 180.02,
+      "routeN": 0,
+      "reason": "budget",
+      "mapMs": 80.36075700000015,
+      "localMs": 23.687734999999975,
+      "mode": "v10replan",
+      "reject": "invalid"
+    }
+  ],
+  "after": [
+    {
+      "t": 129.971,
+      "routeN": 0,
+      "reason": "grid_budget",
+      "mapMs": 132.18289499999992,
+      "localMs": 77.76217899999983,
+      "mode": "v10replan",
+      "reject": "invalid"
+    },
+    {
+      "t": 139.997,
+      "routeN": 0,
+      "reason": "grid_budget",
+      "mapMs": 101.06218600000011,
+      "localMs": 14.788438999999926,
+      "mode": "v10replan",
+      "reject": "invalid"
+    },
+    {
+      "t": 150.017,
+      "routeN": 0,
+      "reason": "grid_budget",
+      "mapMs": 86.4570839999999,
+      "localMs": 45.64997799999992,
+      "mode": "v10replan",
+      "reject": "invalid"
+    },
+    {
+      "t": 160.01,
+      "routeN": 0,
+      "reason": "grid_budget",
+      "mapMs": 92.62644799999998,
+      "localMs": 24.015096000000085,
+      "mode": "v10replan",
+      "reject": "invalid"
+    },
+    {
+      "t": 170.014,
+      "routeN": 0,
+      "reason": "grid_budget",
+      "mapMs": 78.04174899999998,
+      "localMs": 13.304695000000038,
+      "mode": "v10replan",
+      "reject": "invalid"
+    },
+    {
+      "t": 180.02,
+      "routeN": 0,
+      "reason": "grid_budget",
+      "mapMs": 82.42423000000008,
+      "localMs": 9.497284000000036,
+      "mode": "v10replan",
+      "reject": "invalid"
+    }
+  ]
+}

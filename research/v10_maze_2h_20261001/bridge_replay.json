@@ -1,0 +1,92 @@
+[
+  {
+    "t": 122.643,
+    "routes": 0,
+    "reason": "grid_budget",
+    "ms": 65.312191,
+    "mode": "v10replan",
+    "localms": 11.674917999999991,
+    "reject": "invalid"
+  },
+  {
+    "t": 128.143,
+    "routes": 1,
+    "reason": "maze_routes",
+    "ms": 62.53484499999999,
+    "mode": "v10route",
+    "localms": 6.99609700000002,
+    "reject": null
+  },
+  {
+    "t": 135.743,
+    "routes": 4,
+    "reason": "maze_routes",
+    "ms": 81.12402,
+    "mode": "v10route",
+    "localms": 9.475657999999953,
+    "reject": null
+  },
+  {
+    "t": 145.374,
+    "routes": 0,
+    "reason": "no_drivable_route",
+    "ms": 58.357106000000044,
+    "mode": "v10emergency",
+    "localms": 1.2660070000000019,
+    "reject": "invalid"
+  },
+  {
+    "t": 181.929,
+    "routes": 0,
+    "reason": "no_drivable_route",
+    "ms": 63.20221099999998,
+    "mode": "v10replan",
+    "localms": 3.3543169999999805,
+    "reject": "invalid"
+  },
+  {
+    "t": 215.866,
+    "routes": 3,
+    "reason": "maze_routes",
+    "ms": 63.46791200000001,
+    "mode": "v10route",
+    "localms": 7.995286999999962,
+    "reject": null
+  },
+  {
+    "t": 247.178,
+    "routes": 2,
+    "reason": "maze_routes",
+    "ms": 72.19799099999994,
+    "mode": "v10route",
+    "localms": 4.257717000000071,
+    "reject": null
+  },
+  {
+    "t": 270.443,
+    "routes": 0,
+    "reason": "no_drivable_route",
+    "ms": 64.87006999999994,
+    "mode": "v10emergency",
+    "localms": 1.1589640000000827,
+    "reject": "invalid"
+  },
+  {
+    "t": 278.587,
+    "routes": 3,
+    "reason": "maze_routes",
+    "ms": 52.999573000000055,
+    "mode": "v10route",
+    "localms": 2.5945090000000164,
+    "reject": null
+  },
+  {
+    "t": 317.242,
+    "routes": 5,
+    "reason": "maze_routes",
+    "ms": 43.73716400000001,
+    "mode": "v10route",
+    "localms": 2.060969,
+    "reject": null
+  }
+]

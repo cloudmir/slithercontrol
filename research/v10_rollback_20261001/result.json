@@ -1,0 +1,14 @@
+{
+  "build": "1001-rb-cf15d281",
+  "restored_from": "research/v10_emergency_recovery_20261001/before",
+  "pilot_exact": true,
+  "mod_exact": true,
+  "params_unchanged": true,
+  "hashes": {
+    "ext/pilot.js": "2acb75cd20ecc2ed490010782dbdb2fb38aad1a4cfb2e9635a7cce3a46fbfdf0",
+    "ext/mod.js": "30eca3628e7e428a73253210ed63039d5af4f61f24406ef314a2968b129765cf",
+    "ext/params.js": "3ae2d08153f4a6a2ce54d7d970cb5cb70c25405f00c005a1261d5ae9a0318ed4",
+    "ext/manifest.json": "d0376f521551c8de8a0275f7ac3cea395cadcc730b30ba194a29f116932ba9c8",
+    "params.json": "77ad8bf9d028df5ca682f8cefb7fef8058065600e6c7cbb4c7dffeabcb4cac78"
+  }
+}

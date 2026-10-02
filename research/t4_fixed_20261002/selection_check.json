@@ -1,0 +1,10 @@
+{
+  "nearest_eligible": true,
+  "short_body_excluded": true,
+  "longer_upgrade": true,
+  "persistence": true,
+  "retention": true,
+  "blocked_transfer_retained": true,
+  "threshold_px": 1000,
+  "scope": "Synthetic target choice and 0.7-second motion guard; no live collision claim"
+}

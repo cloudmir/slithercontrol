@@ -1,0 +1,22 @@
+{
+  "queued_collision_keeps_arrival_time": {
+    "pass": false,
+    "error": "The expression evaluated to a falsy value:\n\n  assert(root.t>=.17)\n"
+  },
+  "safe_candidate_precedes_unsafe": {
+    "pass": false,
+    "error": "The expression evaluated to a falsy value:\n\n  assert(!p.last.draw.localUnsafe)\n"
+  },
+  "fresh_emergency_command_not_canceled": {
+    "pass": false,
+    "error": "Expected values to be strictly equal:\n\n0 !== 1.2\n"
+  },
+  "expired_command_retains_turn_and_cuts_boost": {
+    "pass": false,
+    "error": "Expected values to be strictly equal:\n\n0 !== 1.2\n"
+  },
+  "per_goal_timeout_is_not_no_route": {
+    "pass": false,
+    "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'no_map_route'\n- 'budget'\n"
+  }
+}

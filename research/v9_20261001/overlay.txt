@@ -1,0 +1,23 @@
+    if (S.values.V9_ON && d.v9Paths) {
+      ctx.save(); ctx.lineWidth = OVERLAY_LINE_WIDTH;
+      if (S.show.v9Map) {
+        ctx.strokeStyle = 'rgba(188,145,255,.55)'; ctx.setLineDash([3, 4]);
+        for (const w of d.v9Walls || []) {
+          const ax = X(w[0]), ay = Y(w[1]), bx = X(w[2]), by = Y(w[3]), rr = (w[4] + d.ro + S.values.V9_MARGIN) * g, a = Math.atan2(by - ay, bx - ax);
+          ctx.beginPath(); ctx.arc(ax, ay, rr, a + Math.PI / 2, a + 3 * Math.PI / 2);
+          ctx.arc(bx, by, rr, a - Math.PI / 2, a + Math.PI / 2); ctx.closePath(); ctx.stroke();
+        }
+        ctx.setLineDash([]);
+      }
+      if (S.show.v9Routes) {
+        const colors = ['#45f08a', '#53baff', '#ffd269', '#d69aff', '#ff93bd'];
+        d.v9Paths.forEach((p, i) => { ctx.strokeStyle = colors[i % colors.length]; ctx.globalAlpha = i ? .7 : 1;
+          ctx.setLineDash(i ? [5, 4] : []); polyline(ctx, p, X, Y); });
+        ctx.globalAlpha = 1; ctx.setLineDash([]); ctx.fillStyle = d.v9Paths.length ? '#45f08a' : '#ffb83d'; ctx.font = '9.6px system-ui';
+        ctx.fillText(d.v9Paths.length ? `V9 · 관측 내 탈출 ${d.v9Paths.length}개` : 'V9 · 탈출 경로 미확보', X(me.xx), Y(me.yy) - 48);
+      }
+      if (S.show.localPath && !d.v9Paths.length && d.localPath?.length) {
+        ctx.strokeStyle = d.localUnsafe ? '#ff5b6b' : '#aab3bd'; ctx.setLineDash([2, 4]); polyline(ctx, d.localPath, X, Y);
+      }
+      ctx.restore();
+    } else

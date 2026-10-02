@@ -1,0 +1,50 @@
+{
+  "pending_across_emergency": {
+    "before": [
+      1.3089969389957472,
+      true,
+      1
+    ],
+    "after": [
+      1.3089969389957472,
+      true,
+      1
+    ],
+    "mode": "emergency",
+    "same_pending": true
+  },
+  "new_attack_after_recent_boost_off": {
+    "profile": "safe",
+    "boost_off_at": 0.95,
+    "attack_at": 1.0,
+    "normal": {
+      "boost": false,
+      "angle_deg": -90.0,
+      "mode": "evade",
+      "predicted_gap": 23.7
+    },
+    "without_dwell": {
+      "boost": true,
+      "angle_deg": -90.0,
+      "mode": "evade",
+      "predicted_gap": 19985.5
+    },
+    "note": "Synthetic same observed state and same controller history; only BOOST_DWELL differs. Not a demonstrated death."
+  },
+  "oracle_missing_observation": {
+    "gap": "inf",
+    "counted_safe": true
+  },
+  "oracle_wall": {
+    "body_gap": 691.1089380465382,
+    "wall_gap": -11,
+    "counted_safe": true
+  },
+  "hashes": {
+    "research/evening_review_inputs/pilot_reviewed.py": "6eb10d1e84ea4390031a5d49776a3a24a6cdf3b5808ab957c24e94e060b3396c",
+    "research/oracle_deaths_20260925.py": "81027a6bfa4f3e74cfd330f6e8aeb8a0fb7b60fc48d4c75bc3deed5d8a308551",
+    "research/false_alarm_20260925.py": "7ee48add01aca74f801aad21e2951f3c862cb1893b8eb2425b39859ad7e995f4",
+    "run_live.py": "7f3f470b1771b3d7a109e0074e3ce80e9d9733295f858e11200e50e1fbe18d0a",
+    "CHANGES_20260925_evening.md": "afa7fc47a5d06f0d07e4afc6af26648bc62e72bb9ddf3230e148675bd19d6eb8"
+  }
+}

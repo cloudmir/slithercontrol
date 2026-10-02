@@ -1,0 +1,5 @@
+{
+  "restored_build": "1002-317482f8",
+  "matches_snapshot": true,
+  "scope": "rollback newest target selection only; retain T4 fixed -5px; no live test restart"
+}

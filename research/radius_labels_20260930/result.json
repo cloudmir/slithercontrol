@@ -1,0 +1,11 @@
+{
+  "version": "0930-7f368b21",
+  "bothThinRingsPresent": true,
+  "radiusLabelsAbsent": true,
+  "pageErrors": [],
+  "sha256": {
+    "ext/mod.js": "16615ed3d205b773de6431e4317697064b7018ca9f0f9427bac15ceb31f45b54",
+    "ext/pilot.js": "07054ad7fc70ec5e1356c932880aa57cd7e192d36e08fc50074b42ace95942c8",
+    "params.json": "f6f42119cd14a03ca485e411a2547b7d13b995990830894e97bc85138137dc35"
+  }
+}

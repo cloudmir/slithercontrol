@@ -1,0 +1,10 @@
+{
+  "version": "1001-09a967d3",
+  "radiusCenterZoomCorrect": true,
+  "thinLine": 0.5,
+  "homeShowToggleSync": true,
+  "toggleLeavesParamsUnchanged": true,
+  "savedOffAfterReload": true,
+  "botPathIndependent": true,
+  "errors": []
+}

@@ -1,0 +1,1 @@
+[{"name":"crowded_straight_exit","routes":2,"boost":true,"boostActions":36,"food":false,"duration":5.732999999999997},{"name":"straight_food","routes":3,"boost":true,"boostActions":13,"food":true,"duration":10.02299999999999},{"name":"empty_no_boost","routes":3,"boost":false,"boostActions":0,"food":false,"duration":12.363000000000005}]

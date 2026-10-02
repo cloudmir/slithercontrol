@@ -1,0 +1,3115 @@
+{
+  "summary": {
+    "v9": {
+      "completeSafePredictions": 89,
+      "recordedFutureCollision": 2
+    },
+    "v10": {
+      "completeSafePredictions": 89,
+      "recordedFutureCollision": 5
+    }
+  },
+  "note": "Sampled recorded enemy future; counterfactual policy does not change enemies. Not live survival. Excludes truncated futures and already-unsafe predictions.",
+  "rows": [
+    {
+      "source": "runs/cycle4_20260927_140522/slp_01_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 40.28148908837767,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_01_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 89.48056038188193,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_01_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 16.671681939158248,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_01_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 13.408832454566607,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_01_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 29.089686308675496,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_01_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 35.325871830801134,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_01_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 9,
+      "minGap": -45.76019183168229,
+      "localClaimSafe": false,
+      "collision": true,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_01_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 7,
+      "minGap": -17.367576100821616,
+      "localClaimSafe": false,
+      "collision": true,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_01_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 1,
+      "minGap": 9.632484176750921,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_01_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 1,
+      "minGap": 9.632484176750921,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_02_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 59.41796449273696,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_02_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 37.907758042134304,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_02_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 10,
+      "minGap": 34.54350984196469,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_02_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 9,
+      "minGap": 4.490568509461973,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_02_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 4,
+      "minGap": 15.898388094189798,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_02_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 4,
+      "minGap": 15.898812933185852,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_02_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 9,
+      "minGap": 11.670254823146848,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_02_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 7,
+      "minGap": 4.766185846229874,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_02_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 2,
+      "minGap": 7.652190414079442,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_02_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 2,
+      "minGap": 7.9836748535816895,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_03_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 129.00079672576277,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_03_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 129.00079672576277,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_03_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 296.361471830976,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_03_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 283.71221794865716,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_03_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 239.23192776747368,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_03_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 332.32910920679217,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_03_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 9,
+      "minGap": 122.68860747337278,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_03_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 9,
+      "minGap": 14.246813441775844,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_03_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 2,
+      "minGap": 4.823010028526243,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_03_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 2,
+      "minGap": 4.842291782552694,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_05_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 150.44138326757474,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_05_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 108.10579787700239,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_05_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 24.29570617481975,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_05_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 24.29570617481975,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_05_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 0,
+      "minGap": null,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_05_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 0,
+      "minGap": null,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_05_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 8,
+      "minGap": 23.597247523374122,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_05_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 7,
+      "minGap": 23.631706626914053,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_05_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 1,
+      "minGap": 23.721353178601404,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_05_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 1,
+      "minGap": 23.721353178601404,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_07_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 153.56095132967926,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_07_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 42.39363457099054,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_07_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 27.062096579373843,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_07_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 186.3901930348032,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_07_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 77.86109269394792,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_07_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 77.86109269394792,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_07_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 10,
+      "minGap": 15.704570296841425,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_07_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": -24.219100115061476,
+      "localClaimSafe": true,
+      "collision": true,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_07_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 1,
+      "minGap": 46.655891646641905,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_07_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 1,
+      "minGap": 46.655891646641905,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_08_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 180.72757285446187,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_08_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 157.44199147903785,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_08_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 156.5123971820395,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_08_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 155.18118100558814,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_08_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 83.19837887982652,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_08_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": -37.5239367692629,
+      "localClaimSafe": true,
+      "collision": true,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_08_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 6,
+      "minGap": 23.532917467057366,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_08_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 6,
+      "minGap": 26.070490462146655,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_08_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 1,
+      "minGap": 10.862512701101636,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_08_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 1,
+      "minGap": 10.862512701101636,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_11_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 254.19719648531185,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_11_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 280.8072645099979,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_11_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 52.450475294305626,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_11_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 52.450475294305626,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_11_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 173.80996906481656,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_11_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 89.65529021269765,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_11_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 9,
+      "minGap": -3.4411350021842075,
+      "localClaimSafe": true,
+      "collision": true,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_11_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 9,
+      "minGap": -34.746255533494406,
+      "localClaimSafe": true,
+      "collision": true,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_11_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 2,
+      "minGap": -12.533701599775501,
+      "localClaimSafe": true,
+      "collision": true,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_11_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 0,
+      "minGap": null,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_13_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 54.14217760144729,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_13_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 64.75555090629278,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_13_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 227.48838159650876,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_13_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 53.053633009605136,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_13_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 263.44208287468643,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_13_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 303.90967244068327,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_13_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 10,
+      "minGap": 283.36055649415243,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_13_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 312.2868723143922,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_13_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 1,
+      "minGap": 58.162901377218844,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_13_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 1,
+      "minGap": 58.162901377218844,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_15_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 158.63690506830022,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_15_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 158.63690506830022,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_15_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 261.7047707210998,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_15_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 265.20006439228445,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_15_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 159.835969861578,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_15_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 109.18087147435524,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_15_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 9,
+      "minGap": 53.94757043367858,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_15_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 6,
+      "minGap": 34.49182670908566,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_15_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 1,
+      "minGap": 32.479019641064525,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_15_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 2,
+      "minGap": 7.781307278716394,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_17_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 15.668806651153425,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_17_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 14.644942448087768,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_17_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 49.181393253140186,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_17_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 33.181627135518696,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_17_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 91.40132589405164,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_17_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 91.40132589405164,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_17_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 9,
+      "minGap": 53.16620405253617,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_17_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 9,
+      "minGap": 5.2692521827617185,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_17_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 2,
+      "minGap": 9.983103708882872,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_17_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 2,
+      "minGap": 9.818348140302014,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_18_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 161.18548833928384,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_18_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 67.89547547074858,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_18_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 86.98820019367363,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_18_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 86.84024718268213,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_18_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 83.36642878312325,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_18_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 47.42127539554838,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_18_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 4,
+      "minGap": 8.922480867979871,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_18_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 9,
+      "minGap": 5.979166421699645,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_18_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 0,
+      "minGap": null,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_18_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 0,
+      "minGap": null,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_19_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 291.39580195944245,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_19_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 289.66235493287815,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_19_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 13.955445484127889,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_19_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 105.73610436785643,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_19_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 6,
+      "minGap": 19.341715933759094,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_19_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 7,
+      "minGap": 14.00297977912263,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_19_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 0,
+      "minGap": null,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_19_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 9,
+      "minGap": 2.1910713634860777,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_19_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 2,
+      "minGap": 13.075914036220162,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_19_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 2,
+      "minGap": 13.072108025789767,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_20_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 146.80541088715069,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_20_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 102.70464763827701,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_20_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 140.54408632189381,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_20_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 108.66361013632839,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_20_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 25.431804263732644,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_20_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 35.1491765374431,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_20_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 5,
+      "minGap": 12.397280632860848,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_20_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 5,
+      "minGap": 12.397280632860848,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_20_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 0,
+      "minGap": null,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle4_20260927_140522/slp_20_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 0,
+      "minGap": null,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_01_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 171.33499701534248,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_01_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 145.67435299665263,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_01_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 26.9188284630494,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_01_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 8,
+      "minGap": 14.16948107757188,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_01_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 0,
+      "minGap": null,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_01_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 0,
+      "minGap": null,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_01_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 7,
+      "minGap": -1.4666455033209829,
+      "localClaimSafe": false,
+      "collision": true,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_01_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 6,
+      "minGap": 0.5700146338656182,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_01_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 0,
+      "minGap": null,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_01_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 0,
+      "minGap": null,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_03_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 206.48704409894938,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_03_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 82.8128525456505,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_03_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 56.40255257094233,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_03_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 92.441637436626,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_03_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 91.30685470236659,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_03_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 39.393415527649125,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_03_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 9,
+      "minGap": -3.2713700831750714,
+      "localClaimSafe": true,
+      "collision": true,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_03_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 9,
+      "minGap": 15.315012882936564,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_03_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 1,
+      "minGap": 11.454503531451714,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_03_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 2,
+      "minGap": 2.857508589010571,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_05_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 38.2941732648722,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_05_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 37.288729375230474,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_05_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 12.249815166494496,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_05_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 12.24981516648823,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_05_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 36.94452119331944,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_05_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 8,
+      "minGap": 0.8692902715334583,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_05_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 8,
+      "minGap": 12.957156343199749,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_05_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 9,
+      "minGap": 24.490997507524064,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_05_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 2,
+      "minGap": 14.526311239644151,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_05_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 2,
+      "minGap": 14.502914023969247,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_06_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 45.82119104483976,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_06_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 30.077525242683805,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_06_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 63.44629355641437,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_06_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 40.78598080083784,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_06_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 46.12937489625736,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_06_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 18.132589977925235,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_06_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 6,
+      "minGap": 7.7459741036648495,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_06_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 9,
+      "minGap": 5.519117945376635,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_06_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 2,
+      "minGap": 11.15214324387972,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_06_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 2,
+      "minGap": 11.04400261274938,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_07_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 168.62641178092127,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_07_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 60.53502149633421,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_07_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 40.43682022433693,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_07_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 23.110469268577603,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_07_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 25.64727188086279,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_07_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 8,
+      "minGap": 21.36008583619894,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_07_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 5,
+      "minGap": 9.008479854708881,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_07_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 5,
+      "minGap": 9.008479854703992,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_07_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 0,
+      "minGap": null,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_07_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 0,
+      "minGap": null,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_09_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 120.11785559805648,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_09_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 39.7437651876594,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_09_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 111.71198370927411,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_09_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 43.39884116542758,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_09_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 114.45514911893147,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_09_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 114.45514911893147,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_09_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 9,
+      "minGap": 93.04126264443062,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_09_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 9,
+      "minGap": 38.0482737217227,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_09_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 1,
+      "minGap": 31.829150322696826,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_09_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 1,
+      "minGap": 31.829150322696826,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_11_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 68.24823194628064,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_11_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 68.24674649095407,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_11_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 119.78567731184928,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_11_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 35.80733720376627,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_11_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": -6.866386848784497,
+      "localClaimSafe": true,
+      "collision": true,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_11_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 30.998927713162796,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_11_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 9,
+      "minGap": 4.2875567206116685,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_11_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": -1.4598475516540947,
+      "localClaimSafe": true,
+      "collision": true,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_11_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 2,
+      "minGap": 10.108164869474711,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_11_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 1,
+      "minGap": 11.179157240296716,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_12_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 192.32760611449558,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_12_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 309.6127276558371,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_12_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 87.64411417565331,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_12_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 77.55631676391364,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_12_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 29.72624864695065,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_12_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 29.72624864695065,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_12_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 10,
+      "minGap": 69.25776974006511,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_12_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 53.46883674077712,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_12_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 0,
+      "minGap": null,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_12_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 0,
+      "minGap": null,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_13_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 222.2606273189237,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_13_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 146.475253077387,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_13_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 128.99913168332847,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_13_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 102.9183539900805,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_13_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 72.2454187464115,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_13_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 72.2454187464115,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_13_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 9,
+      "minGap": -6.0263116905580105,
+      "localClaimSafe": true,
+      "collision": true,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_13_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 9,
+      "minGap": -18.0027630166283,
+      "localClaimSafe": true,
+      "collision": true,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_13_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 1,
+      "minGap": 29.194805623182617,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_13_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 1,
+      "minGap": 29.194805623182617,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_14_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 246.71654604369797,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_14_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 31.12488847022921,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_14_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 160.07696315474246,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_14_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 123.83509063993071,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_14_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 60.16254250550166,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_14_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": -32.174178698010905,
+      "localClaimSafe": true,
+      "collision": true,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_14_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 6,
+      "minGap": 9.943474264544488,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_14_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 5,
+      "minGap": 15.24402302434066,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_14_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 0,
+      "minGap": null,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_14_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 0,
+      "minGap": null,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_15_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 28.892035362071045,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_15_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 28.913112996734828,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_15_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 53.45056938362094,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_15_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 52.11535877481385,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_15_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 5,
+      "minGap": 17.81700910905714,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_15_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 30.593377630892448,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_15_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 7,
+      "minGap": 11.907933714356332,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_15_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 4,
+      "minGap": 12.097660652675344,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_15_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 1,
+      "minGap": 10.311453150074804,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_15_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 1,
+      "minGap": 10.311453150074804,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_16_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 117.85579583011915,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_16_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 123.97719062770844,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_16_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 96.84060744830649,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_16_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 96.84060744830649,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_16_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 10,
+      "minGap": 35.21020839774018,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_16_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 35.21020839774018,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_16_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 5,
+      "minGap": 22.32513530987689,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_16_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 6,
+      "minGap": 25.129520992229274,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_16_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 0,
+      "minGap": null,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_16_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 1,
+      "minGap": 5.852305841249681,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_19_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 160.1064505050068,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_19_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 118.24874382952206,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_19_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 64.12630165351153,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_19_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 59.45253687918918,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_19_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 23.57384432057512,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_19_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 28.74529146367376,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_19_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 1,
+      "minGap": 14.337231323573988,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_19_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 1,
+      "minGap": 14.337231323573988,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_19_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 0,
+      "minGap": null,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_19_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 0,
+      "minGap": null,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_20_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 117.71347559024844,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_20_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 26.01718978422094,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_20_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 50.222328988844275,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_20_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 7.321131985521681,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_20_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 16.286297567107148,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_20_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 7,
+      "minGap": 11.645347658569541,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_20_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 2,
+      "minGap": 6.525300922974488,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_20_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 2,
+      "minGap": 6.528509452650219,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_20_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 1,
+      "minGap": 13.54769608256803,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/cycle5confirm_20260927_181535/slp_20_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 1,
+      "minGap": 13.54769608256803,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_01_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 735.7312648364222,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_01_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 735.7312648364222,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_01_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 536.8490861293094,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_01_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 568.5023352916043,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_01_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": -37.56372556672521,
+      "localClaimSafe": true,
+      "collision": true,
+      "complete": true
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_01_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": -60.430337462880075,
+      "localClaimSafe": true,
+      "collision": true,
+      "complete": true
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_01_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 9,
+      "minGap": 41.85180856288958,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_01_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 9,
+      "minGap": 60.8122973508276,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_01_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 0,
+      "minGap": null,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_01_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 0,
+      "minGap": null,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_02_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 321.5340300148396,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_02_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 312.52529141443205,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_02_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 485.7342929320281,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_02_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 517.4135689024909,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_02_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 154.61911352227565,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_02_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 122.88997064534814,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_02_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 9,
+      "minGap": 99.00135645419493,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_02_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 9,
+      "minGap": 14.952324187435632,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_02_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 0,
+      "minGap": null,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_02_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 0,
+      "minGap": null,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_03_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 267.0280188659384,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_03_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 49.070317046829075,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_03_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 76.86727991631055,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_03_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 226.82209411183754,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_03_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 288.94634570746103,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_03_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 224.3510294032556,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_03_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 10,
+      "minGap": 39.721566543054685,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_03_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 35.070506021539096,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_03_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 2,
+      "minGap": 31.91343330646079,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_03_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 2,
+      "minGap": 31.873266779154577,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_04_box.json.gz",
+      "before": 8,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 343.33287729980646,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_04_box.json.gz",
+      "before": 8,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 410.363746840566,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_04_box.json.gz",
+      "before": 4,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 252.20164181424917,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_04_box.json.gz",
+      "before": 4,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 293.26535753313846,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_04_box.json.gz",
+      "before": 2,
+      "mode": "v9",
+      "checks": 11,
+      "minGap": 299.5101222918503,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_04_box.json.gz",
+      "before": 2,
+      "mode": "v10",
+      "checks": 10,
+      "minGap": 326.92250018313536,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": true
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_04_box.json.gz",
+      "before": 1,
+      "mode": "v9",
+      "checks": 9,
+      "minGap": 98.01286187723261,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_04_box.json.gz",
+      "before": 1,
+      "mode": "v10",
+      "checks": 9,
+      "minGap": 140.8551559117449,
+      "localClaimSafe": true,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_04_box.json.gz",
+      "before": 0.25,
+      "mode": "v9",
+      "checks": 2,
+      "minGap": 23.515720731253573,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    },
+    {
+      "source": "runs/v2live3_20260929_091255/slp_04_box.json.gz",
+      "before": 0.25,
+      "mode": "v10",
+      "checks": 1,
+      "minGap": 50.363037470678506,
+      "localClaimSafe": false,
+      "collision": false,
+      "complete": false
+    }
+  ]
+}

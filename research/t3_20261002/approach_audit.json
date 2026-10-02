@@ -1,0 +1,44 @@
+[
+  {
+    "game": 1,
+    "last_alive_t": 14.507,
+    "nearest_gap": -2.458056094735131,
+    "nearest_body": 292,
+    "crossing_angle_degrees": 52.2
+  },
+  {
+    "game": 2,
+    "last_alive_t": 7.207,
+    "nearest_gap": -3.1656103077998985,
+    "nearest_body": 205,
+    "crossing_angle_degrees": 87.5
+  },
+  {
+    "game": 3,
+    "last_alive_t": 18.209,
+    "nearest_gap": -1.9413580723464001,
+    "nearest_body": 194,
+    "crossing_angle_degrees": 77.6
+  },
+  {
+    "game": 4,
+    "last_alive_t": 12.667,
+    "nearest_gap": 0.370663388557702,
+    "nearest_body": 76,
+    "crossing_angle_degrees": 53.4
+  },
+  {
+    "game": 5,
+    "last_alive_t": 7.452,
+    "nearest_gap": -6.2363593521579475,
+    "nearest_body": 76,
+    "crossing_angle_degrees": 46.0
+  },
+  {
+    "game": 6,
+    "last_alive_t": 18.302,
+    "nearest_gap": 5.3991980229553675,
+    "nearest_body": 76,
+    "crossing_angle_degrees": 89.2
+  }
+]

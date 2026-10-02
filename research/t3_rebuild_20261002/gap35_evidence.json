@@ -1,0 +1,149 @@
+{
+  "build": "1002-11dad5e1",
+  "run": "runs/t3_20261002_095256",
+  "completed": true,
+  "settings_restored": true,
+  "games": [
+    {
+      "game": 1,
+      "seconds": 19.9,
+      "levels": 0,
+      "end": "death",
+      "hold_stages": 0,
+      "excluded": [
+        "사망 전 추종 중 아님",
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님"
+      ]
+    },
+    {
+      "game": 2,
+      "seconds": 26.9,
+      "levels": 0,
+      "end": "death",
+      "hold_stages": 0,
+      "excluded": [
+        "사망 전 추종 중 아님",
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "game": 3,
+      "seconds": 131.5,
+      "levels": 5,
+      "end": "death",
+      "hold_stages": 5,
+      "excluded": [
+        "사망 전 추종 중 아님",
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님"
+      ]
+    },
+    {
+      "game": 4,
+      "seconds": 103.8,
+      "levels": 5,
+      "end": "death",
+      "hold_stages": 5,
+      "excluded": [
+        "사망 전 추종 중 아님",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "game": 5,
+      "seconds": 13.2,
+      "levels": 0,
+      "end": "death",
+      "hold_stages": 0,
+      "excluded": [
+        "사망 전 추종 중 아님",
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "접촉 구간 곡률 큼"
+      ]
+    },
+    {
+      "game": 6,
+      "seconds": 139.9,
+      "levels": 1,
+      "end": "death",
+      "hold_stages": 1,
+      "excluded": [
+        "사망 전 추종 중 아님",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "사망 전 관측 시점 불확실"
+      ]
+    }
+  ],
+  "qualified_alive_levels": 11,
+  "independent_games": 3,
+  "geometry_classes": {
+    "gentle_curve": 10,
+    "straight": 1
+  },
+  "actual_speed_classes": {
+    "cruise_speed": 11
+  },
+  "closest_alive_gap": 31.92648784474479,
+  "boost_observations": [
+    {
+      "game": 1,
+      "observed_boost_speed_ticks": 0,
+      "boost_command_ticks": 0
+    },
+    {
+      "game": 2,
+      "observed_boost_speed_ticks": 0,
+      "boost_command_ticks": 0
+    },
+    {
+      "game": 3,
+      "observed_boost_speed_ticks": 0,
+      "boost_command_ticks": 4
+    },
+    {
+      "game": 4,
+      "observed_boost_speed_ticks": 242,
+      "boost_command_ticks": 221
+    },
+    {
+      "game": 5,
+      "observed_boost_speed_ticks": 0,
+      "boost_command_ticks": 3
+    },
+    {
+      "game": 6,
+      "observed_boost_speed_ticks": 507,
+      "boost_command_ticks": 447
+    }
+  ],
+  "qualified_deaths": 0,
+  "continuation": {
+    "updated": "2026-10-02 10:02:38",
+    "scope": "Continue observed alive-gap measurements; no production safe offset asserted",
+    "state": "collecting",
+    "batch": 1,
+    "pid": 1219355,
+    "start_gap": 32,
+    "speed_request": "cruise",
+    "log": "research/t3_rebuild_20261002/continued_01.log",
+    "max_additional_batches": 4
+  },
+  "continuation_program_sha256": "cc43f622cc0762fa45f85514fabddf715bbf6db320604f213d47cc89c99c866a",
+  "scope": "Observed alive intervals with gap ranges, not a common safety offset or server collision point"
+}

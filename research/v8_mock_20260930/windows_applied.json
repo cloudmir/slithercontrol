@@ -1,0 +1,12 @@
+{
+ "applied": true,
+ "version": "0930-6a3c0330",
+ "playing": false,
+ "bot": false,
+ "preset": "v8_exact",
+ "v8": 1,
+ "radius": 450,
+ "heads": 3,
+ "clearSeconds": 1,
+ "foodWeight": 300
+}

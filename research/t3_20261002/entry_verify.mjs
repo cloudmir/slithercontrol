@@ -1,0 +1,10 @@
+import fs from 'node:fs';import vm from 'node:vm';import assert from 'node:assert/strict';import zlib from 'node:zlib';import {performance} from 'node:perf_hooks';
+function load(file){const c=vm.createContext({performance});vm.runInContext(fs.readFileSync(file,'utf8'),c);return c.SlpPilot.Pilot;}
+const New=load('ext/pilot.js'),Old=load('research/t3_20261002/failed_build/pilot.js'),d=JSON.parse(fs.readFileSync('params.json')),V={...d.defaults,...d.presets.t3_thickness.values};
+const s={x:30000,y:30134.5,ang:-Math.PI/2,cmdNow:-Math.PI/2,sp:5.79,sc:1,L:50,t:10,wall:[30000,30000,20000],segs:[29900,30000,30100,30000,20],sid:[8],heads:[],hid:[],food:[],own:[]};
+const n=new New(V),o=new Old(V),old=o.step(s),now=n.step(s);assert.equal(n.last.trace.t3_target,null);assert.equal(n.last.trace.t3_guard_changed,1);assert(n.last.trace.t3_guard_clear>=0);assert(Math.abs(now[0]-old[0])>.4);assert(!now[1]);
+const out={perpendicular_no_target:{old_command:old,new_command:now,reason:n.last.trace.t3_reason,model_clear:n.last.trace.t3_guard_clear},recorded_frames:[],scope:'Static observed-body turn prediction; no live survival claim.'};
+const costs=[];for(let game=1;game<=6;game++){const b=JSON.parse(zlib.gunzipSync(fs.readFileSync(`runs/t3_20261002_085713/slp_${String(game).padStart(2,'0')}_box.json.gz`))).frames,p=new New(V);let changed=0,positive=0,negative=0,targets=0;
+ for(let i=0;i<b.length;i+=8){const fr=b[i],st={...fr,t:fr.t+10,cmdNow:fr.ang,boostNow:fr.boost,food:[],own:fr.own||[]};const t=performance.now();p.step(st);costs.push(performance.now()-t);const tr=p.last.trace;changed+=tr.t3_guard_changed;targets+=Number(tr.t3_target!==null);positive+=Number(tr.t3_guard_clear>=0);negative+=Number(tr.t3_guard_clear<0);}
+ out.recorded_frames.push({game,guarded_turns:changed,model_clear:positive,model_no_safe_turn:negative,target_frames:targets});}
+ costs.sort((a,b)=>a-b);out.cost_ms={p50:costs[Math.floor(costs.length*.5)],p95:costs[Math.floor(costs.length*.95)],max:costs.at(-1),frames:costs.length};fs.writeFileSync('research/t3_20261002/entry_verify.json',JSON.stringify(out,null,2));console.log(JSON.stringify(out));

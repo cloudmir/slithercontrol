@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>로컬 Slither 시뮬레이터</title>
+<style>
+body{margin:0;background:#0f141d;color:#e4eaf3;font:15px system-ui}header{padding:12px 20px;display:flex;gap:15px;align-items:center;flex-wrap:wrap}button{background:#243548;border:1px solid #51677b;border-radius:6px;padding:8px 14px;color:white;cursor:pointer}#status{padding:0 20px 10px;color:#a8c3d7}canvas{display:block;width:100vw;height:calc(100vh - 130px);min-height:300px}small{color:#a8b8c8}#error{color:#ff9494;padding:0 20px}
+</style>
+<header><strong>로컬 시뮬레이터 · 포위 방어 실험</strong><button id="pause">시작</button><button id="control">직접 조종</button><button id="reset">새 판</button><small>마우스: 방향 · 누르기/Space: 부스트 · 휠: 확대 · Esc: 일시정지</small></header>
+<div id="status">연결 중…</div><div id="error"></div><canvas id="game"></canvas>
+<script>
+const canvas=document.querySelector('canvas'),ctx=canvas.getContext('2d'),status=document.querySelector('#status');
+let running=false,ai=true,angle=0,mouseBoost=false,keyBoost=false,zoom=.6,state;
+const token='__TOKEN__';
+function size(){canvas.width=canvas.clientWidth;canvas.height=canvas.clientHeight}addEventListener('resize',size);size();
+function point(p){return [(p[0]-state.origin[0])*zoom+canvas.width/2,(p[1]-state.origin[1])*zoom+canvas.height/2]}
+function line(points,color,width){if(!points.length)return;ctx.strokeStyle=color;ctx.lineWidth=width;ctx.lineCap='round';ctx.lineJoin='round';ctx.beginPath();points.forEach((p,i)=>{let q=point(p);i?ctx.lineTo(...q):ctx.moveTo(...q)});ctx.stroke()}
+function draw(){ctx.fillStyle='#0f141d';ctx.fillRect(0,0,canvas.width,canvas.height);let c=point([0,0]);ctx.strokeStyle='#934955';ctx.lineWidth=3;ctx.beginPath();ctx.arc(...c,state.radius*zoom,0,Math.PI*2);ctx.stroke();
+for(const f of state.food){let p=point(f);ctx.fillStyle='#70d8a1';ctx.beginPath();ctx.arc(...p,Math.max(2,Math.min(8,Math.sqrt(f[2])*zoom)),0,Math.PI*2);ctx.fill()}
+for(const s of state.snakes){let color=s.id===0?'#ffb34f':`hsl(${s.id*137.5%360} 55% 65%)`;line(s.points,color,Math.max(3,2*s.radius*zoom));let p=point(s.points.at(-1));ctx.fillStyle=color;ctx.beginPath();ctx.arc(...p,Math.max(2,s.radius*zoom),0,Math.PI*2);ctx.fill()}
+line(state.path,'#fff19a',2);status.textContent=`${state.stage} | ${ai?'자동 조종':'직접 조종'} | ${state.time.toFixed(1)} / 600초 | 길이 ${Math.round(state.length)} | ${state.mode} | 시드 ${state.seed} | ${!state.alive?'사망: '+state.cause:state.time>=600?'600초 완료':running?'실행 중':'일시정지'}${state.manual?' | 직접 조종 포함':''}`;
+}
+function pause(){running=!running;document.querySelector('#pause').textContent=running?'일시정지':'시작'}
+document.querySelector('#pause').onclick=pause;
+document.querySelector('#control').onclick=()=>{ai=!ai;document.querySelector('#control').textContent=ai?'직접 조종':'자동 조종'};
+let reset=false;document.querySelector('#reset').onclick=()=>{reset=true;running=false;document.querySelector('#pause').textContent='시작'};
+canvas.onpointermove=e=>{let r=canvas.getBoundingClientRect();angle=Math.atan2(e.clientY-r.top-r.height/2,e.clientX-r.left-r.width/2)};
+canvas.onpointerdown=()=>mouseBoost=true;addEventListener('pointerup',()=>mouseBoost=false);
+addEventListener('blur',()=>{mouseBoost=keyBoost=false;running=false;document.querySelector('#pause').textContent='시작'});
+addEventListener('keydown',e=>{if(e.code==='Space'){e.preventDefault();keyBoost=true}if(e.code==='Escape'&&running)pause()});addEventListener('keyup',e=>{if(e.code==='Space')keyBoost=false});
+canvas.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.max(.25,Math.min(1.5,zoom*Math.exp(-e.deltaY*.001)))},{passive:false});
+async function tick(){let start=performance.now();try{let action=reset?'reset':'frame';reset=false;const response=await fetch('/frame',{method:'POST',headers:{'Content-Type':'application/json','X-Sim-Token':token},body:JSON.stringify({action,running:running&&!document.hidden,ai,angle,boost:mouseBoost||keyBoost})});if(!response.ok)throw Error(await response.text());state=await response.json();draw();setTimeout(tick,Math.max(0,67-(performance.now()-start)))}catch(e){running=false;document.querySelector('#error').textContent='연결 또는 시뮬레이션 오류: '+e.message+' — 서버 확인 후 새로고침하세요.'}}
+tick();
+</script></html>

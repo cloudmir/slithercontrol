@@ -1,0 +1,26 @@
+{
+  "corridor": {
+    "safe": true,
+    "escaped": true,
+    "distance": 907.4893500004546,
+    "elapsed": 4.72,
+    "minGap": 6,
+    "routeTicks": 119
+  },
+  "frontWall": {
+    "safe": true,
+    "escaped": true,
+    "distance": 901.1274948026683,
+    "elapsed": 5.4,
+    "minGap": 51.527252234594926,
+    "routeTicks": 136
+  },
+  "uTurn": {
+    "safe": true,
+    "escaped": true,
+    "distance": 905.5866351187944,
+    "elapsed": 6.24,
+    "minGap": 10.18461205065978,
+    "routeTicks": 157
+  }
+}

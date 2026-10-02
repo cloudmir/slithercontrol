@@ -1,0 +1,38 @@
+  v10Step(s){
+    TURN_FIX=!!this.values.TURN_FIX;
+    const begin=performance.now(),V=this.values,W=this.v10World(s),ph=this.v4Physics(s.sc),root=this.v10Root(s,W,ph);
+    const source=s.route?.algo==='v10'&&s.t>=s.route.t0&&s.t-s.route.t0<(V.V10_ROUTE_AGE??.9)?s.route:null;
+    const guides=source?.routes||[],flat=pts=>{const a=[];for(let i=0;i<pts.length;i+=5)a.push(pts[i+1],pts[i+2]);return a;};
+    const worldMs=performance.now()-begin,nearH=1.2,check=W.check;
+    const planWorld={...W,check:(a,b,t0,t1,pad)=>check(a,b,t0,t1,pad,t1<=nearH)};
+    let picked=null,reject='no_route';const valid=[];
+    // Score and choose before the corridor closes. Preference for the previous
+    // route prevents chatter, but never overrides collision rejection.
+    const ordered=[...guides].sort((a,b)=>((b.score||0)+(b.id===this.v10RouteId?60:0))-((a.score||0)+(a.id===this.v10RouteId?60:0)));
+    if(root.ok)for(const guide of ordered){
+      if(!guide.certified)continue;
+      if(hypot(guide.goal[0]-s.x,guide.goal[1]-s.y)<120){reject='completed';continue;}
+      const r=this.v10Follow(s,planWorld,ph,root,guide,begin+15);
+      if(r.ok&&r.actions.length){valid.push({guide,r});if(!picked)picked={guide,r};}
+      else reject=r.reason;
+      if(performance.now()-begin>15)break;
+    }
+    let action,pts,clear,safe=false,mode,checked=valid.length;
+    if(picked){
+      action=picked.r.actions[0];pts=picked.r.pts;clear=picked.r.clear;safe=true;mode='v10route';this.v10RouteId=picked.guide.id;
+    }else{
+      // Explicit recovery only: maximize collision-free time while the map
+      // replans. No independent food/centre objective can overrule the route.
+      const options=[];
+      for(let i=0;i<16;i++)for(const boost of [false,true]){
+        const angle=s.ang+i*TAU/16,r=this.v9Roll(s,W,ph,root.st,0,nearH,root.t,angle,boost);checked++;
+        options.push({...r,angle,boost,score:r.t*1000+Math.min(100,r.clear)-Math.abs(wrap(angle-root.st.h))*5});
+      }
+      options.sort((a,b)=>Number(b.ok)-Number(a.ok)||b.score-a.score);const best=options[0];
+      action={start:root.t,end:root.t+.13,target:best.angle,boost:best.boost};pts=[...root.pts,...best.pts];clear=best.clear;safe=root.ok&&best.ok;mode=safe?'v10replan':'v10emergency';
+    }
+    const ms=performance.now()-begin;this.v10ComputeMs=ms;
+    const trace={mode,cmd:r1(deg(action.target)),boost:action.boost,n_safe:picked?valid.length:safe?1:0,cause:source?.reason??'pending',v10_strategy:picked?'route':'replan',v10_local_ms:ms,v10_world_ms:worldMs,v10_budget_hit:ms>(V.V10_LOCAL_MS??3),v10_checked:checked,v10_clear:clear,v10_root_safe:root.ok,v10_map_ms:source?.ms??0,v10_map_age:source?s.t-source.t0:-1,v10_routes:guides.length,v10_geometry_only:0,v10_route_id:picked?.guide.id??null,v10_continuation_s:picked?picked.r.duration-root.t:0,v10_dynamic_h:nearH,v10_replan:picked?0:1,v10_reject:picked?null:reject,L:s.L,sc:s.sc};
+    this.last={trace,mode,plan:pts,controls:[action],draw:{chosen:flat(pts),localPath:flat(pts).slice(0,50),localUnsafe:!safe,v9At:s.t,v9Paths:valid.map(q=>flat(q.r.pts)),v9Walls:W.walls,v9Reason:picked?'route':'replan',mazePath:[],safe:[],near:[],gaps:[],goal:picked?.guide.goal??null,ro:W.ro}};
+    this.prev=action.target;this.prevBoost=action.boost;return [action.target,action.boost];
+  }

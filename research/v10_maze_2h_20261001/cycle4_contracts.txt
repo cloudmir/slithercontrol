@@ -1,0 +1,15 @@
+{
+  retain_selected_below_threshold: { pass: true },
+  switch_above_threshold: { pass: true },
+  invalid_held_is_not_preserved: { pass: true },
+  empty_world_multiple_routes: { pass: true, routes: 3, ms: 61.274754 },
+  sketch_of_f73_open_four_sides_not_exact_replay: { pass: true, routes: 3, ms: 59.940428 },
+  closed_ring_does_not_invent_escape: { pass: true, reason: 'grid_disconnected' },
+  near_food_detour_rejoins_selected_route: { pass: true, food: 0.5044507364420795 },
+  pellets_behind_wall_not_chased: { pass: true },
+  planner_revalidates_actuator_selected_route: { pass: true, held: '11:3' },
+  repair_same_exit_when_distant_body_moves: {
+    pass: false,
+    error: '{"reason":"maze_routes","fail":{"collision":1},"ids":["22:3","22:4","22:2"]}'
+  }
+}

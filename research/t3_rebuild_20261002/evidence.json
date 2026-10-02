@@ -1,0 +1,51 @@
+{
+  "build": "1002-11dad5e1",
+  "hashes": {
+    "ext/pilot.js": "a1a2ac6049df35a89fe06ee19a52ec3d34cd2d9528e7a46c4d56193b7318d146",
+    "ext/mod.js": "2f1fe44f197310126bcb3a3b49429749b7f4a698699de236c8c4f00b469052de",
+    "params.json": "4f0e87be20591a35c5875be032d6dc9ff5a4357d95c558837a4245976c5183a6",
+    "ext/params.js": "6003fd0e1f14bffbe65b0449fd18513a18b24d35d2cc713c425f3cde69223f35",
+    "ext/manifest.json": "2da29565519a7ef142b3b58d01bab19d57d4938f1ae3e5b91698ea0d02cd4509"
+  },
+  "completed_source_run": "runs/t3_20261002_094739",
+  "completed_games": [
+    [
+      1,
+      13,
+      0
+    ],
+    [
+      2,
+      5.4,
+      0
+    ],
+    [
+      3,
+      144.1,
+      14
+    ]
+  ],
+  "observed_levels": 14,
+  "independent_games": 1,
+  "actual_speed_classes": [
+    "cruise_speed"
+  ],
+  "geometry_classes": [
+    "gentle_curve"
+  ],
+  "closest_alive_gap": 35.2886521951757,
+  "server": "181.41.140.178:444",
+  "players_end": 411,
+  "next_batch": {
+    "pid": 1196385,
+    "starting_gap": 35,
+    "games": 6
+  },
+  "limitations": [
+    "All14 levels are from one game; not14 independent repeats",
+    "All14 are cruise-speed gentle-curve measurements, not straight or boost collision offsets",
+    "Actual observed gap range accompanies each level; 1px goal steps do not guarantee1px measurement accuracy",
+    "Last alive observation is not a server collision coordinate",
+    "35px is the next experimental starting gap, not a production safe offset"
+  ]
+}

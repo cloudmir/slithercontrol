@@ -1,0 +1,30 @@
+{
+  "checks": [
+    "all_251_bucket_boundaries_idempotent",
+    "half_turn_candidate_simulates_packet_direction",
+    "root_prefers_sent_packet_over_input_history",
+    "root_includes_angle_and_boost_send_gates",
+    "observation_age_and_gate_wait_overlap_without_double_count",
+    "pending_input_not_falsely_applied_before_gate",
+    "pending_angle_and_boost_have_separate_send_slots",
+    "longer_prefix_cannot_be_certified_after_collision",
+    "actuator_emits_all_simulated_buckets",
+    "socket_records_successful_actual_byte_and_time",
+    "socket_records_both_boost_transitions",
+    "failed_send_is_not_recorded",
+    "new_game_clears_previous_wire_history",
+    "old_record_root_fallback_preserved",
+    "legacy_root_and_step_bodies_preserved"
+  ],
+  "halfTurn": {
+    "raw": 1.5908844429633298,
+    "packet": 1.5770544794912906,
+    "beforeSign": -1,
+    "afterSign": 1
+  },
+  "limits": [
+    "251 decoder is client-encoding model; server source unavailable",
+    "send wait and future pending sends are estimates; TRACK_LAT remains user setting",
+    "legacy logs without wire history retain old approximate prefix"
+  ]
+}

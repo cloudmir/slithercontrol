@@ -1,0 +1,25 @@
+{
+ "A": {
+  "TURN_FIX": 1,
+  "RAIDER_ON": 1,
+  "SIZE_SAFE": 1,
+  "SIZE_GATE": 1,
+  "HEAD_RAYS": 1,
+  "WRAP_RAID": 1,
+  "WRAP_EXIT_TAIL": 1,
+  "MODE_DWELL": 0.6,
+  "BOOST_DANGER": 10,
+  "HEAP_GATE": 1,
+  "SIZE_PROFILE": 1,
+  "SIZE_SC": 2.3,
+  "RIVAL_R": 700,
+  "RAID_EVADE": 0,
+  "ADAPT_SAFE": 0,
+  "GUARD_ON": 1,
+  "GUARD_R": 900,
+  "GUARD_T": 2.5,
+  "GUARD_TTC": 1.2,
+  "W_GUARD": 40,
+  "GUARD_V2": 0
+ }
+}

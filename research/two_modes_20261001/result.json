@@ -1,0 +1,14 @@
+{
+  "buttons": [
+    "V8-1",
+    "V10-1"
+  ],
+  "presetOptions": [
+    "v81_density",
+    "v101_hybrid"
+  ],
+  "bothSelectionsWork": true,
+  "pilotUnchanged": true,
+  "paramsUnchanged": true,
+  "errors": []
+}

@@ -1,0 +1,8 @@
+{
+  "originalFunctionsUnchanged": 6,
+  "switchParity": true,
+  "controllerParityFrames": 8,
+  "persistentChildren": true,
+  "paramUpdate": true,
+  "liveSurvivalTest": false
+}

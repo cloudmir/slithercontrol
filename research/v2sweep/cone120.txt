@@ -1,0 +1,34 @@
+LEAD 8s deaths 33: V2 survives to the recorded death time 26/33 (79%), boost share median 0.39, drift from recorded track median 727 px
+  181535/slp_01 lead 8 died at +3.7s minGap -8.4 boost 0.02 drift 370
+  181535/slp_03 lead 8 ALIVE minGap 101 boost 0.9 drift 2395
+  181535/slp_05 lead 8 ALIVE minGap 31.8 boost 0.04 drift 522
+  181535/slp_06 lead 8 died at +4.3s minGap -7.2 boost 0 drift 310
+  181535/slp_07 lead 8 died at +1.5s minGap -9.3 boost 0.02 drift 410
+  181535/slp_09 lead 8 died at +8.0s minGap -10 boost 0.01 drift 506
+  181535/slp_11 lead 8 ALIVE minGap 3 boost 0 drift 303
+  181535/slp_12 lead 8 ALIVE minGap 1.3 boost 0.27 drift 676
+  181535/slp_13 lead 8 ALIVE minGap 215.6 boost 0.49 drift 3028
+  181535/slp_14 lead 8 ALIVE minGap 59.8 boost 0.78 drift 777
+  181535/slp_15 lead 8 ALIVE minGap 10.9 boost 0.39 drift 677
+  181535/slp_16 lead 8 ALIVE minGap 155.1 boost 0.76 drift 1559
+  181535/slp_19 lead 8 died at +4.7s minGap -5.2 boost 0.14 drift 437
+  181535/slp_20 lead 8 ALIVE minGap 4.3 boost 0 drift 178
+  223104/slp_01 lead 8 ALIVE minGap 9.5 boost 0.66 drift 2106
+  223104/slp_02 lead 8 ALIVE minGap 134.7 boost 0.3 drift 1846
+  223104/slp_04 lead 8 died at +1.9s minGap -6.6 boost 0 drift 435
+  223104/slp_05 lead 8 ALIVE minGap 37.5 boost 0 drift 366
+  223104/slp_06 lead 8 ALIVE minGap 113.4 boost 0.45 drift 1558
+  223104/slp_07 lead 8 ALIVE minGap 19.7 boost 0.65 drift 727
+  223104/slp_08 lead 8 ALIVE minGap 19 boost 0.04 drift 400
+  223104/slp_10 lead 8 died at +7.5s minGap -12.6 boost 0.47 drift 341
+  223104/slp_11 lead 8 ALIVE minGap 38.3 boost 0.82 drift 1479
+  223104/slp_15 lead 8 ALIVE minGap 9.5 boost 0.7 drift 1623
+  223104/slp_18 lead 8 ALIVE minGap 98.3 boost 0.47 drift 1321
+  153724/slp_01 lead 8 ALIVE minGap 10.8 boost 0 drift 246
+  153724/slp_02 lead 8 ALIVE minGap 396.3 boost 0.42 drift 3549
+  153724/slp_03 lead 8 ALIVE minGap 12.4 boost 0.44 drift 1818
+  153724/slp_05 lead 8 ALIVE minGap 296.3 boost 0.31 drift 1374
+  153724/slp_06 lead 8 ALIVE minGap 93.8 boost 0.79 drift 2214
+  153724/slp_07 lead 8 ALIVE minGap 74.6 boost 0.4 drift 1836
+  153724/slp_09 lead 8 ALIVE minGap 14.6 boost 0.39 drift 696
+  153724/slp_10 lead 8 ALIVE minGap 458.2 boost 0.48 drift 2246

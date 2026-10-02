@@ -1,0 +1,84 @@
+  t1Step(s) {
+    // Independent metrology driver: never delegates to food, escape, or combat controllers.
+    const {x:px,y:py,ang,sp,sc,t:T,segs:S,sid,heads:H,hid}=s,ro=R*sc;
+    const pr=this.t1Probe||(this.t1Probe={id:null,set:12,since:T,samples:[],stable:[],dir:1});
+    const bin=r=>r<20?0:r<30?1:r<40?2:r<50?3:4,wanted=clip(Math.floor(this.values.T1_BIN??0),0,4);
+    let level=null,heading=null,lateral=null,bend=null;
+    const done=(cmd,phase,tg=null,gap=null,path=[])=>{
+      const tr={mode:'probe',boost:false,cmd:r1(deg(cmd)),L:s.L,sc:r2(sc),prof:this.profile,nh:hid.length,
+        pph:phase==='follow'?1:phase==='excluded'?2:0,pset:pr.set,pgap:gap,ptr:tg?.r??null,ptid:tg?.id??null,pstab:pr.stable.length,
+        t1_on:1,t1_phase:phase,t1_own_r:ro,t1_enemy_r:tg?.r??null,t1_gap:gap,t1_set:pr.set,t1_target:tg?.id??null,
+        t1_level:level,t1_heading_error:heading,t1_lateral:lateral,t1_bend:bend,t1_bin:wanted};
+      this.last={mode:'probe',trace:tr,draw:{chosen:path,safe:[],pos:new Float64Array(0),N,C2:0,i:0,
+        near:tg?[{id:tg.id,gap,x:tg.x,y:tg.y,r:tg.r}]:[],gaps:[],goal:null,crowdAt:null,wp:null,attacker:null,ro,analysis:null}};
+      this.prev=cmd;this.prevBoost=false;return [cmd,false];
+    };
+    const headOf=new Map();for(let i=0;i<hid.length;i++)headOf.set(hid[i],[H[i*5],H[i*5+1]]);
+    // Split observed bodies into connected, nearly straight runs. Choose a run, not a generic free direction.
+    const chains=new Map();for(let k=0;k<sid.length;k++){let a=chains.get(sid[k]);if(!a){a=[];chains.set(sid[k],a);}a.push(k);}
+    const candidates=[];
+    for(const [id,ks]of chains){
+      let run=[],first=0,prev=null,turn=0,len=0;
+      const flush=()=>{
+        if(len<180||!run.length)return;
+        let best=null,cum=0;
+        for(const k of run){const ax=S[k*5],ay=S[k*5+1],dx=S[k*5+2]-ax,dy=S[k*5+3]-ay,L=hypot(dx,dy),u=clip(((px-ax)*dx+(py-ay)*dy)/(L*L||1),0,1),x=ax+u*dx,y=ay+u*dy,d=hypot(px-x,py-y);
+          if(!best||d<best.d)best={id,k,x,y,d,r:S[k*5+4],h:Math.atan2(dy,dx),at:cum+u*L};cum+=L;}
+        if(!best||best.d>1800)return;
+        best.len=len;best.bend=turn;
+        const keep=id===pr.id&&Math.abs(wrap(best.h-(pr.lineH??best.h)))<rad(25);
+        best.dir=keep?pr.dir:Math.cos(ang-best.h)>=0?1:-1;
+        best.room=best.dir>0?len-best.at:best.at;
+        if(best.room<150){if(keep)return;best.dir*=-1;best.room=len-best.room;}
+        if(best.room<150)return;
+        const hp=headOf.get(id);best.headD=hp?hypot(hp[0]-best.x,hp[1]-best.y):Infinity;
+        best.score=best.d+Math.abs(bin(best.r)-wanted)*180+(best.headD<250?350:0)+Math.max(0,450-best.room)*.6;
+        best.keep=keep;candidates.push(best);
+      };
+      for(const k of ks){const dx=S[k*5+2]-S[k*5],dy=S[k*5+3]-S[k*5+1],L=hypot(dx,dy);if(L<1e-6)continue;const a=Math.atan2(dy,dx);
+        const joined=prev!==null&&hypot(S[k*5]-S[prev*5+2],S[k*5+1]-S[prev*5+3])<2;
+        if(run.length&&(!joined||Math.abs(wrap(a-first))>rad(12)||turn+Math.abs(wrap(a-Math.atan2(S[prev*5+3]-S[prev*5+1],S[prev*5+2]-S[prev*5])))>rad(12))){flush();run=[];len=0;turn=0;}
+        if(!run.length)first=a;else turn+=Math.abs(wrap(a-Math.atan2(S[prev*5+3]-S[prev*5+1],S[prev*5+2]-S[prev*5])));
+        run.push(k);len+=L;prev=k;
+      }flush();
+    }
+    let tg=candidates.filter(q=>q.keep).sort((a,b)=>a.d-b.d)[0]||candidates.sort((a,b)=>a.score-b.score)[0];
+    if(!tg){
+      pr.id=null;pr.samples=[];delete pr.prevGap;
+      // No long straight run yet: explicitly approach the nearest visible body's outside surface.
+      let closest=null;for(let k=0;k<sid.length;k++){const ax=S[k*5],ay=S[k*5+1],dx=S[k*5+2]-ax,dy=S[k*5+3]-ay,L=hypot(dx,dy)||1,u=clip(((px-ax)*dx+(py-ay)*dy)/(L*L),0,1),x=ax+u*dx,y=ay+u*dy,d=hypot(px-x,py-y);if(!closest||d<closest.d)closest={x,y,d,h:Math.atan2(dy,dx),r:S[k*5+4]};}
+      if(closest){const n=Math.atan2(py-closest.y,px-closest.x),D=ro+closest.r+60,x=closest.x+D*Math.cos(n),y=closest.y+D*Math.sin(n),h=closest.h+(Math.cos(ang-closest.h)<0?PI:0),look=140;
+        const tx=x+look*Math.cos(h),ty=y+look*Math.sin(h);return done(Math.atan2(ty-py,tx-px),'seek',null,null,[px,py,tx,ty]);}
+      const center=s.wall||[30000,30000,20000],d=hypot(px-center[0],py-center[1]),cmd=d>150?Math.atan2(center[1]-py,center[0]-px):ang;
+      return done(cmd,'seek',null,null,[px,py,px+250*Math.cos(cmd),py+250*Math.sin(cmd)]);
+    }
+    const changed=pr.id!==tg.id||Math.abs(wrap(tg.h-(pr.lineH??tg.h)))>rad(25)||pr.dir!==tg.dir;
+    if(changed){pr.id=tg.id;pr.dir=tg.dir;pr.set=12;pr.since=T;pr.samples=[];delete pr.prevGap;}
+    pr.lineH=tg.h;
+    const tangent=tg.h+(tg.dir<0?PI:0),tx=Math.cos(tangent),ty=Math.sin(tangent),side=sign(tx*(py-tg.y)-ty*(px-tg.x))||1;
+    const gap=tg.d-ro-tg.r,err=gap-pr.set,dt=T-(pr.prevT??T);
+    lateral=pr.prevGap!==undefined&&dt>0?(gap-pr.prevGap)/dt:0;heading=Math.abs(wrap(ang-tangent));bend=tg.bend;
+    if(dt>.15||Math.abs((pr.rt??tg.r)-tg.r)>.3)pr.samples=[];
+    pr.prevGap=gap;pr.prevT=T;pr.rt=tg.r;
+    // Desired normal speed: acquire quickly, then close slowly. Tangential heading stays locked.
+    const v=Math.max(5.5,sp)*PX_PER_SP,predicted=err+clip(lateral,-120,120)*.10;
+    const vNormal=clip(-predicted*.95,-(gap<pr.set+8?8:45),20);
+    const cmd=tangent+side*Math.asin(clip(vNormal/v,-.35,.35));
+    const nx=-ty*side,ny=tx*side,look=Math.min(180,tg.room-40),ox=tg.x+tx*look+nx*(ro+tg.r+pr.set),oy=tg.y+ty*look+ny*(ro+tg.r+pr.set);
+    let interference=false;
+    for(let i=0;i<hid.length;i++)if(hypot(H[i*5]-px,H[i*5+1]-py)<250)interference=true;
+    for(let k=0;k<sid.length;k++)if(sid[k]!==tg.id&&segDist(px,py,S,k)-S[k*5+4]-ro<35){interference=true;break;}
+    const wall=s.wall;if(wall&&wall[2]-hypot(px-wall[0],py-wall[1])-ro<100)interference=true;
+    // Interference invalidates data; it does not hand control to an avoidance algorithm.
+    const phase=interference?'excluded':heading>rad(6)||Math.abs(err)>20?'align':'follow';
+    if(phase!=='follow')pr.samples=[];
+    else{
+      const a=pr.samples;a.push({t:T,gap,err:Math.abs(err),ro,rt:tg.r,heading,lateral:Math.abs(lateral),speed:sp});while(a.length&&T-a[0].t>1)a.shift();
+      const med=k=>a.map(q=>q[k]).sort((x,y)=>x-y)[a.length>>1],range=k=>Math.max(...a.map(q=>q[k]))-Math.min(...a.map(q=>q[k]));
+      if(a.length>=15&&T-a[0].t>=.75&&T-pr.since>=1.2&&med('err')<1&&range('gap')<1.5&&med('heading')<rad(6)&&med('lateral')<8&&range('ro')<.3&&range('rt')<.3){
+        level={serial:(this.t1Serial=(this.t1Serial??0)+1),t:T,target:pr.id,own_r:med('ro'),enemy_r:med('rt'),set:pr.set,gap:med('gap'),gap_min:Math.min(...a.map(q=>q.gap)),gap_max:Math.max(...a.map(q=>q.gap)),samples:a.length,duration:T-a[0].t,speed:med('speed'),heading:med('heading'),lateral:med('lateral')};
+        pr.stable.push(level);pr.set=Math.max(-30,pr.set-1);pr.since=T;pr.samples=[];
+      }
+    }
+    return done(cmd,phase,tg,gap,[px,py,ox,oy]);
+  }

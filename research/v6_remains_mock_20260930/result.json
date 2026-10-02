@@ -1,0 +1,27 @@
+{
+ "minDistance": 6.950243919709303,
+ "labels": [
+  "미로 · 재탐색",
+  "근접 · 주행 예측",
+  "미로 · 잔해로 이동",
+  "미로 · 잔해 탐색"
+ ],
+ "status": {
+  "bot": true,
+  "game": true,
+  "ticks": 99,
+  "fps": 62,
+  "ping": null,
+  "errors": 0,
+  "last": {
+   "ms": 0.29999999701976776,
+   "mode": "v6explore",
+   "squeeze": null
+  },
+  "squeeze_ticks": 0
+ },
+ "version": "0930-86ece6f6",
+ "foodWeight": 1,
+ "remainsMin": 12,
+ "errors": []
+}

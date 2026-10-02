@@ -1,0 +1,17 @@
+{
+  "queued_collision_keeps_arrival_time": {
+    "pass": true
+  },
+  "safe_candidate_precedes_unsafe": {
+    "pass": true
+  },
+  "fresh_emergency_command_not_canceled": {
+    "pass": true
+  },
+  "expired_command_retains_turn_and_cuts_boost": {
+    "pass": true
+  },
+  "per_goal_timeout_is_not_no_route": {
+    "pass": true
+  }
+}

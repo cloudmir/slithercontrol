@@ -1,0 +1,198 @@
+{
+  "build": "1001-9654ed9d",
+  "seconds": 58.9,
+  "ticks": 1539,
+  "errors": 0,
+  "decide_ms": {
+    "p50": 1,
+    "p95": 3.3
+  },
+  "obs_to_cmd_ms": {
+    "p50": 3.8,
+    "p95": 14.1
+  },
+  "route_reason_counts": {
+    "pending": 4,
+    "mapped": 1244,
+    "budget": 291
+  },
+  "route_count_counts": {
+    "0": 295,
+    "3": 749,
+    "2": 164,
+    "1": 331
+  },
+  "tracker_reason_counts": {
+    "v10_expired": 9,
+    "v9_controls": 1529,
+    "v10_stale_result": 1
+  },
+  "last_frames": [
+    {
+      "t": 58.519,
+      "ang": 4.396370935416956,
+      "cmd": [
+        3.8181385813856767,
+        false
+      ],
+      "actualCommand": {
+        "id": 6213,
+        "ang": 3.8181385813856767,
+        "boost": false,
+        "why": "v9_controls",
+        "at": 58.5315
+      },
+      "nearest": {
+        "sid": 66,
+        "head_center_to_body_surface": 84.1830781544086,
+        "heading_vs_segment_degrees": 104.78582951661416
+      }
+    },
+    {
+      "t": 58.547,
+      "ang": 4.209483860986551,
+      "cmd": [
+        3.8181385813856767,
+        false
+      ],
+      "actualCommand": {
+        "id": 6214,
+        "ang": 4.209483860986551,
+        "boost": false,
+        "why": "v10_expired",
+        "at": 58.55459999996424
+      },
+      "nearest": {
+        "sid": 66,
+        "head_center_to_body_surface": 67.26725843375044,
+        "heading_vs_segment_degrees": 94.0779889062047
+      }
+    },
+    {
+      "t": 58.582,
+      "ang": 4.03370926932114,
+      "cmd": [
+        3.6553739179178346,
+        false
+      ],
+      "actualCommand": {
+        "id": 6215,
+        "ang": 4.03370926932114,
+        "boost": false,
+        "why": "v10_expired",
+        "at": 58.58989999997616
+      },
+      "nearest": {
+        "sid": 66,
+        "head_center_to_body_surface": 59.512345734178474,
+        "heading_vs_segment_degrees": 85.24306398904719
+      }
+    },
+    {
+      "t": 58.648,
+      "ang": 3.907503220924772,
+      "cmd": [
+        4.03370926932114,
+        false
+      ],
+      "actualCommand": {
+        "id": 6216,
+        "ang": 4.147884050442774,
+        "boost": false,
+        "why": "v10_expired",
+        "at": 58.66569999998808
+      },
+      "nearest": {
+        "sid": 66,
+        "head_center_to_body_surface": 52.01732155046869,
+        "heading_vs_segment_degrees": 78.01199006691151
+      }
+    },
+    {
+      "t": 58.676,
+      "ang": 4.085574775047312,
+      "cmd": [
+        4.033104909001954,
+        false
+      ],
+      "actualCommand": {
+        "id": 6217,
+        "ang": 4.085574775047312,
+        "boost": false,
+        "why": "v10_expired",
+        "at": 58.68430000001192
+      },
+      "nearest": {
+        "sid": 66,
+        "head_center_to_body_surface": 39.6838189872097,
+        "heading_vs_segment_degrees": 88.21473856946841
+      }
+    },
+    {
+      "t": 58.708,
+      "ang": 4.025165587411922,
+      "cmd": [
+        4.03370926932114,
+        false
+      ],
+      "actualCommand": {
+        "id": 6218,
+        "ang": 4.025165587411922,
+        "boost": false,
+        "why": "v10_expired",
+        "at": 58.71819999998808
+      },
+      "nearest": {
+        "sid": 66,
+        "head_center_to_body_surface": 33.67831520846189,
+        "heading_vs_segment_degrees": 84.7535470741467
+      }
+    },
+    {
+      "t": 58.741,
+      "ang": 4.025165587411922,
+      "cmd": [
+        4.099333518676213,
+        false
+      ],
+      "actualCommand": {
+        "id": 6219,
+        "ang": 4.123340357836604,
+        "boost": false,
+        "why": "v10_expired",
+        "at": 58.747899999976156
+      },
+      "nearest": {
+        "sid": 66,
+        "head_center_to_body_surface": 24.922081228656616,
+        "heading_vs_segment_degrees": 85.48719614691356
+      }
+    },
+    {
+      "t": 58.809,
+      "ang": 4.123340357836604,
+      "cmd": [
+        4.123340357836604,
+        false
+      ],
+      "actualCommand": {
+        "id": 6219,
+        "ang": 4.123340357836604,
+        "boost": false,
+        "why": "v10_expired",
+        "at": 58.8265
+      },
+      "nearest": {
+        "sid": 66,
+        "head_center_to_body_surface": 19.38145859944988,
+        "heading_vs_segment_degrees": 91.11219614691365
+      }
+    }
+  ],
+  "limitations": [
+    "Last alive frame is not the exact server collision position.",
+    "One completed live game; not evidence of failure rate across games.",
+    "Expired fallback is observed; whether a different late command would prevent death remains unproven.",
+    "Map budget counts are decision frames reusing route results, not independent planner executions."
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "realWorkerT2Following": true,
+  "cruiseOnlyWhileFollowing": true,
+  "measurementColumnsPresent": true,
+  "T2Persistence": true,
+  "modeSwitchOff": true,
+  "dashboardFilters": true,
+  "pageErrors": [],
+  "scope": "local synthetic browser, no live samples"
+}

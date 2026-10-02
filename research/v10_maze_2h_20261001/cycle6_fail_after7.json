@@ -1,0 +1,29 @@
+[
+  {
+    "t": 169.091,
+    "routes": 0,
+    "reason": "no_drivable_route",
+    "ms": 59.804897000000004,
+    "mode": "v10emergency",
+    "localms": 3.9349380000000025,
+    "reject": "invalid"
+  },
+  {
+    "t": 181.364,
+    "routes": 1,
+    "reason": "maze_routes",
+    "ms": 72.39497800000001,
+    "mode": "v10route",
+    "localms": 10.295031999999992,
+    "reject": null
+  },
+  {
+    "t": 236.819,
+    "routes": 2,
+    "reason": "maze_routes",
+    "ms": 67.321775,
+    "mode": "v10route",
+    "localms": 9.495597999999973,
+    "reject": null
+  }
+]

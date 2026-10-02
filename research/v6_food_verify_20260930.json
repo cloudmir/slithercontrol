@@ -1,0 +1,69 @@
+{
+ "synthetic": {
+  "open": {
+   "certified": 0,
+   "points": 4,
+   "route_ms": 24.28,
+   "cmd_deg": 0,
+   "mode": "v6explore",
+   "macro_distance": 1032
+  },
+  "corridor": {
+   "certified": 0,
+   "points": 4,
+   "min_x": 30000,
+   "max_x": 30024,
+   "min_clear": 37,
+   "mode": "v6avoid"
+  },
+  "head_on": {
+   "mode": "v6avoid",
+   "cause": "changed",
+   "cmd_deg": 20,
+   "safe": 0
+  },
+  "food": {
+   "intent": "food",
+   "goal": {
+    "x": 30408,
+    "y": 30312,
+    "kind": "food"
+   },
+   "cmd_deg": 5.556672684309962,
+   "state": "food"
+  },
+  "wall": {
+   "intent": "escape",
+   "reason": "exit"
+  }
+ },
+ "replay": [
+  {
+   "file": "runs/v6verify_20260930_123015/slp_01_box.json.gz",
+   "frames": 1642,
+   "macro": {
+    "p50": 3.93,
+    "p95": 6.72,
+    "max": 10.41
+   },
+   "local": {
+    "p50": 1.36,
+    "p95": 2.85,
+    "max": 17.38
+   },
+   "guide_rate": 0.982,
+   "certified_rate": 0,
+   "plan_reasons": {
+    "reachable_prefix": 108,
+    "food": 32,
+    "root_blocked": 3
+   },
+   "local_causes": {
+    "ok": 1612,
+    "none": 30
+   },
+   "hard": 10,
+   "turns": 23
+  }
+ ]
+}

@@ -1,0 +1,45 @@
+{
+  "games": [
+    {
+      "game": 1,
+      "seconds": 439.4,
+      "L_max": 307,
+      "capped": false,
+      "cause": "마지막 관측에서 몸통 209의 표시 두께와 겹침(-4.4px). 실제 서버 충돌 상대는 미확인.",
+      "improvement": "종료 0.8초 전부터 우회전, 부스트 해제. 기록 구간 모델 최소 간격 -12.4px. 시험 후보 모두 모델상 위험. 더 이른 진입 회피·통로 폐쇄 예측을 우선 검토.",
+      "last_gap": -4.404232473554767,
+      "near_body": 209,
+      "prefix_unsafe_last3s": 22,
+      "emergency_last3s": 45,
+      "candidate": {
+        "lead": 0.8,
+        "start": 438.501,
+        "offset": 1,
+        "angle": 4.1303807796200465,
+        "boost": false,
+        "clear": -12.361379637661502,
+        "depth": 2.456061711897675,
+        "rootSafe": true,
+        "modelClear": false
+      },
+      "photo": "death_01.jpg",
+      "photo_at": 405.509,
+      "last_observation_at": 439.324,
+      "server": "181.41.140.178:444",
+      "players": 505,
+      "errors": 0,
+      "changes": [],
+      "limitations": [
+        "Recorded moving-enemy future, observed interval only; not an interactive counterfactual",
+        "No enemy response to different own trajectory; server physics and variable delay unconfirmed",
+        "Model clearance is not proven real survival"
+      ],
+      "photo_game_at": 439.009,
+      "photo_alignment": "Captured Python time aligned through paired observation; nearest preceding ~0.55s before last logged position; not exact death instant",
+      "photo_source": "game_01_second_0811_0405.509.jpg"
+    }
+  ],
+  "build": "1001-a67ce2c6",
+  "completed": false,
+  "error": "검증 샘플"
+}

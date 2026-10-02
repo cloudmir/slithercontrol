@@ -1,0 +1,104 @@
+[
+  {
+    "game": "170651",
+    "window": [
+      5,
+      0
+    ],
+    "n": 82,
+    "radius_px": 131.5509665496867,
+    "radial_error_p95": 102.85305662849008,
+    "radial_error_max": 120.5424561969219,
+    "signed_yaw_deg": -464.9902450973181,
+    "modes": {
+      "unwrap": 4,
+      "coil": 54,
+      "emergency": 24
+    }
+  },
+  {
+    "game": "170651",
+    "window": [
+      4.5,
+      0.9
+    ],
+    "n": 62,
+    "radius_px": 97.51060929924313,
+    "radial_error_p95": 5.5839972050066455,
+    "radial_error_max": 19.134124437179864,
+    "signed_yaw_deg": -421.87499999999994,
+    "modes": {
+      "unwrap": 4,
+      "coil": 48,
+      "emergency": 10
+    }
+  },
+  {
+    "game": "170651",
+    "window": [
+      3.5,
+      1
+    ],
+    "n": 42,
+    "radius_px": 99.54339482835012,
+    "radial_error_p95": 7.249904480392571,
+    "radial_error_max": 11.318386832727768,
+    "signed_yaw_deg": -289.2089950973181,
+    "modes": {
+      "unwrap": 4,
+      "coil": 28,
+      "emergency": 10
+    }
+  },
+  {
+    "game": "192050",
+    "window": [
+      5,
+      0
+    ],
+    "n": 129,
+    "radius_px": 51.52131950216507,
+    "radial_error_p95": 19.33700853348891,
+    "radial_error_max": 21.98583388989449,
+    "signed_yaw_deg": 1147.0428669323378,
+    "modes": {
+      "emergency": 24,
+      "coil": 79,
+      "unwrap": 26
+    }
+  },
+  {
+    "game": "192050",
+    "window": [
+      4.5,
+      0.9
+    ],
+    "n": 92,
+    "radius_px": 51.25119514780887,
+    "radial_error_p95": 20.394087465523008,
+    "radial_error_max": 22.826989419847703,
+    "signed_yaw_deg": 796.8866169323377,
+    "modes": {
+      "emergency": 9,
+      "coil": 64,
+      "unwrap": 19
+    }
+  },
+  {
+    "game": "192050",
+    "window": [
+      3.5,
+      1
+    ],
+    "n": 63,
+    "radius_px": 52.5995362288964,
+    "radial_error_p95": 17.305729071925327,
+    "radial_error_max": 20.374743571220655,
+    "signed_yaw_deg": 547.0312499999999,
+    "modes": {
+      "emergency": 9,
+      "coil": 37,
+      "unwrap": 17
+    }
+  }
+]

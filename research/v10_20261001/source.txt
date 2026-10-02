@@ -1,0 +1,1066 @@
+V10 implementation and validation source capture, 2026-10-01
+Final build 1001-9654ed9d. No new live games.
+
+
+FILE research/v10_20261001/summary.json SHA256 c67ce49464f7b647504bffbf84789bec83b5ccdc25d34dbd5a6f1cdb34c38bfc
+
+{
+  "build": "1001-9654ed9d",
+  "scope": "V10 implementation and offline validation; no new live games",
+  "death_games": 31,
+  "excluded_time_caps": 13,
+  "overlapping_indicators": {
+    "bilateral_corridor": 25,
+    "body_contact": 29,
+    "encirclement": 22,
+    "head_intercept": 23,
+    "unresolved": 1
+  },
+  "strategies": [
+    "head_intercept_evasion",
+    "corridor_centering_and_closure_exit",
+    "wrap_breakout_and_committed_turn",
+    "near_body_tangent_follow",
+    "arena_inward_escape"
+  ],
+  "workers": [
+    "short_horizon_control",
+    "map_exit_search",
+    "persistent_threat_detection"
+  ],
+  "boundary_data": {
+    "probe_games": 60,
+    "thickness_bins": 17,
+    "exact_death_threshold_known": false,
+    "negative_offset_applied": false
+  },
+  "speed": {
+    "own_ramp": {
+      "n": 8072,
+      "p50": 317.166,
+      "p95": 435.384,
+      "p99": 519.352
+    },
+    "enemy_cruise": {
+      "n": 371510,
+      "p50": 184.457,
+      "p95": 243.79,
+      "p99": 294.926
+    },
+    "enemy_ramp": {
+      "n": 84766,
+      "p50": 312.699,
+      "p95": 433.479,
+      "p99": 520.423
+    },
+    "enemy_boost": {
+      "n": 209304,
+      "p50": 434.576,
+      "p95": 569.762,
+      "p99": 669.506
+    },
+    "own_boost": {
+      "n": 29917,
+      "p50": 434.848,
+      "p95": 563.702,
+      "p99": 666.954
+    },
+    "own_cruise": {
+      "n": 14851,
+      "p50": 193.375,
+      "p95": 260.249,
+      "p99": 318.907
+    }
+  },
+  "model_validation": {
+    "closed_loop_scenarios": {
+      "gap_sc1_off0": {
+        "safe": true,
+        "escaped": true,
+        "distance": 1464.0797473684725,
+        "elapsed": 3.6,
+        "minGap": 4,
+        "boostTicks": 91
+      },
+      "gap_sc1_off2": {
+        "safe": true,
+        "escaped": true,
+        "distance": 1464.0797473684725,
+        "elapsed": 3.6,
+        "minGap": 2,
+        "boostTicks": 91
+      },
+      "gap_sc2_off0": {
+        "safe": true,
+        "escaped": true,
+        "distance": 1451.6711000000541,
+        "elapsed": 3.56,
+        "minGap": 4,
+        "boostTicks": 90
+      },
+      "gap_sc2_off2": {
+        "safe": true,
+        "escaped": true,
+        "distance": 1451.6711000000541,
+        "elapsed": 3.56,
+        "minGap": 2,
+        "boostTicks": 90
+      },
+      "gap_sc3.5_off0": {
+        "safe": true,
+        "escaped": true,
+        "distance": 1460.6415210527266,
+        "elapsed": 3.56,
+        "minGap": 4,
+        "boostTicks": 90
+      },
+      "gap_sc3.5_off2": {
+        "safe": true,
+        "escaped": true,
+        "distance": 1460.6415210527266,
+        "elapsed": 3.56,
+        "minGap": 2,
+        "boostTicks": 90
+      },
+      "frontWall": {
+        "safe": true,
+        "escaped": true,
+        "distance": 1455.0215507118735,
+        "elapsed": 7.44,
+        "minGap": 69.9510958342188,
+        "boostTicks": 11
+      },
+      "u": {
+        "safe": true,
+        "escaped": true,
+        "distance": 1456.9486346040662,
+        "elapsed": 7.28,
+        "minGap": 9.763911971490835,
+        "boostTicks": 32
+      },
+      "attack": {
+        "safe": true,
+        "escaped": true,
+        "distance": 1456.8030971690341,
+        "elapsed": 7.5600000000000005,
+        "minGap": 6.485242540077564,
+        "boostTicks": 8
+      },
+      "arena": {
+        "safe": true,
+        "escaped": true,
+        "distance": 1451.9004233905237,
+        "elapsed": 8.2,
+        "minGap": 57.22669031082114,
+        "boostTicks": 26
+      }
+    },
+    "contracts": {
+      "fullViewportMapped": true,
+      "preserved": [
+        "v9World",
+        "v9Roll",
+        "v9Root",
+        "v9FoodGoals",
+        "v9Route",
+        "v9Step",
+        "v8Route",
+        "v8Step",
+        "v6Route",
+        "v6Step"
+      ],
+      "foodFilter": true,
+      "boostOff": true,
+      "staleRouteRejected": true,
+      "oldThicknessSettingsIgnored": true,
+      "queuedCommandsReplayed": true,
+      "continuousThinWall": true
+    },
+    "browser": {
+      "version": "1001-9654ed9d",
+      "workers": 3,
+      "expiredCommandDisablesBoost": true,
+      "modeSwitch": true,
+      "controlsAndPersistence": true,
+      "status": {
+        "bot": true,
+        "game": true,
+        "ticks": 37,
+        "fps": 49,
+        "ping": null,
+        "errors": 0,
+        "last": {
+          "ms": 0.4000000059604645,
+          "mode": "v10cruise",
+          "v10_routes": 3,
+          "v10_strategy": "cruise",
+          "v10_map_ms": 4.299999982118607,
+          "v10_threat_ms": 0,
+          "v10_result_age_ms": 1,
+          "v9_routes": null,
+          "v9_reason": null,
+          "squeeze": null,
+          "v7_phase": null,
+          "v7_heads": null,
+          "v8_phase": null,
+          "v8_heads": null,
+          "v81_density": null,
+          "v81_reason": null
+        },
+        "squeeze_ticks": 0
+      },
+      "errors": []
+    },
+    "recorded_future": {
+      "v9": {
+        "completeSafePredictions": 89,
+        "recordedFutureCollision": 2,
+        "commandPrefixCollision": 0,
+        "holdoutPredictions": 52,
+        "holdoutCollision": 2
+      },
+      "v10": {
+        "completeSafePredictions": 78,
+        "recordedFutureCollision": 4,
+        "commandPrefixCollision": 0,
+        "holdoutPredictions": 44,
+        "holdoutCollision": 2
+      }
+    }
+  },
+  "limitations": [
+    "Long dotted map paths certify only current static geometry, not future moving enemies or every turn; solid short arcs are physically swept and rechecked.",
+    "The 3 ms local target is soft, not a guaranteed deadline.",
+    "Recorded future comparisons are sampled counterfactual forecasts; enemies do not react to the changed policy.",
+    "Short head uncertainty calibrated on cycle4; cycle5confirm and v2live3 held out for forecast checks.",
+    "Exact per-thickness server death boundary is unresolved because the last live frame is not collision time.",
+    "No live survival improvement claim.",
+    "Food origin is estimated from pellet size, not an authoritative corpse flag."
+  ],
+  "replay": {
+    "frames": 155,
+    "v10": {
+      "mapFound": 62,
+      "localSafe": 83,
+      "boost": 63,
+      "localP50": 2.4774319999996806,
+      "localP95": 3.4720259999994596,
+      "localP99": 10.748227000000014,
+      "mapP95": 92.71188600000005,
+      "threatP95": 0.13062999999988278
+    },
+    "v9": {
+      "drivableFound": 47,
+      "localP95": 5.297090000000026,
+      "mapP95": 107.15968800000007
+    },
+    "note": "V10 static guide discovery is not comparable to V9 full dynamic rollout certification; fixed observation replay is not survival evidence"
+  },
+  "deployment": {
+    "applied": true,
+    "version": "1001-9654ed9d",
+    "existingSettingsPreserved": true,
+    "activePreset": "v9_maze",
+    "newPresetAvailable": true,
+    "playing": false
+  },
+  "validation_builds": {
+    "replay": "1001-9654ed9d",
+    "browser": "1001-9654ed9d",
+    "contracts": "1001-9654ed9d",
+    "closed_loop_and_future": "1001-c6065de0 (before viewport-only extension; same inputs without viewport use same numerical planner)"
+  },
+  "runtime": "v24.17.0"
+}
+
+FILE research/v10_20261001/analysis.json SHA256 d30df91d5b03661490c42dfebee09d3e2a06e47b1ce67693c64008d3f0e316fc
+
+{
+  "deaths": 31,
+  "excluded_caps": 13,
+  "labels": {
+    "bilateral_corridor": 25,
+    "body_contact": 29,
+    "encirclement": 22,
+    "head_intercept": 23,
+    "unresolved": 1
+  },
+  "label_type": "overlapping geometric predeath indicators, not verified causes",
+  "speed": {
+    "own_ramp": {
+      "n": 8072,
+      "p50": 317.166,
+      "p95": 435.384,
+      "p99": 519.352
+    },
+    "enemy_cruise": {
+      "n": 371510,
+      "p50": 184.457,
+      "p95": 243.79,
+      "p99": 294.926
+    },
+    "enemy_ramp": {
+      "n": 84766,
+      "p50": 312.699,
+      "p95": 433.479,
+      "p99": 520.423
+    },
+    "enemy_boost": {
+      "n": 209304,
+      "p50": 434.576,
+      "p95": 569.762,
+      "p99": 669.506
+    },
+    "own_boost": {
+      "n": 29917,
+      "p50": 434.848,
+      "p95": 563.702,
+      "p99": 666.954
+    },
+    "own_cruise": {
+      "n": 14851,
+      "p50": 193.375,
+      "p95": 260.249,
+      "p99": 318.907
+    }
+  },
+  "probe_samples": 60,
+  "exact_boundary": false,
+  "probe_warning": "last alive sample is not contact time; curved tracking, other attackers and latency confound thresholds",
+  "source_hashes": {
+    "runs/cycle4_20260927_140522/slp_01_box.json.gz": "1a10f4639798a2218da8a4627fe3e89e8a2a85afcecee7821e27085d48ffe905",
+    "runs/cycle4_20260927_140522/slp_02_box.json.gz": "f04c79ac75cc4c8ca2d3e22515226d6a65c84152af0838359cfd9c08c6e2fef3",
+    "runs/cycle4_20260927_140522/slp_03_box.json.gz": "c267df164eba287713486b64fb61ef4f26ad07d70b62db8333f0510a55930302",
+    "runs/cycle4_20260927_140522/slp_05_box.json.gz": "034ef28452e18970e4c1bd5ae81355d76ab799dd0abfb068d4dc77a51e1f663c",
+    "runs/cycle4_20260927_140522/slp_07_box.json.gz": "233fca9d863baaff9e26b96b184fdfd69fdd4d7bbe3e7a6cae9938eb08226d58",
+    "runs/cycle4_20260927_140522/slp_08_box.json.gz": "f2fa945765e65a2da7e34963be2c917245f3b9e7c8e47d8db80f6cb3b6cc5e7f",
+    "runs/cycle4_20260927_140522/slp_11_box.json.gz": "15b19cd55f9ac11397b7ba6cc1c598a9e89def5d009448d1fbf1b625a0572420",
+    "runs/cycle4_20260927_140522/slp_13_box.json.gz": "394531d93412ee380426f5431c4fcb1baee4d59a8e9b32eb9900b8d52586707c",
+    "runs/cycle4_20260927_140522/slp_15_box.json.gz": "834b8b3573f0843c6272642a45d53a5ea80c5b5cef758b72f29c716f12a1461d",
+    "runs/cycle4_20260927_140522/slp_17_box.json.gz": "6057b85dfc8d4585b1b34f74ada7775d15dd687b56810f688e9386d6425d6aae",
+    "runs/cycle4_20260927_140522/slp_18_box.json.gz": "21ae1beb12bed0bb6ea4bc1b6872a79c16e08ee38a688667e38d08314aee57dd",
+    "runs/cycle4_20260927_140522/slp_19_box.json.gz": "920e4d3c1a33356d0dd9844f9312d3ee4cc23d56423191133d9aab187b811d19",
+    "runs/cycle4_20260927_140522/slp_20_box.json.gz": "ec5c494276f08427c38584c0a6add922c9f786569a759903cf30ed0e0b96ea02",
+    "runs/cycle5confirm_20260927_181535/slp_01_box.json.gz": "a0afcd82f7ec70ca9645f3a39dc9cf1d829cd0a62c12ded43de6c71a01eec784",
+    "runs/cycle5confirm_20260927_181535/slp_03_box.json.gz": "4adef8dd50373327f70f8f9f3bb09040b5f63c380773492cb6e4d2fb244a76a3",
+    "runs/cycle5confirm_20260927_181535/slp_05_box.json.gz": "87fe595ce138ed30e0576e41d38762f6eb2c2f15221064c0a6c5f120845c22d8",
+    "runs/cycle5confirm_20260927_181535/slp_06_box.json.gz": "d121019dd7f18bfa17a2645c6cb1df70c3c6460d123f69df264ae006ad0c8635",
+    "runs/cycle5confirm_20260927_181535/slp_07_box.json.gz": "c458bfba347a50f85cda6ee399a75872abc85b8aed1897c787dbc15ecbbeee99",
+    "runs/cycle5confirm_20260927_181535/slp_09_box.json.gz": "651487153b12935216ea700c7d735c1da02f2f9aa18829b79c31f757ad276960",
+    "runs/cycle5confirm_20260927_181535/slp_11_box.json.gz": "dc29d714b0c283f3992d48319b3303e0e5806fababba749f9ac4921d2845664f",
+    "runs/cycle5confirm_20260927_181535/slp_12_box.json.gz": "cdecc1b9c7a7c19507a380bd15ae005d29379cec7904ea1e68c619fa290ca550",
+    "runs/cycle5confirm_20260927_181535/slp_13_box.json.gz": "6e23f18a1721229bce3cbd812aaeb20247b22831b3ea086a43f781f0d7d52111",
+    "runs/cycle5confirm_20260927_181535/slp_14_box.json.gz": "cabb850485fd6955a60a2b222c7d2656e53d227b8b8010f0d6920ee3606067d8",
+    "runs/cycle5confirm_20260927_181535/slp_15_box.json.gz": "840c94245a36536eca5ed6537905a8a1dd7836d898fc44e2d23fda6ef12c0681",
+    "runs/cycle5confirm_20260927_181535/slp_16_box.json.gz": "e9c775b539e1712e4102d1e5f5277dd4aa5684d0ce2cc166ac484a9e41f38923",
+    "runs/cycle5confirm_20260927_181535/slp_19_box.json.gz": "390877cf7de19246f3da4f94e9070273b278dce12758f33c7b599a81fa0ee898",
+    "runs/cycle5confirm_20260927_181535/slp_20_box.json.gz": "a7c6b3367260d855388943225963b1e97aaa534c6fc837991bbd53fe80cca242",
+    "runs/v2live3_20260929_091255/slp_01_box.json.gz": "0237a9fa4ef14f2fccc27e3660aa11f14c21e09a88daba8d0d60fff83e30492c",
+    "runs/v2live3_20260929_091255/slp_02_box.json.gz": "8afc9daa1c72cb7b7c1c25648b2e338e25d18eec113909cfc7b86a7dbf287479",
+    "runs/v2live3_20260929_091255/slp_03_box.json.gz": "834b860f8aebe17f2863b5b775391c0962c1cdf5d719fc6c4af8a7135168f62c",
+    "runs/v2live3_20260929_091255/slp_04_box.json.gz": "f05d1fe2be4688d164c7791b7b1e00d1f1fc05839b3a0994719c3f66a311e02c",
+    "runs/probe_20260928_113252/slp_01_log.json.gz": "e4d80d30ab4090ed4964145cee74f9e9993402075ee053a96e8f6811c37122ad",
+    "runs/probe_20260928_113252/slp_02_log.json.gz": "a2f042b8ae3bc13d7a20a5a639239f8a5156cd2b9dd1b3500325bc6c5c133cf8",
+    "runs/probe_20260928_113252/slp_03_log.json.gz": "e8aa64d55f2e8b1573e4fc1284c7b92d8ec43d39ae81eeadc4de8b476d3f07ec",
+    "runs/probe_20260928_113252/slp_04_log.json.gz": "f03bd405a4171adee4b3434a1ae60a6a1001d2679b7916f97c0adb5fdf0c6016",
+    "runs/probe_20260928_113252/slp_05_log.json.gz": "f3dd4d19bd9108337de2da067c7e8143e61a3463e942eefb77b52b7598cdbd70",
+    "runs/probe_20260928_113252/slp_06_log.json.gz": "bed88b2cd58856362c30eb98f092344b796f2c1c79a1c9af2cb544ebc0f1c171",
+    "runs/probe_20260928_113252/slp_07_log.json.gz": "8f290aaff08527b827bd7c0ba3eeca8d4d46dda075d633fd461d9747bb0b4480",
+    "runs/probe_20260928_113252/slp_08_log.json.gz": "110a48d4abffe6426210613ac4380d711cfbbb90cc41c961dc8cc266a3808caf",
+    "runs/probe_20260928_113252/slp_09_log.json.gz": "53699c0b140037c1df699b3e36dbb20f6162b97393f2fd68ba9ed0fe141ec68d",
+    "runs/probe_20260928_113252/slp_10_log.json.gz": "c2b33b619da87ea9302c1eb2455017e89cc13d0564d784778a68658e76516c63",
+    "runs/probe_20260928_113252/slp_11_log.json.gz": "ea5c13bc60868391092b60b8004c4140b5d16a0d482449ac3fe6d42b9c2068ab",
+    "runs/probe_20260928_113252/slp_12_log.json.gz": "dea5e5035185986962edddd2613c8e652e4573829fb18cdcf9e41cf2aafbccce",
+    "runs/probe_20260928_113252/slp_13_log.json.gz": "3f6600cfe09aec31ac6b5d531a736ac63998f67521c05728451eb85baf4ac266",
+    "runs/probe_20260928_113252/slp_14_log.json.gz": "838d7aca819e6bd26da2ca25a43b3c9d1b2c9afc113507d7f7c665cde8d63ade",
+    "runs/probe_20260928_113252/slp_15_log.json.gz": "e719220a9859cd090b2005b6d754dc5321adcad25536ff05cdaf205a66030e5a",
+    "runs/probe_20260928_113252/slp_16_log.json.gz": "6384faac7457d2962e694db662448f0a1ad806b600fbc0c6fa5e993a61bbc542",
+    "runs/probe_20260928_113252/slp_17_log.json.gz": "5df46625512dbaacdef7df0228c7ad6f845bc0533030728e98f950e537f271e2",
+    "runs/probe_20260928_113252/slp_18_log.json.gz": "b37a3e5847beaece65fb471b3aaee614377946e5b9001195c03f3fe2c60dce91",
+    "runs/probe_20260928_113252/slp_19_log.json.gz": "1c198955a7902c5ea7e0c393eb5f4d8e37816ae07080584588643b162f495d28",
+    "runs/probe_20260928_113252/slp_20_log.json.gz": "6065f8d0b5425a95fd5f76cc7301d0123391af7259cbff54966b8fceba0073dd",
+    "runs/probe2_20260928_120148/slp_01_log.json.gz": "f4eb0193ee0a0e41424c80f13b2366c5862c396977851a4f3fbd497d0e0999df",
+    "runs/probe2_20260928_120148/slp_02_log.json.gz": "275a0f447a6fb980626fd5c386d9c1bd799b64614e1c607cba1b146ffdf991c1",
+    "runs/probe2_20260928_120148/slp_03_log.json.gz": "03a2f8f16fb2092d0ae929e74e5e7fbdb79c8796afc4d1b5b3786d71c3f4dc4c",
+    "runs/probe2_20260928_120148/slp_04_log.json.gz": "e3b48883ae1be2ca7db5c721fc509365354e61b3d6f0f2a756ff76710b675ec4",
+    "runs/probe2_20260928_120148/slp_05_log.json.gz": "90d8084c72e2549be32d733d5b5585f157f72fb441629eab1c1ee3854ccec3e8",
+    "runs/probe2_20260928_120148/slp_06_log.json.gz": "c427cc8cdb9c8d6575f567d9be4bbd3f8e9bcc54c0f02b53ba698c10d6e14fc4",
+    "runs/probe2_20260928_120148/slp_07_log.json.gz": "45b6914593d8964b7c36dfaeb7d367c4f64b2b58c1e5f53404ebdd5c90527fd4",
+    "runs/probe2_20260928_120148/slp_08_log.json.gz": "2fccd1aa050afee7568050f3415f9b9522c172319f3534e2901969c2d660e13d",
+    "runs/probe2_20260928_120148/slp_09_log.json.gz": "57445c3e45704b777de331a63fdaa8a1e89dd40c14f28d961317a09b2035c2d7",
+    "runs/probe2_20260928_120148/slp_10_log.json.gz": "de34654491726e1b8efb5b6bde9cce58f88aabc1fa90cd302f4cf9cede4209de",
+    "runs/probe2_20260928_120148/slp_11_log.json.gz": "288595c1f3f16380d99fd83ffb6e6fbdb55dcabcef861de13a7f448c1b584ea0",
+    "runs/probe2_20260928_120148/slp_12_log.json.gz": "3ac22def75f6b2268ded4f1fdfb9d5b73fc16dd267bd60c1c396fab4b1388fe8",
+    "runs/probe2_20260928_120148/slp_13_log.json.gz": "8fa0892525b915c763d607e85abea6ac33d440424359d8482924a504edfc1bb6",
+    "runs/probe2_20260928_120148/slp_14_log.json.gz": "a6e719d0a6757372e9ca5d072e85ee4cc5eff80441fe877ca877d7b6a0d83a30",
+    "runs/probe2_20260928_120148/slp_15_log.json.gz": "5a7ecea91a06a5de556e876fe1af1a92e57b9aa02af85d6055939f4702bd5c16",
+    "runs/probe2_20260928_120148/slp_16_log.json.gz": "ae0f9abdcc1b38b95d95098d7df3c208e0611ab0e2af023a6cfe80b11f38cb6d",
+    "runs/probe2_20260928_120148/slp_17_log.json.gz": "41b48dd50cbd3173df76017070ac96419a53157295a8753c99f2638c366832d3",
+    "runs/probe2_20260928_120148/slp_18_log.json.gz": "d405bb71bef28cb6f23041da1ea27ab06683df58c37e1254a72bcfbfc07f89e4",
+    "runs/probe2_20260928_120148/slp_19_log.json.gz": "483fca5643a130af4a685bffcfc31a171885708096cad6bdd3069a6c86028aab",
+    "runs/probe2_20260928_120148/slp_20_log.json.gz": "79f40d4daf7b7dc2a4c36a365f6af9e9bfe67d2a57287dc36ce54d765b53dec6",
+    "runs/probe3_20260928_122443/slp_01_log.json.gz": "efb572f3002d4b2d42cc1db3b5f3c5296507162519dc8ad79fb3b99b3006c77b",
+    "runs/probe3_20260928_122443/slp_02_log.json.gz": "ed66aaac79539b1f6c1c959c31ec693aa5a0557d1af9e2fe4ceb0cf059dfd251",
+    "runs/probe3_20260928_122443/slp_03_log.json.gz": "f4e6cd90e5e1b8b599f4d4e69c1be36012d16af4a5fbd88a92f5e477e464df7e",
+    "runs/probe3_20260928_122443/slp_04_log.json.gz": "8aff151dbe2f48de071ddd01dc58cbc5ea80ee12efa7f5e779c894bfd7a59669",
+    "runs/probe3_20260928_122443/slp_05_log.json.gz": "62ca9ec06e27b860c7d07558721640305a7920efb4c4038c9a0d4719da052c77",
+    "runs/probe3_20260928_122443/slp_06_log.json.gz": "6a887b2a9ce0263dfebf3fea7d1b7657ec95434f1e9492b9a7f63e65d7f0b045",
+    "runs/probe3_20260928_122443/slp_07_log.json.gz": "6f7854258ea8f8a91b4d2e7d21de67b3b078ec058674a260d7c5d34ddc795572",
+    "runs/probe3_20260928_122443/slp_08_log.json.gz": "36ea0f464727cddbfc1cae28a3fe09295664774f2dae017fbcdbd5b86503620a",
+    "runs/probe3_20260928_122443/slp_09_log.json.gz": "6ca10defe1ec6cd10c35a75e669cae7c8686aa1f8c9351a05737a7c150efaea9",
+    "runs/probe3_20260928_122443/slp_10_log.json.gz": "a4d56c52d0e0a41ce5bfa40354310f80c00add382025296e73392ae43985a79e",
+    "runs/probe3_20260928_122443/slp_11_log.json.gz": "c702664611fcf60c55929f2085e1f86000b9f003bc606cd80d1a3fcaf8bb13ac",
+    "runs/probe3_20260928_122443/slp_12_log.json.gz": "12df85fbcaf982e016cacaadedb94ac6e76b7d9ed7f80b53d772150f394c7409",
+    "runs/probe3_20260928_122443/slp_13_log.json.gz": "b6262f4d0b17aaf14c3640eb1083809bbcc33dd2c7ed4f8e465e969fe4fdda02",
+    "runs/probe3_20260928_122443/slp_14_log.json.gz": "d50db3dfea2bbf500070ce405df00a1f4bdfc5137c068a07de4166d46336e781",
+    "runs/probe3_20260928_122443/slp_15_log.json.gz": "f5ed7014f696f2806801bf038716c6615ddbab9c247296e34a935159025f9d82",
+    "runs/probe3_20260928_122443/slp_16_log.json.gz": "aabb20b8668a016f93e6275d30dac918cf7bc0ca5e0ede7a671c349b5672155a",
+    "runs/probe3_20260928_122443/slp_17_log.json.gz": "dfac636f5a5a9989a7a6e60683b8fe89ddb7a1c31d8eb629fe5b35816a7ba35e",
+    "runs/probe3_20260928_122443/slp_18_log.json.gz": "baf69a005a75fcfa0ca786f8381b102ee64f43a4565f90895e6f5e74029c092a",
+    "runs/probe3_20260928_122443/slp_19_log.json.gz": "d21b6e3e5771fd929e347a1f2429861011349c5353e303e0f36c897e7e7a2ab4",
+    "runs/probe3_20260928_122443/slp_20_log.json.gz": "40f27f0dcb9938a6aa5e47441aa34aed54e5c7f1d80d59346b80d4b0a505826e"
+  },
+  "thickness_bins": 17
+}
+
+FILE research/v10_20261001/head_errors.json SHA256 c83e6531e9a59a94ecf0e6edad140b93b1e59850fc57cd527654f3d90ae0a468
+
+{
+  "0.1": {
+    "n": 282,
+    "p50": 2.233819159947807,
+    "p90": 6.536318068347619,
+    "p95": 8.1546249351135
+  },
+  "0.2": {
+    "n": 277,
+    "p50": 6.499989843461664,
+    "p90": 16.15998901662624,
+    "p95": 20.24039339201645
+  },
+  "0.3": {
+    "n": 214,
+    "p50": 13.275007955083435,
+    "p90": 32.36388548769157,
+    "p95": 38.73998105688994
+  },
+  "0.4": {
+    "n": 212,
+    "p50": 22.1258177963871,
+    "p90": 55.610457715215226,
+    "p95": 67.07133738621145
+  },
+  "0.5": {
+    "n": 214,
+    "p50": 33.68246804523534,
+    "p90": 85.1608783441522,
+    "p95": 105.65059044671426
+  },
+  "0.6": {
+    "n": 214,
+    "p50": 47.72277686980148,
+    "p90": 120.15047634567755,
+    "p95": 143.212045994372
+  },
+  "0.7": {
+    "n": 214,
+    "p50": 65.04117197041671,
+    "p90": 161.16630595453532,
+    "p95": 189.65473831053853
+  },
+  "0.8": {
+    "n": 214,
+    "p50": 85.59923590780127,
+    "p90": 194.5703646252172,
+    "p95": 239.3628799440458
+  },
+  "0.9": {
+    "n": 214,
+    "p50": 99.19231624225554,
+    "p90": 246.85614988501382,
+    "p95": 298.4503538386292
+  },
+  "1.0": {
+    "n": 169,
+    "p50": 119.84828028771919,
+    "p90": 308.3336148404991,
+    "p95": 351.88636954834686
+  },
+  "1.1": {
+    "n": 155,
+    "p50": 146.28662298371364,
+    "p90": 361.5961581665874,
+    "p95": 434.5004410960218
+  }
+}
+
+FILE research/v10_20261001/contracts.json SHA256 76823eaa3109fb4415ece001b562292a3434eaa126ceb0b4e52f02b798d35284
+
+{
+  "fullViewportMapped": true,
+  "preserved": [
+    "v9World",
+    "v9Roll",
+    "v9Root",
+    "v9FoodGoals",
+    "v9Route",
+    "v9Step",
+    "v8Route",
+    "v8Step",
+    "v6Route",
+    "v6Step"
+  ],
+  "foodFilter": true,
+  "boostOff": true,
+  "staleRouteRejected": true,
+  "oldThicknessSettingsIgnored": true,
+  "queuedCommandsReplayed": true,
+  "continuousThinWall": true
+}
+
+FILE research/v10_20261001/hashes.json SHA256 36709e0e1e122a6a9b7dfe617a2c5147bd9544d64f155a30322d21d9e374520d
+
+{
+  "ext/pilot.js": "46dd849c404a3448aadc4bd16e9e30ddc013870afa0b5c1efbe4f5f9c3174999",
+  "ext/mod.js": "39802278d345c6a92d9c85bf90900eb11e1b56e41000932b352a686f14e55a01",
+  "params.json": "8a96b47af1df40761df2e8934e71c50f61596e14495a907f0164ad791d476d01",
+  "ext/params.js": "84cfe84d9093ff7d7cd35fbbe1ac90642b25da4c82957a1b2cc266e36d72b741",
+  "ext/manifest.json": "5b9b92a775b4a714875aced3812065554b5aa29b44a0a311035cfe1872c34607"
+}
+
+FILE research/v10_20261001/benchmark_hashes.json SHA256 e34241131f1d94d44c49b67dadd10c52527078cdb8c5b2801aa85255de7c6f5f
+
+{
+  "ext/pilot.js": "021ca7f9ca346d9cad65e8a2a05dda03208f8869cbb5a186224ada6a17b760f6",
+  "ext/mod.js": "b57aac9e57d8ca094e77d4dfa49e244c7cfed42271d09c8fadbf2207dacec01b",
+  "params.json": "8a96b47af1df40761df2e8934e71c50f61596e14495a907f0164ad791d476d01",
+  "ext/params.js": "a4db1573b4b2d67a881d3bf790610812b9c32b67be01c0348d4d520a2c15ad5f",
+  "ext/manifest.json": "a2f4967239be9d6a0d82eb776e69aea79f8f169d4548f29949d40f21a566d81c"
+}
+
+FILE research/v10_20261001/analyze.py SHA256 d44e5cc4621de5d83efe1b07755daeb3eb752432c441e02e02c8fa4f5b5aa516
+
+"""Reproducible predeath geometry labels (not causal ground truth) and raw calibration evidence."""
+import gzip,json,math,hashlib,statistics,collections
+from pathlib import Path
+OUT=Path('research/v10_20261001')
+def read(p):return json.load(gzip.open(p) if str(p).endswith('.gz') else open(p))
+def digest(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def pct(x,q):return round(sorted(x)[min(len(x)-1,int(len(x)*q))],3) if x else None
+def nearest(f):
+ a=[];ro=14.5*f['sc'];S=f['segs']
+ for i in range(0,len(S),5):
+  x,y,b,c,r=S[i:i+5];dx=b-x;dy=c-y;u=max(0,min(1,((f['x']-x)*dx+(f['y']-y)*dy)/max(dx*dx+dy*dy,1e-9)));xx=x+u*dx;yy=y+u*dy
+  a.append((math.hypot(f['x']-xx,f['y']-yy)-ro-r,f['sid'][i//5],r,xx,yy))
+ return sorted(a)
+def features(f):
+ n=nearest(f);ro=14.5*f['sc'];heads=f['heads'];hg=min((math.hypot(heads[i]-f['x'],heads[i+1]-f['y'])-ro-14.5*heads[i+4] for i in range(0,len(heads),5)),default=1e6)
+ sectors=set();left=right=False
+ for gap,id,r,x,y in n:
+  if gap>300:continue
+  a=math.atan2(y-f['y'],x-f['x']);sectors.add(int((a+math.pi)*24/(2*math.pi))%24)
+  rel=(a-f['ang']+math.pi)%(2*math.pi)-math.pi
+  if gap<100 and abs(rel)<2.4:
+   left|=rel<0;right|=rel>0
+ wall=f['wall'][2]-math.hypot(f['x']-f['wall'][0],f['y']-f['wall'][1])-ro
+ tags=[]
+ if hg<120:tags.append('head_intercept')
+ if len(sectors)>=15:tags.append('encirclement')
+ if left and right:tags.append('bilateral_corridor')
+ if wall<150:tags.append('arena_wall')
+ if n and n[0][0]<60:tags.append('body_contact')
+ if not tags:tags=['unresolved']
+ return dict(tags=tags,head_gap=hg,body_gap=n[0][0] if n else None,coverage=len(sectors)/24,wall_gap=wall)
+rows=[];fixtures=[];speed=collections.defaultdict(list);caps=0;hashes={};timings=[]
+for run in ['cycle4_20260927_140522','cycle5confirm_20260927_181535','v2live3_20260929_091255']:
+ d=Path('runs')/run;summary=read(d/'summary.json')
+ for game in summary['games']:
+  k=game['k'];p=d/f'slp_{k:02d}_box.json.gz'
+  if not p.exists():continue
+  if game.get('capped'):caps+=1;continue
+  b=read(p);F=b['frames'];end=F[-1]['t'];hashes[str(p)]=digest(p)
+  sample=[min(F,key=lambda f:abs(f['t']-(end-dt))) for dt in [8,4,2,1,.25]]
+  seq=[dict(t=f['t'],**features(f)) for f in sample];tags=sorted(set(t for q in seq[-3:] for t in q['tags']))
+  rows.append(dict(path=str(p),ext=b.get('ext'),seconds=game['seconds'],predeath=seq,tags=tags))
+  for dt,f in zip([8,4,2,1,.25],sample):fixtures.append(dict(source=str(p),before=dt,frame=f))
+  for a,f in zip(F,F[1:]):
+   dt=f['t']-a['t']
+   if not .015<dt<.12:continue
+   v=math.hypot(f['x']-a['x'],f['y']-a['y'])/dt
+   if v<800:speed['own_boost' if f['sp']>12 else 'own_cruise' if f['sp']<8 else 'own_ramp'].append(v)
+   H={id:a['heads'][5*i:5*i+5] for i,id in enumerate(a['hid'])}
+   for i,id in enumerate(f['hid']):
+    if id not in H:continue
+    h=f['heads'][5*i:5*i+5];old=H[id];v=math.hypot(h[0]-old[0],h[1]-old[1])/dt
+    if v<800:speed['enemy_boost' if h[3]>12 else 'enemy_cruise' if h[3]<8 else 'enemy_ramp'].append(v)
+  if game.get('decide_p95') is not None:timings.append(game['decide_p95'])
+  print(run,k,flush=True)
+probe=[]
+for run in ['probe_20260928_113252','probe2_20260928_120148','probe3_20260928_122443']:
+ for p in sorted((Path('runs')/run).glob('slp_*_log.json.gz')):
+  L=read(p);rowslog=[dict(zip(L['keys'],r)) for r in L['log']];fol=[r for r in rowslog if r.get('pph')==1 and r.get('pgap') is not None];hashes[str(p)]=digest(p)
+  if not fol:continue
+  last=fol[-1];held=[r for r in fol if r['pset']==last['pset'] and r['t']>last['t']-.5]
+  probe.append(dict(source=str(p),our_r=last['sc']*14.5,enemy_r=last['ptr'],last_gap=last['pgap'],last_follow_age=rowslog[-1]['t']-last['t'],held_gap_range=[min(r['pgap'] for r in held),max(r['pgap'] for r in held)],target_id=last['ptid'],exact_boundary=False))
+result=dict(deaths=len(rows),excluded_caps=caps,labels=dict(collections.Counter(t for r in rows for t in r['tags'])),label_type='overlapping geometric predeath indicators, not verified causes',speed={k:dict(n=len(v),p50=pct(v,.5),p95=pct(v,.95),p99=pct(v,.99)) for k,v in speed.items()},probe_samples=len(probe),exact_boundary=False,probe_warning='last alive sample is not contact time; curved tracking, other attackers and latency confound thresholds',source_hashes=hashes)
+(OUT/'analysis.json').write_text(json.dumps(result,indent=2));(OUT/'deaths.json').write_text(json.dumps(rows));(OUT/'probe_samples.json').write_text(json.dumps(probe));(OUT/'fixtures.json').write_text(json.dumps(fixtures));print(json.dumps({k:v for k,v in result.items() if k!='source_hashes'},indent=2))
+
+
+FILE research/v10_20261001/calibrate.py SHA256 65c668571c76da5ec068bf4dcffefb38277cc22d37b0fdb60165476823350cd5
+
+import json,gzip,math,statistics,collections,hashlib
+from pathlib import Path
+out=Path('research/v10_20261001');groups=collections.defaultdict(lambda:dict(alive=[],terminal=[],games=set()));rows=[]
+for run in ['probe_20260928_113252','probe2_20260928_120148','probe3_20260928_122443']:
+ for p in sorted((Path('runs')/run).glob('slp_*_log.json.gz')):
+  L=json.load(gzip.open(p));R=[dict(zip(L['keys'],r)) for r in L['log']];window=[]
+  for r in R:
+   if r.get('pph')!=1 or r.get('pgap') is None:window=[];continue
+   if window and (r['ptid']!=window[-1]['ptid'] or r['pset']!=window[-1]['pset'] or r['t']-window[-1]['t']>.15):window=[]
+   window.append(r);window=[q for q in window if r['t']-q['t']<=.6]
+   if r['t']-window[0]['t']<.45:continue
+   key=(int(r['sc']*14.5//5)*5,int(r['ptr']//10)*10);g=groups[key];g['games'].add(str(p));g['alive'].append(statistics.median(q['pgap'] for q in window))
+  last=R[-1]
+  if last.get('pph')==1 and last.get('pgap') is not None:
+   key=(int(last['sc']*14.5//5)*5,int(last['ptr']//10)*10);groups[key]['terminal'].append(last['pgap']);groups[key]['games'].add(str(p))
+for (ro,rt),g in sorted(groups.items()):
+ rows.append(dict(our_radius_bin=[ro,ro+5],enemy_radius_bin=[rt,rt+10],games=sorted(g['games']),alive_windows=len(g['alive']),alive_gap_min=min(g['alive']) if g['alive'] else None,last_alive_gap=g['terminal'],exact_death_boundary=None,applied_offset=0))
+(out/'thickness_bins.json').write_text(json.dumps(rows,indent=2))
+# Remove unresolved from a game with any concrete geometric indicator. Keep all
+# per-frame indicators; none is a causal claim about actual server collision.
+a=json.load(open(out/'analysis.json'));deaths=json.load(open(out/'deaths.json'))
+for d in deaths:
+ if len(d['tags'])>1:d['tags']=[t for t in d['tags'] if t!='unresolved']
+a['labels']=dict(collections.Counter(t for d in deaths for t in d['tags']));a['thickness_bins']=len(rows)
+(out/'analysis.json').write_text(json.dumps(a,indent=2));(out/'deaths.json').write_text(json.dumps(deaths));print(a['labels'],len(rows))
+
+
+FILE research/v10_20261001/head_errors.py SHA256 8e58d13817c394cab0c9178a28561dc5b94795c1c89cb5e2b7c8565add8fd143
+
+import json,math,collections,statistics
+from pathlib import Path
+out=Path('research/v10_20261001');F=json.load(open(out/'fixtures.json'));past=json.load(open(out/'past.json'));future=json.load(open(out/'futures.json'));errors=collections.defaultdict(list)
+for f in F:
+ if 'cycle4_' not in f['source']:continue
+ key=f['source']+':'+str(f['before']);s=f['frame'];old=past[key][-1];dt=s['t']-old['t'];hist={id:old['heads'][i*5:i*5+5] for i,id in enumerate(old['hid'])}
+ for i,id in enumerate(s['hid']):
+  h=s['heads'][i*5:i*5+5]
+  if math.hypot(h[0]-s['x'],h[1]-s['y'])>1000:continue
+  w=0 if id not in hist or dt<=0 else max(-2,min(2,((h[2]-hist[id][2]+math.pi)%(2*math.pi)-math.pi)/dt))
+  for q in future[key]:
+   if id not in q.get('hid',[]):continue
+   j=q['hid'].index(id);real=q['heads'][j*5:j*5+5];t=q['t']-s['t'];a=h[2]+w*t/2;factor=math.sin(w*t/2)/(w*t/2) if abs(w*t)>1e-8 else 1
+   # Residual to either maintained-speed or instant-boost forecast.
+   err=min(math.hypot(real[0]-h[0]-math.cos(a)*v*t*factor,real[1]-h[1]-math.sin(a)*v*t*factor) for v in [h[3]*31,434])
+   errors[round(t,1)].append(err)
+result={t:dict(n=len(v),p50=statistics.median(v),p90=sorted(v)[int(.9*len(v))],p95=sorted(v)[int(.95*len(v))]) for t,v in sorted(errors.items())}
+(out/'head_errors.json').write_text(json.dumps(result,indent=2));print(json.dumps(result,indent=2))
+
+
+FILE research/v10_20261001/replay.mjs SHA256 9ed8e3a2fa0182c4508d512bd9ba65a15cbb6f4d769efcc35545ff04fe5c9d2c
+
+import fs from 'node:fs';import vm from 'node:vm';
+vm.runInThisContext(fs.readFileSync('ext/pilot.js','utf8'));
+const D=JSON.parse(fs.readFileSync('params.json')),V={...D.defaults,...D.presets.v10_layered.values},old={...D.defaults,...D.presets.v9_maze.values};
+const fixtures=JSON.parse(fs.readFileSync('research/v10_20261001/fixtures.json'));
+const past=JSON.parse(fs.readFileSync('research/v10_20261001/past.json'));const rows=[];const p=new SlpPilot.Pilot(V,'safe'),map=new SlpPilot.Pilot(V,'safe'),threat=new SlpPilot.Pilot(V,'safe');
+let lastSource='';
+for(const [i,f] of fixtures.entries()){
+ if(f.source!==lastSource){threat.v10History=null;lastSource=f.source;}
+ const s={...f.frame,cmdNow:f.frame.cmd?.[0]??f.frame.ang,boostNow:!!f.frame.cmd?.[1]};for(const prev of past[f.source+':'+f.before])threat.v10Threat(prev);s.threat=threat.v10Threat(s);s.route=map.v10Route(s,i);p.step(s);
+ const t=p.last.trace,op=new SlpPilot.Pilot(old,'safe');const oldRoute=op.v9Route(s,i);const st=performance.now();op.step({...s,route:oldRoute});
+ rows.push({source:f.source,before:f.before,localMs:t.v10_local_ms,mapMs:s.route.ms,threatMs:s.threat.ms,routes:s.route.routes.length,rootSafe:t.v10_root_safe,safe:t.n_safe,boost:t.boost,clear:t.v10_clear,strategy:t.v10_strategy,oldRoutes:oldRoute.routes.length,oldMs:performance.now()-st,oldMapMs:oldRoute.ms,oldSafe:op.last.trace.n_safe});
+ if(i%20===0)console.log(i);
+}
+const q=(a,p)=>a.sort((a,b)=>a-b)[Math.min(a.length-1,Math.floor(a.length*p))];
+const result={frames:rows.length,v10:{mapFound:rows.filter(r=>r.routes).length,localSafe:rows.filter(r=>r.rootSafe&&r.safe).length,boost:rows.filter(r=>r.boost).length,localP50:q(rows.map(r=>r.localMs),.5),localP95:q(rows.map(r=>r.localMs),.95),localP99:q(rows.map(r=>r.localMs),.99),mapP95:q(rows.map(r=>r.mapMs),.95),threatP95:q(rows.map(r=>r.threatMs),.95)},v9:{drivableFound:rows.filter(r=>r.oldRoutes).length,localP95:q(rows.map(r=>r.oldMs),.95),mapP95:q(rows.map(r=>r.oldMapMs),.95)},note:'V10 static guide discovery is not comparable to V9 full dynamic rollout certification; fixed observation replay is not survival evidence'};
+fs.writeFileSync('research/v10_20261001/replay.json',JSON.stringify({summary:result,rows},null,2));console.log(result);
+
+
+FILE research/v10_20261001/future_check.mjs SHA256 762fd4388a124dc42d98b16fc5a3db87ab731a6b3a23e81e0005d86bd3c1f881
+
+import fs from 'node:fs';import vm from 'node:vm';vm.runInThisContext(fs.readFileSync('ext/pilot.js','utf8'));
+const D=JSON.parse(fs.readFileSync('params.json')),F=JSON.parse(fs.readFileSync('research/v10_20261001/fixtures.json')),future=JSON.parse(fs.readFileSync('research/v10_20261001/futures.json'));
+function gap(p,f,ro){let g=f.wall[2]-Math.hypot(p.x-f.wall[0],p.y-f.wall[1])-ro;for(let i=0;i<f.segs.length;i+=5){const [x,y,b,c,r]=f.segs.slice(i,i+5),dx=b-x,dy=c-y,u=Math.max(0,Math.min(1,((p.x-x)*dx+(p.y-y)*dy)/Math.max(1e-9,dx*dx+dy*dy)));g=Math.min(g,Math.hypot(p.x-x-u*dx,p.y-y-u*dy)-ro-r);}for(let i=0;i<f.heads.length;i+=5)g=Math.min(g,Math.hypot(p.x-f.heads[i],p.y-f.heads[i+1])-ro-14.5*f.heads[i+4]);return g;}
+const past=JSON.parse(fs.readFileSync('research/v10_20261001/past.json'));const rows=[];
+for(const [index,f] of F.entries()){
+ const s={...f.frame,cmdNow:f.frame.cmd?.[0],boostNow:f.frame.cmd?.[1]},frames=future[f.source+':'+f.before];
+ for(const mode of ['v9','v10']){
+  const V={...D.defaults,...D.presets[mode==='v9'?'v9_maze':'v10_layered'].values},p=new SlpPilot.Pilot(V,'safe');
+  if(mode==='v10'){for(const prev of past[f.source+':'+f.before])p.v10Threat(prev);s.threat=p.v10Threat(s);}const route=mode==='v10'?p.v10Route(s,index):p.v9Route(s,index);p.step({...s,route});const P=p.last.plan||[],checks=[];
+  for(const fr of frames){const t=fr.t-s.t;if(!P.length||t>P[P.length-5])continue;let i=0;while(i+5<P.length&&P[i+5]<t)i+=5;if(i+5>=P.length)continue;const u=(t-P[i])/(P[i+5]-P[i]);const pos={x:P[i+1]+u*(P[i+6]-P[i+1]),y:P[i+2]+u*(P[i+7]-P[i+2])};checks.push(gap(pos,fr,14.5*s.sc));}
+  rows.push({source:f.source,before:f.before,mode,checks:checks.length,minGap:checks.length?Math.min(...checks):null,localClaimSafe:mode==='v10'?!p.last.draw.localUnsafe:!p.last.draw.localUnsafe,collision:checks.some(g=>g<0),prefixCollision:checks.slice(0,3).some(g=>g<0),complete:frames.length>=10});
+ }
+ if(index%30===0)console.log(index);
+}
+const summary={};for(const mode of ['v9','v10']){const r=rows.filter(r=>r.mode===mode&&r.complete&&r.localClaimSafe);summary[mode]={completeSafePredictions:r.length,recordedFutureCollision:r.filter(r=>r.collision).length,commandPrefixCollision:r.filter(r=>r.prefixCollision).length,holdoutPredictions:r.filter(r=>!r.source.includes('cycle4_')).length,holdoutCollision:r.filter(r=>!r.source.includes('cycle4_')&&r.collision).length};}
+fs.writeFileSync('research/v10_20261001/future_check.json',JSON.stringify({summary,note:'Sampled recorded enemy future; counterfactual policy does not change enemies. Not live survival. Excludes truncated futures and already-unsafe predictions.',rows},null,2));console.log(summary);
+
+
+FILE research/v10_20261001/drive.mjs SHA256 2553c8cae425af99767c04302dfc41c25059f088da81b282bd125abe2b4f0593
+
+import fs from 'node:fs';import vm from 'node:vm';
+vm.runInThisContext(fs.readFileSync('ext/pilot.js','utf8'));const D=JSON.parse(fs.readFileSync('params.json')),V={...D.defaults,...D.presets.v10_layered.values};
+const base={x:30000,y:30000,ang:0,sp:6.12,sc:2,L:1000,t:10,cmdNow:0,boostNow:false,wall:[30000,30000,20000],segs:[],sid:[],heads:[],hid:[],food:[],own:[]};
+const cases={};
+for(const sc of [1,2,3.5])for(const offset of [0,2]){const ro=14.5*sc,width=2*(ro+20+7);cases[`gap_sc${sc}_off${offset}`]={sc,y:30000+offset,segs:[29000,30000-width/2,32000,30000-width/2,20,29000,30000+width/2,32000,30000+width/2,20],sid:[1,2]};}
+cases.frontWall={segs:[30300,29300,30300,30700,20],sid:[1]};cases.u={segs:[29800,29800,30600,29800,20,30600,29800,30600,30200,20,30600,30200,29800,30200,20],sid:[1,1,1]};cases.attack={heads:[30400,30000,Math.PI,6,2],hid:[1]};cases.arena={x:49800,wall:[30000,30000,20000]};
+const out={};
+for(const [name,patch] of Object.entries(cases)){
+ const p=new SlpPilot.Pilot(V,'safe'),planner=new SlpPilot.Pilot(V,'safe'),tp=new SlpPilot.Pilot(V,'safe');let s={...base,...patch},st={x:s.x,y:s.y,h:s.ang,v:s.sp*31},sent=s.ang,cmd=s.ang,boost=false,history=[{t:0,ang:cmd,boost:false}],pending=[],route=null,lastPlan=-Infinity,safe=true,minGap=Infinity,boostTicks=0,lastT=0;const start={...st};
+ for(let k=0;k<375;k++){
+  s={...s,x:st.x,y:st.y,ang:st.h,sp:st.v/31,t:10+k*.04,cmdNow:sent,boostNow:boost,cmdHistory:history.slice(-60)};lastT=k*.04;s.threat=tp.v10Threat(s);
+  if(s.t-lastPlan>=.3||!route){route=planner.v10Route(s,k);lastPlan=s.t;}
+  p.step({...s,route});const desired=p.last.controls[0];sent=desired.target;pending.push({at:s.t+V.TRACK_LAT,cmd:sent,boost:desired.boost});history.push({t:s.t,ang:sent,boost:desired.boost});boostTicks+=desired.boost?1:0;
+  let t=s.t;while(t<s.t+.04-1e-8){while(pending.length&&pending[0].at<=t+1e-8){const a=pending.shift();cmd=a.cmd;boost=a.boost;}
+   const dt=Math.min(.01,s.t+.04-t,pending.length?pending[0].at-t:Infinity),next=p.v4Adv(st,cmd,boost,dt,p.v4Physics(s.sc));
+   const W=p.v10World({...s,x:st.x,y:st.y});let g=W.check(st,next,0,dt,0,false);
+   if(name==='attack'){
+    const elapsed=k*.04+t-s.t,ex=30400-434*elapsed;
+    g=Math.min(g,Math.hypot(next.x-(ex-434*dt),next.y-30000)-29-14.5*s.sc);
+    s.heads=[ex-434*dt,30000,Math.PI,14,2];
+   }
+   minGap=Math.min(minGap,g);if(g<0){safe=false;break;}st=next;t+=dt;
+  }
+  if(!safe||Math.hypot(st.x-start.x,st.y-start.y)>=1450)break;
+ }
+ out[name]={safe,escaped:Math.hypot(st.x-start.x,st.y-start.y)>=1450,distance:Math.hypot(st.x-start.x,st.y-start.y),elapsed:lastT,minGap,boostTicks};console.log(name,out[name]);
+}
+fs.writeFileSync('research/v10_20261001/drive.json',JSON.stringify(out,null,2));
+if(Object.values(out).some(r=>!r.safe||!r.escaped))process.exitCode=1;
+
+
+CURRENT ext/pilot.js V10 methods
+
+  // V10 contracts: static geometric guides != time-validated local trajectories.
+  // Three independent workers; only the fast worker returns actuator commands.
+  v10World(s, local = false) {
+    const V=this.values, radius=local?620:Math.max(V.V10_OBS??1800,s.viewRadius??0);
+    const segs=[],sid=[];
+    for(let i=0;i<s.segs.length;i+=5){const a=s.segs;
+      if(Math.min(a[i],a[i+2])-a[i+4]>s.x+radius || Math.max(a[i],a[i+2])+a[i+4]<s.x-radius || Math.min(a[i+1],a[i+3])-a[i+4]>s.y+radius || Math.max(a[i+1],a[i+3])+a[i+4]<s.y-radius)continue;
+      segs.push(...a.slice(i,i+5));sid.push(s.sid?.[i/5]);
+    }
+    const saved=this.values,savedP=this.P;
+    this.P={...this.P,bodyOff:()=>0};
+    this.values={...V,V9_OBS:radius,V9_MARGIN:V.V10_MARGIN??3};
+    // Uncertain last-alive probe points do not justify subtracting a fitted death
+    // offset. Use visible radii + explicit margin; retain raw calibration data.
+    let W;try{W=this.v9World({...s,segs,sid,heads:[]});}finally{this.values=saved;this.P=savedP;}
+    const staticCheck=W.check,headList=[];
+    for(let i=0;i<s.heads.length;i+=5){const [x,y,h,sp,sc]=s.heads.slice(i,i+5);
+      if(hypot(x-s.x,y-s.y)>radius+550)continue;
+      const hist=s.threat?.heads?.find(q=>q.id===s.hid?.[i/5]);
+      headList.push({x,y,h,v:sp*PX_PER_SP,r:R*sc,w:hist?.w??0});
+    }
+    const pointD=(ax,ay,bx,by)=>{const dx=bx-ax,dy=by-ay,u=clip(-(ax*dx+ay*dy)/Math.max(1e-9,dx*dx+dy*dy),0,1);return hypot(ax+u*dx,ay+u*dy);};
+    const predict=(h,t,boost)=>{
+      const key=Math.round(t*100000)+(boost?10000000:0);h.cache??=new Map();if(h.cache.has(key))return h.cache.get(key);
+      const v=boost?Math.max(h.v,BOOST_SP*PX_PER_SP):h.v;
+      // Constant turn estimate, capped horizon: this is a forecast, not intent.
+      const w=clip(h.w,-2,2),a=h.h+w*t/2,d=Math.abs(w*t)>1e-8?v*t*Math.sin(w*t/2)/(w*t/2):v*t;
+      const p={x:h.x+Math.cos(a)*d,y:h.y+Math.sin(a)*d};h.cache.set(key,p);return p;
+    };
+    W.check=(a,b,t0=0,t1=t0,pad=0,dynamic=true)=>{
+      let gap=staticCheck(a,b,t0,t1,pad,false);if(gap<0||!dynamic)return gap;
+      for(const h of headList){
+        if(hypot(a.x-h.x,a.y-h.y)>434*t1+W.ro+h.r+W.margin+pad+40+hypot(b.x-a.x,b.y-a.y))continue;
+        for(const boost of [false,true]){
+        const p=predict(h,t0,boost),q=predict(h,t1,boost),unc=(V.V10_HEAD_PAD??12)*Math.min(t1,1.5)+(V.V10_HEAD_UNCERT??1)*interp(Math.min(t1,.35),[0,.1,.2,.3,.4],[0,9,21,39,68]);
+        // Cycle4 calibration p95 residuals, rounded upward. Only the near-term
+        // command window uses this envelope; longer predictions remain provisional.
+        const g=pointD(a.x-p.x,a.y-p.y,b.x-q.x,b.y-q.y)-W.ro-h.r-W.margin-pad-unc;
+        gap=Math.min(gap,g);if(gap<0)return gap;
+        // Newly laid body is occupied up to arrival time, never a permanent
+        // whole-horizon cone. Approximate curved trail with short swept chords.
+        for(let t=0;t<t1;t+=.2){const u=predict(h,t,boost),v=predict(h,Math.min(t+.2,t1),boost);
+          const dx=v.x-u.x,dy=v.y-u.y;
+          const near=p=>{const f=clip(((p.x-u.x)*dx+(p.y-u.y)*dy)/Math.max(1e-9,dx*dx+dy*dy),0,1);return hypot(p.x-u.x-f*dx,p.y-u.y-f*dy);};
+          const ex=b.x-a.x,ey=b.y-a.y,den=ex*dy-ey*dx;
+          let distance=Math.min(near(a),near(b),pointD(a.x-u.x,a.y-u.y,b.x-u.x,b.y-u.y),pointD(a.x-v.x,a.y-v.y,b.x-v.x,b.y-v.y));
+          if(Math.abs(den)>1e-9){const rx=u.x-a.x,ry=u.y-a.y,ta=(rx*dy-ry*dx)/den,tb=(rx*ey-ry*ex)/den;if(ta>=0&&ta<=1&&tb>=0&&tb<=1)distance=0;}
+          gap=Math.min(gap,distance-W.ro-h.r-W.margin-pad-unc-Math.max(h.v,434)*.2*Math.abs(h.w)*.2/8);
+          if(gap<0)return gap;
+        }
+      }}return gap;
+    };
+    return W;
+  }
+  v10Threat(s,ver=0){
+    const t0=performance.now(),previous=this.v10History,heads=[],sectors=new Set();let awayX=0,awayY=0,attack=0,tailX=0,tailY=0;
+    for(let i=0;i<s.heads.length;i+=5){const [x,y,h,sp,sc]=s.heads.slice(i,i+5),id=s.hid?.[i/5],dx=s.x-x,dy=s.y-y,d=hypot(dx,dy),old=previous?.heads.find(q=>q.id===id),dt=previous?s.t-previous.t0:0;
+      const w=old&&dt>.01&&dt<1?wrap(h-old.h)/dt:0,v=sp*PX_PER_SP;
+      const toward=(dx*Math.cos(h)+dy*Math.sin(h))/Math.max(1,d),score=toward>.4?clip((700-d)/700,0,1)*toward:0;
+      attack=Math.max(attack,score);awayX+=dx/Math.max(1,d)*score;awayY+=dy/Math.max(1,d)*score;
+      // Prefer the direction behind a threatening head. This does not assume
+      // that a truncated observed body endpoint is the actual tail.
+      tailX-=Math.cos(h)*score;tailY-=Math.sin(h)*score;
+      heads.push({id,x,y,h,v,w,score});
+    }
+    let left=Infinity,right=Infinity,minGap=Infinity,bodyAwayX=0,bodyAwayY=0;
+    for(let i=0;i<s.segs.length;i+=5){const gap=segDist(s.x,s.y,s.segs,i/5)-R*s.sc-s.segs[i+4];minGap=Math.min(minGap,gap);
+      if(gap>350)continue;
+      const ax=s.segs[i]-s.x,ay=s.segs[i+1]-s.y,bx=s.segs[i+2]-s.x,by=s.segs[i+3]-s.y;
+      for(let j=0;j<=4;j++){const a=Math.atan2(ay+(by-ay)*j/4,ax+(bx-ax)*j/4);sectors.add(Math.floor((a+PI)*24/TAU)%24);}
+      const md=hypot(ax+bx,ay+by);bodyAwayX-=(ax+bx)/Math.max(1,md)/(Math.max(0,gap)+30);bodyAwayY-=(ay+by)/Math.max(1,md)/(Math.max(0,gap)+30);
+      const a=wrap(Math.atan2(ay+by,ax+bx)-s.ang);if(Math.abs(a)<2.5){if(a<0)left=Math.min(left,gap);else right=Math.min(right,gap);}
+    }
+    const coverage=sectors.size/24,wall=s.wall[2]-hypot(s.x-s.wall[0],s.y-s.wall[1])-R*s.sc;
+    const corridor=left<100&&right<100,width=left+right,closing=previous&&Number.isFinite(width)&&Number.isFinite(previous.width)&&s.t-previous.t0<1?(previous.width-width)/Math.max(.02,s.t-previous.t0):0;
+    let strategy=wall<160?'arena':attack>.22?'intercept':coverage>.6?'wrap':corridor?'corridor':minGap<80?'body':'cruise';
+    const threat={t0:s.t,ver,heads,attack,coverage,width,gap:minGap,closing,strategy,away:Math.atan2(awayY+bodyAwayY,awayX+bodyAwayX),tail:Math.atan2(tailY,tailX),ms:performance.now()-t0};
+    this.v10History=threat;return threat;
+  }
+  v10Route(s,ver){
+    const begin=performance.now(),V=this.values,W=this.v10World(s),cell=V.V10_CELL??24,edge=Math.min(Math.max(V.V10_EDGE??1450,(s.viewRadius??0)*.85),W.obs-80),totalBudget=V.V10_BUDGET??90,budget=s.v10Fine?totalBudget:totalBudget*.65;
+    const foods=this.v9FoodGoals(s),food=foods[0],T=s.threat&&s.t-s.threat.t0<.8?s.threat:this.v10Threat(s);
+    const goals=[];if(food&&food.d<edge)goals.push({x:food.x,y:food.y,kind:'food'});
+    const centerA=Math.atan2(s.wall[1]-s.y,s.wall[0]-s.x),cd=hypot(s.x-s.wall[0],s.y-s.wall[1]);
+    let sectors=Array.from({length:16},(_,i)=>{const a=s.ang+i*TAU/16;let score=Math.cos(wrap(a-s.ang));
+      if(food)score+=(V.V9_FOOD_W??2)*Math.cos(wrap(a-Math.atan2(food.y-s.y,food.x-s.x)));
+      else score+=(V.V9_CENTER_W??2)*clip((cd-2000)/2000,0,1)*Math.cos(wrap(a-centerA));
+      if(T.strategy!=='cruise')score+=(V.V10_TAIL_W??2)*T.attack*Math.cos(wrap(a-T.tail))+2*T.coverage*Math.cos(wrap(a-T.away));
+      return {a,score};}).sort((a,b)=>b.score-a.score);
+    for(const q of sectors)goals.push({x:s.x+edge*Math.cos(q.a),y:s.y+edge*Math.sin(q.a),kind:'escape'});
+    const routes=[];let expanded=0,exhausted=false;
+    const collisionCache=new Map();
+    const point=(x,y)=>({x:s.x+x*cell,y:s.y+y*cell});
+    const edgeOK=(x,y,nx,ny)=>{const key=[x,y,nx,ny].join(',');if(collisionCache.has(key))return collisionCache.get(key);const g=W.check(point(x,y),point(nx,ny),0,0,.2,false);collisionCache.set(key,g);return g;};
+    for(const goal of goals){
+      if(routes.length>=(V.V9_ROUTES??3)||performance.now()-begin>budget){exhausted=true;break;}
+      const perEnd=Math.min(begin+budget,performance.now()+Math.max(8,budget/5)),heap=[];
+      const push=n=>{heap.push(n);let i=heap.length-1;while(i){const p=(i-1)>>1;if(heap[p].f<=n.f)break;heap[i]=heap[p];i=p;}heap[i]=n;};
+      const pop=()=>{const n=heap[0],v=heap.pop();if(heap.length){let i=0;while(i*2+1<heap.length){let c=i*2+1;if(c+1<heap.length&&heap[c+1].f<heap[c].f)c++;if(heap[c].f>=v.f)break;heap[i]=heap[c];i=c;}heap[i]=v;}return n;};
+      const h=(x,y)=>hypot(s.x+x*cell-goal.x,s.y+y*cell-goal.y),cost=new Map([['0,0',0]]);
+      push({x:0,y:0,g:0,f:h(0,0),p:null});let found=null;
+      while(heap.length){if((expanded++&31)===0&&performance.now()>perEnd)break;const n=pop(),pos=point(n.x,n.y);if(n.g>cost.get(n.x+','+n.y))continue;
+        if(h(n.x,n.y)<cell*1.6 && W.check(pos,goal,0,0,.2,false)>=0){found=n;break;}
+        for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]]){
+          const x=n.x+dx,y=n.y+dy;if(hypot(x*cell,y*cell)>W.obs-30)continue;
+          const gap=edgeOK(n.x,n.y,x,y);if(gap<0)continue;
+          const eta=Math.min(4,(n.g+cell)/250),pos=point(x,y);let danger=0;
+          for(const enemy of T.heads){if(hypot(enemy.x-s.x,enemy.y-s.y)>W.obs+500)continue;
+            const a=enemy.h+clip(enemy.w,-2,2)*eta/2;
+            for(const speed of [enemy.v,434]){const ex=enemy.x+Math.cos(a)*speed*eta,ey=enemy.y+Math.sin(a)*speed*eta,d=hypot(pos.x-ex,pos.y-ey);danger=Math.max(danger,Math.max(0,1-d/200));}}
+          const g=n.g+cell*hypot(dx,dy)*(1+1/(Math.max(1,gap)+4)+danger*3),key=x+','+y;
+          if(g>=(cost.get(key)??Infinity))continue;cost.set(key,g);push({x,y,g,f:g+1.12*h(x,y),p:n});
+        }
+      }
+      if(!found)continue;
+      let points=[goal];for(let n=found;n;n=n.p)points.push(point(n.x,n.y));points.reverse();
+      // Exact line-of-sight simplification; never smooth across a capsule wall.
+      const path=[points[0]];let i=0;
+      while(i<points.length-1){let j=points.length-1;while(j>i+1&&W.check(points[i],points[j],0,0,.3,false)<0)j--;path.push(points[j]);i=j;}
+      let length=0;for(let j=1;j<path.length;j++)length+=hypot(path[j].x-path[j-1].x,path[j].y-path[j-1].y);
+      const first=path[1],angle=Math.atan2(first.y-s.y,first.x-s.x);
+      if(goal.kind==='escape'&&routes.some(r=>r.kind==='escape'&&Math.abs(wrap(r.angle-angle))<.3))continue;
+      routes.push({path,kind:goal.kind,angle,length,target:food||null,goal:[goal.x,goal.y],geometryOnly:true});
+    }
+    if(!routes.length&&!s.v10Fine&&cell>8){
+      const remaining=totalBudget-(performance.now()-begin);
+      if(remaining>8){const old=this.values;this.values={...V,V10_CELL:8,V10_BUDGET:remaining};let fine;
+        try{fine=this.v10Route({...s,v10Fine:true},ver);}finally{this.values=old;}
+        fine.ms=performance.now()-begin;fine.fineRetry=true;return fine;}
+    }
+    return {algo:'v10',ver,t0:s.t,routes,reason:routes.length?'mapped':exhausted?'budget':'no_map_route',certified:false,ms:performance.now()-begin,expanded,map:{radius:W.obs,cell},walls:W.walls};
+  }
+  v10Root(s,W,ph){
+    const lag=Math.max(0,this.values.TRACK_LAT??.17),age=Math.max(0,s.inputAgeMs??0)/1000;
+    const until=lag+age+Math.min(.03,(this.v10ComputeMs??3)/1000),history=s.cmdHistory||[];
+    let st={x:s.x,y:s.y,h:s.ang,v:s.sp*PX_PER_SP},t=0,clear=Infinity;
+    const pts=[0,s.x,s.y,s.ang,s.boostNow?1:0];
+    while(t<until-1e-8){const stamp=s.t+t-lag;let active={ang:Number.isFinite(s.cmdNow)?s.cmdNow:s.ang,boost:!!s.boostNow};
+      if(history.length){active=history[0];for(const q of history){if(q.t>stamp+1e-8)break;active=q;}}
+      const next=history.find(q=>q.t>stamp+1e-8),dt=Math.min(.04,until-t,next?next.t-stamp:Infinity);
+      const r=this.v9Roll(s,W,ph,st,0,dt,t,active.ang,!!active.boost);pts.push(...r.pts);st=r.st;t=r.t;clear=Math.min(clear,r.clear);
+      if(!r.ok)return {...r,pts,clear};
+    }return {ok:true,st,t,pts,clear};
+  }
+  v10Step(s){
+    TURN_FIX=!!this.values.TURN_FIX;
+    const begin=performance.now(),V=this.values,W=this.v10World(s,true),ph=this.v4Physics(s.sc),root=this.v10Root(s,W,ph);
+    const worldMs=performance.now()-begin;
+    const T=s.threat&&s.t-s.threat.t0>=0&&s.t-s.threat.t0<.65?s.threat:this.v10Threat(s),foods=this.v9FoodGoals(s),food=foods[0];
+    const source=s.route?.algo==='v10'&&s.t-s.route.t0>=0&&s.t-s.route.t0<(V.V10_ROUTE_AGE??.9)?s.route:null;
+    const guides=source?.routes||[],look=Math.max(110,ph.cs*.7),candidates=[];
+    for(let n=0;n<guides.length;n++){
+      const route=guides[n];if(route.kind==='food'&&!food)continue;
+      let nearest=0,dist=Infinity;
+      for(let i=0;i<route.path.length;i++){const d=hypot(route.path[i].x-root.st.x,route.path[i].y-root.st.y);if(d<dist){dist=d;nearest=i;}}
+      // Project onto the path before choosing a forward lookahead. A simplified
+      // long segment has only two endpoints; nearest vertex alone goes backward.
+      let aim=null,joinIndex=1,bestDist=Infinity;
+      for(let i=1;i<route.path.length;i++){
+        const a=route.path[i-1],b=route.path[i],dx=b.x-a.x,dy=b.y-a.y,len=hypot(dx,dy),u=clip(((root.st.x-a.x)*dx+(root.st.y-a.y)*dy)/Math.max(1,len*len),0,1),d=hypot(root.st.x-a.x-u*dx,root.st.y-a.y-u*dy);
+        if(d<bestDist){bestDist=d;joinIndex=i;const f=Math.min(1,u+look/Math.max(1,len));aim={x:a.x+f*dx,y:a.y+f*dy};}
+      }
+      if(aim)candidates.push({angle:Math.atan2(aim.y-root.st.y,aim.x-root.st.x),route:n,aim,joinIndex});
+    }
+    if(!candidates.length){let a=food?Math.atan2(food.y-s.y,food.x-s.x):s.ang;
+      if(!food&&hypot(s.x-s.wall[0],s.y-s.wall[1])>2500&&(V.V9_CENTER_W??2)>0)a=Math.atan2(s.wall[1]-s.y,s.wall[0]-s.x);
+      candidates.push({angle:a,route:-1});}
+    if(T.strategy==='intercept'||T.strategy==='wrap')candidates.push({angle:T.away,route:-1},{angle:T.tail,route:-1});
+    if(T.strategy==='corridor'&&T.closing>25)candidates.unshift({angle:T.away,route:-1},{angle:s.ang+PI,route:-1});
+    if(T.strategy==='arena')candidates.push({angle:Math.atan2(s.wall[1]-s.y,s.wall[0]-s.x),route:-1});
+    // Separate body-follow and corridor-centering candidates, using the nearest
+    // measured body segments rather than coarse blocked grid cells.
+    if(T.strategy==='body'||T.strategy==='corridor'){
+      const near=[];for(let i=0;i<s.segs.length;i+=5){const a=s.segs,dx=a[i+2]-a[i],dy=a[i+3]-a[i+1],u=clip(((s.x-a[i])*dx+(s.y-a[i+1])*dy)/Math.max(1,dx*dx+dy*dy),0,1),x=a[i]+u*dx,y=a[i+1]+u*dy;near.push({d:hypot(x-s.x,y-s.y)-a[i+4],x,y,h:Math.atan2(dy,dx),id:s.sid[i/5]});}
+      near.sort((a,b)=>a.d-b.d);const a=near[0];
+      if(a){let h=a.h;if(Math.abs(wrap(h-s.ang))>PI/2)h=wrap(h+PI);
+        if(T.strategy==='body')candidates.unshift({angle:h,route:-1});
+        else {const b=near.find(q=>q.id!==a.id&&((q.x-s.x)*(a.x-s.x)+(q.y-s.y)*(a.y-s.y))<0);
+          if(b){const mx=(a.x+b.x)/2+Math.cos(h)*look,my=(a.y+b.y)/2+Math.sin(h)*look;candidates.unshift({angle:Math.atan2(my-s.y,mx-s.x),route:-1});}}
+      }
+    }
+    if(T.strategy==='wrap'&&!guides.length){
+      this.v10OrbitSign??=(wrap(T.away-s.ang)<0?-1:1);
+      candidates.unshift({angle:s.ang+this.v10OrbitSign*.7,route:-1});
+    } else this.v10OrbitSign=null;
+    const base=candidates[0].angle;
+    for(const da of [0,-.25,.25,-.6,.6,-1.2,1.2,-2.2,2.2,PI])candidates.push({angle:root.st.h+da,route:-1});
+    const choices=[];let checked=0,budgetHit=false;
+    for(const c of candidates)for(const boost of [false,true]){
+      const escape=T.strategy!=='cruise';
+      if(boost&&!(escape?(V.V10_ESCAPE_BOOST??1):(V.V9_BOOST_ON&&food&&food.mass>=(V.V9_BOOST_MIN_MASS??48)&&food.d>(V.V9_BOOST_MIN_DIST??180))))continue;
+      // A complete first trajectory is always checked. Budget never converts an
+      // unchecked path into a safe candidate; count actual overruns in telemetry.
+      if(checked>=4&&performance.now()-begin>(V.V10_LOCAL_MS??3)){budgetHit=true;continue;}
+      const horizon=V.V10_LOCAL_H??.9;
+      const r=this.v9Roll(s,W,ph,root.st,0,horizon,root.t,c.angle,boost);checked++;
+      const movement=hypot(r.st.x-root.st.x,r.st.y-root.st.y);
+      let score=(r.ok?10000:0)+r.t*600+Math.min(50,Math.max(-100,r.clear))*.6;
+      score+=movement*(.5+Math.cos(wrap(c.angle-base))*.35);
+      if(c.route>=0)score+=100-c.route*15;
+      if(this.v10LastAngle!==undefined)score+=20*Math.cos(wrap(c.angle-this.v10LastAngle));
+      if(escape)score+=30*(V.V10_TAIL_W??2)*T.attack*Math.cos(wrap(c.angle-T.tail))+70*T.coverage*Math.cos(wrap(c.angle-T.away));
+      if(boost)score+=escape?70:30;
+      if(!r.ok)score=r.t*10000+Math.max(-100,r.clear)-Math.abs(wrap(c.angle-root.st.h));
+      choices.push({...c,...r,score,boost});
+    }
+    choices.sort((a,b)=>b.score-a.score);const best=choices[0];this.v10LastAngle=best.angle;
+    const unsafe=!root.ok||!best.ok,pts=[...root.pts,...best.pts],flat=p=>{const out=[];for(let i=0;i<p.length;i+=5)out.push(p[i+1],p[i+2]);return out;};
+    // Only one short command slice may be executed. Expired plans are discarded
+    // by the browser tracker; a guide is never replayed as actuator commands.
+    const controls=[{start:root.t,end:Math.min(best.t,root.t+.13),target:best.angle,boost:best.boost}],ms=performance.now()-begin;this.v10ComputeMs=ms;
+    const trace={mode:'v10'+(unsafe?'emergency':T.strategy),cmd:r1(deg(best.angle)),boost:best.boost,n_safe:root.ok?choices.filter(q=>q.ok).length:0,cause:source?.reason??'pending',v10_strategy:T.strategy,v10_local_ms:ms,v10_world_ms:worldMs,v10_budget_hit:budgetHit||ms>(V.V10_LOCAL_MS??3),v10_checked:checked,v10_clear:best.clear,v10_root_safe:root.ok,v10_map_ms:source?.ms??0,v10_map_age:source?s.t-source.t0:-1,v10_routes:guides.length,v10_threat_ms:T.ms,v10_attack:T.attack,v10_closing:T.closing,v10_coverage:T.coverage,v10_geometry_only:1,L:s.L,sc:s.sc};
+    const guideLines=candidates.filter(c=>c.route>=0&&c.aim&&W.check({x:s.x,y:s.y},c.aim,0,0,.3,false)>=0).map(c=>[s.x,s.y,c.aim.x,c.aim.y,...guides[c.route].path.slice(c.joinIndex).flatMap(p=>[p.x,p.y])]);
+    this.last={trace,mode:trace.mode,plan:pts,controls,draw:{chosen:flat(pts),localPath:flat(pts),localUnsafe:unsafe,v9At:s.t,v9Paths:guideLines,v9Walls:source?.walls??W.walls,v9Reason:source?.reason??'pending',v9FoodPath:guides[0]?.kind==='food',mazePath:[],safe:[],near:[],gaps:[],goal:food?[food.x,food.y]:null,ro:W.ro}};
+    this.prev=best.angle;this.prevBoost=best.boost;return [best.angle,best.boost];
+  }
+
+
+
+CURRENT ext/mod.js worker, observation, command and UI selected lines
+
+19:   'ttds', 'ttdh', 'branch', 'cause', 'head_hit', 'head_checked', 'ttddyn', 'dyn_id', 'dyn_kind', 'dyn_gap', 'dyn_heads', 'dyn_excluded', 'emergency', 'em_gap', 'em_unavoidable', 'unknown_at', 'verified_s', 'static_hit', 'boost_reason', 'chg', 'exit_width', 'exit_reach', 'exit_close', 'exit_slack', 'exit_unknown', 'exit_reason', 'v3_ms', 'v3_over', 'v3_full', 'v3_hold', 'v3_leaves', 'v3_eval', 'v3_cert', 'v3_ncert', 'v3_exits', 'v3_risk', 'v3_commit', 'v3_shield', 'v3_root', 'v3_keep', 'v3_local', 'v3_goal', 'v3_goal_age', 'v3_route_match', 'v3_cert_reason', 'pred25', 'herr25', 'trk_age', 'trk_cmd', 'trk_why', 'v6_intent', 'v6_goal_x', 'v6_goal_y', 'v6_reason', 'v7_phase', 'v7_heads', 'v7_radius', 'v7_threshold', 'v7_switched', 'v8_phase', 'v8_heads', 'v8_radius', 'v8_threshold', 'v8_switched', 'v81_on', 'v81_density', 'v81_body_trigger', 'v81_reason', 'v9_routes', 'v9_reason', 'v9_clear', 'v9_plan_ms', 'v9_goal_x', 'v9_goal_y', 'v9_goal_mass','v10_strategy','v10_local_ms','v10_world_ms','v10_budget_hit','v10_checked','v10_clear','v10_root_safe','v10_map_ms','v10_map_age','v10_routes','v10_threat_ms','v10_attack','v10_closing','v10_coverage','v10_geometry_only','v10_observe_ms','v10_queue_ms','v10_result_age_ms','v10_command_id']
+
+24: const BASIC = [['v9FoodRadius', 'V9/V10 잔해 탐색 범위'], ['v9Map', 'V9/V10 몸통 벽 지도'], ['v9Routes', 'V9/V10 경로 후보'], ['bodyRadius', '몸통 밀도 반경'], ['headRadius', '머리 개수 판단 반경'], ['path', '예측 경로'], ['mazePath', 'V6 미로 경로'], ['localPath', 'V6 근접 회피 경로'], ['gaps', '가장 가까운 3점(경계까지 px)·틈'], ['scores', '적 길이'], ['border', '경계'], ['death', '사망 지점'], ['goal', '먹이 목표']];
+
+99:   if ((S.values.V10_ON || S.values.V9_ON) || name === 'v9_maze' || name === 'v10_layered') { plan = null; commandHistory.length = 0; }
+
+138:       if(pilot.values.V10_ON)m.s.inputAgeMs=(queueMs||0)+(m.s.observationMs||0);
+
+140:       if(m.s && pilot.values.V10_ON){pilot.last.trace.v10_observe_ms=m.s.observationMs;pilot.last.trace.v10_queue_ms=queueMs;pilot.last.trace.v10_command_id=m.id;}
+
+165: let threatWorker=null, threat=null, threatBusy=false, threatAt=0, threatVer=0;
+
+168:   threatWorker=new Worker(URL.createObjectURL(new Blob([src],{type:'text/javascript'})));
+
+169:   threatWorker.onmessage=e=>{threatBusy=false;const r=e.data;if(!r.error&&r.ver===threatVer)threat=r;};
+
+170:   threatWorker.onerror=()=>{threatWorker=null;threat=null;threatBusy=false;};
+
+171: } catch(e) { threatWorker=null; }
+
+174:   if (m.type==='reset'||m.type==='params') { threat=null;threatVer++; if(threatWorker)threatWorker.postMessage(m); }
+
+214:   if (!(S.values.V10_ON || S.values.V9_ON) && S.values.V8_ON) {
+
+241:   const viewRadius=S.values.V10_ON?Math.hypot(innerWidth,innerHeight)/(2*Math.max(.02,window.gsc||1)):0;
+
+242:   const nine = !!(S.values.V10_ON || S.values.V9_ON);
+
+245:   const radius = Math.max(RADIUS, viewRadius, S.values.V10_ON ? S.values.V10_OBS : nine ? S.values.V9_OBS : 0, six ? S.values.V6_OBS : 0, seven ? S.values.V7_HEAD_R : 0);
+
+261:     if (inf(o.xx, o.yy) || (S.values.V10_ON && inr(o.xx,o.yy))) { heads.push(o.xx, o.yy, o.ang, o.sp, o.sc); hid.push(o.id); }
+
+267:   return {viewRadius, v8Control, x: hx, y: hy, ang: s.ang, sp: s.sp, sc: s.sc, boost: s.md, wall: [window.grd, window.grd, window.flux_grd],
+
+358:   if(S.values.V10_ON){
+
+360:     if(threatWorker&&!threatBusy&&performance.now()-threatAt>=100){threatBusy=true;threatAt=performance.now();threatVer++;
+
+361:       threatWorker.postMessage({type:'threat',ver:threatVer,s:{...st,food:[],own:[],route:undefined}});
+
+381:   if ((S.values.V10_ON || S.values.V9_ON) || S.values.V4_ON || S.values.V6_ON || S.values.V7_ON || S.values.V8_ON) { st.route = route;
+
+382:     const v9 = !!(S.values.V10_ON || S.values.V9_ON), v8 = !v9 && !!S.values.V8_ON, v7 = !v9 && !v8 && !!S.values.V7_ON, v6 = v8 || v7 || !!S.values.V6_ON, every = S.values.V10_ON ? (S.values.V10_PLAN_MS || 300) : v9 ? (S.values.V9_PLAN_MS || 300) : v6 ? (S.values.V6_PLAN_MS || 400) : (S.values.V4_PLAN_MS || 350);
+
+386:       worker2.postMessage({type: 'plan', kind: S.values.V10_ON ? 'v10' : v9 ? 'v9' : v8 ? 'v8' : v7 ? 'v7' : v6 ? 'v6' : 'v4', ver: planVer, s: cp}, [cp.segs.buffer, cp.sid.buffer, cp.heads.buffer, cp.hid.buffer, cp.food.buffer, cp.own.buffer]); } }
+
+388:     wall: st.wall, L: st.L, viewRadius:st.viewRadius, v8Control: st.v8Control, cmdHistory: S.values.V10_ON?st.cmdHistory?.map(q=>({...q,t:q.t-game.t0/1000})):st.cmdHistory, segs: f32(st.segs), sid: f32(st.sid), heads: f32(st.heads), hid: f32(st.hid), food: f32(st.food), own: f32(st.own)};
+
+397:     r.trace.v10_result_age_ms=S.values.V10_ON?performance.now()-obsAt:undefined;
+
+399:     if (((S.values.V10_ON || S.values.V9_ON) || S.values.V8_ON || S.values.V7_ON || S.values.V6_ON) && (tr.cause === 'changed' || tr.cause === 'old')) { route = null; planSentAt = 0; }
+
+403:       tr.ttds, tr.ttdh, tr.branch, tr.cause, tr.head_hit, tr.head_checked, tr.ttddyn, tr.dyn_id, tr.dyn_kind, tr.dyn_gap, tr.dyn_heads, tr.dyn_excluded, tr.emergency, tr.em_gap, tr.em_unavoidable, tr.unknown_at, tr.verified_s, tr.static_hit, tr.boost_reason, tr.chg, tr.exit_width, tr.exit_reach, tr.exit_close, tr.exit_slack, tr.exit_unknown, tr.exit_reason, tr.v3_ms, tr.v3_over, tr.v3_full, tr.v3_hold, tr.v3_leaves, tr.v3_eval, tr.v3_cert, tr.v3_ncert, tr.v3_exits, tr.v3_risk, tr.v3_commit, tr.v3_shield, tr.v3_root, tr.v3_keep, tr.v3_local, tr.v3_goal, tr.v3_goal_age, tr.v3_route_match, tr.v3_cert_reason, pred25, herr25, plan ? Math.round(sent.planAge * 1000) / 1000 : null, Number.isFinite(sent.ang) ? Math.round(sent.ang * 180 / Math.PI * 10) / 10 : null, sent.why, tr.v6_intent, tr.v6_goal_x, tr.v6_goal_y, tr.v6_reason, tr.v7_phase, tr.v7_heads, tr.v7_radius, tr.v7_threshold, tr.v7_switched, tr.v8_phase, tr.v8_heads, tr.v8_radius, tr.v8_threshold, tr.v8_switched, tr.v81_on, tr.v81_density, tr.v81_body_trigger, tr.v81_reason, tr.v9_routes, tr.v9_reason, tr.v9_clear, tr.v9_plan_ms, tr.v9_goal_x, tr.v9_goal_y, tr.v9_goal_mass,tr.v10_strategy,tr.v10_local_ms,tr.v10_world_ms,tr.v10_budget_hit,tr.v10_checked,tr.v10_clear,tr.v10_root_safe,tr.v10_map_ms,tr.v10_map_age,tr.v10_routes,tr.v10_threat_ms,tr.v10_attack,tr.v10_closing,tr.v10_coverage,tr.v10_geometry_only,tr.v10_observe_ms,tr.v10_queue_ms,tr.v10_result_age_ms,tr.v10_command_id]);
+
+424:     if(S.values.V10_ON && performance.now()-obsAt>120){plan=null;applyCmd(window.slither.ang,false,'v10_stale_result');}
+
+425:     else if (((S.values.V10_ON || S.values.V9_ON) || S.values.TRACK_ON) && r.plan && r.plan.length >= 10) { plan = {T0: obsAt, pts: r.plan, controls: r.controls, n: r.plan.length / 5, tEnd: r.plan[r.plan.length - 5]}; try { track(); } catch (e) { game.errors++; console.error('[SLP track]', e); } }
+
+428:   if(S.values.V10_ON)frame.actualCommand={id:activeDecisionId,ang:sent.ang,boost:!!sent.boost,why:sent.why,at:(performance.now()-game.t0)/1000};
+
+447:   if ((S.values.V10_ON || S.values.V9_ON) && !on) { plan = null; commandHistory.length = 0; }
+
+455:   if (S.values.V10_ON || S.values.V9_ON || k === 'V9_ON' || k === 'V10_ON') plan = null;
+
+456:   if(k==='V10_ON'&&v) for(const key of ['V9_ON','V8_ON','V7_ON','V6_ON','V5_ON','V41_ON','V4_ON','V3_ON','V2_ON','PROBE_ON']) S.values[key]=0;
+
+457:   if(k==='V9_ON'||(v&&/^V(?:2|3|4|41|5|6|7|8)_ON$/.test(k))) S.values.V10_ON=0;
+
+619:   if ((S.values.V10_ON || S.values.V9_ON)) {
+
+636:   if (tau > plan.tEnd) { if(S.values.V10_ON){applyCmd(s.ang,false,'v10_expired');plan=null;} sent.why = 'plan_end'; return; }                                 // beyond the trajectory: keep the last command
+
+637:   if ((S.values.V10_ON || S.values.V9_ON) && plan.controls?.length) {
+
+640:     if(S.values.V10_ON&&!nextAction){applyCmd(s.ang,false,'v10_expired');plan=null;return;}
+
+645:   if ((S.values.V10_ON || S.values.V9_ON) || S.values.TRACK_MODE) {
+
+667:   window.oef = function () { const t = performance.now(); try { if ((S.values.V10_ON || S.values.V9_ON) || S.values.TRACK_ON) { hookSocket(); track(); } } catch (e) { console.error('[SLP track]', e); } try { return orig.apply(this, arguments); } finally { acc.loops++; acc.oef += performance.now() - t; } };
+
+713:   if (window.playing && !me.dead && (S.values.V10_ON || S.values.V9_ON) && S.show.v9FoodRadius) {
+
+721:   if (window.playing && !me.dead && !(S.values.V10_ON || S.values.V9_ON) && (S.values.V8_ON || S.values.V7_ON)) {
+
+771:     if ((S.values.V10_ON || S.values.V9_ON) && d.v9Paths) {
+
+778:           const ax = X(w[0]), ay = Y(w[1]), bx = X(w[2]), by = Y(w[3]), rr = (w[4] + d.ro + (S.values.V10_ON?S.values.V10_MARGIN:S.values.V9_MARGIN)) * g, a = Math.atan2(by - ay, bx - ax);
+
+787:           ctx.setLineDash(S.values.V10_ON ? [5,4] : i ? [5, 4] : []); polyline(ctx, p, X, Y); });
+
+789:         ctx.fillText(S.values.V10_ON ? `V10 · 지도 후보 ${candidates.length}개 · 이동 중 재검사` : candidates.length ? `V9 · ${d.v9FoodPath ? '잔해 경로' : '관측 내 탈출'} ${candidates.length}개` : 'V9 · 탈출 경로 미확보', X(me.xx), Y(me.yy) - 48);
+
+791:       if (fresh && S.show.localPath && (S.values.V10_ON || !candidates.length) && d.localPath?.length) {
+
+792:         ctx.strokeStyle = d.localUnsafe ? '#ff5b6b' : '#aab3bd'; ctx.setLineDash(S.values.V10_ON ? [] : [2, 4]); polyline(ctx, d.localPath, X, Y);
+
+1263:     }}, el('span', {class: 'logo'}, el('img', {src: document.documentElement.getAttribute('data-slp-cat-icon') || '', alt: '발로 두드리는 고양이'})), el('div', {class: 'tt'}, el('b', {}, 'SLP MOD'), el('div', {class: 'st'}, `${(S.values.V10_ON || S.values.V9_ON) ? (S.values.V10_ON ? 'V10 · 3층 회피' : 'V9 · 다중 탈출') : S.values.V8_ON ? (S.values.V81_BODY_ON ? 'V8-1 · 머리+몸통 혼잡' : 'V8 · 원본 V1+V6') : S.values.V7_ON ? 'V7 · 잔해+혼잡 회피' : S.values.V6_ON ? 'V6 · 미로+근접' : S.values.V5_ON ? 'V5 · 시퀀스 탐색' : S.values.V4_ON ? 'V4 · 미로 풀이' : S.values.V2_ON && S.values.V3_ON ? 'V3 · 가용 경로 계획' : S.values.V2_ON ? 'V2 · 시간 여유 판단' : `V1 · ${PROFILES[S.profile]}`} · ${VERSION}`)),
+
+1295:       const displayKey = {V9_FOOD_R: 'v9FoodRadius', V10_OBS:'v9Map', V9_OBS: 'v9Map', V9_ROUTES: 'v9Routes', V81_BODY_R: 'bodyRadius', V8_HEAD_R: 'headRadius', V7_HEAD_R: 'headRadius'}[key];
+
+1304:     const v9 = !!(S.values.V10_ON || S.values.V9_ON), v8 = !v9 && !!S.values.V8_ON, v7 = !v9 && !v8 && !!S.values.V7_ON, v6 = !v9 && !v8 && !v7 && !!S.values.V6_ON, v41 = !v9 && !v8 && !v7 && !v6 && !!S.values.V41_ON, v5 = !v9 && !v8 && !v7 && !v6 && !v41 && !!S.values.V5_ON, v4 = !v9 && !v8 && !v7 && !v6 && !v5 && !v41 && !!S.values.V4_ON, v2 = !v9 && !v8 && !v7 && !v6 && !v4 && !v5 && !v41 && !!S.values.V2_ON, v3 = v2 && !!S.values.V3_ON;
+
+1316:       btn('V10', !!S.values.V10_ON, () => applyPreset('v10_layered'), '근접 회피·장거리 지도·지속 위협 감지를 3개 Worker로 실행'),
+
+1317:       btn('V9', v9 && !S.values.V10_ON, () => applyPreset('v9_maze'), '적 몸통을 벽으로 지도화하고 실제 회전 가능한 다중 탈출 궤적을 탐색·추종'));
+
+1323:     const rows = S.values.V10_ON
+
+1324:       ? [sw('V9_FOOD_W','잔해 추종 가중치','작은 일반 먹이는 제외'),sw('V9_FOOD_R','잔해 탐색 범위','현재 관측된 큰 먹이만 탐색'),sw('V9_BOOST_ON','잔해 부스트','안전 후보 중 잔해 접근 부스트'),sw('V9_CENTER_W','중앙 이동 가중치','잔해가 없을 때 중앙 접근'),sw('V10_ESCAPE_BOOST','탈출 부스트','위험 상황에서 먹이 없이도 가속 후보 검사'),sw('V10_OBS','지도 최소 반경','전체 화면 범위를 항상 포함하며 더 큰 설정값까지 관측'),sw('V10_EDGE','지도 목표 거리','정적 통과 경로, 이동 중 재검사'),sw('V10_MARGIN','몸통·벽 여유','표시 두께 기준 추가 여유, 실측 사망점 확정값 아님'),sw('V10_HEAD_UNCERT','머리 예측 오차 배율','사망 로그에서 측정한 0.35초 이내 오차 여유'),sw('V10_TAIL_W','적 머리 반대쪽 선호','위협 머리 진행 반대 방향 가중'),sw('V10_LOCAL_H','근접 검사 시간','지연 후 실제 회전 원호 검사'),sw('V10_LOCAL_MS','근접 계산 목표 ms','검사 완료 후보만 사용. 실제 초과는 기록'),sw('V9_ROUTES','지도 후보 수','정적 몸통 벽 통과 안내선')]
+
+1550:       last: last && {ms: last.ms, mode: last.trace.mode, v10_routes:last.trace.v10_routes,v10_strategy:last.trace.v10_strategy,v10_map_ms:last.trace.v10_map_ms,v10_threat_ms:last.trace.v10_threat_ms,v10_result_age_ms:last.trace.v10_result_age_ms,v9_routes: last.trace.v9_routes, v9_reason: last.trace.v9_reason, squeeze: last.trace.squeeze, v7_phase: last.trace.v7_phase, v7_heads: last.trace.v7_heads, v8_phase: last.trace.v8_phase, v8_heads: last.trace.v8_heads, v81_density: last.trace.v81_density, v81_reason: last.trace.v81_reason}, squeeze_ticks: game && game.squeeze.length})};

@@ -1,0 +1,84 @@
+{
+  "tests": {
+    "smallFoodRecognized": true,
+    "sideFoodTurn": [
+      0.8464005334008726,
+      false
+    ],
+    "boostCostAndSwitchEffective": true,
+    "nearFoodSlows": true,
+    "sideFoodModelTouchDistance": 17.237119982112414,
+    "inwardFromOutwardHeading": true,
+    "crowdDeduplicatedAndModeratePreferred": true,
+    "riskAndFoodHysteresis": true,
+    "narrowGap": {
+      "visibleSurfaceGap": 36,
+      "modelMargin": 1.5,
+      "minimumClear": 1.85,
+      "routeKind": "direct_escape",
+      "boost": true
+    },
+    "blockedFoodNeverCertifiedSafe": true,
+    "bentMazeRoutes": 4,
+    "originalModesParityFrames": 10
+  },
+  "originalFunctionsUnchanged": 15,
+  "replay": [
+    {
+      "t": 36.263,
+      "cmd": [
+        -2.9218111163571767,
+        false
+      ],
+      "mode": "v10replan",
+      "unsafe": false,
+      "ms": 162.81706200000008
+    },
+    {
+      "t": 36.474,
+      "cmd": [
+        0.6689710972195777,
+        false
+      ],
+      "mode": "v10emergency",
+      "unsafe": true,
+      "ms": 39.86121800000001
+    },
+    {
+      "t": 36.591,
+      "cmd": [
+        2.5062373346496103,
+        false
+      ],
+      "mode": "v10emergency",
+      "unsafe": true,
+      "ms": 28.155076999999892
+    },
+    {
+      "t": 36.716,
+      "cmd": [
+        3.2614826563356054,
+        false
+      ],
+      "mode": "v10emergency",
+      "unsafe": true,
+      "ms": 25.045740999999907
+    },
+    {
+      "t": 36.867,
+      "cmd": [
+        2.7614826563356054,
+        false
+      ],
+      "mode": "v10emergency",
+      "unsafe": true,
+      "ms": 19.175766999999723
+    }
+  ],
+  "localMs": {
+    "median": 6.077855,
+    "p95": 10.488352999999734,
+    "max": 10.869118000000071
+  },
+  "scope": "local swept-physics scenarios and fixed-observation replay; no live growth/survival proof"
+}

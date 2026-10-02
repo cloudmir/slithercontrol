@@ -1,0 +1,14 @@
+{
+  "realWorkerT5": true,
+  "bot_off_and_path_off_draw": true,
+  "two_visible_live_enemies": 2,
+  "rails": 4,
+  "short_enemy_included": true,
+  "dead_and_own_excluded": true,
+  "line_width_px": 0.5,
+  "display_toggle": true,
+  "T4_and_V1_switch_off": true,
+  "persisted": true,
+  "page_errors": [],
+  "display_geometry_ms": 0.19999998807907104
+}

@@ -1,0 +1,34 @@
+LEAD 4s deaths 33: V2 survives to the recorded death time 21/33 (64%), boost share median 0.26, drift from recorded track median 346 px
+  181535/slp_01 lead 4 died at +3.6s minGap -10.5 boost 0.02 drift 104
+  181535/slp_03 lead 4 ALIVE minGap 13.3 boost 0.74 drift 1357
+  181535/slp_05 lead 4 ALIVE minGap 7.6 boost 0.73 drift 525
+  181535/slp_06 lead 4 ALIVE minGap 3.1 boost 0.46 drift 373
+  181535/slp_07 lead 4 died at +3.8s minGap -13.2 boost 0.3 drift 44
+  181535/slp_09 lead 4 ALIVE minGap 0 boost 0.02 drift 346
+  181535/slp_11 lead 4 ALIVE minGap 27.6 boost 0.12 drift 344
+  181535/slp_12 lead 4 ALIVE minGap 6.4 boost 0.11 drift 44
+  181535/slp_13 lead 4 ALIVE minGap 7.8 boost 0.92 drift 964
+  181535/slp_14 lead 4 ALIVE minGap 21.2 boost 0.37 drift 655
+  181535/slp_15 lead 4 ALIVE minGap 13.1 boost 0.52 drift 799
+  181535/slp_16 lead 4 ALIVE minGap 34.7 boost 0.34 drift 1011
+  181535/slp_19 lead 4 died at +2.7s minGap -11.9 boost 0.21 drift 559
+  181535/slp_20 lead 4 ALIVE minGap 9 boost 0.02 drift 134
+  223104/slp_01 lead 4 ALIVE minGap 51.7 boost 0.59 drift 742
+  223104/slp_02 lead 3.9 ALIVE minGap 0.4 boost 0.23 drift 46
+  223104/slp_04 lead 4 ALIVE minGap 92.4 boost 0.92 drift 1362
+  223104/slp_05 lead 4 ALIVE minGap 3.4 boost 0.13 drift 287
+  223104/slp_06 lead 4 died at +3.7s minGap -15.1 boost 0.46 drift 80
+  223104/slp_07 lead 4 died at +3.9s minGap -10.2 boost 0.2 drift 28
+  223104/slp_08 lead 4 died at +4.0s minGap -7.6 boost 0.01 drift 33
+  223104/slp_10 lead 4 ALIVE minGap 22.1 boost 0.65 drift 1374
+  223104/slp_11 lead 4 died at +3.5s minGap -7.1 boost 0.26 drift 76
+  223104/slp_15 lead 4 ALIVE minGap 82.2 boost 0.61 drift 902
+  223104/slp_18 lead 4 ALIVE minGap 17.2 boost 0.58 drift 752
+  153724/slp_01 lead 4 died at +4.0s minGap -6.2 boost 0.1 drift 44
+  153724/slp_02 lead 4 died at +0.7s minGap -9.6 boost 0.05 drift 151
+  153724/slp_03 lead 4 ALIVE minGap 36.5 boost 0.36 drift 561
+  153724/slp_05 lead 4 died at +3.9s minGap -5.6 boost 0.07 drift 15
+  153724/slp_06 lead 4 died at +3.9s minGap -9 boost 0.03 drift 15
+  153724/slp_07 lead 4 died at +1.9s minGap -11.7 boost 0.19 drift 493
+  153724/slp_09 lead 4 ALIVE minGap 31 boost 0.02 drift 32
+  153724/slp_10 lead 4 ALIVE minGap 21.6 boost 0.66 drift 831

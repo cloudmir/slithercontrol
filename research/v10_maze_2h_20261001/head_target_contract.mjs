@@ -1,0 +1,10 @@
+import fs from 'node:fs';import vm from 'node:vm';import assert from 'node:assert/strict';
+vm.runInThisContext(fs.readFileSync(process.argv[2],'utf8'));const D=JSON.parse(fs.readFileSync('params.json')),V={...D.defaults,...D.presets.v10_layered.values};const p=new SlpPilot.Pilot(V,'safe');
+const s={x:29500,y:30000,ang:0,sp:6.12,sc:1,L:1000,t:10,wall:[30000,30000,20000],segs:[],sid:[],heads:[30000,30000,0,14,1],hid:[1],food:[],own:[],threat:{heads:[{id:1,w:0}]}};
+const rate=p.v4Physics(1).w,t=1,turn=(Math.PI/2)/rate,v=434;
+const q={x:30000+v/rate,y:30000+v/rate+v*(t-turn)};
+const old=p.v10World(s),target=p.v10World({...s,headTargets:[{id:1,target:Math.PI/2,dir:2}]});
+const oldGap=old.check(q,q,t,t),targetGap=target.check(q,q,t,t);
+assert(oldGap>0);assert(targetGap<0);
+const stale=p.v10World({...s,headTargets:[{id:99,target:Math.PI/2,dir:2}]});assert.equal(stale.check(q,q,t,t),oldGap);
+console.log(JSON.stringify({oldGap,targetGap,unmatchedIdFallsBack:true,case:'Visible current target turns across point then stops turning; future changes remain unknown.'}));

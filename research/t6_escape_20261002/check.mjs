@@ -1,0 +1,27 @@
+import fs from 'node:fs';import vm from 'node:vm';import assert from 'node:assert/strict';import {performance} from 'node:perf_hooks';import zlib from 'node:zlib';
+const load=path=>{const c=vm.createContext({performance});vm.runInContext(fs.readFileSync(path,'utf8'),c);return c.SlpPilot;};
+const api=load('ext/pilot.js'),old=load('research/t6_escape_20261002/before/pilot.js'),D=JSON.parse(fs.readFileSync('params.json')),V={...D.defaults,...D.presets.t6_escape.values};
+const names=['t5Step','t4Step','t3Step','t2Step','t1Step','pilotStep','v10Step','v111Step','va1Step','v4Adv','v9World','v9Roll','v9Root'];for(const n of names)assert.equal(api.Pilot.prototype[n].toString(),old.Pilot.prototype[n].toString(),n);assert.equal(api.t5Contours.toString(),old.t5Contours.toString());
+const make=(parts=[],heads=[])=>({x:30000,y:30000,ang:0,sp:5.8,sc:1,t:0,L:1000,wall:[30000,30000,20000],cmdNow:0,boostNow:false,segs:parts.flatMap(p=>[30000+p[0],30000+p[1],30000+p[2],30000+p[3],p[4]??20]),sid:parts.map((p,i)=>p[5]??i+1),heads:heads.flatMap(h=>[30000+h[0],30000+h[1],h[2],h[3]??5.8,h[4]??1]),hid:heads.map((_,i)=>100+i),food:[],own:[]});
+const cases=[['open',make()],['front_wall',make([[140,-600,140,600,20]])],['u_reverse',make([[-220,-150,220,-150,15],[220,-150,220,150,15],[220,150,-220,150,15]])],['narrow_gate',make([[180,-230,180,-26,10],[180,26,180,230,10],[-180,-230,180,-230,10],[-180,230,180,230,10],[-180,-230,-180,230,10]])],['parallel_lane',make([[-1000,-36,1000,-36,10],[-1000,36,1000,36,10]])]];
+const curve=[];for(let k=0;k<96;k++){const a=k*Math.PI/48,b=(k+1)*Math.PI/48;if(Math.abs((a+b)/2-Math.PI/2)<.22)continue;curve.push([300*Math.cos(a),300*Math.sin(a),300*Math.cos(b),300*Math.sin(b),20,9]);}cases.push(['curved_enclosure_gap',make(curve)]);
+const arena=make();arena.wall=[29000,30000,1100];cases.push(['arena_edge',arena]);
+const results=[];
+for(const [name,initial]of cases){const p=new api.Pilot(V),s=structuredClone(initial),ph=p.v4Physics(s.sc),history=[{t:-2,ang:s.ang,boost:false}],origin={x:s.x,y:s.y},times=[];let minClear=Infinity,boostTicks=0,maxRoutes=0,first,steps=0;
+ for(let k=0;k<120;k++){s.cmdHistory=history.slice();s.cmdNow=history.at(-1).ang;s.boostNow=history.at(-1).boost;
+  const begin=performance.now(),[cmd,boost]=p.step(s);times.push(performance.now()-begin);if(!first)first={cmd,boost,trace:{...p.last.trace}};if(boost)boostTicks++;maxRoutes=Math.max(maxRoutes,p.last.trace.t6_routes);
+  assert(Number.isFinite(cmd));const W=p.t6World(s);
+  for(let j=0;j<4;j++){const t=s.t+j*.025,active=history.findLast(q=>q.t<=t-V.TRACK_LAT)||history[0],before={x:s.x,y:s.y,h:s.ang,v:s.sp*31},next=p.v4Adv(before,active.ang,active.boost,.025,ph),g=W.check(before,next,0,.025,0,false);minClear=Math.min(minClear,g);assert(g>=-.001,`${name}: collision ${g} at ${t}`);s.x=next.x;s.y=next.y;s.ang=next.h;s.sp=next.v/31;}
+  history.push({t:s.t,ang:cmd,boost});s.t+=.1;steps++;if(Math.hypot(s.x-origin.x,s.y-origin.y)>700)break;
+ }
+ const displacement=Math.hypot(s.x-origin.x,s.y-origin.y),sorted=times.slice().sort((a,b)=>a-b);
+ const r={name,steps,seconds:s.t,displacement,minClear,boostTicks,maxRoutes,first,decide_p50_ms:sorted[Math.floor(sorted.length*.5)],decide_p95_ms:sorted[Math.floor(sorted.length*.95)]};results.push(r);console.log(name,JSON.stringify({seconds:r.seconds,displacement,minClear,boostTicks,maxRoutes}));assert(displacement>700,`${name}: did not leave`);if(name==='open')assert(boostTicks>0);
+}
+const p=new api.Pilot(V),plain=make(),cross=make([],[[200,-100,Math.PI/2,14,1]]),A=p.t6World(plain),B=p.t6World(cross),a={x:30000,y:30000},b={x:30400,y:30000};assert(A.check(a,b,0,1)>0);assert(B.check(a,b,0,1)<0,'moving head crossing not rejected');
+const ring=[];for(let k=0;k<48;k++){const a=k*Math.PI/24,b=(k+1)*Math.PI/24;ring.push([170*Math.cos(a),170*Math.sin(a),170*Math.cos(b),170*Math.sin(b),20,9]);}const enclosed=make(ring),q=new api.Pilot(V);q.step(enclosed);assert.equal(q.last.trace.t6_routes,0);assert.notEqual(q.last.trace.t6_graph_reason,'connected');
+const unsafe=make([[0,-500,0,500,20]]),rec=new api.Pilot(V);rec.step(unsafe);assert.equal(rec.last.trace.t6_phase,'recovery');assert.equal(rec.last.draw.t6Unsafe,true);
+// Body observation remains the current geometry: fresh obstruction invalidates
+// a previously cached geometric guide through the local swept check.
+const stale=new api.Pilot(V);stale.step(make());const blocked=make([[70,-700,70,700,20]]);blocked.t=.05;stale.step(blocked);assert(stale.last.trace.t6_phase==='recovery'||stale.last.trace.t6_clear>=0);
+const frames=JSON.parse(zlib.gunzipSync(fs.readFileSync('runs/t4_20261002_121802/slp_03_box.json.gz'))).frames,pa=new old.Pilot({...D.defaults,...D.presets.t5_contours.values}),pb=new api.Pilot({...D.defaults,...D.presets.t5_contours.values});let parity=0;for(const s of frames.filter((_,k)=>k%Math.ceil(frames.length/20)===0)){assert.deepEqual(JSON.parse(JSON.stringify(pa.step(s))),JSON.parse(JSON.stringify(pb.step(s))));parity++;}
+const out={old_methods_preserved:names.length,T5_geometry_preserved:true,T5_recorded_command_matches:parity,closed_loop_cases:results,head_crossing_rejected:true,enclosed_no_false_exit:true,unsafe_root_labelled_recovery:true,stale_guide_checked_with_current_bodies:true,scope:'local static body / delayed own-motion simulation and forecast head check; no real survival claim'};fs.writeFileSync('research/t6_escape_20261002/check.json',JSON.stringify(out,null,2));

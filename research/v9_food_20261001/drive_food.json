@@ -1,0 +1,14 @@
+{
+  "off": {
+    "eaten": 4,
+    "boostTicks": 0,
+    "time": 3.2800000000000002,
+    "minGap": 46
+  },
+  "on": {
+    "eaten": 4,
+    "boostTicks": 31,
+    "time": 1.76,
+    "minGap": 46
+  }
+}

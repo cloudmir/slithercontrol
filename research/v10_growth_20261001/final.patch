@@ -1,0 +1,154 @@
+--- before/ext/pilot.js
++++ ext/pilot.js
+@@ -2168,14 +2168,25 @@
+   v10FoodValue(foods,rewards) {
+     return Math.min(1,foods.reduce((sum,g,k)=>sum+(rewards[k]||0)*g.mass/(g.mass+80),0));
+   }
++  v10Utility(s,pts,foods,actions=[]) {
++    if(pts.length<5)return {centerValue:0,approachValue:0,boostCost:0};
++    const end=pts.length-5,x=pts[end+1],y=pts[end+2];
++    const radius=hypot(s.x-s.wall[0],s.y-s.wall[1]);
++    const centerValue=clip((radius-hypot(x-s.wall[0],y-s.wall[1]))/1500,-1,1)*Math.min(1,radius/3000);
++    // Progress towards distant heaps remains valuable before contact. It is
++    // measured from the current observation, never accumulated by circling.
++    let approachValue=0;
++    for(const g of foods){const d=hypot(g.x-s.x,g.y-s.y);let left=d;for(let i=0;i<pts.length;i+=5)left=Math.min(left,hypot(g.x-pts[i+1],g.y-pts[i+2]));
++      approachValue=Math.max(approachValue,clip((d-left)/Math.max(300,d),0,1)*g.mass/(g.mass+80));}
++    const boostSeconds=actions.reduce((n,a)=>n+(a.boost?Math.max(0,a.end-a.start):0),0);
++    return {centerValue,approachValue,boostCost:boostSeconds*.04};
++  }
+   v10Compare(a,b) {
+-    const appetite=clip((this.values.V10_FOOD_RISK??0)/100,0,1);
+-    const risk=q=>q.closure?.risk??q.risk??0,food=q=>q.foodValue??0;
+-    // 0 preserves risk-first selection. Higher values accept extra risk only
+-    // in return for reachable food along the path; no food means no incentive.
+-    return (risk(a)-appetite*food(a))-(risk(b)-appetite*food(b))||
+-      Number(!!b.closure?.certified)-Number(!!a.closure?.certified)||risk(a)-risk(b)||
+-      (b.closure?.first??1e6)-(a.closure?.first??1e6)||b.score-a.score;
++    const V=this.values,appetite=clip((V.V10_FOOD_RISK??0)/100,0,1);
++    const risk=q=>q.closure?.risk??q.risk??0;
++    const cost=q=>(8-7*appetite)*risk(q)-(V.V10_FOOD_W??2)*((q.foodValue??0)+.45*(q.approachValue??0))
++      -(V.V9_CENTER_W??2)*.08*(q.centerValue??0)+(q.boostCost??0);
++    return cost(a)-cost(b)||risk(a)-risk(b)||Number(!!b.closure?.certified)-Number(!!a.closure?.certified)||b.score-a.score;
+   }
+   v10Route(s,ver) {
+     TURN_FIX=!!this.values.TURN_FIX;
+@@ -2188,11 +2199,11 @@
+       const r=this.v10Follow(s,PW,ph,root,guide,deadline);
+       if(!r.ok)return false;
+       const closure=this.v10Closure(r.pts,heads),foodValue=this.v10FoodValue(foods,this.v10FoodRewards(s,r.pts,foods));
+-      routes.push({...guide,id,t0:s.t,geometryOnly:false,drivable:true,certified:closure.certified,closure,foodValue,pts:r.pts,actions:r.actions,clear:r.clear,duration:r.duration,length:r.travel,score:guide.score??0});return true;
++      routes.push({...guide,id,t0:s.t,geometryOnly:false,drivable:true,certified:closure.certified,closure,foodValue,...this.v10Utility(s,r.pts,foods,r.actions),pts:r.pts,actions:r.actions,clear:r.clear,duration:r.duration,length:r.travel,score:guide.score??0});return true;
+     };
+     const old=this.v10Committed;
+     if(old&&s.t>=old.t0&&s.t-old.t0<2&&hypot(old.goal[0]-s.x,old.goal[1]-s.y)>220)accept(old,old.id);
+-    const canBoost=s.L>=(V.V2_MINL??30)&&(V.V10_ESCAPE_BOOST??1);
++    const canBoost=s.L>=(V.V2_MINL??30)&&(V.V10_ESCAPE_BOOST??1)&&(foods.length>0||heads.length>0);
+     const stage=.6,depths=Math.min(60,Math.ceil(edge/Math.max(80,ph.cs)/stage*2)+3);
+     let beam=[{st:root.st,t:root.t,pts:root.pts,actions:[],clear:root.clear,length:0,turn:0,family:0,boost:false,risk:0,riskSum:0,riskWeight:0,foodRewards:[]}];
+     for(let depth=0;depth<depths&&beam.length&&performance.now()<deadline-10;depth++){
+@@ -2200,7 +2211,7 @@
+       for(const n of beam){
+         const angles=depth===0?Array.from({length:16},(_,i)=>s.ang+i*TAU/16):[n.st.h,n.st.h-.65,n.st.h+.65];
+         // Include food-directed controls in the same long-route search.
+-        if(food && (V.V10_FOOD_RISK??0)>0 && (n.foodRewards?.[0]||0)<.2){
++        if(food && (V.V10_FOOD_W??2)>0 && (n.foodRewards?.[0]||0)<.2){
+           const a=Math.atan2(food.y-n.st.y,food.x-n.st.x);
+           if(!angles.some(b=>Math.abs(wrap(a-b))<.05)){
+             if(depth===0)angles.push(a);else angles[wrap(a-n.st.h)>0?2:1]=a;
+@@ -2213,10 +2224,9 @@
+           let close=Infinity;for(const h of heads)close=Math.min(close,this.v10EarliestBlock(h,n.st,r.st,4));
+           const riskWeight=n.riskWeight+stage/(1+r.t),riskSum=n.riskSum+stage*clip((r.t+.1-close)/.6,0,1)/(1+r.t),risk=riskSum/riskWeight;
+           const foodRewards=this.v10FoodRewards(s,[n.t,n.st.x,n.st.y,n.st.h,0,...r.pts],foods,n.foodRewards),foodValue=this.v10FoodValue(foods,foodRewards);
+-          const centerGain=hypot(s.x-s.wall[0],s.y-s.wall[1])-hypot(r.st.x-s.wall[0],r.st.y-s.wall[1]);
+-          const score=distance-turn*12+foodValue*edge*.8+(food?0:centerGain*(V.V9_CENTER_W??2)*.03);
++          const score=distance-turn*12;
+           const q={...r,pts:[...n.pts,...r.pts],actions:[...n.actions,{start:n.t,end:r.t,target:angle,boost}],length,clear:Math.min(n.clear,r.clear),turn,score,risk,riskSum,riskWeight,foodRewards,foodValue,boost,family:depth===0?Math.floor((wrap(angle-s.ang)+PI)/(.5)):n.family};
+-          if(distance>=edge){complete.push(q);continue;}next.push(q);
++          Object.assign(q,this.v10Utility(s,q.pts,foods,q.actions));if(distance>=edge){complete.push(q);continue;}next.push(q);
+         }
+       }
+       // Preserve distinct initial branches and speed choices while extending
+@@ -2242,6 +2252,7 @@
+   // the measured turn/speed model, queued inputs and swept collision checks.
+   v10Follow(s,W,ph,root,route,deadline=Infinity){
+     if(!root.ok||!route.path?.length)return {ok:false,reason:'prefix'};
++    const boostPurpose=this.v9FoodGoals(s,true).length>0||s.heads.length>0;
+     const path=route.path,goal=path[path.length-1];let st=root.st,t=root.t,clear=root.clear;
+     const pts=[...root.pts],actions=[];let index=1,travel=0,reason='horizon';
+     const limit=Math.min(45,Math.max(3,(route.length||2000)/Math.max(80,ph.cs)*1.8));
+@@ -2264,7 +2275,7 @@
+         remaining-=available;u=0;
+       }
+       const angle=Math.atan2(aim.y-st.y,aim.x-st.x),distance=hypot(goal.x-st.x,goal.y-st.y);
+-      const boost=!!route.useBoost && !!(this.values.V10_ESCAPE_BOOST??1) && Math.abs(wrap(angle-st.h))<.35 && distance>180;
++      const boost=boostPurpose && !!route.useBoost && !!(this.values.V10_ESCAPE_BOOST??1) && Math.abs(wrap(angle-st.h))<.35 && distance>180;
+       const r=this.v9Roll(s,W,ph,st,0,.13,t,angle,boost);
+       clear=Math.min(clear,r.clear);
+       if(!r.ok){reason='collision';break;}
+@@ -2311,7 +2322,7 @@
+       if(!guide.drivable)continue;
+       if(hypot(guide.goal[0]-s.x,guide.goal[1]-s.y)<150){reject='completed';continue;}
+       const r=this.v10Follow(s,PW,ph,root,guide,deadline);checked++;
+-      if(r.ok&&r.actions.length){const closure=this.v10Closure(r.pts,heads);valid.push({...guide,...r,closure,foodValue:this.v10FoodValue(foods,this.v10FoodRewards(s,r.pts,foods)),score:(guide.score??0)+(guide.id===this.v10RouteId?10:0)});}
++      if(r.ok&&r.actions.length){const closure=this.v10Closure(r.pts,heads);valid.push({...guide,...r,closure,foodValue:this.v10FoodValue(foods,this.v10FoodRewards(s,r.pts,foods)),...this.v10Utility(s,r.pts,foods,r.actions),score:(guide.score??0)+(guide.id===this.v10RouteId?10:0)});}
+       else reject=r.reason;
+       if(performance.now()>deadline)break;
+     }
+@@ -2319,7 +2330,7 @@
+     if(picked){action=picked.actions[0];pts=picked.pts;clear=picked.clear;safe=true;mode='v10route';this.v10RouteId=picked.id;}
+     else {
+       const options=[],horizon=Math.max(.6,V.V10_LOCAL_H??.9);
+-      const canBoost=s.L>=(V.V2_MINL??30)&&(V.V10_ESCAPE_BOOST??1);
++      const canBoost=s.L>=(V.V2_MINL??30)&&(V.V10_ESCAPE_BOOST??1)&&(foods.length>0||heads.length>0);
+       for(const offset of [0,-.5,.5,-1,1,-2,2,PI])for(const boost of canBoost?[false,true]:[false]){
+         const angle=root.st.h+offset,r=this.v9Roll(s,W,ph,root.st,0,horizon,root.t,angle,boost);checked++;
+         options.push({...r,angle,boost,score:r.t*1000+Math.min(100,r.clear)-Math.abs(offset)});
+--- before/ext/mod.js
++++ ext/mod.js
+@@ -1348,7 +1348,7 @@
+       el('button', {class: 'sw' + (bOn === BUNDLE.length ? ' on' : bOn ? ' half' : ''), title: '묶음 전체 켜기/끄기',
+         onclick: () => { const on = bOn === BUNDLE.length ? 0 : 1; for (const k of BUNDLE) setValue(k, on); render(); }}, el('i')));
+     const rows = S.values.V10_ON
+-      ? [sw('V10_FOOD_RISK','먹이 위험 감수','0 안전 우선 ↔ 100 적극 수집. 경로상 잔해 이득에 한해 차단 위험 감수. 사망 확률 % 아님'),sw('V9_FOOD_R','잔해 탐색 범위','현재 관측된 큰 먹이만 탐색'),sw('V9_CENTER_W','중앙 이동 가중치','잔해가 없을 때 중앙 접근'),sw('V10_ESCAPE_BOOST','부스트 허용','잔해 수집·탈출 경로 모두 가속 후보 검사'),sw('V10_OBS','지도 최소 반경','전체 화면 범위를 포함'),sw('V10_EDGE','지도 목표 거리','긴 경로의 전 구간 통과·차단 시간 비교'),sw('V10_MARGIN','몸통·벽 여유','표시 두께 기준 추가 여유'),sw('V10_HEAD_UNCERT','머리 예측 오차 배율','근접 머리 예측 여유'),sw('V10_LOCAL_H','근접 검사 시간','긴 경로가 없을 때 검사할 시간'),sw('V9_ROUTES','지도 후보 수','출구까지 주행 검증할 후보 수')]
++      ? [sw('V10_FOOD_W','먹이 추구 강도','먼 잔해 접근과 경로상 섭취 이득. 높일수록 적극 추구'),sw('V10_FOOD_RISK','먹이 위험 감수','0 안전 우선 ↔ 100 적극 수집. 경로상 잔해 이득에 한해 차단 위험 감수. 사망 확률 % 아님'),sw('V9_FOOD_R','잔해 탐색 범위','현재 관측된 큰 먹이만 탐색'),sw('V9_CENTER_W','중앙 이동 가중치','잔해 유무와 무관하게 중앙 복귀 이득 반영'),sw('V10_ESCAPE_BOOST','부스트 허용','잔해 수집·탈출 경로 모두 가속 후보 검사'),sw('V10_OBS','지도 최소 반경','전체 화면 범위를 포함'),sw('V10_EDGE','지도 목표 거리','긴 경로의 전 구간 통과·차단 시간 비교'),sw('V10_MARGIN','몸통·벽 여유','표시 두께 기준 추가 여유'),sw('V10_HEAD_UNCERT','머리 예측 오차 배율','근접 머리 예측 여유'),sw('V10_LOCAL_H','근접 검사 시간','긴 경로가 없을 때 검사할 시간'),sw('V9_ROUTES','지도 후보 수','출구까지 주행 검증할 후보 수')]
+       : v9
+       ? [sw('V9_FOOD_W', '잔해 추종 가중치', '관측된 큰 먹이를 향하는 경로 선호. 0이면 잔해 목표 끔'), sw('V9_FOOD_R', '잔해 탐색 범위', '보이는 잔해의 목표 탐색 반경 (px). 미로 밖 구간은 접근 방향만 안내'), sw('V9_BOOST_ON', '잔해 적극 부스트', '검사에 통과한 잔해 접근 경로에서 부스트 사용'), sw('V9_CENTER_W', '중앙 이동 가중치', '안전 후보의 맵 중심 접근 선호. 중심 2000px 안에서는 해제. 0이면 끔'), sw('V9_REMAINS_MIN', '잔해 판정 최소 크기', '크기로 사체 먹이를 추정. 기본12; 일반 작은 먹이 제외'), sw('V9_HEAP_SIZE', '잔해 묶음 범위', '가까운 잔해를 하나의 목표로 묶는 범위 (px)'), sw('V9_BOOST_MIN_MASS', '부스트 최소 잔해량', '이 크기 합계 이상인 잔해 묶음에 부스트 허용'), sw('V9_BOOST_MIN_DIST', '부스트 최소 거리', '목표 가까이에서는 부스트를 끄고 감속 (px)'), sw('V9_TARGET_HOLD', '목표 유지 시간', '비슷한 목표 사이의 잦은 전환을 억제. 먹이가 사라지면 즉시 해제'), sw('V9_OBS', '미로 지도 반경', '현재 관측된 몸통을 벽으로 만드는 범위', '🗺'), sw('V9_EDGE', '탈출 목표 거리', '지도 안 탐색 경계까지의 목표. 지도 반경보다 80px 이상 작게 제한', '↗'), sw('V9_MARGIN', '몸통·벽 여유', '내 두께와 적 두께에 더할 여유 (px)', '↔'), sw('V9_ROUTES', '탈출 후보 수', '서로 다른 출구 방향의 통과 검증 경로만 표시', '⑶'), sw('V9_H', '미로 탐색 시간', '실제 회전·속도로 탐색할 최대 시간 (s)', '⏱'), sw('V9_HEAD_PAD', '적 머리 예측 여유', '적의 현재 진행 예측에 더하는 불확실성 여유', '🛡')]
+       : v8
+--- before/params.json
++++ params.json
+@@ -275,7 +275,8 @@
+     "V10_LOCAL_H": 0.9,
+     "V10_HEAD_PAD": 12,
+     "V10_HEAD_UNCERT": 1,
+-    "V10_FOOD_RISK": 0
++    "V10_FOOD_RISK": 0,
++    "V10_FOOD_W": 2
+   },
+   "profiles": {
+     "safe": {},
+@@ -943,7 +944,8 @@
+         "V10_LOCAL_H": 0.9,
+         "V10_HEAD_PAD": 12,
+         "V10_HEAD_UNCERT": 1,
+-        "V10_FOOD_RISK": 0
++        "V10_FOOD_RISK": 0,
++        "V10_FOOD_W": 2
+       }
+     }
+   },
+@@ -966,6 +968,14 @@
+           100,
+           5,
+           true
++        ],
++        [
++          "V10_FOOD_W",
++          "먹이 추구 강도",
++          0,
++          5,
++          0.25,
++          false
+         ],
+         [
+           "V10_OBS",

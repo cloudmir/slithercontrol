@@ -1,0 +1,256 @@
+# V10 algorithm contract audit and local bug fixes 2026-10-01
+
+{
+  "build": "1001-a21cb2ff",
+  "regression_before": {
+    "queued_collision_keeps_arrival_time": {
+      "pass": false,
+      "error": "The expression evaluated to a falsy value:\n\n  assert(root.t>=.17)\n"
+    },
+    "safe_candidate_precedes_unsafe": {
+      "pass": false,
+      "error": "The expression evaluated to a falsy value:\n\n  assert(!p.last.draw.localUnsafe)\n"
+    },
+    "fresh_emergency_command_not_canceled": {
+      "pass": false,
+      "error": "Expected values to be strictly equal:\n\n0 !== 1.2\n"
+    },
+    "expired_command_retains_turn_and_cuts_boost": {
+      "pass": false,
+      "error": "Expected values to be strictly equal:\n\n0 !== 1.2\n"
+    },
+    "per_goal_timeout_is_not_no_route": {
+      "pass": false,
+      "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'no_map_route'\n- 'budget'\n"
+    }
+  },
+  "regression_after": {
+    "queued_collision_keeps_arrival_time": {
+      "pass": true
+    },
+    "safe_candidate_precedes_unsafe": {
+      "pass": true
+    },
+    "fresh_emergency_command_not_canceled": {
+      "pass": true
+    },
+    "expired_command_retains_turn_and_cuts_boost": {
+      "pass": true
+    },
+    "per_goal_timeout_is_not_no_route": {
+      "pass": true
+    }
+  },
+  "replay": {
+    "before": {
+      "frames": 191,
+      "rootUnsafe": 14,
+      "expiredFresh": 14,
+      "selectedUnsafeWithSafeAvailable": 0,
+      "safeFrames": 142,
+      "p95_ms": 30.6367809999997
+    },
+    "after": {
+      "frames": 191,
+      "rootUnsafe": 14,
+      "expiredFresh": 0,
+      "selectedUnsafeWithSafeAvailable": 0,
+      "safeFrames": 141,
+      "p95_ms": 26.97878700000001
+    },
+    "horizon09": {
+      "frames": 191,
+      "rootUnsafe": 14,
+      "expiredFresh": 0,
+      "selectedUnsafeWithSafeAvailable": 0,
+      "safeFrames": 115,
+      "p95_ms": 25.69252300000062
+    },
+    "horizon12": {
+      "frames": 191,
+      "rootUnsafe": 14,
+      "expiredFresh": 0,
+      "selectedUnsafeWithSafeAvailable": 0,
+      "safeFrames": 90,
+      "p95_ms": 35.914114000001064
+    }
+  },
+  "replay_limit": "Fixed observations, recorded command history, fresh threat calculation, no recorded macro route available; this is command-contract reproduction, not counterfactual survival. Horizon sweep diagnostics cannot prove benefit.",
+  "closed_loop": {
+    "before": {
+      "passed": 9,
+      "total": 10,
+      "uses_actual_tracker": true,
+      "server_latency_is_simulated": true
+    },
+    "after": {
+      "passed": 10,
+      "total": 10,
+      "uses_actual_tracker": true,
+      "server_latency_is_simulated": true
+    }
+  },
+  "browser_mock": {
+    "version": "1001-a21cb2ff",
+    "workers": 3,
+    "expiredCommandDisablesBoost": true,
+    "modeSwitch": true,
+    "controlsAndPersistence": true,
+    "status": {
+      "bot": true,
+      "game": true,
+      "ticks": 40,
+      "fps": 40,
+      "ping": null,
+      "errors": 0,
+      "last": {
+        "ms": 0.4000000059604645,
+        "mode": "v10cruise",
+        "v10_routes": 3,
+        "v10_strategy": "cruise",
+        "v10_map_ms": 1.9000000059604645,
+        "v10_threat_ms": 0.09999999403953552,
+        "v10_result_age_ms": 1.199999988079071,
+        "v9_routes": null,
+        "v9_reason": null,
+        "squeeze": null,
+        "v7_phase": null,
+        "v7_heads": null,
+        "v8_phase": null,
+        "v8_heads": null,
+        "v81_density": null,
+        "v81_reason": null
+      },
+      "squeeze_ticks": 0
+    },
+    "errors": []
+  },
+  "params_unchanged": true,
+  "hashes": {
+    "ext/pilot.js": "cf33a3b8c847444cd280c83ef2b0c7a87b57377db9ffa250cfcd027f2c0062ba",
+    "ext/mod.js": "3e39d158887bde19844e9f4bbfaf01d75b3817e9b6080ab32f8ddf88d92328a3",
+    "params.json": "8a96b47af1df40761df2e8934e71c50f61596e14495a907f0164ad791d476d01",
+    "ext/params.js": "9f9979d74fe9de6dbb64935f39d7224c70731c8803407d2416b7f1cce7a8ad69",
+    "ext/manifest.json": "dd4714b6605fcab0f3df3b16863d2454b79c5c5eac67c774baf6878b3d4efc00"
+  },
+  "release": "Local build only; Windows extension not reloaded; no new live games in this turn."
+}
+
+## Exact code changes
+--- before/pilot.js
++++ ext/pilot.js
+@@ -2119,7 +2119,7 @@
+       const pop=()=>{const n=heap[0],v=heap.pop();if(heap.length){let i=0;while(i*2+1<heap.length){let c=i*2+1;if(c+1<heap.length&&heap[c+1].f<heap[c].f)c++;if(heap[c].f>=v.f)break;heap[i]=heap[c];i=c;}heap[i]=v;}return n;};
+       const h=(x,y)=>hypot(s.x+x*cell-goal.x,s.y+y*cell-goal.y),cost=new Map([['0,0',0]]);
+       push({x:0,y:0,g:0,f:h(0,0),p:null});let found=null;
+-      while(heap.length){if((expanded++&31)===0&&performance.now()>perEnd)break;const n=pop(),pos=point(n.x,n.y);if(n.g>cost.get(n.x+','+n.y))continue;
++      while(heap.length){if((expanded++&31)===0&&performance.now()>perEnd){exhausted=true;break;}const n=pop(),pos=point(n.x,n.y);if(n.g>cost.get(n.x+','+n.y))continue;
+         if(h(n.x,n.y)<cell*1.6 && W.check(pos,goal,0,0,.2,false)>=0){found=n;break;}
+         for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]]){
+           const x=n.x+dx,y=n.y+dy;if(hypot(x*cell,y*cell)>W.obs-30)continue;
+@@ -2153,14 +2153,20 @@
+   v10Root(s,W,ph){
+     const lag=Math.max(0,this.values.TRACK_LAT??.17),age=Math.max(0,s.inputAgeMs??0)/1000;
+     const until=lag+age+Math.min(.03,(this.v10ComputeMs??3)/1000),history=s.cmdHistory||[];
+-    let st={x:s.x,y:s.y,h:s.ang,v:s.sp*PX_PER_SP},t=0,clear=Infinity;
++    let st={x:s.x,y:s.y,h:s.ang,v:s.sp*PX_PER_SP},t=0,clear=Infinity,ok=true,hitAt=null;
+     const pts=[0,s.x,s.y,s.ang,s.boostNow?1:0];
+     while(t<until-1e-8){const stamp=s.t+t-lag;let active={ang:Number.isFinite(s.cmdNow)?s.cmdNow:s.ang,boost:!!s.boostNow};
+       if(history.length){active=history[0];for(const q of history){if(q.t>stamp+1e-8)break;active=q;}}
+       const next=history.find(q=>q.t>stamp+1e-8),dt=Math.min(.04,until-t,next?next.t-stamp:Infinity);
+-      const r=this.v9Roll(s,W,ph,st,0,dt,t,active.ang,!!active.boost);pts.push(...r.pts);st=r.st;t=r.t;clear=Math.min(clear,r.clear);
+-      if(!r.ok)return {...r,pts,clear};
+-    }return {ok:true,st,t,pts,clear};
++      const nextSt=this.v4Adv(st,active.ang,!!active.boost,dt,ph);
++      const pad=Math.max(st.v,nextSt.v)*dt*Math.abs(wrap(nextSt.h-st.h))/8+.15;
++      const gap=W.check(st,nextSt,t,t+dt,pad);clear=Math.min(clear,gap);
++      if(gap<0){ok=false;hitAt??=t;}
++      // Commands already sent cannot be replaced before their arrival time.
++      // Continue the kinematic prefix even if its collision prediction fails;
++      // retain that failure instead of pretending the new action starts early.
++      st=nextSt;t+=dt;pts.push(t,st.x,st.y,st.h,active.boost?1:0);
++    }return {ok,st,t,pts,clear,hitAt};
+   }
+   v10Step(s){
+     TURN_FIX=!!this.values.TURN_FIX;
+@@ -2224,11 +2230,13 @@
+       if(!r.ok)score=r.t*10000+Math.max(-100,r.clear)-Math.abs(wrap(c.angle-root.st.h));
+       choices.push({...c,...r,score,boost});
+     }
+-    choices.sort((a,b)=>b.score-a.score);const best=choices[0];this.v10LastAngle=best.angle;
++    choices.sort((a,b)=>Number(b.ok)-Number(a.ok)||b.score-a.score);const best=choices[0];this.v10LastAngle=best.angle;
+     const unsafe=!root.ok||!best.ok,pts=[...root.pts,...best.pts],flat=p=>{const out=[];for(let i=0;i<p.length;i+=5)out.push(p[i+1],p[i+2]);return out;};
+     // Only one short command slice may be executed. Expired plans are discarded
+     // by the browser tracker; a guide is never replayed as actuator commands.
+-    const controls=[{start:root.t,end:Math.min(best.t,root.t+.13),target:best.angle,boost:best.boost}],ms=performance.now()-begin;this.v10ComputeMs=ms;
++    // Command validity and the predicted time of collision are different clocks.
++    // An emergency action remains a best-effort action, never a certified path.
++    const controls=[{start:root.t,end:root.t+.13,target:best.angle,boost:best.boost}],ms=performance.now()-begin;this.v10ComputeMs=ms;
+     const trace={mode:'v10'+(unsafe?'emergency':T.strategy),cmd:r1(deg(best.angle)),boost:best.boost,n_safe:root.ok?choices.filter(q=>q.ok).length:0,cause:source?.reason??'pending',v10_strategy:T.strategy,v10_local_ms:ms,v10_world_ms:worldMs,v10_budget_hit:budgetHit||ms>(V.V10_LOCAL_MS??3),v10_checked:checked,v10_clear:best.clear,v10_root_safe:root.ok,v10_map_ms:source?.ms??0,v10_map_age:source?s.t-source.t0:-1,v10_routes:guides.length,v10_threat_ms:T.ms,v10_attack:T.attack,v10_closing:T.closing,v10_coverage:T.coverage,v10_geometry_only:1,L:s.L,sc:s.sc};
+     const guideLines=candidates.filter(c=>c.route>=0&&c.aim&&W.check({x:s.x,y:s.y},c.aim,0,0,.3,false)>=0).map(c=>[s.x,s.y,c.aim.x,c.aim.y,...guides[c.route].path.slice(c.joinIndex).flatMap(p=>[p.x,p.y])]);
+     this.last={trace,mode:trace.mode,plan:pts,controls,draw:{chosen:flat(pts),localPath:flat(pts),localUnsafe:unsafe,v9At:s.t,v9Paths:guideLines,v9Walls:source?.walls??W.walls,v9Reason:source?.reason??'pending',v9FoodPath:guides[0]?.kind==='food',mazePath:[],safe:[],near:[],gaps:[],goal:food?[food.x,food.y]:null,ro:W.ro}};
+--- before/mod.js
++++ ext/mod.js
+@@ -421,7 +421,15 @@
+   if (r.error) { game.errors++; note('판단 오류: ' + r.error.split('\n')[0]); console.error('[SLP]', r.error); return; }
+   if (S.bot && window.playing && window.slither && !window.slither.dead) {
+     activeDecisionId=r.id;
+-    if(S.values.V10_ON && performance.now()-obsAt>120){plan=null;applyCmd(window.slither.ang,false,'v10_stale_result');}
++    if(S.values.V10_ON && performance.now()-obsAt>120){
++      // Reject stale output without replacing the previous steering target by
++      // the current head angle (which cancels a turn already in progress).
++      plan=null;applyCmd(Number.isFinite(sent.ang)?sent.ang:window.slither.ang,false,'v10_stale_result');
++    }
++    else if(S.values.V10_ON && r.controls?.length){
++      plan={T0:obsAt,pts:r.plan||[],controls:r.controls,n:(r.plan?.length||0)/5,tEnd:r.plan?.length?r.plan[r.plan.length-5]:0};
++      try { track(); } catch(e){game.errors++;console.error('[SLP track]',e);}
++    }
+     else if (((S.values.V10_ON || S.values.V9_ON) || S.values.TRACK_ON) && r.plan && r.plan.length >= 10) { plan = {T0: obsAt, pts: r.plan, controls: r.controls, n: r.plan.length / 5, tEnd: r.plan[r.plan.length - 5]}; try { track(); } catch (e) { game.errors++; console.error('[SLP track]', e); } }
+     else { plan = null; applyCmd(r.cmd, r.boost, 'direct'); }
+   }
+@@ -633,6 +641,14 @@
+ function track() {
+   if (!game || !S.bot || !plan || !window.playing || !window.slither || window.slither.dead) return;
+   const s = window.slither, now = performance.now(), tau = (now - plan.T0) / 1000; sent.planAge = tau;
++  if(S.values.V10_ON && plan.controls?.length){
++    const when=tau+(S.values.TRACK_LAT??.17),action=plan.controls.find(a=>a.end>when+1e-8);
++    if(action){applyCmd(action.target,!!action.boost,'v10_controls');return;}
++    // A missed update must not cancel an ongoing turn. Disable acceleration
++    // and keep the last issued target until a fresh decision replaces it.
++    const lastAction=plan.controls[plan.controls.length-1];
++    applyCmd(Number.isFinite(sent.ang)?sent.ang:lastAction.target,false,'v10_expired');plan=null;return;
++  }
+   if (tau > plan.tEnd) { if(S.values.V10_ON){applyCmd(s.ang,false,'v10_expired');plan=null;} sent.why = 'plan_end'; return; }                                 // beyond the trajectory: keep the last command
+   if ((S.values.V10_ON || S.values.V9_ON) && plan.controls?.length) {
+     const when = tau + (S.values.TRACK_LAT ?? .17);
+
+## Existing mapping scope (not changed to executable full route)
+2125:           const x=n.x+dx,y=n.y+dy;if(hypot(x*cell,y*cell)>W.obs-30)continue;
+2126:           const gap=edgeOK(n.x,n.y,x,y);if(gap<0)continue;
+2127:           const eta=Math.min(4,(n.g+cell)/250),pos=point(x,y);let danger=0;
+2128:           for(const enemy of T.heads){if(hypot(enemy.x-s.x,enemy.y-s.y)>W.obs+500)continue;
+2129:             const a=enemy.h+clip(enemy.w,-2,2)*eta/2;
+2130:             for(const speed of [enemy.v,434]){const ex=enemy.x+Math.cos(a)*speed*eta,ey=enemy.y+Math.sin(a)*speed*eta,d=hypot(pos.x-ex,pos.y-ey);danger=Math.max(danger,Math.max(0,1-d/200));}}
+2131:           const g=n.g+cell*hypot(dx,dy)*(1+1/(Math.max(1,gap)+4)+danger*3),key=x+','+y;
+2132:           if(g>=(cost.get(key)??Infinity))continue;cost.set(key,g);push({x,y,g,f:g+1.12*h(x,y),p:n});
+2133:         }
+2134:       }
+2135:       if(!found)continue;
+2136:       let points=[goal];for(let n=found;n;n=n.p)points.push(point(n.x,n.y));points.reverse();
+2137:       // Exact line-of-sight simplification; never smooth across a capsule wall.
+2138:       const path=[points[0]];let i=0;
+2139:       while(i<points.length-1){let j=points.length-1;while(j>i+1&&W.check(points[i],points[j],0,0,.3,false)<0)j--;path.push(points[j]);i=j;}
+2140:       let length=0;for(let j=1;j<path.length;j++)length+=hypot(path[j].x-path[j-1].x,path[j].y-path[j-1].y);
+2141:       const first=path[1],angle=Math.atan2(first.y-s.y,first.x-s.x);
+2142:       if(goal.kind==='escape'&&routes.some(r=>r.kind==='escape'&&Math.abs(wrap(r.angle-angle))<.3))continue;
+2143:       routes.push({path,kind:goal.kind,angle,length,target:food||null,goal:[goal.x,goal.y],geometryOnly:true});
+2144:     }
+2145:     if(!routes.length&&!s.v10Fine&&cell>8){
+2146:       const remaining=totalBudget-(performance.now()-begin);
+2147:       if(remaining>8){const old=this.values;this.values={...V,V10_CELL:8,V10_BUDGET:remaining};let fine;
+2148:         try{fine=this.v10Route({...s,v10Fine:true},ver);}finally{this.values=old;}
+2149:         fine.ms=performance.now()-begin;fine.fineRetry=true;return fine;}
+2150:     }
+2151:     return {algo:'v10',ver,t0:s.t,routes,reason:routes.length?'mapped':exhausted?'budget':'no_map_route',certified:false,ms:performance.now()-begin,expanded,map:{radius:W.obs,cell},walls:W.walls};
+2152:   }
+2153:   v10Root(s,W,ph){

@@ -1,0 +1,464 @@
+[
+  {
+    "our_radius_bin": [
+      10,
+      15
+    ],
+    "enemy_radius_bin": [
+      10,
+      20
+    ],
+    "games": [
+      "runs/probe_20260928_113252/slp_01_log.json.gz"
+    ],
+    "alive_windows": 16,
+    "alive_gap_min": 49.5,
+    "last_alive_gap": [],
+    "exact_death_boundary": null,
+    "applied_offset": 0
+  },
+  {
+    "our_radius_bin": [
+      10,
+      15
+    ],
+    "enemy_radius_bin": [
+      20,
+      30
+    ],
+    "games": [
+      "runs/probe2_20260928_120148/slp_02_log.json.gz",
+      "runs/probe2_20260928_120148/slp_07_log.json.gz",
+      "runs/probe2_20260928_120148/slp_16_log.json.gz",
+      "runs/probe2_20260928_120148/slp_17_log.json.gz",
+      "runs/probe_20260928_113252/slp_06_log.json.gz",
+      "runs/probe_20260928_113252/slp_17_log.json.gz",
+      "runs/probe_20260928_113252/slp_18_log.json.gz"
+    ],
+    "alive_windows": 808,
+    "alive_gap_min": -12,
+    "last_alive_gap": [],
+    "exact_death_boundary": null,
+    "applied_offset": 0
+  },
+  {
+    "our_radius_bin": [
+      10,
+      15
+    ],
+    "enemy_radius_bin": [
+      30,
+      40
+    ],
+    "games": [
+      "runs/probe2_20260928_120148/slp_13_log.json.gz",
+      "runs/probe2_20260928_120148/slp_14_log.json.gz",
+      "runs/probe_20260928_113252/slp_05_log.json.gz",
+      "runs/probe_20260928_113252/slp_17_log.json.gz"
+    ],
+    "alive_windows": 300,
+    "alive_gap_min": 7.8,
+    "last_alive_gap": [
+      -3.4
+    ],
+    "exact_death_boundary": null,
+    "applied_offset": 0
+  },
+  {
+    "our_radius_bin": [
+      10,
+      15
+    ],
+    "enemy_radius_bin": [
+      40,
+      50
+    ],
+    "games": [
+      "runs/probe2_20260928_120148/slp_01_log.json.gz",
+      "runs/probe2_20260928_120148/slp_04_log.json.gz",
+      "runs/probe2_20260928_120148/slp_07_log.json.gz",
+      "runs/probe2_20260928_120148/slp_14_log.json.gz",
+      "runs/probe_20260928_113252/slp_01_log.json.gz",
+      "runs/probe_20260928_113252/slp_11_log.json.gz",
+      "runs/probe_20260928_113252/slp_12_log.json.gz",
+      "runs/probe_20260928_113252/slp_14_log.json.gz"
+    ],
+    "alive_windows": 1359,
+    "alive_gap_min": -9.5,
+    "last_alive_gap": [
+      -13.4,
+      -12.6,
+      -12.4
+    ],
+    "exact_death_boundary": null,
+    "applied_offset": 0
+  },
+  {
+    "our_radius_bin": [
+      10,
+      15
+    ],
+    "enemy_radius_bin": [
+      50,
+      60
+    ],
+    "games": [
+      "runs/probe2_20260928_120148/slp_06_log.json.gz",
+      "runs/probe_20260928_113252/slp_02_log.json.gz",
+      "runs/probe_20260928_113252/slp_04_log.json.gz",
+      "runs/probe_20260928_113252/slp_07_log.json.gz"
+    ],
+    "alive_windows": 1032,
+    "alive_gap_min": -13.6,
+    "last_alive_gap": [
+      -12.9,
+      -12.8,
+      -14
+    ],
+    "exact_death_boundary": null,
+    "applied_offset": 0
+  },
+  {
+    "our_radius_bin": [
+      15,
+      20
+    ],
+    "enemy_radius_bin": [
+      20,
+      30
+    ],
+    "games": [
+      "runs/probe2_20260928_120148/slp_03_log.json.gz",
+      "runs/probe2_20260928_120148/slp_05_log.json.gz",
+      "runs/probe2_20260928_120148/slp_09_log.json.gz",
+      "runs/probe2_20260928_120148/slp_10_log.json.gz",
+      "runs/probe2_20260928_120148/slp_11_log.json.gz",
+      "runs/probe2_20260928_120148/slp_16_log.json.gz",
+      "runs/probe2_20260928_120148/slp_18_log.json.gz",
+      "runs/probe3_20260928_122443/slp_02_log.json.gz",
+      "runs/probe3_20260928_122443/slp_07_log.json.gz",
+      "runs/probe3_20260928_122443/slp_12_log.json.gz",
+      "runs/probe3_20260928_122443/slp_14_log.json.gz",
+      "runs/probe3_20260928_122443/slp_19_log.json.gz",
+      "runs/probe_20260928_113252/slp_01_log.json.gz",
+      "runs/probe_20260928_113252/slp_09_log.json.gz",
+      "runs/probe_20260928_113252/slp_10_log.json.gz",
+      "runs/probe_20260928_113252/slp_15_log.json.gz",
+      "runs/probe_20260928_113252/slp_16_log.json.gz",
+      "runs/probe_20260928_113252/slp_17_log.json.gz"
+    ],
+    "alive_windows": 1793,
+    "alive_gap_min": -16.85,
+    "last_alive_gap": [
+      0.6,
+      -1,
+      -9.8,
+      -5.7,
+      -7.8,
+      -8.5,
+      -18.9
+    ],
+    "exact_death_boundary": null,
+    "applied_offset": 0
+  },
+  {
+    "our_radius_bin": [
+      15,
+      20
+    ],
+    "enemy_radius_bin": [
+      30,
+      40
+    ],
+    "games": [
+      "runs/probe2_20260928_120148/slp_05_log.json.gz",
+      "runs/probe2_20260928_120148/slp_08_log.json.gz",
+      "runs/probe2_20260928_120148/slp_09_log.json.gz",
+      "runs/probe2_20260928_120148/slp_11_log.json.gz",
+      "runs/probe2_20260928_120148/slp_14_log.json.gz",
+      "runs/probe2_20260928_120148/slp_15_log.json.gz",
+      "runs/probe2_20260928_120148/slp_17_log.json.gz",
+      "runs/probe2_20260928_120148/slp_19_log.json.gz",
+      "runs/probe2_20260928_120148/slp_20_log.json.gz",
+      "runs/probe3_20260928_122443/slp_07_log.json.gz",
+      "runs/probe3_20260928_122443/slp_10_log.json.gz",
+      "runs/probe_20260928_113252/slp_05_log.json.gz",
+      "runs/probe_20260928_113252/slp_06_log.json.gz",
+      "runs/probe_20260928_113252/slp_08_log.json.gz",
+      "runs/probe_20260928_113252/slp_10_log.json.gz",
+      "runs/probe_20260928_113252/slp_17_log.json.gz",
+      "runs/probe_20260928_113252/slp_19_log.json.gz",
+      "runs/probe_20260928_113252/slp_20_log.json.gz"
+    ],
+    "alive_windows": 2686,
+    "alive_gap_min": -13.3,
+    "last_alive_gap": [
+      -3.6,
+      -5.7,
+      -15.6,
+      -9.2,
+      -3.3,
+      -5.9,
+      2.4
+    ],
+    "exact_death_boundary": null,
+    "applied_offset": 0
+  },
+  {
+    "our_radius_bin": [
+      15,
+      20
+    ],
+    "enemy_radius_bin": [
+      40,
+      50
+    ],
+    "games": [
+      "runs/probe2_20260928_120148/slp_05_log.json.gz",
+      "runs/probe2_20260928_120148/slp_11_log.json.gz",
+      "runs/probe2_20260928_120148/slp_12_log.json.gz",
+      "runs/probe2_20260928_120148/slp_20_log.json.gz",
+      "runs/probe3_20260928_122443/slp_20_log.json.gz",
+      "runs/probe_20260928_113252/slp_01_log.json.gz",
+      "runs/probe_20260928_113252/slp_03_log.json.gz",
+      "runs/probe_20260928_113252/slp_05_log.json.gz",
+      "runs/probe_20260928_113252/slp_09_log.json.gz",
+      "runs/probe_20260928_113252/slp_10_log.json.gz",
+      "runs/probe_20260928_113252/slp_11_log.json.gz",
+      "runs/probe_20260928_113252/slp_12_log.json.gz",
+      "runs/probe_20260928_113252/slp_13_log.json.gz",
+      "runs/probe_20260928_113252/slp_15_log.json.gz"
+    ],
+    "alive_windows": 1808,
+    "alive_gap_min": -15.45,
+    "last_alive_gap": [
+      -16.8,
+      -16.4,
+      -13.4,
+      -14.6,
+      -5.1,
+      -10.5,
+      -3.6
+    ],
+    "exact_death_boundary": null,
+    "applied_offset": 0
+  },
+  {
+    "our_radius_bin": [
+      15,
+      20
+    ],
+    "enemy_radius_bin": [
+      50,
+      60
+    ],
+    "games": [
+      "runs/probe2_20260928_120148/slp_08_log.json.gz",
+      "runs/probe2_20260928_120148/slp_11_log.json.gz",
+      "runs/probe3_20260928_122443/slp_08_log.json.gz",
+      "runs/probe_20260928_113252/slp_07_log.json.gz"
+    ],
+    "alive_windows": 635,
+    "alive_gap_min": -5.75,
+    "last_alive_gap": [
+      -11.9
+    ],
+    "exact_death_boundary": null,
+    "applied_offset": 0
+  },
+  {
+    "our_radius_bin": [
+      20,
+      25
+    ],
+    "enemy_radius_bin": [
+      20,
+      30
+    ],
+    "games": [
+      "runs/probe3_20260928_122443/slp_03_log.json.gz",
+      "runs/probe3_20260928_122443/slp_06_log.json.gz",
+      "runs/probe3_20260928_122443/slp_09_log.json.gz",
+      "runs/probe3_20260928_122443/slp_12_log.json.gz",
+      "runs/probe3_20260928_122443/slp_17_log.json.gz",
+      "runs/probe3_20260928_122443/slp_18_log.json.gz",
+      "runs/probe_20260928_113252/slp_09_log.json.gz"
+    ],
+    "alive_windows": 440,
+    "alive_gap_min": 25.2,
+    "last_alive_gap": [
+      -1.3,
+      -1.3
+    ],
+    "exact_death_boundary": null,
+    "applied_offset": 0
+  },
+  {
+    "our_radius_bin": [
+      20,
+      25
+    ],
+    "enemy_radius_bin": [
+      30,
+      40
+    ],
+    "games": [
+      "runs/probe2_20260928_120148/slp_14_log.json.gz",
+      "runs/probe2_20260928_120148/slp_15_log.json.gz",
+      "runs/probe3_20260928_122443/slp_01_log.json.gz",
+      "runs/probe3_20260928_122443/slp_02_log.json.gz",
+      "runs/probe3_20260928_122443/slp_03_log.json.gz",
+      "runs/probe3_20260928_122443/slp_04_log.json.gz",
+      "runs/probe3_20260928_122443/slp_11_log.json.gz",
+      "runs/probe3_20260928_122443/slp_16_log.json.gz",
+      "runs/probe3_20260928_122443/slp_17_log.json.gz",
+      "runs/probe3_20260928_122443/slp_18_log.json.gz"
+    ],
+    "alive_windows": 1229,
+    "alive_gap_min": -16.25,
+    "last_alive_gap": [
+      -1.2,
+      -15.1,
+      -4.6,
+      -12.3
+    ],
+    "exact_death_boundary": null,
+    "applied_offset": 0
+  },
+  {
+    "our_radius_bin": [
+      20,
+      25
+    ],
+    "enemy_radius_bin": [
+      40,
+      50
+    ],
+    "games": [
+      "runs/probe2_20260928_120148/slp_20_log.json.gz",
+      "runs/probe3_20260928_122443/slp_05_log.json.gz",
+      "runs/probe3_20260928_122443/slp_15_log.json.gz",
+      "runs/probe3_20260928_122443/slp_18_log.json.gz",
+      "runs/probe3_20260928_122443/slp_20_log.json.gz"
+    ],
+    "alive_windows": 453,
+    "alive_gap_min": -2.6,
+    "last_alive_gap": [
+      -11,
+      -6.2,
+      -13.6
+    ],
+    "exact_death_boundary": null,
+    "applied_offset": 0
+  },
+  {
+    "our_radius_bin": [
+      20,
+      25
+    ],
+    "enemy_radius_bin": [
+      50,
+      60
+    ],
+    "games": [
+      "runs/probe3_20260928_122443/slp_09_log.json.gz",
+      "runs/probe3_20260928_122443/slp_13_log.json.gz",
+      "runs/probe3_20260928_122443/slp_17_log.json.gz"
+    ],
+    "alive_windows": 516,
+    "alive_gap_min": 5.6,
+    "last_alive_gap": [
+      -14.2
+    ],
+    "exact_death_boundary": null,
+    "applied_offset": 0
+  },
+  {
+    "our_radius_bin": [
+      25,
+      30
+    ],
+    "enemy_radius_bin": [
+      20,
+      30
+    ],
+    "games": [
+      "runs/probe3_20260928_122443/slp_05_log.json.gz",
+      "runs/probe3_20260928_122443/slp_17_log.json.gz",
+      "runs/probe3_20260928_122443/slp_18_log.json.gz",
+      "runs/probe_20260928_113252/slp_09_log.json.gz"
+    ],
+    "alive_windows": 128,
+    "alive_gap_min": 81.4,
+    "last_alive_gap": [],
+    "exact_death_boundary": null,
+    "applied_offset": 0
+  },
+  {
+    "our_radius_bin": [
+      25,
+      30
+    ],
+    "enemy_radius_bin": [
+      30,
+      40
+    ],
+    "games": [
+      "runs/probe2_20260928_120148/slp_14_log.json.gz",
+      "runs/probe2_20260928_120148/slp_15_log.json.gz",
+      "runs/probe3_20260928_122443/slp_05_log.json.gz",
+      "runs/probe_20260928_113252/slp_09_log.json.gz"
+    ],
+    "alive_windows": 978,
+    "alive_gap_min": -12.1,
+    "last_alive_gap": [
+      -0.4,
+      -4.4,
+      -13.1
+    ],
+    "exact_death_boundary": null,
+    "applied_offset": 0
+  },
+  {
+    "our_radius_bin": [
+      25,
+      30
+    ],
+    "enemy_radius_bin": [
+      40,
+      50
+    ],
+    "games": [
+      "runs/probe3_20260928_122443/slp_05_log.json.gz",
+      "runs/probe3_20260928_122443/slp_18_log.json.gz",
+      "runs/probe3_20260928_122443/slp_19_log.json.gz"
+    ],
+    "alive_windows": 211,
+    "alive_gap_min": -16.6,
+    "last_alive_gap": [
+      -6.6
+    ],
+    "exact_death_boundary": null,
+    "applied_offset": 0
+  },
+  {
+    "our_radius_bin": [
+      30,
+      35
+    ],
+    "enemy_radius_bin": [
+      30,
+      40
+    ],
+    "games": [
+      "runs/probe_20260928_113252/slp_09_log.json.gz"
+    ],
+    "alive_windows": 144,
+    "alive_gap_min": -24.6,
+    "last_alive_gap": [
+      -5.1
+    ],
+    "exact_death_boundary": null,
+    "applied_offset": 0
+  }
+]

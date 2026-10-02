@@ -1,0 +1,387 @@
+V10 긴 경로·통과 전 차단 평가 — 원본 코드 및 검증 출력
+빌드: 1001-0c64b8bb
+실게임 신규 실행 없음.
+
+manifest.json
+{
+  "hashes": {
+    "ext/pilot.js": "8f13081b0b3a8e4aee540136ca96caca0ecbe4f3a17f61c9570c326a599eaf20",
+    "ext/mod.js": "06f48c5f14fb1ae71d482cd50597186d258f43f106f432935e5dfd33cc2917f4",
+    "params.json": "c73f6a324c0de7461693698f11b705be2a3756e348b8d80acfabb0c48da3b6e1",
+    "ext/params.js": "a669e2561bc5d9bea9cf63ae3848164c30f275f7bac34a6c711c03c379a2b6b3",
+    "ext/manifest.json": "8a8eb16d12aec773521c7c30ffff206f1a5534e6c9afea0dbefe221b1028e968",
+    "research/v10_escape_20261001/check.json": "faebd2cd839a176b96db8575e731628f2d63d0699bb5945e21d1b7c0d63ce531",
+    "research/v10_escape_20261001/bounds.json": "16973c6c58d50406d4bcd004765fd060443019303882c1107ff873ef3812fbd6",
+    "research/v10_escape_20261001/closed_loop.json": "e49f757183d0cd88564971634c44c222505ca3c539dcab89abdd6ebda9b3418a",
+    "research/v10_escape_20261001/mock.json": "8423d9c1f27c0fdc784f38be780a5bef40f4ab4f064049886e86876eae0023c6",
+    "research/v10_escape_20261001/preview_data.json": "7ddb8725120760fb07c3df66335cf939b5991e0531d165553a3fa3e9c31c9ff7"
+  },
+  "unchanged": {
+    "non_v10_suffix_unchanged": true,
+    "non_v10_prefix_unchanged_except_reset": true
+  }
+}
+
+check.json
+{
+  "long_diverse_paths_and_actuator": {
+    "pass": true,
+    "lengths": [
+      2229.3709824562065,
+      2267.225913680153,
+      2267.163573951792
+    ],
+    "durations": [
+      6.102999999999996,
+      6.492999999999996,
+      6.492999999999996
+    ],
+    "mapMs": 27.351331999999992,
+    "localMs": 18.364810000000006
+  },
+  "reverse_head_reaches_later": {
+    "pass": true,
+    "forward": 0.2764976958525346,
+    "back": 1.3390893428712498
+  },
+  "certificate_covers_midsegment": {
+    "pass": true
+  },
+  "closure_beats_width_food_scores": {
+    "pass": true
+  },
+  "near_forecast_boundary_split": {
+    "pass": true
+  },
+  "wall_in_distant_remainder_invalidates": {
+    "pass": true
+  },
+  "closed_ring_has_no_exit": {
+    "pass": true
+  },
+  "queued_collision_never_certifies": {
+    "pass": true
+  },
+  "stale_route_and_param_reset": {
+    "pass": true
+  },
+  "closed_loop_follows_long_path": {
+    "pass": true,
+    "goalError": 44.767535087725264
+  },
+  "recorded_27s_three_long_routes_selected": {
+    "pass": true,
+    "t": 27.01,
+    "mapMs": 127.05999599999996,
+    "localMs": 16.021245999999906,
+    "shown": 3,
+    "risk": 0.6234084239931788
+  }
+}
+
+bounds.json
+{
+  "checked": 1500,
+  "worstLowerBoundExcess": 0,
+  "away": {
+    "risk": 0,
+    "slack": 0.9444632910067446,
+    "certified": true
+  },
+  "towards": {
+    "risk": 0.08708323157347746,
+    "slack": -0.12603686635944703,
+    "certified": false
+  }
+}
+
+mock.json
+{
+  "version": "1001-0c64b8bb",
+  "workers": 3,
+  "expiredCommandDisablesBoost": true,
+  "modeSwitch": true,
+  "controlsAndPersistence": true,
+  "status": {
+    "bot": true,
+    "game": true,
+    "ticks": 39,
+    "fps": 48,
+    "ping": null,
+    "errors": 0,
+    "last": {
+      "ms": 1.300000011920929,
+      "mode": "v10route",
+      "v10_routes": 3,
+      "v10_strategy": "route",
+      "v10_map_ms": 47.29999998211861,
+      "v10_threat_ms": null,
+      "v10_result_age_ms": 6.9000000059604645,
+      "v9_routes": null,
+      "v9_reason": null,
+      "squeeze": null,
+      "v7_phase": null,
+      "v7_heads": null,
+      "v8_phase": null,
+      "v8_heads": null,
+      "v81_density": null,
+      "v81_reason": null
+    },
+    "squeeze_ticks": 0
+  },
+  "errors": []
+}
+
+preview_check.json
+{
+  "errors": [],
+  "cards": "후보 1 · 탐색 1순위\n경로 길이 2263 px · 전개 13.39초\n차단 위험지수 0.623 · 차단 가능 구간 있음\n후보 2\n경로 길이 2146 px · 전개 12.74초\n차단 위험지수 0.652 · 차단 가능 구간 있음\n후보 3\n경로 길이 2262 px · 전개 13.39초\n차단 위험지수 0.676 · 차단 가능 구간 있음"
+}
+
+조향 재생(적 몸/머리 고정, 실제 상대 반응 아님)
+{"frames": 100, "routeFrames": 92, "minGap": 128, "maxLocal": 19.267233000000033}
+
+90ms 예산 독립 프레임 재생(처음 실행 지연·표본 차이에 따라 시간 초과 및 후보 수 변동 가능)
+[
+  {
+    "t": 26.004,
+    "ms": 91.16491100000002,
+    "reason": "long_probe",
+    "routes": [
+      {
+        "length": 2262.666003180904,
+        "duration": 13.38800000000001,
+        "closure_risk": 0.6806011877129984,
+        "certified": false
+      },
+      {
+        "length": 2146.173140748129,
+        "duration": 12.738000000000007,
+        "closure_risk": 0.6942049604246022,
+        "certified": false
+      }
+    ]
+  },
+  {
+    "t": 27.01,
+    "ms": 58.40203599999995,
+    "reason": "long_probe",
+    "routes": [
+      {
+        "length": 2262.691070885211,
+        "duration": 13.38800000000001,
+        "closure_risk": 0.6234084239931788,
+        "certified": false
+      },
+      {
+        "length": 2146.3884543811596,
+        "duration": 12.738000000000007,
+        "closure_risk": 0.6521041626948356,
+        "certified": false
+      },
+      {
+        "length": 2262.4047682338382,
+        "duration": 13.38800000000001,
+        "closure_risk": 0.6756507935800002,
+        "certified": false
+      }
+    ]
+  },
+  {
+    "t": 28.011,
+    "ms": 41.14507100000003,
+    "reason": "long_probe",
+    "routes": [
+      {
+        "length": 2146.9551388813748,
+        "duration": 12.738000000000007,
+        "closure_risk": 0.6957451279068417,
+        "certified": false
+      },
+      {
+        "length": 2146.438610518287,
+        "duration": 12.738000000000007,
+        "closure_risk": 0.7034770180225374,
+        "certified": false
+      }
+    ]
+  },
+  {
+    "t": 28.477,
+    "ms": 18.053265999999894,
+    "reason": "long_probe",
+    "routes": [
+      {
+        "length": 2263.222998980026,
+        "duration": 13.38800000000001,
+        "closure_risk": 0.7066871545509913,
+        "certified": false
+      }
+    ]
+  },
+  {
+    "t": 29.007,
+    "ms": 4.9212050000001,
+    "reason": "no_drivable_route",
+    "routes": []
+  },
+  {
+    "t": 29.997,
+    "ms": 18.542733,
+    "reason": "no_drivable_route",
+    "routes": []
+  }
+]
+
+정의·범위
+긴 후보는 관측 지도 안의 목표 거리까지 탐색하며, 목표 뒤 0.6초 진행도 검사한다. 관측 밖까지 탈출 완료를 증명하지 않는다. 전체 경로의 몸통·회전 가능성을 검사하고 관측 적의 최단 차단 시각 하한과 구간 통과 완료 시간을 비교한다. 지수는 확률이 아니며 보수적 도달 가능성 점수. 알려진 머리가 먼저 차단할 수 없다는 판정은 모델·관측 범위 한정이다. 표본 27초의 후보 모두 차단 가능성이 남아 있으므로 확정 탈출로 표시하지 않는다. 기존 그리드→추종 탈락 방식과 독립 먹이/중앙 단기 대체 판단을 V10에서 제거. V1~V9 변경 없음(공용 setParams에서 V10상태 초기화만 추가). 실제 브라우저 확장 재로드 안함.
+
+코드
+  // V10 long probes share one geometry/physics model with the actuator.
+  // Risk is a reachability index, not an empirically calibrated probability.
+  v10ProbeWorld(W) {
+    const near = 1.2;
+    return {...W, check:(a,b,t0=0,t1=t0,pad=0)=>{
+      const gap=W.check(a,b,t0,t1,pad,false);
+      if(gap<0||t0>=near)return gap;
+      const end=Math.min(t1,near),f=t1>t0?(end-t0)/(t1-t0):1;
+      return Math.min(gap,W.check(a,{x:a.x+(b.x-a.x)*f,y:a.y+(b.y-a.y)*f},t0,end,pad,true));
+    }};
+  }
+  v10Blockers(s,W) {
+    const heads=[];
+    for(let i=0;i<s.heads.length;i+=5){
+      const [x,y,h,sp,sc]=s.heads.slice(i,i+5),ph=this.v4Physics(sc);
+      if(![x,y,h,sp,sc].every(Number.isFinite))continue;
+      heads.push({id:s.hid?.[i/5]??i/5,x,y,h,v:Math.max(ph.vb,sp*PX_PER_SP),v0:sp*PX_PER_SP,rate:ph.rate,w:ph.w,r:R*sc+W.ro+W.margin+(this.values.V10_HEAD_PAD??12)});
+    }return heads;
+  }
+  v10EarliestBlock(head,a,b,pad=0) {
+    // A disk encloses the entire swept chord. Maximum progress towards its
+    // centre is integrated under the turn-rate bound. Instant maximum speed,
+    // optional stopping, and ignored enemy obstacles enlarge the reachable set:
+    // this is a LOWER bound on interception time, never a guaranteed attack.
+    const x=(a.x+b.x)/2-head.x,y=(a.y+b.y)/2-head.y;
+    const d=Math.max(0,hypot(x,y)-head.r-hypot(b.x-a.x,b.y-a.y)/2-pad);
+    if(d===0)return 0;
+    const angle=Math.abs(wrap(Math.atan2(y,x)-head.h)),w=Math.max(1e-6,head.w),v=head.v;
+    const beta=Math.min(angle,PI/2),delay=Math.max(0,(angle-PI/2)/w),arc=v*Math.sin(beta)/w;
+    const turnBound=d<arc?delay+(beta-Math.asin(clip(Math.sin(beta)-d*w/v,-1,1)))/w:angle/w+(d-arc)/v;
+    const v0=head.v0??v,rate=Math.max(1e-6,head.rate??1),ramp=Math.max(0,(v-v0)/rate),rampDistance=(v0+v)*ramp/2;
+    const speedBound=d<=rampDistance?(-v0+Math.sqrt(v0*v0+2*rate*d))/rate:ramp+(d-rampDistance)/v;
+    return Math.max(turnBound,speedBound);
+  }
+  v10Closure(pts,heads) {
+    let slack=Infinity,exposure=0,weight=0,first=Infinity,enemy=null;const segments=[];
+    // Group only a few points; enclosing radius includes every curve vertex,
+    // so no narrow interception between sampled endpoints is skipped.
+    for(let i=0;i+5<pts.length;){
+      let j=i+5;while(j+5<pts.length&&pts[j+5]-pts[i]<=.16)j+=5;
+      const a={x:pts[i+1],y:pts[i+2]},b={x:pts[j+1],y:pts[j+2]},mx=(a.x+b.x)/2,my=(a.y+b.y)/2;
+      let radius=hypot(b.x-a.x,b.y-a.y)/2;
+      for(let k=i;k<=j;k+=5)radius=Math.max(radius,hypot(pts[k+1]-mx,pts[k+2]-my));
+      const pad=radius-hypot(b.x-a.x,b.y-a.y)/2+1;let earliest=Infinity,id=null;
+      for(const head of heads){const t=this.v10EarliestBlock(head,a,b,pad);if(t<earliest){earliest=t;id=head.id;}}
+      const margin=earliest-pts[j]-.1,dt=pts[j]-pts[i],wt=dt/(1+pts[j]);
+      if(margin<slack){slack=margin;enemy=id;}
+      if(margin<=0)first=Math.min(first,pts[i]);
+      exposure+=wt*clip(-margin/.6,0,1);weight+=wt;
+      segments.push({t:pts[j],blockAt:Number.isFinite(earliest)?earliest:null,slack:Number.isFinite(margin)?margin:null,enemy:id});i=j;
+    }
+    return {risk:weight?exposure/weight:0,slack:Number.isFinite(slack)?slack:null,first:Number.isFinite(first)?first:null,enemy,certified:slack>0,scope:'observed_heads_turn_speed_bounds',segments};
+  }
+  v10Compare(a,b) {
+    // Timing dominates width and food. Never use an additive width bonus to
+    // overrule a lower closure risk. Commitment resolves near-equal costs only.
+    return Number(b.closure.certified)-Number(a.closure.certified)||a.closure.risk-b.closure.risk||
+      (b.closure.first??1e6)-(a.closure.first??1e6)||b.score-a.score;
+  }
+  v10Route(s,ver) {
+    TURN_FIX=!!this.values.TURN_FIX;
+    const begin=performance.now(),V=this.values,W=this.v10World(s),PW=this.v10ProbeWorld(W),ph=this.v4Physics(s.sc),root=this.v10Root(s,W,ph);
+    const deadline=begin+(V.V10_BUDGET??90),edge=Math.min(Math.max(V.V10_EDGE??1450,(s.viewRadius??0)*.85),W.obs-150);
+    const heads=this.v10Blockers(s,W),food=this.v9FoodGoals(s)[0],routes=[],complete=[];let expanded=0;
+    const result=reason=>({algo:'v10',ver,t0:s.t,routes,certified:routes.some(r=>r.certified),reason,ms:performance.now()-begin,expanded,map:{radius:W.obs,target:edge},walls:W.walls});
+    if(!root.ok)return result('prefix_collision');
+    const accept=(guide,id)=>{
+      const r=this.v10Follow(s,PW,ph,root,guide,deadline);
+      if(!r.ok)return false;
+      const closure=this.v10Closure(r.pts,heads);
+      routes.push({...guide,id,t0:s.t,geometryOnly:false,drivable:true,certified:closure.certified,closure,pts:r.pts,actions:r.actions,clear:r.clear,duration:r.duration,length:r.travel,score:guide.score??0});return true;
+    };
+    const old=this.v10Committed;
+    if(old&&s.t>=old.t0&&s.t-old.t0<2&&hypot(old.goal[0]-s.x,old.goal[1]-s.y)>220)accept(old,old.id);
+    const canBoost=s.L>=(V.V2_MINL??30)&&((V.V10_ESCAPE_BOOST??1)||(V.V9_BOOST_ON&&food?.mass>=(V.V9_BOOST_MIN_MASS??48)));
+    const stage=.6,depths=Math.min(60,Math.ceil(edge/Math.max(80,ph.cs)/stage*2)+3);
+    let beam=[{st:root.st,t:root.t,pts:root.pts,actions:[],clear:root.clear,length:0,turn:0,family:0,boost:false,risk:0}];
+    for(let depth=0;depth<depths&&beam.length&&performance.now()<deadline-10;depth++){
+      const next=[];
+      for(const n of beam){
+        const angles=depth===0?Array.from({length:16},(_,i)=>s.ang+i*TAU/16):[n.st.h,n.st.h-.65,n.st.h+.65];
+        for(const angle of angles)for(const boost of depth===0&&canBoost?[false,true]:[n.boost]){
+          if(performance.now()>=deadline-10)break;
+          const r=this.v9Roll(s,PW,ph,n.st,0,stage,n.t,angle,boost);expanded++;if(!r.ok)continue;
+          const distance=hypot(r.st.x-s.x,r.st.y-s.y),length=n.length+hypot(r.st.x-n.st.x,r.st.y-n.st.y),turn=n.turn+Math.abs(wrap(r.st.h-n.st.h));
+          let close=Infinity;for(const h of heads)close=Math.min(close,this.v10EarliestBlock(h,n.st,r.st,4));
+          const risk=n.risk+stage*clip((r.t+.1-close)/.6,0,1)/(1+r.t);
+          const gain=food?food.d-hypot(r.st.x-food.x,r.st.y-food.y):0;
+          const centerGain=hypot(s.x-s.wall[0],s.y-s.wall[1])-hypot(r.st.x-s.wall[0],r.st.y-s.wall[1]);
+          const score=distance-turn*12+gain*(V.V9_FOOD_W??2)*.08+(food?0:centerGain*(V.V9_CENTER_W??2)*.03);
+          const q={...r,pts:[...n.pts,...r.pts],actions:[...n.actions,{start:n.t,end:r.t,target:angle,boost}],length,clear:Math.min(n.clear,r.clear),turn,score,risk,boost,family:depth===0?Math.floor((wrap(angle-s.ang)+PI)/(.5)):n.family};
+          if(distance>=edge){complete.push(q);continue;}next.push(q);
+        }
+      }
+      // Preserve distinct initial branches and speed choices while extending
+      // all of them towards the requested probe boundary (not a 4.2 s cutoff).
+      next.sort((a,b)=>a.risk-b.risk||b.score-a.score);const cells=new Set(),families=new Map();beam=[];
+      for(const q of next){const key=[Math.round((q.st.x-s.x)/80),Math.round((q.st.y-s.y)/80),Math.round(wrap(q.st.h)/.5),q.boost].join(',');const family=q.family+':'+q.boost;if(cells.has(key)||(families.get(family)||0)>=1)continue;cells.add(key);families.set(family,(families.get(family)||0)+1);beam.push(q);if(beam.length>=12)break;}
+      if(complete.length>=6)break;
+    }
+    complete.sort((a,b)=>a.risk-b.risk||b.score-a.score);
+    for(const q of complete){
+      if(performance.now()>=deadline)break;
+      const angle=Math.atan2(q.st.y-s.y,q.st.x-s.x);
+      if(routes.some(r=>Math.abs(wrap(Math.atan2(r.goal[1]-s.y,r.goal[0]-s.x)-angle))<.5))continue;
+      const path=[];for(let i=0;i<q.pts.length;i+=5)path.push({x:q.pts[i+1],y:q.pts[i+2]});
+      accept({path,goal:[q.st.x,q.st.y],length:q.length,kind:'escape',angle,useBoost:q.boost,lookScale:.65,score:q.score},`${ver}:${routes.length}`);
+      if(routes.length>=(V.V9_ROUTES??3))break;
+    }
+    routes.sort((a,b)=>this.v10Compare(a,b));this.v10Committed=routes[0]||null;
+    return result(routes.length?'long_probe':performance.now()>=deadline-10?'budget':'no_drivable_route');
+  }
+
+  v10Step(s) {
+    TURN_FIX=!!this.values.TURN_FIX;
+    const begin=performance.now(),V=this.values,W=this.v10World(s),PW=this.v10ProbeWorld(W),ph=this.v4Physics(s.sc),root=this.v10Root(s,W,ph);
+    const worldMs=performance.now()-begin,heads=this.v10Blockers(s,W);
+    const source=s.route?.algo==='v10'&&s.t>=s.route.t0&&s.t-s.route.t0<(V.V10_ROUTE_AGE??.9)?s.route:null;
+    const valid=[],flat=pts=>{const a=[];for(let i=0;i<pts.length;i+=5)a.push(pts[i+1],pts[i+2]);return a;};
+    let reject=source?'invalid':'pending',checked=0;
+    // Recheck full remaining probes in one model; the local layer cannot
+    // silently substitute an unrelated food/centre objective for a valid route.
+    const deadline=begin+Math.max(12,V.V10_LOCAL_MS??3);
+    if(root.ok)for(const guide of source?.routes||[]){
+      if(!guide.drivable)continue;
+      if(hypot(guide.goal[0]-s.x,guide.goal[1]-s.y)<150){reject='completed';continue;}
+      const r=this.v10Follow(s,PW,ph,root,guide,deadline);checked++;
+      if(r.ok&&r.actions.length){const closure=this.v10Closure(r.pts,heads);valid.push({...guide,...r,closure,score:(guide.score??0)+(guide.id===this.v10RouteId?10:0)});}
+      else reject=r.reason;
+      if(performance.now()>deadline)break;
+    }
+    valid.sort((a,b)=>this.v10Compare(a,b));const picked=valid[0];let action,pts,clear,safe,mode;
+    if(picked){action=picked.actions[0];pts=picked.pts;clear=picked.clear;safe=true;mode='v10route';this.v10RouteId=picked.id;}
+    else {
+      const options=[],horizon=Math.max(.6,V.V10_LOCAL_H??.9);
+      const canBoost=s.L>=(V.V2_MINL??30)&&(V.V10_ESCAPE_BOOST??1);
+      for(const offset of [0,-.5,.5,-1,1,-2,2,PI])for(const boost of canBoost?[false,true]:[false]){
+        const angle=root.st.h+offset,r=this.v9Roll(s,W,ph,root.st,0,horizon,root.t,angle,boost);checked++;
+        options.push({...r,angle,boost,score:r.t*1000+Math.min(100,r.clear)-Math.abs(offset)});
+      }
+      options.sort((a,b)=>Number(b.ok)-Number(a.ok)||b.score-a.score);const best=options[0];
+      action={start:root.t,end:root.t+.13,target:best.angle,boost:best.boost};pts=[...root.pts,...best.pts];clear=best.clear;safe=root.ok&&best.ok;mode=safe?'v10replan':'v10emergency';
+    }
+    const ms=performance.now()-begin;this.v10ComputeMs=ms;
+    const trace={mode,cmd:r1(deg(action.target)),boost:action.boost,n_safe:root.ok?valid.length:0,cause:source?.reason??'pending',v10_strategy:picked?'route':'replan',v10_local_ms:ms,v10_world_ms:worldMs,v10_budget_hit:ms>(V.V10_LOCAL_MS??3),v10_checked:checked,v10_clear:clear,v10_root_safe:root.ok,v10_map_ms:source?.ms??0,v10_map_age:source?s.t-source.t0:-1,v10_routes:valid.length,v10_geometry_only:0,v10_route_id:picked?.id??null,v10_continuation_s:picked?picked.duration-root.t:0,v10_closure_risk:picked?.closure.risk??null,v10_closure_slack:picked?.closure.slack??null,v10_closure_cert:picked?.closure.certified??false,v10_replan:picked?0:1,v10_reject:picked?null:reject,L:s.L,sc:s.sc};
+    this.last={trace,mode,plan:pts,controls:[{...action,end:Math.min(action.end,action.start+.13)}],draw:{chosen:flat(pts),localPath:flat(pts.filter((_,i)=>pts[i-i%5]<=root.t+.6)),localUnsafe:!safe,v9At:s.t,v9Paths:valid.map(r=>flat(r.pts)),v10Closures:valid.map(r=>({risk:r.closure.risk,certified:r.closure.certified,slack:r.closure.slack})),v9Walls:W.walls,v9Reason:picked?'long_probe':'replan',mazePath:[],safe:[],near:[],gaps:[],goal:picked?.goal??null,ro:W.ro}};
+    this.prev=action.target;this.prevBoost=action.boost;return [action.target,action.boost];
+  }

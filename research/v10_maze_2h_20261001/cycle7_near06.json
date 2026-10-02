@@ -1,0 +1,200 @@
+[
+  {
+    "t": 51.775,
+    "routes": 5,
+    "kinds": [
+      "escape",
+      "escape",
+      "escape",
+      "escape",
+      "escape"
+    ],
+    "reason": "maze_routes",
+    "ms": 113.437653,
+    "mode": "v10route",
+    "localms": 10.026531000000006,
+    "reject": null
+  },
+  {
+    "t": 85.973,
+    "routes": 5,
+    "kinds": [
+      "escape",
+      "escape",
+      "food_escape",
+      "escape",
+      "escape"
+    ],
+    "reason": "maze_routes",
+    "ms": 130.740467,
+    "mode": "v10route",
+    "localms": 10.416311000000007,
+    "reject": null
+  },
+  {
+    "t": 87.844,
+    "routes": 2,
+    "kinds": [
+      "food_escape",
+      "escape"
+    ],
+    "reason": "maze_routes",
+    "ms": 91.016842,
+    "mode": "v10route",
+    "localms": 12.18629199999998,
+    "reject": null
+  },
+  {
+    "t": 141.729,
+    "routes": 5,
+    "kinds": [
+      "escape",
+      "escape",
+      "escape",
+      "escape",
+      "escape"
+    ],
+    "reason": "maze_routes",
+    "ms": 51.581395999999984,
+    "mode": "v10route",
+    "localms": 7.187967999999955,
+    "reject": null
+  },
+  {
+    "t": 160.451,
+    "routes": 5,
+    "kinds": [
+      "escape",
+      "escape",
+      "escape",
+      "escape",
+      "escape"
+    ],
+    "reason": "maze_routes",
+    "ms": 135.53923099999997,
+    "mode": "v10route",
+    "localms": 6.663436000000047,
+    "reject": null
+  },
+  {
+    "t": 164.273,
+    "routes": 5,
+    "kinds": [
+      "escape",
+      "escape",
+      "escape",
+      "escape",
+      "escape"
+    ],
+    "reason": "maze_routes",
+    "ms": 235.45332200000007,
+    "mode": "v10route",
+    "localms": 7.969583999999941,
+    "reject": null
+  },
+  {
+    "t": 198.785,
+    "routes": 5,
+    "kinds": [
+      "food_escape",
+      "escape",
+      "escape",
+      "escape",
+      "escape"
+    ],
+    "reason": "maze_routes",
+    "ms": 65.57352800000001,
+    "mode": "v10route",
+    "localms": 4.662612000000081,
+    "reject": null
+  },
+  {
+    "t": 199.938,
+    "routes": 5,
+    "kinds": [
+      "maneuver_escape",
+      "escape",
+      "escape",
+      "escape",
+      "escape"
+    ],
+    "reason": "maze_routes",
+    "ms": 243.0447979999999,
+    "mode": "v10route",
+    "localms": 6.913796000000048,
+    "reject": null
+  },
+  {
+    "t": 201.521,
+    "routes": 5,
+    "kinds": [
+      "escape",
+      "escape",
+      "escape",
+      "escape",
+      "escape"
+    ],
+    "reason": "maze_routes",
+    "ms": 57.79902100000004,
+    "mode": "v10route",
+    "localms": 5.839144000000033,
+    "reject": null
+  },
+  {
+    "t": 203.602,
+    "routes": 4,
+    "kinds": [
+      "escape",
+      "escape",
+      "escape",
+      "escape"
+    ],
+    "reason": "maze_routes",
+    "ms": 57.481052999999974,
+    "mode": "v10route",
+    "localms": 2.7396699999999328,
+    "reject": null
+  },
+  {
+    "t": 207.362,
+    "routes": 5,
+    "kinds": [
+      "food_escape",
+      "escape",
+      "escape",
+      "escape",
+      "escape"
+    ],
+    "reason": "maze_routes",
+    "ms": 115.59215899999981,
+    "mode": "v10route",
+    "localms": 8.47217099999989,
+    "reject": null
+  },
+  {
+    "t": 222.818,
+    "routes": 5,
+    "kinds": [
+      "food_escape",
+      "food_escape",
+      "escape",
+      "escape",
+      "escape"
+    ],
+    "reason": "maze_routes",
+    "ms": 54.22282599999994,
+    "mode": "v10route",
+    "localms": 5.074617999999873,
+    "reject": null
+  },
+  {
+    "t": 226.802,
+    "routes": 0,
+    "kinds": [],
+    "reason": "no_drivable_route",
+    "ms": 35.85439399999996,
+    "mode": "v10emergency",
+    "localms": 0.9579230000001644,
+    "reject": "invalid"
+  }
+]

@@ -1,0 +1,35 @@
+{
+  "version": "1001-0c64b8bb",
+  "workers": 3,
+  "expiredCommandDisablesBoost": true,
+  "modeSwitch": true,
+  "controlsAndPersistence": true,
+  "status": {
+    "bot": true,
+    "game": true,
+    "ticks": 39,
+    "fps": 48,
+    "ping": null,
+    "errors": 0,
+    "last": {
+      "ms": 1.300000011920929,
+      "mode": "v10route",
+      "v10_routes": 3,
+      "v10_strategy": "route",
+      "v10_map_ms": 47.29999998211861,
+      "v10_threat_ms": null,
+      "v10_result_age_ms": 6.9000000059604645,
+      "v9_routes": null,
+      "v9_reason": null,
+      "squeeze": null,
+      "v7_phase": null,
+      "v7_heads": null,
+      "v8_phase": null,
+      "v8_heads": null,
+      "v81_density": null,
+      "v81_reason": null
+    },
+    "squeeze_ticks": 0
+  },
+  "errors": []
+}

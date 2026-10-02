@@ -1,0 +1,14 @@
+{
+ "applied": true,
+ "version": "0930-d1a1650d",
+ "playing": true,
+ "bot": false,
+ "preset": "v81_exact",
+ "v81": 1,
+ "nearRadius": 250,
+ "v8": 0,
+ "radius": 450,
+ "heads": 3,
+ "clearSeconds": 1,
+ "foodWeight": 300
+}

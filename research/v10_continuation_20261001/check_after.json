@@ -1,0 +1,29 @@
+{
+  "open_space_has_executable_exit": {
+    "pass": true,
+    "duration": 8.009999999999991
+  },
+  "distant_new_wall_invalidates_whole_route": {
+    "pass": true,
+    "reject": "collision"
+  },
+  "actual_pose_rejoins_route": {
+    "pass": true,
+    "target": -0.450839330415725
+  },
+  "usable_exit_survives_new_food_attraction": {
+    "pass": true
+  },
+  "terminal_wall_not_certified": {
+    "pass": true
+  },
+  "parameter_change_clears_commitment": {
+    "pass": true
+  },
+  "queued_collision_never_certifies_exit": {
+    "pass": true
+  },
+  "stale_route_not_replayed": {
+    "pass": true
+  }
+}

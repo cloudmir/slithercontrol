@@ -1,0 +1,100 @@
+[
+  {
+    "t": 122.643,
+    "attempts": 2,
+    "found": {
+      "offset": 0,
+      "duration": 0.39,
+      "boost": false,
+      "sector": 0,
+      "clear": 11.832197228049509
+    }
+  },
+  {
+    "t": 128.143,
+    "attempts": 7,
+    "found": {
+      "offset": 0,
+      "duration": 0.39,
+      "boost": true,
+      "sector": 2,
+      "clear": 3.253067035968256
+    }
+  },
+  {
+    "t": 135.743,
+    "attempts": 1,
+    "found": {
+      "offset": 0,
+      "duration": 0.39,
+      "boost": false,
+      "sector": 1,
+      "clear": 0.5786655248928362
+    }
+  },
+  {
+    "t": 145.374,
+    "attempts": 0,
+    "found": null
+  },
+  {
+    "t": 181.929,
+    "attempts": 29,
+    "found": {
+      "offset": -0.6,
+      "duration": 0.39,
+      "boost": true,
+      "sector": 5,
+      "clear": 23.818336642464267
+    }
+  },
+  {
+    "t": 215.866,
+    "attempts": 1,
+    "found": {
+      "offset": 0,
+      "duration": 0.39,
+      "boost": false,
+      "sector": 1,
+      "clear": 57.79292312104696
+    }
+  },
+  {
+    "t": 247.178,
+    "attempts": 9,
+    "found": {
+      "offset": 0,
+      "duration": 0.39,
+      "boost": true,
+      "sector": 4,
+      "clear": 75.59583115333767
+    }
+  },
+  {
+    "t": 270.443,
+    "attempts": 0,
+    "found": null
+  },
+  {
+    "t": 278.587,
+    "attempts": 3,
+    "found": {
+      "offset": 0,
+      "duration": 0.39,
+      "boost": false,
+      "sector": 0,
+      "clear": 8.706640462016491
+    }
+  },
+  {
+    "t": 317.242,
+    "attempts": 9,
+    "found": {
+      "offset": 0,
+      "duration": 0.39,
+      "boost": true,
+      "sector": 0,
+      "clear": 128
+    }
+  }
+]

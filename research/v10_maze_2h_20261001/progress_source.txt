@@ -1,0 +1,105 @@
+{
+  "user_request": "2시간 동안 열린 길 미로 실패 최우선, 경로 유지, 먹이 성장, 실게임-수정 반복. 13:26:44~15:26:44 KST.",
+  "status": "진행 중, 최종 결과 아님",
+  "changes": [
+    "32px 연결 지도 탐색과 실제 물리 추종 검사 분리",
+    "매 틱 .9초 재검사와 300ms마다 전체 경로 재검사",
+    "위험 임계 .75 이하 선택 경로 유지",
+    "실제 선택 경로를 미로 Worker로 전달",
+    "기존 출구까지 경로 재연결, 벽 근접 비용은 통과 금지와 분리",
+    "cycle5는 먹이 경유 후 출구 연결 후보, 아직 실게임 전"
+  ],
+  "limits": [
+    "73F/33F 원 관측은 보존 범위 밖이라 정확 재생 불가. 화면·동시 판단 로그와 합성 유사 장면 구분.",
+    "cycle1~4 서버가 달라 인과적 A/B 결과 아님. 생존 보장 없음.",
+    "고정 미로 3개 전후 동기화 비교 결과 같음. 앞서 감소 표현은 정정함.",
+    "cycle4 cap은 수집기 벽시계300초, 게임 기록323.5초이며 사망 아님.",
+    "cycle1 source에 포함된 8개 contract는 cycle2 먹이 검사도 포함되어 cycle1 단독 검사로 해석하면 안 됨."
+  ],
+  "runs": [
+    {
+      "cycle": 1,
+      "path": "runs/v10_maze_cycle1_20261001_133306",
+      "build": "1001-e3ec3cd8",
+      "seconds": 283,
+      "capped": false,
+      "server": "181.41.140.146:444",
+      "L_max": 929,
+      "route_percent": 96.8,
+      "errors": 0,
+      "net_growth": 192.93,
+      "timing": {
+        "p50": 5.3,
+        "p95": 10
+      },
+      "raw_hashes": {
+        "slp_01_box.json.gz": "b538b5e204b5b408259ef83dda81b70571e829ba918bd7b7b884f8c2b27266ec",
+        "slp_01_log.json.gz": "f94fbbdb7c2c4cf3698874503c09a576e88ad408f5e7e7cb73f84506b289e0fd",
+        "slp_01.json": "e279a681139d0e9703f84487b659b850346c0ab399810442d549c613e0cc5131"
+      }
+    },
+    {
+      "cycle": 2,
+      "path": "runs/v10_maze_cycle2_20261001_134218",
+      "build": "1001-9d240756",
+      "seconds": 79.8,
+      "capped": false,
+      "server": "181.41.140.146:444",
+      "L_max": 234,
+      "route_percent": 91.7,
+      "errors": 0,
+      "net_growth": 168.42,
+      "timing": {
+        "p50": 4.6,
+        "p95": 10.8
+      },
+      "raw_hashes": {
+        "slp_01_box.json.gz": "a84b7c7aea52dca8e8596dc19559223e3051ca3f71805cbeb165599825bcf287",
+        "slp_01_log.json.gz": "dc493e6e834fffcfb5d19cc2ddbeea00bb07415a4fb955f417835b96ec602b4f",
+        "slp_01.json": "0cbca399e69d726871b962a3d4ae6e3dbde31518a0e8cbfd510cab9145a06898"
+      }
+    },
+    {
+      "cycle": 3,
+      "path": "runs/v10_maze_cycle3_20261001_134851",
+      "build": "1001-2476f9c0",
+      "seconds": 103.5,
+      "capped": false,
+      "server": "181.41.140.178:444",
+      "L_max": 396,
+      "route_percent": 93.3,
+      "errors": 0,
+      "net_growth": 223.77,
+      "timing": {
+        "p50": 5.3,
+        "p95": 9.3
+      },
+      "raw_hashes": {
+        "slp_01_box.json.gz": "6bd30bd8a4e64888bf6f3c4f7015c08c5af5976adbff1e9fe01f617f12eefca2",
+        "slp_01_log.json.gz": "d7e6f7e681b61cc0f5e2f85c9cda80f3a844436c5775158e541c3c67c7cbaa27",
+        "slp_01.json": "ca57f87c5fc41880da3a770c938bc06a584bf905de29466a3ef3a5e882d68363"
+      }
+    },
+    {
+      "cycle": 4,
+      "path": "runs/v10_maze_cycle4_20261001_135606",
+      "build": "1001-1c8fbce5",
+      "seconds": 323.5,
+      "capped": true,
+      "server": "103.4.30.88:444",
+      "L_max": 1109,
+      "route_percent": 98.4,
+      "errors": 0,
+      "net_growth": 203.83,
+      "timing": {
+        "p50": 3.8,
+        "p95": 7.2
+      },
+      "raw_hashes": {
+        "slp_01_box.json.gz": "1fe7f2f8e3ed2722dc0b3656af608b38b941c9edc9ed15f6e168edc5e7b7c478",
+        "slp_01_log.json.gz": "86f033c297e9fa7764e5067e18869e9cf3b60a3e247336c7db2d3104c02b4cc3",
+        "slp_01.json": "0250543aa8c835f5615dfa9c88fa6f81a81e29be108f8964df097a61077e514f"
+      }
+    }
+  ]
+}

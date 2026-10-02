@@ -1,0 +1,165 @@
+{
+  "attack_after_boost_off": {
+    "mode": "evade",
+    "boost": true,
+    "cmd": -90.0,
+    "clear": 19987.5,
+    "hard": 19985.5,
+    "n_safe": 37,
+    "threat": 0.39,
+    "enclosed": 0.0,
+    "wrap": 0.0,
+    "thr": 18.0,
+    "eat": 0.0,
+    "goal": 0.0,
+    "thread": null,
+    "L": 300,
+    "sc": 1.0,
+    "died_near": 0,
+    "kills": 0,
+    "big": 0.0,
+    "curl": 0.0,
+    "prof": "safe",
+    "onward": 20276.3,
+    "nh": 1,
+    "why": [
+      999.0,
+      999.0,
+      999.0,
+      15.8,
+      true
+    ],
+    "hold_by": null,
+    "held_fail": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "crowd": null,
+    "gap": null,
+    "esc": null
+  },
+  "pending_emergency": {
+    "before": [
+      1.3089969389957472,
+      true,
+      1,
+      1.0,
+      "feed"
+    ],
+    "after": null,
+    "mode": "emergency"
+  },
+  "held_fail_counterexample": {
+    "mode": "escape",
+    "boost": false,
+    "cmd": 0.0,
+    "clear": 175.5,
+    "hard": 145.5,
+    "n_safe": 40,
+    "threat": 0.0,
+    "enclosed": 1.0,
+    "wrap": 0.0,
+    "thr": 18.0,
+    "eat": 0.0,
+    "goal": 0.0,
+    "thread": [
+      360.1,
+      360.1,
+      false
+    ],
+    "L": 300,
+    "sc": 1.0,
+    "died_near": 0,
+    "kills": 0,
+    "big": 0.52,
+    "curl": 0.0,
+    "prof": "safe",
+    "onward": -14.5,
+    "nh": 0,
+    "why": [
+      145.5,
+      999.0,
+      145.5,
+      999.0,
+      true
+    ],
+    "hold_by": "confirm",
+    "held_fail": [
+      false,
+      false,
+      true,
+      false,
+      false
+    ],
+    "crowd": null,
+    "gap": [
+      88.9,
+      25.0,
+      25.0,
+      14.5,
+      false
+    ],
+    "esc": null
+  },
+  "oracle_missing_is_unknown": true,
+  "oracle_wall_gap": -11.0,
+  "planner_ok_counterexample": {
+    "game": "live_20260925_171431",
+    "stored": {
+      "game": "0260925_171431",
+      "seconds": 104.3,
+      "moments": [
+        {
+          "before": 2.0,
+          "oracle_safe": 38,
+          "best_gap": 126.6,
+          "chosen_realized": 124.6,
+          "planner_safe": 16,
+          "planner_hard": 17.4,
+          "mode": "evade"
+        },
+        {
+          "before": 1.2,
+          "oracle_safe": 32,
+          "best_gap": 109.5,
+          "chosen_realized": -23.9,
+          "planner_safe": 7,
+          "planner_hard": 50.1,
+          "mode": "evade"
+        }
+      ],
+      "category": "planner_ok"
+    },
+    "recomputed_chosen_gap": -23.935331825143763
+  },
+  "false_alarm_missing_middle": {
+    "partial": {
+      "gap": 705.1067811865476,
+      "seen": [
+        0,
+        2
+      ]
+    },
+    "complete": {
+      "gap": -2.0,
+      "seen": [
+        0,
+        1,
+        2
+      ]
+    },
+    "note": "Synthetic example: skipped middle can hide contact; no claim that all 18 misses or 59 false alarms are wrong."
+  },
+  "hashes": {
+    "pilot.py": "9031e58262488ea8f30edfc875d2792cac6ac9df98543e6fd4d1a7099b3517be",
+    "run_live.py": "7f3f470b1771b3d7a109e0074e3ce80e9d9733295f858e11200e50e1fbe18d0a",
+    "CHANGES_20260925_evening.md": "295e71d3c38e908400c445ba610114dc1c5f07b739259590b194dab7bc3f9b29",
+    "research/oracle_deaths_20260925.py": "d3af523d5b23bb5103053186735e71fb64f3ad3f5d1908a5e85efa6204d13c4d",
+    "research/false_alarm_20260925.py": "0aa1076cf9c9bba039fba57b49fa66ceffe04978669ecd3ba525e9a61a16f9d9",
+    "records/claim-pilot-live-20260925.md": "546a3db5392f22148af38ac989ada9137f2ce0b767dac6b875f89577ffbff9a8"
+  },
+  "record_bytes": 33094
+}

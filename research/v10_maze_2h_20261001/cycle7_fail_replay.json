@@ -1,0 +1,119 @@
+[
+  {
+    "t": 51.775,
+    "routes": 1,
+    "reason": "maze_routes",
+    "ms": 58.225567,
+    "mode": "v10route",
+    "localms": 2.1291579999999897,
+    "reject": null
+  },
+  {
+    "t": 85.973,
+    "routes": 1,
+    "reason": "maze_routes",
+    "ms": 57.897250000000014,
+    "mode": "v10route",
+    "localms": 4.395634999999999,
+    "reject": null
+  },
+  {
+    "t": 87.844,
+    "routes": 0,
+    "reason": "no_drivable_route",
+    "ms": 57.354225000000014,
+    "mode": "v10replan",
+    "localms": 1.9944519999999955,
+    "reject": "invalid"
+  },
+  {
+    "t": 141.729,
+    "routes": 3,
+    "reason": "maze_routes",
+    "ms": 51.01370799999995,
+    "mode": "v10route",
+    "localms": 3.733867000000032,
+    "reject": null
+  },
+  {
+    "t": 160.451,
+    "routes": 3,
+    "reason": "maze_routes",
+    "ms": 70.406049,
+    "mode": "v10route",
+    "localms": 5.470763000000034,
+    "reject": null
+  },
+  {
+    "t": 164.273,
+    "routes": 1,
+    "reason": "maze_routes",
+    "ms": 69.78675700000002,
+    "mode": "v10route",
+    "localms": 1.958511000000044,
+    "reject": null
+  },
+  {
+    "t": 198.785,
+    "routes": 0,
+    "reason": "no_drivable_route",
+    "ms": 70.23967599999997,
+    "mode": "v10replan",
+    "localms": 4.6519870000000765,
+    "reject": "invalid"
+  },
+  {
+    "t": 199.938,
+    "routes": 1,
+    "reason": "maze_routes",
+    "ms": 76.92752300000006,
+    "mode": "v10route",
+    "localms": 2.9760599999999613,
+    "reject": null
+  },
+  {
+    "t": 201.521,
+    "routes": 2,
+    "reason": "maze_routes",
+    "ms": 68.27702799999997,
+    "mode": "v10route",
+    "localms": 5.208958000000052,
+    "reject": null
+  },
+  {
+    "t": 203.602,
+    "routes": 3,
+    "reason": "maze_routes",
+    "ms": 66.46617199999991,
+    "mode": "v10route",
+    "localms": 6.679030999999895,
+    "reject": null
+  },
+  {
+    "t": 207.362,
+    "routes": 5,
+    "reason": "maze_routes",
+    "ms": 84.42495500000007,
+    "mode": "v10route",
+    "localms": 8.458486999999991,
+    "reject": null
+  },
+  {
+    "t": 222.818,
+    "routes": 5,
+    "reason": "maze_routes",
+    "ms": 52.32642600000008,
+    "mode": "v10route",
+    "localms": 8.972219999999993,
+    "reject": null
+  },
+  {
+    "t": 226.802,
+    "routes": 0,
+    "reason": "no_drivable_route",
+    "ms": 52.461455,
+    "mode": "v10emergency",
+    "localms": 0.9419940000000224,
+    "reject": "invalid"
+  }
+]

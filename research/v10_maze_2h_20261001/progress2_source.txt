@@ -1,0 +1,1043 @@
+# V10 two-hour improvement: cycles 1–9 and held-out kinematics
+
+{
+  "status": "in_progress; 2-hour session ends 2026-10-01 15:26:44 KST",
+  "current_build": "1001-3cf85fbe",
+  "current_hashes": {
+    "ext/pilot.js": "557a02d59a4d76c038437f99197085767fc1215acb61b29aa3a651b38db92222",
+    "ext/mod.js": "a77285888f1f9a0ed09ce5d96ac44201ebd12bceb7869392d16d5fa81ca6c63e",
+    "params.json": "8429f5569beb9f5fd61568b99c78fe02f7de2aa398112bd5ba33893686735f78"
+  },
+  "changes_after_cycle4": [
+    "Cycle5 food waypoint with continuing escape; cycle6 keeps food search from starving first exit and evaluates purposeful boost",
+    "Cycle7 local pellet target hold and physically verified entry manoeuvre before joining escape route",
+    "Cycle8 re-aims toward pellets along the curved approach and verifies return to selected corridor; risk penalty and displayed path updated for detour",
+    "Cycle9 experimental forecast hard-gate shortening was tested once and not adopted; restored cycle8 1.2-second hard forecast for cycle10",
+    "Cycle10 changes V10 preset TRACK_LAT and current setting from 0.17 to 0.06 based on held-out kinematics; other current user settings preserved"
+  ],
+  "runs": [
+    {
+      "cycle": 1,
+      "run": "runs/v10_maze_cycle1_20261001_133306",
+      "build": "1001-e3ec3cd8",
+      "game": {
+        "game": 1,
+        "seconds": 283,
+        "L_max": 929,
+        "capped": false,
+        "server": "181.41.140.146:444",
+        "players": 406,
+        "errors": 0,
+        "decide_ms": {
+          "p50": 5.3,
+          "p95": 10
+        },
+        "obs_to_cmd_ms": {
+          "p50": 16.2,
+          "p95": 29.6
+        },
+        "ticks": 7998,
+        "modes": {
+          "v10replan": 169,
+          "v10route": 7743,
+          "v10emergency": 86
+        },
+        "map_reasons": {
+          "pending": 3,
+          "maze_routes": 7726,
+          "no_drivable_route": 255,
+          "prefix_collision": 14
+        },
+        "tracker_reasons": {
+          "none": 1,
+          "v10_controls": 7997
+        },
+        "route_follow_frames": 7743,
+        "total_frames": 7998,
+        "continuation_rejects": {
+          "pending": 3,
+          "None": 7743,
+          "collision": 229,
+          "budget": 2,
+          "invalid": 21
+        },
+        "last3s_route_follow_frames": 44,
+        "last3s_continuation_rejects": {
+          "None": 44,
+          "collision": 35,
+          "invalid": 11
+        },
+        "last3s_map_reasons": {
+          "maze_routes": 44,
+          "no_drivable_route": 37,
+          "prefix_collision": 9
+        },
+        "last3s_modes": {
+          "v10route": 44,
+          "v10replan": 9,
+          "v10emergency": 37
+        },
+        "last3s_safe_counts": {
+          "6": 6,
+          "2": 8,
+          "1": 13,
+          "0": 46,
+          "3": 16,
+          "5": 1
+        }
+      },
+      "raw_hashes": {
+        "slp_01_box.json.gz": "b538b5e204b5b408259ef83dda81b70571e829ba918bd7b7b884f8c2b27266ec",
+        "slp_01_log.json.gz": "f94fbbdb7c2c4cf3698874503c09a576e88ad408f5e7e7cb73f84506b289e0fd",
+        "slp_01.json": "e279a681139d0e9703f84487b659b850346c0ab399810442d549c613e0cc5131"
+      }
+    },
+    {
+      "cycle": 2,
+      "run": "runs/v10_maze_cycle2_20261001_134218",
+      "build": "1001-9d240756",
+      "game": {
+        "game": 1,
+        "seconds": 79.8,
+        "L_max": 234,
+        "capped": false,
+        "server": "181.41.140.146:444",
+        "players": 469,
+        "errors": 0,
+        "decide_ms": {
+          "p50": 4.6,
+          "p95": 10.8
+        },
+        "obs_to_cmd_ms": {
+          "p50": 11.8,
+          "p95": 25.6
+        },
+        "ticks": 2300,
+        "modes": {
+          "v10replan": 120,
+          "v10route": 2109,
+          "v10emergency": 71
+        },
+        "map_reasons": {
+          "pending": 3,
+          "maze_routes": 2174,
+          "no_drivable_route": 105,
+          "prefix_collision": 18
+        },
+        "tracker_reasons": {
+          "none": 1,
+          "v10_controls": 2299
+        },
+        "route_follow_frames": 2109,
+        "total_frames": 2300,
+        "continuation_rejects": {
+          "pending": 3,
+          "None": 2109,
+          "collision": 27,
+          "invalid": 161
+        },
+        "last3s_route_follow_frames": 80,
+        "last3s_continuation_rejects": {
+          "None": 80,
+          "collision": 1,
+          "invalid": 5
+        },
+        "last3s_map_reasons": {
+          "maze_routes": 81,
+          "no_drivable_route": 4,
+          "prefix_collision": 1
+        },
+        "last3s_modes": {
+          "v10route": 80,
+          "v10emergency": 6
+        },
+        "last3s_safe_counts": {
+          "6": 44,
+          "4": 1,
+          "5": 20,
+          "3": 12,
+          "1": 3,
+          "0": 6
+        }
+      },
+      "raw_hashes": {
+        "slp_01_box.json.gz": "a84b7c7aea52dca8e8596dc19559223e3051ca3f71805cbeb165599825bcf287",
+        "slp_01_log.json.gz": "dc493e6e834fffcfb5d19cc2ddbeea00bb07415a4fb955f417835b96ec602b4f",
+        "slp_01.json": "0cbca399e69d726871b962a3d4ae6e3dbde31518a0e8cbfd510cab9145a06898"
+      }
+    },
+    {
+      "cycle": 3,
+      "run": "runs/v10_maze_cycle3_20261001_134851",
+      "build": "1001-2476f9c0",
+      "game": {
+        "game": 1,
+        "seconds": 103.5,
+        "L_max": 396,
+        "capped": false,
+        "server": "181.41.140.178:444",
+        "players": 107,
+        "errors": 0,
+        "decide_ms": {
+          "p50": 5.3,
+          "p95": 9.3
+        },
+        "obs_to_cmd_ms": {
+          "p50": 13.8,
+          "p95": 24.9
+        },
+        "ticks": 2986,
+        "modes": {
+          "v10replan": 180,
+          "v10route": 2785,
+          "v10emergency": 21
+        },
+        "map_reasons": {
+          "pending": 3,
+          "maze_routes": 2823,
+          "no_drivable_route": 49,
+          "grid_disconnected": 98,
+          "prefix_collision": 13
+        },
+        "tracker_reasons": {
+          "none": 1,
+          "v10_controls": 2985
+        },
+        "route_follow_frames": 2785,
+        "total_frames": 2986,
+        "continuation_rejects": {
+          "pending": 3,
+          "None": 2785,
+          "collision": 19,
+          "invalid": 179
+        },
+        "last3s_route_follow_frames": 0,
+        "last3s_continuation_rejects": {
+          "invalid": 92
+        },
+        "last3s_map_reasons": {
+          "grid_disconnected": 79,
+          "prefix_collision": 13
+        },
+        "last3s_modes": {
+          "v10replan": 71,
+          "v10emergency": 21
+        },
+        "last3s_safe_counts": {
+          "0": 92
+        }
+      },
+      "raw_hashes": {
+        "slp_01_box.json.gz": "6bd30bd8a4e64888bf6f3c4f7015c08c5af5976adbff1e9fe01f617f12eefca2",
+        "slp_01_log.json.gz": "d7e6f7e681b61cc0f5e2f85c9cda80f3a844436c5775158e541c3c67c7cbaa27",
+        "slp_01.json": "ca57f87c5fc41880da3a770c938bc06a584bf905de29466a3ef3a5e882d68363"
+      }
+    },
+    {
+      "cycle": 4,
+      "run": "runs/v10_maze_cycle4_20261001_135606",
+      "build": "1001-1c8fbce5",
+      "game": {
+        "game": 1,
+        "seconds": 323.5,
+        "L_max": 1109,
+        "capped": true,
+        "server": "103.4.30.88:444",
+        "players": 149,
+        "errors": 0,
+        "decide_ms": {
+          "p50": 3.8,
+          "p95": 7.2
+        },
+        "obs_to_cmd_ms": {
+          "p50": 10.2,
+          "p95": 21.3
+        },
+        "ticks": 9448,
+        "modes": {
+          "v10replan": 125,
+          "v10route": 9300,
+          "v10emergency": 23
+        },
+        "map_reasons": {
+          "pending": 3,
+          "maze_routes": 9378,
+          "no_drivable_route": 67
+        },
+        "tracker_reasons": {
+          "none": 1,
+          "v10_controls": 9447
+        },
+        "route_follow_frames": 9300,
+        "total_frames": 9448,
+        "continuation_rejects": {
+          "pending": 3,
+          "None": 9300,
+          "collision": 31,
+          "invalid": 114
+        },
+        "last3s_route_follow_frames": 86,
+        "last3s_continuation_rejects": {
+          "None": 86,
+          "collision": 1,
+          "invalid": 3
+        },
+        "last3s_map_reasons": {
+          "maze_routes": 88,
+          "no_drivable_route": 2
+        },
+        "last3s_modes": {
+          "v10route": 86,
+          "v10replan": 4
+        },
+        "last3s_safe_counts": {
+          "6": 47,
+          "5": 23,
+          "4": 3,
+          "3": 11,
+          "1": 2,
+          "0": 4
+        }
+      },
+      "raw_hashes": {
+        "slp_01_box.json.gz": "1fe7f2f8e3ed2722dc0b3656af608b38b941c9edc9ed15f6e168edc5e7b7c478",
+        "slp_01_log.json.gz": "86f033c297e9fa7764e5067e18869e9cf3b60a3e247336c7db2d3104c02b4cc3",
+        "slp_01.json": "0250543aa8c835f5615dfa9c88fa6f81a81e29be108f8964df097a61077e514f"
+      }
+    },
+    {
+      "cycle": 5,
+      "run": "runs/v10_maze_cycle5_20261001_140421",
+      "build": "1001-baeb2963",
+      "game": {
+        "game": 1,
+        "seconds": 322.6,
+        "L_max": 1128,
+        "capped": true,
+        "server": "181.41.140.146:444",
+        "players": 274,
+        "errors": 0,
+        "decide_ms": {
+          "p50": 4.5,
+          "p95": 10.2
+        },
+        "obs_to_cmd_ms": {
+          "p50": 13.6,
+          "p95": 27.4
+        },
+        "ticks": 9168,
+        "modes": {
+          "v10replan": 258,
+          "v10route": 8865,
+          "v10emergency": 45
+        },
+        "map_reasons": {
+          "pending": 2,
+          "grid_budget": 20,
+          "maze_routes": 8985,
+          "no_drivable_route": 161
+        },
+        "tracker_reasons": {
+          "none": 1,
+          "v10_controls": 9166,
+          "v10_expired": 1
+        },
+        "route_follow_frames": 8865,
+        "total_frames": 9168,
+        "continuation_rejects": {
+          "pending": 2,
+          "invalid": 251,
+          "None": 8865,
+          "collision": 49,
+          "budget": 1
+        },
+        "last3s_route_follow_frames": 89,
+        "last3s_continuation_rejects": {
+          "None": 89
+        },
+        "last3s_map_reasons": {
+          "maze_routes": 89
+        },
+        "last3s_modes": {
+          "v10route": 89
+        },
+        "last3s_safe_counts": {
+          "5": 53,
+          "3": 16,
+          "1": 20
+        }
+      },
+      "raw_hashes": {
+        "slp_01_box.json.gz": "cdf9522d9a4c44b7c409f5d300889175fea4d0be9f7aa3a497583ee4e2ce2a13",
+        "slp_01_log.json.gz": "50112dadfdff48690876e69ab5729573493a9252b8e6f3059b3280e24195efbc",
+        "slp_01.json": "60de8d3f49302a57b56d63c9ad51d063ee90fc736d91d7f46eff83b4fceaa15b"
+      }
+    },
+    {
+      "cycle": 6,
+      "run": "runs/v10_maze_cycle6_20261001_141536",
+      "build": "1001-23a6405a",
+      "game": {
+        "game": 1,
+        "seconds": 324.1,
+        "L_max": 1042,
+        "capped": true,
+        "server": "181.41.140.146:444",
+        "players": 240,
+        "errors": 0,
+        "decide_ms": {
+          "p50": 3.9,
+          "p95": 8.2
+        },
+        "obs_to_cmd_ms": {
+          "p50": 12,
+          "p95": 25.2
+        },
+        "ticks": 9333,
+        "modes": {
+          "v10replan": 73,
+          "v10route": 9252,
+          "v10emergency": 8
+        },
+        "map_reasons": {
+          "pending": 3,
+          "maze_routes": 9285,
+          "grid_budget": 19,
+          "no_drivable_route": 26
+        },
+        "tracker_reasons": {
+          "none": 1,
+          "v10_controls": 9332
+        },
+        "route_follow_frames": 9252,
+        "total_frames": 9333,
+        "continuation_rejects": {
+          "pending": 3,
+          "None": 9252,
+          "collision": 16,
+          "invalid": 61,
+          "budget": 1
+        },
+        "last3s_route_follow_frames": 88,
+        "last3s_continuation_rejects": {
+          "None": 88
+        },
+        "last3s_map_reasons": {
+          "maze_routes": 88
+        },
+        "last3s_modes": {
+          "v10route": 88
+        },
+        "last3s_safe_counts": {
+          "5": 52,
+          "6": 36
+        }
+      },
+      "raw_hashes": {
+        "slp_01_box.json.gz": "4cd11dc95705a1c63c1ac608b5acaf2b44748079918925dc27ee3e0a0223c1a3",
+        "slp_01_log.json.gz": "2501a1cb0b5ccff544b50cfc5f3c6bea789ec27024022109a11fa0819e5537f9",
+        "slp_01.json": "b5d51e078b6090d12e37dcdd6fe0e20977e8534259df5ffd2f772416ea774ae1"
+      }
+    },
+    {
+      "cycle": 7,
+      "run": "runs/v10_maze_cycle7_20261001_142637",
+      "build": "1001-c4f88ef1",
+      "game": {
+        "game": 1,
+        "seconds": 227.3,
+        "L_max": 734,
+        "capped": false,
+        "server": "181.41.140.146:444",
+        "players": 262,
+        "errors": 0,
+        "decide_ms": {
+          "p50": 3.5,
+          "p95": 8.6
+        },
+        "obs_to_cmd_ms": {
+          "p50": 11.3,
+          "p95": 24.4
+        },
+        "ticks": 6568,
+        "modes": {
+          "v10replan": 165,
+          "v10route": 6332,
+          "v10emergency": 71
+        },
+        "map_reasons": {
+          "pending": 3,
+          "maze_routes": 6485,
+          "no_drivable_route": 75,
+          "prefix_collision": 5
+        },
+        "tracker_reasons": {
+          "none": 1,
+          "v10_controls": 6565,
+          "v10_expired": 2
+        },
+        "route_follow_frames": 6332,
+        "total_frames": 6568,
+        "continuation_rejects": {
+          "pending": 3,
+          "None": 6332,
+          "collision": 54,
+          "invalid": 179
+        },
+        "last3s_route_follow_frames": 42,
+        "last3s_continuation_rejects": {
+          "invalid": 39,
+          "None": 42,
+          "collision": 2
+        },
+        "last3s_map_reasons": {
+          "no_drivable_route": 30,
+          "maze_routes": 48,
+          "prefix_collision": 5
+        },
+        "last3s_modes": {
+          "v10emergency": 30,
+          "v10replan": 11,
+          "v10route": 42
+        },
+        "last3s_safe_counts": {
+          "0": 41,
+          "4": 9,
+          "5": 12,
+          "3": 16,
+          "2": 5
+        }
+      },
+      "raw_hashes": {
+        "slp_01_box.json.gz": "dcc7e7fe3b41886cd2c85047b0a12109f1c8e066512ac890ff28722ceb7bfa9d",
+        "slp_01_log.json.gz": "8dcbb2e3135de239e7ffd7551b3c5f7c614e02dc0d98f0409b193d2b6bfe1374",
+        "slp_01.json": "5e2bdf8ee6a4d944a2e883cc8ba0f9225c2383b3ce2fa75ecc708827d02a879b"
+      }
+    },
+    {
+      "cycle": 8,
+      "run": "runs/v10_maze_cycle8_20261001_143315",
+      "build": "1001-6b1157ec",
+      "game": {
+        "game": 1,
+        "seconds": 240.3,
+        "L_max": 1292,
+        "capped": false,
+        "server": "181.41.140.146:444",
+        "players": 231,
+        "errors": 0,
+        "decide_ms": {
+          "p50": 4.1,
+          "p95": 9.6
+        },
+        "obs_to_cmd_ms": {
+          "p50": 12.5,
+          "p95": 26
+        },
+        "ticks": 6888,
+        "modes": {
+          "v10replan": 124,
+          "v10route": 6706,
+          "v10emergency": 58
+        },
+        "map_reasons": {
+          "pending": 3,
+          "maze_routes": 6802,
+          "grid_budget": 9,
+          "no_drivable_route": 56,
+          "prefix_collision": 18
+        },
+        "tracker_reasons": {
+          "none": 1,
+          "v10_controls": 6883,
+          "v10_expired": 4
+        },
+        "route_follow_frames": 6706,
+        "total_frames": 6888,
+        "continuation_rejects": {
+          "pending": 3,
+          "None": 6706,
+          "collision": 37,
+          "invalid": 142
+        },
+        "last3s_route_follow_frames": 28,
+        "last3s_continuation_rejects": {
+          "invalid": 54,
+          "None": 28,
+          "collision": 4
+        },
+        "last3s_map_reasons": {
+          "no_drivable_route": 29,
+          "maze_routes": 39,
+          "prefix_collision": 18
+        },
+        "last3s_modes": {
+          "v10emergency": 50,
+          "v10replan": 8,
+          "v10route": 28
+        },
+        "last3s_safe_counts": {
+          "0": 58,
+          "3": 12,
+          "4": 7,
+          "5": 4,
+          "2": 5
+        }
+      },
+      "raw_hashes": {
+        "slp_01_box.json.gz": "268bbf925d07937d77fb647a3542e8d6b2a4fba980413ca2d02b294e06f429b9",
+        "slp_01_log.json.gz": "cbfaeeb23f6d459ff09afc3e2b09858667eca6a16b1ae5740c46dc221e9eaa8c",
+        "slp_01.json": "ec3fc258320b6337da051f2f99d46fd2b54423f286234132376e0a53af0d50b7"
+      }
+    },
+    {
+      "cycle": 9,
+      "run": "runs/v10_maze_cycle9_20261001_144347",
+      "build": "1001-2021acdc",
+      "game": {
+        "game": 1,
+        "seconds": 115,
+        "L_max": 605,
+        "capped": false,
+        "server": "181.41.140.146:444",
+        "players": 274,
+        "errors": 0,
+        "decide_ms": {
+          "p50": 3.7,
+          "p95": 8.6
+        },
+        "obs_to_cmd_ms": {
+          "p50": 11.3,
+          "p95": 24.1
+        },
+        "ticks": 3318,
+        "modes": {
+          "v10replan": 15,
+          "v10route": 3267,
+          "v10emergency": 36
+        },
+        "map_reasons": {
+          "pending": 2,
+          "maze_routes": 3288,
+          "no_drivable_route": 21,
+          "prefix_collision": 7
+        },
+        "tracker_reasons": {
+          "none": 1,
+          "v10_controls": 3317
+        },
+        "route_follow_frames": 3267,
+        "total_frames": 3318,
+        "continuation_rejects": {
+          "pending": 2,
+          "None": 3267,
+          "collision": 8,
+          "invalid": 41
+        },
+        "last3s_route_follow_frames": 57,
+        "last3s_continuation_rejects": {
+          "None": 57,
+          "collision": 3,
+          "invalid": 22
+        },
+        "last3s_map_reasons": {
+          "maze_routes": 66,
+          "no_drivable_route": 9,
+          "prefix_collision": 7
+        },
+        "last3s_modes": {
+          "v10route": 57,
+          "v10replan": 5,
+          "v10emergency": 20
+        },
+        "last3s_safe_counts": {
+          "6": 12,
+          "3": 6,
+          "4": 14,
+          "5": 21,
+          "1": 1,
+          "0": 25,
+          "2": 3
+        }
+      },
+      "raw_hashes": {
+        "slp_01_box.json.gz": "d429690dd31d4a4d2b42874fbf3ce7df300ef094a5faddd6bc2334404ad6f52f",
+        "slp_01_log.json.gz": "0eb0863b86df0164fb1e487d6a96d01511b26cb98255fe3ae5175ac1577f85cb",
+        "slp_01.json": "1412b0ad75f51c6dd138f3f9ae958febaa3ec24fa37b4c5dfcce2c39bb550d87"
+      }
+    }
+  ],
+  "kinematics": {
+    "7": {
+      "fit": {
+        "run": "runs/v10_maze_cycle7_20261001_142637",
+        "frames": 1708,
+        "turn_pairs": 1443,
+        "fit_first_half": {
+          "lag": 0.06,
+          "scale": 1.0,
+          "loss": 0.004234013586601146
+        },
+        "heldout_loss_baseline": 0.02659564013606939,
+        "heldout_loss_fit": 0.0039267482294796634,
+        "best10": [
+          [
+            0.004234013586601146,
+            0.06,
+            1.0
+          ],
+          [
+            0.004248420250106022,
+            0.06,
+            0.9
+          ],
+          [
+            0.00448180011890659,
+            0.06,
+            1.1
+          ],
+          [
+            0.004531206444471693,
+            0.05,
+            0.9
+          ],
+          [
+            0.004534767363843003,
+            0.06,
+            0.8
+          ],
+          [
+            0.0045666886393183025,
+            0.05,
+            1.0
+          ],
+          [
+            0.004677389026906583,
+            0.04,
+            0.9
+          ],
+          [
+            0.004704012724485252,
+            0.04,
+            1.0
+          ],
+          [
+            0.0047787492026769565,
+            0.05,
+            0.8
+          ],
+          [
+            0.004874765116825019,
+            0.05,
+            1.1
+          ]
+        ],
+        "limits": "One-step heading fit using actual command history; excludes near-straight frames. Not server RTT, not closed-loop validation."
+      },
+      "heldout_kinematics": [
+        {
+          "lag": 0.17,
+          "horizon": 0.1,
+          "pos": {
+            "median": 3.1420051680436663,
+            "p95": 8.814664182489727,
+            "n": 284
+          },
+          "heading": {
+            "median": 10.000763451367021,
+            "p95": 34.20612659279638,
+            "n": 284
+          }
+        },
+        {
+          "lag": 0.17,
+          "horizon": 0.25,
+          "pos": {
+            "median": 7.605528666683017,
+            "p95": 23.996115775924775,
+            "n": 281
+          },
+          "heading": {
+            "median": 11.378684295493303,
+            "p95": 37.14641619683233,
+            "n": 281
+          }
+        },
+        {
+          "lag": 0.17,
+          "horizon": 0.5,
+          "pos": {
+            "median": 12.267032966857608,
+            "p95": 44.42885244138319,
+            "n": 280
+          },
+          "heading": {
+            "median": 13.619483395382904,
+            "p95": 34.83840413601026,
+            "n": 280
+          }
+        },
+        {
+          "lag": 0.06,
+          "horizon": 0.1,
+          "pos": {
+            "median": 1.2974016294522452,
+            "p95": 5.674452562375194,
+            "n": 284
+          },
+          "heading": {
+            "median": 1.8433574021040982,
+            "p95": 9.074605696413933,
+            "n": 284
+          }
+        },
+        {
+          "lag": 0.06,
+          "horizon": 0.25,
+          "pos": {
+            "median": 2.9680486412876586,
+            "p95": 8.947829448502384,
+            "n": 281
+          },
+          "heading": {
+            "median": 2.3351131840678048,
+            "p95": 11.481147331773512,
+            "n": 281
+          }
+        },
+        {
+          "lag": 0.06,
+          "horizon": 0.5,
+          "pos": {
+            "median": 3.725982742208252,
+            "p95": 14.819694618978076,
+            "n": 280
+          },
+          "heading": {
+            "median": 3.0385539882542334,
+            "p95": 12.857272060538948,
+            "n": 280
+          }
+        }
+      ]
+    },
+    "8": {
+      "fit": {
+        "run": "runs/v10_maze_cycle8_20261001_143315",
+        "frames": 1661,
+        "turn_pairs": 1374,
+        "fit_first_half": {
+          "lag": 0.06,
+          "scale": 0.9,
+          "loss": 0.002803103539230751
+        },
+        "heldout_loss_baseline": 0.018179132295458058,
+        "heldout_loss_fit": 0.004257773115563412,
+        "best10": [
+          [
+            0.002803103539230751,
+            0.06,
+            0.9
+          ],
+          [
+            0.0028308967899799246,
+            0.05,
+            0.9
+          ],
+          [
+            0.0028479853465105077,
+            0.06,
+            1.0
+          ],
+          [
+            0.0028975347262242585,
+            0.05,
+            1.0
+          ],
+          [
+            0.0030519268959073452,
+            0.06,
+            0.8
+          ],
+          [
+            0.0030601761591331103,
+            0.05,
+            0.8
+          ],
+          [
+            0.003172082196368905,
+            0.06,
+            1.1
+          ],
+          [
+            0.0032191595858089813,
+            0.07,
+            0.9
+          ],
+          [
+            0.003248360819119759,
+            0.05,
+            1.1
+          ],
+          [
+            0.003269514747517268,
+            0.07,
+            1.0
+          ]
+        ],
+        "limits": "One-step heading fit using actual command history; excludes near-straight frames. Not server RTT, not closed-loop validation."
+      },
+      "heldout_kinematics": [
+        {
+          "lag": 0.17,
+          "horizon": 0.1,
+          "pos": {
+            "median": 2.270247302116954,
+            "p95": 7.514587418010049,
+            "n": 274
+          },
+          "heading": {
+            "median": 4.7297297766804185,
+            "p95": 26.96916121771041,
+            "n": 274
+          }
+        },
+        {
+          "lag": 0.17,
+          "horizon": 0.25,
+          "pos": {
+            "median": 6.10428882325022,
+            "p95": 18.278940198468945,
+            "n": 274
+          },
+          "heading": {
+            "median": 8.441219767004078,
+            "p95": 32.65087295126171,
+            "n": 274
+          }
+        },
+        {
+          "lag": 0.17,
+          "horizon": 0.5,
+          "pos": {
+            "median": 10.883498376143356,
+            "p95": 41.12878566789153,
+            "n": 270
+          },
+          "heading": {
+            "median": 11.126624007461993,
+            "p95": 40.704102568113726,
+            "n": 270
+          }
+        },
+        {
+          "lag": 0.06,
+          "horizon": 0.1,
+          "pos": {
+            "median": 1.1159330394091371,
+            "p95": 5.636568394922345,
+            "n": 274
+          },
+          "heading": {
+            "median": 1.8495387461077402,
+            "p95": 9.412829794228971,
+            "n": 274
+          }
+        },
+        {
+          "lag": 0.06,
+          "horizon": 0.25,
+          "pos": {
+            "median": 2.8631827755185792,
+            "p95": 9.091543375071172,
+            "n": 274
+          },
+          "heading": {
+            "median": 2.4292257726622934,
+            "p95": 12.513349509253414,
+            "n": 274
+          }
+        },
+        {
+          "lag": 0.06,
+          "horizon": 0.5,
+          "pos": {
+            "median": 4.6837550429391595,
+            "p95": 15.381067053778814,
+            "n": 270
+          },
+          "heading": {
+            "median": 3.0587105018630183,
+            "p95": 18.161037983969454,
+            "n": 270
+          }
+        }
+      ]
+    }
+  },
+  "synthetic_food": {
+    "before": [
+      {
+        "name": "new_near_food",
+        "dead": false,
+        "eaten": 0,
+        "distance": 1483.6483685649112,
+        "routeFraction": 1,
+        "switches": 1
+      },
+      {
+        "name": "new_side_food",
+        "dead": false,
+        "eaten": 0,
+        "distance": 942.2962553545318,
+        "routeFraction": 1,
+        "switches": 1
+      },
+      {
+        "name": "new_forward_food",
+        "dead": false,
+        "eaten": 0,
+        "distance": 1483.7029433767095,
+        "routeFraction": 1,
+        "switches": 1
+      }
+    ],
+    "after": [
+      {
+        "name": "new_near_food",
+        "dead": false,
+        "eaten": 1,
+        "distance": 1633.0987888178447,
+        "routeFraction": 1,
+        "switches": 1
+      },
+      {
+        "name": "new_side_food",
+        "dead": false,
+        "eaten": 1,
+        "distance": 2010.7374386134375,
+        "routeFraction": 1,
+        "switches": 1
+      },
+      {
+        "name": "new_forward_food",
+        "dead": false,
+        "eaten": 1,
+        "distance": 1519.1181588970876,
+        "routeFraction": 1,
+        "switches": 1
+      }
+    ],
+    "parameters_at_generation": "cycle7_code/params.json; 0.17-second simulated actuator lag",
+    "before_source": "cycle7_code/pilot.js",
+    "after_source": "cycle8_code/pilot.js"
+  },
+  "limits": [
+    "Live games are sequential, not matched A/B. Population and encounters vary.",
+    "Capped games are not deaths. Wall-clock cap and page-recorded seconds differ.",
+    "Kinematics replay drives recorded actual commands including future recorded commands for offline model identification. It is not online future knowledge or a survival counterfactual.",
+    "Lag 0.06 is local observed heading response on these sessions, not measured server RTT or guaranteed universal latency.",
+    "Synthetic tests are model checks, not real-game success rates.",
+    "Original 33F/73F raw state not retained; their exact counterfactual replay is unavailable. No claim of guaranteed survival."
+  ]
+}

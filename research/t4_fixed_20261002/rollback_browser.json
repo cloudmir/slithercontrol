@@ -1,0 +1,9 @@
+{
+  "build": "1002-317482f8",
+  "bot": false,
+  "playing": false,
+  "T4_ON": 1,
+  "T4_GAP": -5,
+  "T4_MIN_LEN": 600,
+  "preset": "t4_close"
+}

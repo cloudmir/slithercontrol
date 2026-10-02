@@ -1,0 +1,10 @@
+{
+  "build": "1001-61e47380",
+  "hashes": {
+    "ext/pilot.js": "abf8b50c4b41d95eecd88a3d4c0f91b309d5fc87c54cc0b0c3e4634fe90c3a16",
+    "ext/mod.js": "854405dc8d301f80b8baca6911d27f75f632bb2b9b68c9913b37c6f6ccc1d9d5",
+    "ext/params.js": "b6c9977d50a9a0180b3ad4c3787faf110d6fbe1a992368744c7ef00a85946eb3",
+    "ext/manifest.json": "8a75fba524fafab5afb85b9b2fd78ea72ff4598aa75b52a97455c937132833e6",
+    "params.json": "f35bba51f03edb79f19c0636c55970e9b96d5b8ffc1aa0733abf20082496778b"
+  }
+}

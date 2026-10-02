@@ -1,0 +1,14 @@
+{
+  "checked": 1500,
+  "worstLowerBoundExcess": 0,
+  "away": {
+    "risk": 0,
+    "slack": 0.9444632910067446,
+    "certified": true
+  },
+  "towards": {
+    "risk": 0.08708323157347746,
+    "slack": -0.12603686635944703,
+    "certified": false
+  }
+}

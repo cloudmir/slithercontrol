@@ -1,0 +1,326 @@
+{
+  "status": "complete",
+  "deadline": "2026-10-01 15:26:44 KST",
+  "build": "1001-e57022de",
+  "runs": [
+    {
+      "cycle": 1,
+      "purpose": "live_iteration",
+      "run": "runs/v10_maze_cycle1_20261001_133306",
+      "build": "1001-e3ec3cd8",
+      "seconds": 283,
+      "capped": false,
+      "L_max": 929,
+      "route_pct": 96.81,
+      "decision_p95": {
+        "p50": 5.3,
+        "p95": 10
+      },
+      "errors": 0,
+      "server": "181.41.140.146:444",
+      "players": 406,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "b538b5e204b5b408259ef83dda81b70571e829ba918bd7b7b884f8c2b27266ec",
+        "slp_01_log.json.gz": "f94fbbdb7c2c4cf3698874503c09a576e88ad408f5e7e7cb73f84506b289e0fd",
+        "slp_01.json": "e279a681139d0e9703f84487b659b850346c0ab399810442d549c613e0cc5131"
+      }
+    },
+    {
+      "cycle": 2,
+      "purpose": "live_iteration",
+      "run": "runs/v10_maze_cycle2_20261001_134218",
+      "build": "1001-9d240756",
+      "seconds": 79.8,
+      "capped": false,
+      "L_max": 234,
+      "route_pct": 91.7,
+      "decision_p95": {
+        "p50": 4.6,
+        "p95": 10.8
+      },
+      "errors": 0,
+      "server": "181.41.140.146:444",
+      "players": 469,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "a84b7c7aea52dca8e8596dc19559223e3051ca3f71805cbeb165599825bcf287",
+        "slp_01_log.json.gz": "dc493e6e834fffcfb5d19cc2ddbeea00bb07415a4fb955f417835b96ec602b4f",
+        "slp_01.json": "0cbca399e69d726871b962a3d4ae6e3dbde31518a0e8cbfd510cab9145a06898"
+      }
+    },
+    {
+      "cycle": 3,
+      "purpose": "live_iteration",
+      "run": "runs/v10_maze_cycle3_20261001_134851",
+      "build": "1001-2476f9c0",
+      "seconds": 103.5,
+      "capped": false,
+      "L_max": 396,
+      "route_pct": 93.27,
+      "decision_p95": {
+        "p50": 5.3,
+        "p95": 9.3
+      },
+      "errors": 0,
+      "server": "181.41.140.178:444",
+      "players": 107,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "6bd30bd8a4e64888bf6f3c4f7015c08c5af5976adbff1e9fe01f617f12eefca2",
+        "slp_01_log.json.gz": "d7e6f7e681b61cc0f5e2f85c9cda80f3a844436c5775158e541c3c67c7cbaa27",
+        "slp_01.json": "ca57f87c5fc41880da3a770c938bc06a584bf905de29466a3ef3a5e882d68363"
+      }
+    },
+    {
+      "cycle": 4,
+      "purpose": "live_iteration",
+      "run": "runs/v10_maze_cycle4_20261001_135606",
+      "build": "1001-1c8fbce5",
+      "seconds": 323.5,
+      "capped": true,
+      "L_max": 1109,
+      "route_pct": 98.43,
+      "decision_p95": {
+        "p50": 3.8,
+        "p95": 7.2
+      },
+      "errors": 0,
+      "server": "103.4.30.88:444",
+      "players": 149,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "1fe7f2f8e3ed2722dc0b3656af608b38b941c9edc9ed15f6e168edc5e7b7c478",
+        "slp_01_log.json.gz": "86f033c297e9fa7764e5067e18869e9cf3b60a3e247336c7db2d3104c02b4cc3",
+        "slp_01.json": "0250543aa8c835f5615dfa9c88fa6f81a81e29be108f8964df097a61077e514f"
+      }
+    },
+    {
+      "cycle": 5,
+      "purpose": "live_iteration",
+      "run": "runs/v10_maze_cycle5_20261001_140421",
+      "build": "1001-baeb2963",
+      "seconds": 322.6,
+      "capped": true,
+      "L_max": 1128,
+      "route_pct": 96.7,
+      "decision_p95": {
+        "p50": 4.5,
+        "p95": 10.2
+      },
+      "errors": 0,
+      "server": "181.41.140.146:444",
+      "players": 274,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "cdf9522d9a4c44b7c409f5d300889175fea4d0be9f7aa3a497583ee4e2ce2a13",
+        "slp_01_log.json.gz": "50112dadfdff48690876e69ab5729573493a9252b8e6f3059b3280e24195efbc",
+        "slp_01.json": "60de8d3f49302a57b56d63c9ad51d063ee90fc736d91d7f46eff83b4fceaa15b"
+      }
+    },
+    {
+      "cycle": 6,
+      "purpose": "live_iteration",
+      "run": "runs/v10_maze_cycle6_20261001_141536",
+      "build": "1001-23a6405a",
+      "seconds": 324.1,
+      "capped": true,
+      "L_max": 1042,
+      "route_pct": 99.13,
+      "decision_p95": {
+        "p50": 3.9,
+        "p95": 8.2
+      },
+      "errors": 0,
+      "server": "181.41.140.146:444",
+      "players": 240,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "4cd11dc95705a1c63c1ac608b5acaf2b44748079918925dc27ee3e0a0223c1a3",
+        "slp_01_log.json.gz": "2501a1cb0b5ccff544b50cfc5f3c6bea789ec27024022109a11fa0819e5537f9",
+        "slp_01.json": "b5d51e078b6090d12e37dcdd6fe0e20977e8534259df5ffd2f772416ea774ae1"
+      }
+    },
+    {
+      "cycle": 7,
+      "purpose": "live_iteration",
+      "run": "runs/v10_maze_cycle7_20261001_142637",
+      "build": "1001-c4f88ef1",
+      "seconds": 227.3,
+      "capped": false,
+      "L_max": 734,
+      "route_pct": 96.41,
+      "decision_p95": {
+        "p50": 3.5,
+        "p95": 8.6
+      },
+      "errors": 0,
+      "server": "181.41.140.146:444",
+      "players": 262,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "dcc7e7fe3b41886cd2c85047b0a12109f1c8e066512ac890ff28722ceb7bfa9d",
+        "slp_01_log.json.gz": "8dcbb2e3135de239e7ffd7551b3c5f7c614e02dc0d98f0409b193d2b6bfe1374",
+        "slp_01.json": "5e2bdf8ee6a4d944a2e883cc8ba0f9225c2383b3ce2fa75ecc708827d02a879b"
+      }
+    },
+    {
+      "cycle": 8,
+      "purpose": "live_iteration",
+      "run": "runs/v10_maze_cycle8_20261001_143315",
+      "build": "1001-6b1157ec",
+      "seconds": 240.3,
+      "capped": false,
+      "L_max": 1292,
+      "route_pct": 97.36,
+      "decision_p95": {
+        "p50": 4.1,
+        "p95": 9.6
+      },
+      "errors": 0,
+      "server": "181.41.140.146:444",
+      "players": 231,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "268bbf925d07937d77fb647a3542e8d6b2a4fba980413ca2d02b294e06f429b9",
+        "slp_01_log.json.gz": "cbfaeeb23f6d459ff09afc3e2b09858667eca6a16b1ae5740c46dc221e9eaa8c",
+        "slp_01.json": "ec3fc258320b6337da051f2f99d46fd2b54423f286234132376e0a53af0d50b7"
+      }
+    },
+    {
+      "cycle": 9,
+      "purpose": "live_iteration",
+      "run": "runs/v10_maze_cycle9_20261001_144347",
+      "build": "1001-2021acdc",
+      "seconds": 115,
+      "capped": false,
+      "L_max": 605,
+      "route_pct": 98.46,
+      "decision_p95": {
+        "p50": 3.7,
+        "p95": 8.6
+      },
+      "errors": 0,
+      "server": "181.41.140.146:444",
+      "players": 274,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "d429690dd31d4a4d2b42874fbf3ce7df300ef094a5faddd6bc2334404ad6f52f",
+        "slp_01_log.json.gz": "0eb0863b86df0164fb1e487d6a96d01511b26cb98255fe3ae5175ac1577f85cb",
+        "slp_01.json": "1412b0ad75f51c6dd138f3f9ae958febaa3ec24fa37b4c5dfcce2c39bb550d87"
+      }
+    },
+    {
+      "cycle": 10,
+      "purpose": "live_iteration",
+      "run": "runs/v10_maze_cycle10_20261001_144853",
+      "build": "1001-3cf85fbe",
+      "seconds": 212.1,
+      "capped": false,
+      "L_max": 838,
+      "route_pct": 96.47,
+      "decision_p95": {
+        "p50": 4.4,
+        "p95": 10.1
+      },
+      "errors": 0,
+      "server": "181.41.140.146:444",
+      "players": 316,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "cd48272c64734a0107cca9f9a38ae84c4763d8092b67a3738b185e36d6905930",
+        "slp_01_log.json.gz": "f1b37aa225ae7e6b73c7cb3b5370c006dd4fdbba23a3d3b22052b01c096baa69",
+        "slp_01.json": "ad0613b94f12b1faa4ce7ec094208f0bace3ce1d30b9789204eeb1a38f671543"
+      }
+    },
+    {
+      "cycle": 11,
+      "purpose": "live_iteration",
+      "run": "runs/v10_maze_cycle11_20261001_150146",
+      "build": "1001-9f675f97",
+      "seconds": 262.2,
+      "capped": false,
+      "L_max": 1027,
+      "route_pct": 98.11,
+      "decision_p95": {
+        "p50": 3.9,
+        "p95": 10.3
+      },
+      "errors": 0,
+      "server": "181.41.140.146:444",
+      "players": 283,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "325eaacff30c307fda083c369ecf02dc57341625b5a2ebe4b1f7a84460108de9",
+        "slp_01_log.json.gz": "8739336c5017aefa0358ba98d0ad513dfe699a09c3b0c575f0f6329b6e40949d",
+        "slp_01.json": "3f869712466f711eb86b093b9a3023b24948fbe063660d105c17c589355a9226"
+      }
+    },
+    {
+      "cycle": 12,
+      "purpose": "live_iteration",
+      "run": "runs/v10_maze_cycle12_20261001_150937",
+      "build": "1001-8b3cb7b1",
+      "seconds": 156.7,
+      "capped": false,
+      "L_max": 970,
+      "route_pct": 98.45,
+      "decision_p95": {
+        "p50": 4.2,
+        "p95": 10.4
+      },
+      "errors": 0,
+      "server": "181.41.140.146:444",
+      "players": 251,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "0a13c6f36a333154f2bf989c0c731c69b894f34c39957bc3ab4cd3262959170d",
+        "slp_01_log.json.gz": "486ac9893c96ce23189e463d82d52d8ce23a12fd61e64fbd4da046080482074d",
+        "slp_01.json": "5acd2bbd50267cbb3794fac04032215572d48269d6420295c66316509256ba28"
+      }
+    },
+    {
+      "cycle": 13,
+      "purpose": "live_iteration",
+      "run": "runs/v10_maze_cycle13_20261001_151511",
+      "build": "1001-34e53dc6",
+      "seconds": 328.1,
+      "capped": true,
+      "L_max": 1604,
+      "route_pct": 96.36,
+      "decision_p95": {
+        "p50": 3.4,
+        "p95": 9.7
+      },
+      "errors": 0,
+      "server": "181.41.140.146:444",
+      "players": 215,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "74b29af6c558bcee1366e8890a644efdd27e022f189d8712cfb0653196a1b06e",
+        "slp_01_log.json.gz": "51a2e56087ce844420514c808a57f3e7837f710e38608d2e60a20dbcab384e29",
+        "slp_01.json": "3fd5efacc8eb01de49183a4e931c91ae6d4dffc45b83fb9d69e9907cd6d5ff7b"
+      }
+    },
+    {
+      "cycle": 14,
+      "purpose": "slider_smoke_45s",
+      "run": "runs/v10_maze_cycle14_20261001_152244",
+      "build": "1001-e57022de",
+      "seconds": 49.4,
+      "capped": true,
+      "L_max": 225,
+      "route_pct": 99.78,
+      "decision_p95": {
+        "p50": 2.7,
+        "p95": 6.1
+      },
+      "errors": 0,
+      "server": "181.41.140.146:444",
+      "players": 184,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "b392f795848024c85e7d15989f645588c5287eb686b506e3a0f2db451d27291e",
+        "slp_01_log.json.gz": "f2a19e03fc2c7ee911715a5ac6875cb0391d0cc8b9ac739447bb041981f8ad58",
+        "slp_01.json": "879917332ba5991ab653404c784b3e79cb84dfb87f5ec2cc4744ecf3d98995fc"
+      }
+    }
+  ],
+  "notes": [
+    "14차가 있으면 최종 슬라이더 연결 확인용 45초 판이며 생존 성능 평가가 아닙니다.",
+    "부스트 소모 비용 슬라이더: 0은 평상시 소모 감점 없음, 높을수록 절약. 혼잡 탈출은 비용 감점 제외. 기본 0은 사용자 요청 취지에 맞춘 선택이며 최적값 측정 결과는 아닙니다.",
+    "73F 관련: 정적 통로 탐색과 실제 회전·충돌 검증을 분리하고, 진입 기동 후 탈출 경로 연결을 추가했습니다. 원래 33F/73F 관측 원본이 없어 해당 장면의 정확한 재생 검증은 하지 못했습니다.",
+    "선택한 경로는 RISK 임계값 아래에서 유지합니다. 경로가 실제로 무효해지면 즉시 재탐색합니다. RISK는 확률이 아닌 위험지수입니다.",
+    "먹이까지 매 단계 조준 방향을 갱신하고 선택 경로로 돌아올 수 있는지 검사합니다. 중앙 선호는 먹이가 있을 때 낮추며, 목적 없는 부스트를 제한합니다.",
+    "지연 0.17→0.06초는 두 판의 명령·위치 재생으로 교정했습니다. 서버 RTT 측정값은 아닙니다.",
+    "판별 서버 인원·상황이 다르고 버전도 순차 변경했습니다. 통제된 A/B 또는 무사망 증명이 아닙니다.",
+    "시간 상한 판은 사망 판이 아닙니다. 기록 초와 실시간 상한은 브라우저 시간축 차이로 다릅니다.",
+    "90ms 계산 예산에서는 후보 수·같은 출구 복구 검사가 간헐적으로 실패했습니다. 500ms 구조 검사 통과와 실시간 성능은 구분합니다."
+  ]
+}

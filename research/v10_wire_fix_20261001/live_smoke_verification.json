@@ -1,0 +1,446 @@
+{
+  "build": "1001-5f471fca",
+  "run": "runs/v10_wire_smoke_20261001_194052",
+  "seconds": 66.1,
+  "max_length": 129,
+  "capped": true,
+  "death": {
+    "x": 29031.575015880488,
+    "y": 34035.2022025408,
+    "at": 1790851321134
+  },
+  "server": "181.41.140.170:444",
+  "players": 354,
+  "errors": 0,
+  "settings_changes": [],
+  "modes": {
+    "v10replan": 7,
+    "v10route": 1983
+  },
+  "decide_ms": {
+    "p50": 1.5,
+    "p95": 3
+  },
+  "obs_to_cmd_ms": {
+    "p50": 4.5,
+    "p95": 9
+  },
+  "saved_last_window_frames": 1806,
+  "verified_wire_events_in_saved_window": 1139,
+  "packet_history_mismatches": 0,
+  "mismatch_examples": [],
+  "angle_max_error_rad": 0.0,
+  "send_gate_range_ms": {
+    "angle": [
+      0,
+      32.799999952316284
+    ],
+    "boost": [
+      0,
+      48.39999997615814
+    ]
+  },
+  "near_half_turn_frames": 0,
+  "near_half_turn_examples": [],
+  "emergency_frames": 0,
+  "recovery_frames": 0,
+  "last_observed_nearest_bodies": [
+    {
+      "id": 67,
+      "physical_gap": 802.3331417208739
+    },
+    {
+      "id": 67,
+      "physical_gap": 802.3331417208739
+    },
+    {
+      "id": 67,
+      "physical_gap": 803.3699416698183
+    }
+  ],
+  "last_second_trace": [
+    {
+      "t": 65.027,
+      "mode": "v10route",
+      "cmd": -97.6,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.056,
+      "mode": "v10route",
+      "cmd": -97.6,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.091,
+      "mode": "v10route",
+      "cmd": -97.2,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.12,
+      "mode": "v10route",
+      "cmd": -97,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.161,
+      "mode": "v10route",
+      "cmd": -96.3,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.185,
+      "mode": "v10route",
+      "cmd": -96.8,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.222,
+      "mode": "v10route",
+      "cmd": -97.2,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.25,
+      "mode": "v10route",
+      "cmd": -97.5,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.284,
+      "mode": "v10route",
+      "cmd": -98,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.33,
+      "mode": "v10route",
+      "cmd": -98.5,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.364,
+      "mode": "v10route",
+      "cmd": -48.7,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.393,
+      "mode": "v10route",
+      "cmd": -54.3,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.424,
+      "mode": "v10route",
+      "cmd": -102.8,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.46,
+      "mode": "v10route",
+      "cmd": -73.2,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.488,
+      "mode": "v10route",
+      "cmd": -72.9,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.52,
+      "mode": "v10route",
+      "cmd": 125.6,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.553,
+      "mode": "v10route",
+      "cmd": 123.9,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.587,
+      "mode": "v10route",
+      "cmd": 121.5,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.619,
+      "mode": "v10route",
+      "cmd": 121.2,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.663,
+      "mode": "v10route",
+      "cmd": 118.2,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.68,
+      "mode": "v10route",
+      "cmd": 116.3,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.712,
+      "mode": "v10route",
+      "cmd": 115.5,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.772,
+      "mode": "v10route",
+      "cmd": 111,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.794,
+      "mode": "v10route",
+      "cmd": 109.3,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.826,
+      "mode": "v10route",
+      "cmd": 108.2,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.858,
+      "mode": "v10route",
+      "cmd": 104.6,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.889,
+      "mode": "v10route",
+      "cmd": 100.7,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.935,
+      "mode": "v10route",
+      "cmd": 96.6,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.952,
+      "mode": "v10route",
+      "cmd": 96.6,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 65.987,
+      "mode": "v10route",
+      "cmd": 93.5,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    },
+    {
+      "t": 66.022,
+      "mode": "v10route",
+      "cmd": 90.5,
+      "boost": 1,
+      "v10_clear": 128,
+      "v10_root_safe": true,
+      "v10_recovery": false,
+      "v10_recovery_terminal": null,
+      "v10_recovery_body_gap": null,
+      "trk_why": "v10_controls"
+    }
+  ],
+  "raw_hashes": {
+    "slp_01_box.json.gz": "147d86b51d3c5d4db60edce716d08f9acafa0bde88d1611730278a6d2aaea122",
+    "slp_01_log.json.gz": "eb9b40b1588de044d31086bcf3c702afbf2f7a7b20c2a24b88ab0c646c36ba59",
+    "slp_01.json": "423356bf81573f945ef56ba57789bfef8337520950f7aa50549e48ea30d51616"
+  },
+  "limits": [
+    "Single live game does not establish improved survival rate.",
+    "Near-half-turn wire history is checked against packets, not proof of exact server turn response.",
+    "TRACK_LAT retained; future send gates and server response remain estimates.",
+    "Nearest body in last alive observation is not independently confirmed server killer."
+  ]
+}

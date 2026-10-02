@@ -1,0 +1,284 @@
+{
+  "horizon_s": 0.05,
+  "results": [
+    {
+      "run": "runs/v10_recovery_live_20261001_155641/slp_01",
+      "n": 61,
+      "applied_input": {
+        "heading_mean_deg": 2.3451638187276886,
+        "heading_p95_deg": 6.067306802185927,
+        "position_mean_px": 4.264483002982388,
+        "wrong_turn_over_3deg": 3
+      },
+      "actual_wire": {
+        "heading_mean_deg": 2.33508003125683,
+        "heading_p95_deg": 5.586481363404012,
+        "position_mean_px": 4.256373047682652,
+        "wrong_turn_over_3deg": 3
+      },
+      "changes": 12,
+      "examples": [
+        {
+          "t": 62.613,
+          "old": {
+            "heading_deg": 4.2835973018528195,
+            "position_px": 5.175710315327831,
+            "sign": 1
+          },
+          "wire": {
+            "heading_deg": 0.3722609561749958,
+            "position_px": 5.207719127956881,
+            "sign": 1
+          },
+          "actualSign": 1
+        },
+        {
+          "t": 102.458,
+          "old": {
+            "heading_deg": 4.001927135695762,
+            "position_px": 1.097418502444304,
+            "sign": 1
+          },
+          "wire": {
+            "heading_deg": 0.04955303863830483,
+            "position_px": 0.9401071463297195,
+            "sign": 1
+          },
+          "actualSign": 1
+        }
+      ]
+    },
+    {
+      "run": "runs/v10_wire_live_20261001_192903/slp_01",
+      "n": 357,
+      "applied_input": {
+        "heading_mean_deg": 2.2432444052830736,
+        "heading_p95_deg": 6.012243115147499,
+        "position_mean_px": 2.1921175773401935,
+        "wrong_turn_over_3deg": 14
+      },
+      "actual_wire": {
+        "heading_mean_deg": 1.4197606977279007,
+        "heading_p95_deg": 3.8489868086208894,
+        "position_mean_px": 2.1352803674177823,
+        "wrong_turn_over_3deg": 3
+      },
+      "changes": 0,
+      "examples": [
+        {
+          "t": 385.214,
+          "old": {
+            "heading_deg": 5.4375100822186555,
+            "position_px": 4.050141808179739,
+            "sign": -1
+          },
+          "wire": {
+            "heading_deg": 0.7726321277369569,
+            "position_px": 3.840817390585482,
+            "sign": -1
+          },
+          "actualSign": -1
+        },
+        {
+          "t": 389.567,
+          "old": {
+            "heading_deg": 8.007685790932316,
+            "position_px": 5.018277645748771,
+            "sign": -1
+          },
+          "wire": {
+            "heading_deg": 1.6015561585227867,
+            "position_px": 4.345741047978127,
+            "sign": -1
+          },
+          "actualSign": -1
+        },
+        {
+          "t": 391.647,
+          "old": {
+            "heading_deg": 5.275830467882496,
+            "position_px": 0.7578351282162148,
+            "sign": 1
+          },
+          "wire": {
+            "heading_deg": 2.1072273010241047,
+            "position_px": 0.27202289559053694,
+            "sign": 1
+          },
+          "actualSign": 1
+        },
+        {
+          "t": 393.456,
+          "old": {
+            "heading_deg": 3.503440373268015,
+            "position_px": 0.6576320507723273,
+            "sign": -1
+          },
+          "wire": {
+            "heading_deg": 0.4717380478046766,
+            "position_px": 0.8164882143800581,
+            "sign": -1
+          },
+          "actualSign": -1
+        },
+        {
+          "t": 393.632,
+          "old": {
+            "heading_deg": 4.27957368446616,
+            "position_px": 6.303832959470581,
+            "sign": -1
+          },
+          "wire": {
+            "heading_deg": 0.8134598701919379,
+            "position_px": 6.264769314326445,
+            "sign": -1
+          },
+          "actualSign": -1
+        }
+      ]
+    },
+    {
+      "run": "runs/v10_twenty_20261001_195831/slp_01",
+      "n": 359,
+      "applied_input": {
+        "heading_mean_deg": 1.8852128832089812,
+        "heading_p95_deg": 5.46391548042472,
+        "position_mean_px": 2.3406578468535915,
+        "wrong_turn_over_3deg": 5
+      },
+      "actual_wire": {
+        "heading_mean_deg": 1.8739663188436888,
+        "heading_p95_deg": 6.796327421443867,
+        "position_mean_px": 2.396344918171546,
+        "wrong_turn_over_3deg": 8
+      },
+      "changes": 0,
+      "examples": [
+        {
+          "t": 603.864,
+          "old": {
+            "heading_deg": 4.6900348019396585,
+            "position_px": 1.6160056215679215,
+            "sign": -1
+          },
+          "wire": {
+            "heading_deg": 0.18138430871483122,
+            "position_px": 2.4029362416644053,
+            "sign": -1
+          },
+          "actualSign": -1
+        },
+        {
+          "t": 619.016,
+          "old": {
+            "heading_deg": 12.722313212888908,
+            "position_px": 3.920870763070533,
+            "sign": -1
+          },
+          "wire": {
+            "heading_deg": 1.2194075471795962,
+            "position_px": 2.9306250348439695,
+            "sign": 1
+          },
+          "actualSign": 1
+        },
+        {
+          "t": 620.36,
+          "old": {
+            "heading_deg": 5.1609188247067355,
+            "position_px": 0.6555506138106904,
+            "sign": 1
+          },
+          "wire": {
+            "heading_deg": 0.8254683865090378,
+            "position_px": 0.979794588156229,
+            "sign": 1
+          },
+          "actualSign": 1
+        },
+        {
+          "t": 624.521,
+          "old": {
+            "heading_deg": 5.2329448943354056,
+            "position_px": 0.22536885589147365,
+            "sign": 1
+          },
+          "wire": {
+            "heading_deg": 0.30253984063746736,
+            "position_px": 1.230354981900307,
+            "sign": 1
+          },
+          "actualSign": 1
+        },
+        {
+          "t": 625.526,
+          "old": {
+            "heading_deg": 5.68351018034632,
+            "position_px": 0.9536205395465931,
+            "sign": 1
+          },
+          "wire": {
+            "heading_deg": 1.1989541832669073,
+            "position_px": 0.6884326038374835,
+            "sign": -1
+          },
+          "actualSign": -1
+        }
+      ]
+    },
+    {
+      "run": "runs/v10_twenty_20261001_195831/slp_02",
+      "n": 171,
+      "applied_input": {
+        "heading_mean_deg": 1.6925093127535094,
+        "heading_p95_deg": 4.901517997563871,
+        "position_mean_px": 3.669259501131949,
+        "wrong_turn_over_3deg": 2
+      },
+      "actual_wire": {
+        "heading_mean_deg": 1.4315977856216646,
+        "heading_p95_deg": 3.6865357458569172,
+        "position_mean_px": 3.661595244209715,
+        "wrong_turn_over_3deg": 3
+      },
+      "changes": 23,
+      "examples": [
+        {
+          "t": 447.705,
+          "old": {
+            "heading_deg": 4.901517997563871,
+            "position_px": 0.5727296269933078,
+            "sign": 1
+          },
+          "wire": {
+            "heading_deg": 0.37371859397138224,
+            "position_px": 0.43223806303075674,
+            "sign": 1
+          },
+          "actualSign": 1
+        },
+        {
+          "t": 469.924,
+          "old": {
+            "heading_deg": 5.6373708116878465,
+            "position_px": 1.4520805233643395,
+            "sign": 1
+          },
+          "wire": {
+            "heading_deg": 0.2816575908423002,
+            "position_px": 1.0760925699171464,
+            "sign": 1
+          },
+          "actualSign": 1
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Same recorded observations and same50ms horizon, no future commands used",
+    "Retained user TRACK_LAT; no fitting to these results",
+    "Overlapping samples within games, not independent episodes",
+    "Recorded server/client motion interpolation, physics and delay not exact",
+    "Offline representation comparison, not old bot vs new bot live A/B"
+  ]
+}

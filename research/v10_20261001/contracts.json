@@ -1,0 +1,21 @@
+{
+  "fullViewportMapped": true,
+  "preserved": [
+    "v9World",
+    "v9Roll",
+    "v9Root",
+    "v9FoodGoals",
+    "v9Route",
+    "v9Step",
+    "v8Route",
+    "v8Step",
+    "v6Route",
+    "v6Step"
+  ],
+  "foodFilter": true,
+  "boostOff": true,
+  "staleRouteRejected": true,
+  "oldThicknessSettingsIgnored": true,
+  "queuedCommandsReplayed": true,
+  "continuousThinWall": true
+}

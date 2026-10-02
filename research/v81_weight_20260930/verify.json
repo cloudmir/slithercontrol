@@ -1,0 +1,21 @@
+{
+  "zeroWeightParityScenes": 30,
+  "weights": [
+    0,
+    2,
+    10
+  ],
+  "near": [
+    3.481012658227848,
+    6.395981399290249,
+    10.7845084372355
+  ],
+  "distant": [
+    2.689873417721519,
+    2.4106110719140226,
+    1.9901776250670256
+  ],
+  "overlapInvariant": true,
+  "thresholdSwitch": true,
+  "originalControllersUnchanged": true
+}

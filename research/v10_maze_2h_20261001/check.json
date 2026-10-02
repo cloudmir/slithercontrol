@@ -1,0 +1,84 @@
+[
+  {
+    "i": 0,
+    "t": 10,
+    "reason": "maze_routes",
+    "ms": 54.690799999999996,
+    "routes": 3,
+    "geometry": 8,
+    "failures": {},
+    "local": "v10route",
+    "localms": 2.617962999999989
+  },
+  {
+    "i": 1,
+    "t": 129.971,
+    "reason": "maze_routes",
+    "ms": 66.569872,
+    "routes": 2,
+    "geometry": 2,
+    "failures": {},
+    "local": "v10route",
+    "localms": 11.822574000000003
+  },
+  {
+    "i": 2,
+    "t": 139.997,
+    "reason": "maze_routes",
+    "ms": 45.179137,
+    "routes": 3,
+    "geometry": 8,
+    "failures": {},
+    "local": "v10route",
+    "localms": 5.026462000000009
+  },
+  {
+    "i": 3,
+    "t": 150.017,
+    "reason": "maze_routes",
+    "ms": 40.84988999999999,
+    "routes": 3,
+    "geometry": 8,
+    "failures": {},
+    "local": "v10route",
+    "localms": 5.238165999999978
+  },
+  {
+    "i": 4,
+    "t": 160.01,
+    "reason": "maze_routes",
+    "ms": 43.49073199999998,
+    "routes": 3,
+    "geometry": 8,
+    "failures": {
+      "collision": 6
+    },
+    "local": "v10route",
+    "localms": 6.072749999999985
+  },
+  {
+    "i": 5,
+    "t": 170.014,
+    "reason": "maze_routes",
+    "ms": 37.49306300000001,
+    "routes": 2,
+    "geometry": 8,
+    "failures": {
+      "collision": 9,
+      "terminal": 3
+    },
+    "local": "v10route",
+    "localms": 3.6040179999999964
+  },
+  {
+    "i": 6,
+    "t": 180.02,
+    "reason": "maze_routes",
+    "ms": 55.20115100000004,
+    "routes": 3,
+    "geometry": 4,
+    "failures": {},
+    "local": "v10route",
+    "localms": 2.7608419999999683
+  }
+]

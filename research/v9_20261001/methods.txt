@@ -1,0 +1,186 @@
+  // V9: current observed capsule walls + heading/speed/time search. No grid
+  // polyline is ever labelled an escape: only swept, drivable rollouts are drawn.
+  v9World(s) {
+    const V = this.values, ro = R * s.sc, margin = V.V9_MARGIN ?? 5, obs = V.V9_OBS ?? 1200;
+    const walls = [], bins = new Map(), cell = 96;
+    const pointD = (x, y, ax, ay, bx, by) => {
+      const dx = bx - ax, dy = by - ay, f = clip(((x - ax) * dx + (y - ay) * dy) / Math.max(1e-12, dx * dx + dy * dy), 0, 1);
+      return hypot(x - ax - f * dx, y - ay - f * dy);
+    };
+    const segmentD = (ax, ay, bx, by, cx, cy, dx, dy) => {
+      const ux = bx - ax, uy = by - ay, vx = dx - cx, vy = dy - cy, den = ux * vy - uy * vx;
+      if (Math.abs(den) > 1e-10) {
+        const wx = cx - ax, wy = cy - ay, t = (wx * vy - wy * vx) / den, u = (wx * uy - wy * ux) / den;
+        if (t >= 0 && t <= 1 && u >= 0 && u <= 1) return 0;
+      }
+      return Math.min(pointD(ax, ay, cx, cy, dx, dy), pointD(bx, by, cx, cy, dx, dy), pointD(cx, cy, ax, ay, bx, by), pointD(dx, dy, ax, ay, bx, by));
+    };
+    for (let i = 0; i + 4 < s.segs.length; i += 5) {
+      const a = Array.from(s.segs.slice(i, i + 5)); if (!a.every(Number.isFinite) || a[4] < 0) continue;
+      // Use at least the rendered physical radius; negative calibration must not
+      // make a displayed V9 escape line cut through a visible body.
+      a[4] = Math.max(a[4], a[4] + this.P.bodyOff(a[4]));
+      const pad = a[4] + ro + margin + 2, id = walls.length; walls.push(a);
+      const x0 = Math.max(s.x - obs - 2, Math.min(a[0], a[2]) - pad), x1 = Math.min(s.x + obs + 2, Math.max(a[0], a[2]) + pad);
+      const y0 = Math.max(s.y - obs - 2, Math.min(a[1], a[3]) - pad), y1 = Math.min(s.y + obs + 2, Math.max(a[1], a[3]) + pad);
+      for (let x = Math.floor(x0 / cell); x <= Math.floor(x1 / cell); x++) for (let y = Math.floor(y0 / cell); y <= Math.floor(y1 / cell); y++) {
+        const key = x + ',' + y; if (!bins.has(key)) bins.set(key, []); bins.get(key).push(id);
+      }
+    }
+    const heads = [];
+    for (let i = 0; i + 4 < s.heads.length; i += 5) {
+      const [x, y, h, sp, sc] = s.heads.slice(i, i + 5); if (![x, y, h, sp, sc].every(Number.isFinite)) continue;
+      heads.push({x, y, vx: Math.cos(h) * sp * PX_PER_SP, vy: Math.sin(h) * sp * PX_PER_SP, r: R * sc});
+    }
+    const check = (a, b, t0 = 0, t1 = t0, pad = 0, dynamic = true) => {
+      let gap = obs - Math.max(hypot(a.x - s.x, a.y - s.y), hypot(b.x - s.x, b.y - s.y)) - pad;
+      gap = Math.min(gap, s.wall[2] - Math.max(hypot(a.x - s.wall[0], a.y - s.wall[1]), hypot(b.x - s.wall[0], b.y - s.wall[1])) - ro - margin - pad);
+      if (gap < 0) return gap;
+      const seen = new Set();
+      for (let x = Math.floor((Math.min(a.x, b.x) - pad) / cell); x <= Math.floor((Math.max(a.x, b.x) + pad) / cell); x++)
+        for (let y = Math.floor((Math.min(a.y, b.y) - pad) / cell); y <= Math.floor((Math.max(a.y, b.y) + pad) / cell); y++)
+          for (const id of bins.get(x + ',' + y) || []) if (!seen.has(id)) {
+            seen.add(id); const w = walls[id];
+            gap = Math.min(gap, segmentD(a.x, a.y, b.x, b.y, w[0], w[1], w[2], w[3]) - w[4] - ro - margin - pad);
+            if (gap < 0) return gap;
+          }
+      if (dynamic) for (const h of heads) {
+        // Forecast only, not a guarantee of enemy intent. Rechecked every tick.
+        const ax = a.x - h.x - h.vx * t0, ay = a.y - h.y - h.vy * t0, bx = b.x - h.x - h.vx * t1, by = b.y - h.y - h.vy * t1;
+        const uncertainty = (V.V9_HEAD_PAD ?? 20) * Math.min(t1, 3);
+        gap = Math.min(gap, pointD(0, 0, ax, ay, bx, by) - ro - h.r - margin - pad - uncertainty);
+        if (gap < 0) return gap;
+      }
+      return gap;
+    };
+    return {ro, obs, margin, walls, check};
+  }
+  v9Roll(s, W, ph, start, turn, duration, t0, target = null, boost = false) {
+    let st = {...start}, t = t0, clear = Infinity; const pts = [], end = t0 + duration;
+    while (t < end - 1e-8) {
+      const dt = Math.min(.04, end - t), next = this.v4Adv(st, target === null ? st.h + turn * ph.w * dt : target, boost, dt, ph);
+      const pad = Math.max(st.v, next.v) * dt * Math.abs(wrap(next.h - st.h)) / 8 + .15;
+      const g = W.check(st, next, t, t + dt, pad); if (g < 0) return {ok: false, st, t, pts, clear: Math.min(clear, g)};
+      clear = Math.min(clear, g); t += dt; st = next; pts.push(t, st.x, st.y, st.h, boost ? 1 : 0);
+    }
+    return {ok: true, st, t, pts, clear};
+  }
+  v9Root(s, W, ph) {
+    const start = {x: s.x, y: s.y, h: s.ang, v: s.sp * PX_PER_SP};
+    const lat = Math.max(0, this.values.TRACK_LAT ?? .17), cmd = Number.isFinite(s.cmdNow) ? s.cmdNow : s.ang;
+    const root = this.v9Roll(s, W, ph, start, 0, lat, 0, cmd, !!s.boostNow);
+    root.pts.unshift(0, s.x, s.y, s.ang, s.boostNow ? 1 : 0); return root;
+  }
+  v9Route(s, ver) {
+    TURN_FIX = !!this.values.TURN_FIX;
+    const V = this.values, now = () => performance.now(), started = now(), budget = V.V9_BUDGET ?? 90;
+    const W = this.v9World(s), ph = this.v4Physics(s.sc), root = this.v9Root(s, W, ph), edge = Math.min(V.V9_EDGE ?? 900, W.obs - 80);
+    const routes = [], C = 32, N = 2 * Math.ceil(W.obs / C) + 1, ox = s.x - (N >> 1) * C, oy = s.y - (N >> 1) * C;
+    const grid = new Uint8Array(N * N), xy = i => ({x: ox + (i % N) * C, y: oy + Math.floor(i / N) * C});
+    const idx = (x, y) => { const i = Math.round((x - ox) / C), j = Math.round((y - oy) / C); return i < 0 || j < 0 || i >= N || j >= N ? -1 : j * N + i; };
+    const result = (reason, expanded = 0) => ({algo: 'v9', ver, t0: s.t, routes, reason, certified: routes.length ? 1 : 0,
+      // Map belongs to this observation, never accumulated stale moving bodies.
+      map: {ox, oy, cell: C, n: N, blocked: Array.from(grid)}, expanded, ms: now() - started});
+    if (!root.ok) return result('latency_blocked');
+    // Cell centres are for topology/heuristics only. Swept capsules below are
+    // authoritative, including all segments between the displayed path points.
+    for (let i = 0; i < grid.length; i++) {
+      const q = xy(i); grid[i] = W.check(q, q, 0, 0, C * .71, false) < 0 ? 1 : 0;
+      if ((i & 127) === 0 && now() - started > budget) return result('map_budget');
+    }
+    const neighbors = i => { const out = [], x = i % N, y = Math.floor(i / N);
+      for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
+        if ((!dx && !dy) || x + dx < 0 || x + dx >= N || y + dy < 0 || y + dy >= N) continue;
+        const j = i + dx + dy * N; if (grid[j] || (dx && dy && (grid[i + dx] || grid[i + dy * N]))) continue; out.push(j);
+      } return out;
+    };
+    const startCell = idx(root.st.x, root.st.y); if (startCell < 0) return result('outside');
+    // A start centre may be blocked by conservative raster padding; let exact
+    // rollout validation decide whether the snake can leave that centre.
+    grid[startCell] = 0;
+    const sector = q => (Math.floor((wrap(Math.atan2(q.y - s.y, q.x - s.x) - s.ang) + Math.PI / 8 + TAU) / (Math.PI / 4)) % 8);
+    const goals = Array.from({length: 8}, () => []), distance = new Int32Array(grid.length).fill(-1), queue = [startCell]; distance[startCell] = 0;
+    for (let qi = 0; qi < queue.length; qi++) {
+      const i = queue[qi], q = xy(i), radial = hypot(q.x - s.x, q.y - s.y);
+      if (radial >= edge && radial <= edge + C * 1.5) goals[sector(q)].push(i);
+      for (const j of neighbors(i)) if (distance[j] < 0) { distance[j] = distance[i] + 1; queue.push(j); }
+    }
+    const order = goals.map((g, k) => ({k, d: g.length ? Math.min(...g.map(i => distance[i])) + Math.min(k, 8 - k) * 2 : Infinity})).filter(g => Number.isFinite(g.d)).sort((a, b) => a.d - b.d);
+    if (!order.length) return result('closed_or_narrow');
+    let expanded = 0;
+    const maxRoutes = Math.round(V.V9_ROUTES ?? 3), H = V.V9_H ?? 8;
+    for (const goal of order) {
+      if (routes.length >= maxRoutes || now() - started > budget) break;
+      const dist = new Int32Array(grid.length).fill(-1), q = [...goals[goal.k]]; for (const i of q) dist[i] = 0;
+      for (let qi = 0; qi < q.length; qi++) for (const j of neighbors(q[qi])) if (dist[j] < 0) { dist[j] = dist[q[qi]] + 1; q.push(j); }
+      const deadline = Math.min(started + budget, now() + Math.max(10, (started + budget - now()) / Math.max(1, maxRoutes - routes.length)));
+      const heap = [], seen = new Map();
+      const push = n => { heap.push(n); let i = heap.length - 1; while (i) { const p = (i - 1) >> 1; if (heap[p].f <= n.f) break; heap[i] = heap[p]; i = p; } heap[i] = n; };
+      const pop = () => { const n = heap[0], last = heap.pop(); if (heap.length) { let i = 0; while (2 * i + 1 < heap.length) { let c = 2 * i + 1; if (c + 1 < heap.length && heap[c + 1].f < heap[c].f) c++; if (heap[c].f >= last.f) break; heap[i] = heap[c]; i = c; } heap[i] = last; } return n; };
+      const key = n => [Math.round(n.st.x / 20), Math.round(n.st.y / 20), Math.round(wrap(n.st.h) / (TAU / 32)), Math.round(n.st.v / 30), Math.floor(n.t / .7)].join(',');
+      push({st: root.st, t: root.t, parent: null, part: root.pts, action: null, f: 0, clear: root.clear});
+      let found = null, count = 0;
+      while (heap.length && count++ < 5000) {
+        if ((count & 15) === 0 && now() > deadline) break;
+        const n = pop(); expanded++;
+        if (hypot(n.st.x - s.x, n.st.y - s.y) >= edge && sector(n.st) === goal.k) { found = n; break; }
+        if (n.t + .28 > H) continue;
+        for (const turn of [0, -.5, .5, -1, 1]) {
+          const r = this.v9Roll(s, W, ph, n.st, turn, .28, n.t); if (!r.ok) continue;
+          const cell = idx(r.st.x, r.st.y); if (cell < 0 || dist[cell] < 0) continue;
+          const child = {st: r.st, t: r.t, parent: n, part: r.pts, action: {start: n.t, end: r.t, turn}, clear: Math.min(n.clear, r.clear)};
+          const cost = r.t + (H - Math.min(H, r.clear / 30)) * .01, k = key(child); if ((seen.get(k) ?? Infinity) <= cost) continue;
+          seen.set(k, cost); child.f = cost + dist[cell] * C / ph.cs * 1.4; push(child);
+        }
+      }
+      if (found) {
+        const nodes = []; for (let n = found; n; n = n.parent) nodes.push(n); nodes.reverse();
+        const pts = nodes.flatMap(n => n.part), actions = nodes.map(n => n.action).filter(Boolean);
+        // Different exit sectors; reject almost identical exits near a sector seam.
+        const endAngle = Math.atan2(found.st.y - s.y, found.st.x - s.x);
+        if (!routes.some(r => Math.abs(wrap(r.angle - endAngle)) < rad(25))) routes.push({pts, actions, angle: endAngle, clear: found.clear, duration: found.t, goal: [found.st.x, found.st.y]});
+      }
+    }
+    return result(routes.length ? 'observed_exit' : (now() - started >= budget ? 'search_budget' : 'no_drivable_route'), expanded);
+  }
+  v9Step(s) {
+    TURN_FIX = !!this.values.TURN_FIX;
+    const started = performance.now(), V = this.values, W = this.v9World(s), ph = this.v4Physics(s.sc), root = this.v9Root(s, W, ph);
+    const source = s.route?.algo === 'v9' ? s.route : null, age = source ? s.t - source.t0 : Infinity, valid = [];
+    let reason = !source ? 'none' : age < 0 || age > (V.V9_ROUTE_AGE ?? .65) ? 'old' : source.reason;
+    if (root.ok && source && age >= 0 && age <= (V.V9_ROUTE_AGE ?? .65)) for (const route of source.routes || []) {
+      let st = root.st, t = root.t, pts = [...root.pts], clear = root.clear, ok = true;
+      // Rebase every candidate to the current head/heading/speed and recheck its
+      // ENTIRE remaining route on the fresh map, rather than snapping to old lines.
+      for (const a of route.actions) {
+        const until = a.end - age; if (until <= t + 1e-8) continue;
+        const r = this.v9Roll(s, W, ph, st, a.turn, until - t, t);
+        if (!r.ok) { ok = false; break; } pts.push(...r.pts); st = r.st; t = r.t; clear = Math.min(clear, r.clear);
+      }
+      const radial = hypot(st.x - s.x, st.y - s.y), edge = Math.min(V.V9_EDGE ?? 900, W.obs - 80);
+      if (ok && radial >= edge - ph.cs * (V.V9_ROUTE_AGE ?? .65) && t > root.t + .5) valid.push({pts, clear, end: st, duration: t});
+    }
+    if (source?.routes?.length && !valid.length && reason !== 'old') reason = 'changed';
+    let selected = valid[0], unsafe = false;
+    if (!selected) {
+      let best = null;
+      // No full exit: only short collision-checked motion, never drawn as an exit.
+      for (const turn of [0, -.5, .5, -1, 1]) {
+        const r = root.ok ? this.v9Roll(s, W, ph, root.st, turn, 1, root.t) : root;
+        const score = r.t * 1000 + Math.min(r.clear, 100) - Math.abs(turn) * 2;
+        if (!best || score > best.score) best = {...r, score};
+      }
+      selected = {pts: root.ok ? [...root.pts, ...best.pts] : root.pts, clear: best.clear}; unsafe = !best.ok;
+    }
+    const P = selected.pts, plan = P.length >= 10 ? P : null;
+    let k = 0; if (plan) while (k + 5 < P.length && P[k] < (V.TRACK_LAT ?? .17) + .08) k += 5;
+    const cmd = plan ? P[k + 3] : s.ang, flat = p => { const a = []; for (let i = 0; i + 4 < p.length; i += 5) a.push(p[i + 1], p[i + 2]); return a; };
+    const trace = {mode: valid.length ? 'v9escape' : unsafe ? 'v9blocked' : 'v9local', boost: false, cmd: r1(deg(cmd)), n_safe: valid.length,
+      cause: reason, v9_routes: valid.length, v9_reason: reason, v9_clear: r1(selected.clear), v9_plan_ms: source?.ms ?? 0,
+      v3_route_match: valid.length ? 1 : 0, v3_cert: valid.length ? 1 : 0, v6_intent: 'escape', L: s.L, sc: s.sc};
+    this.last = {trace, mode: trace.mode, plan, draw: {chosen: flat(P), localPath: flat(P.slice(0, 5 * 32)), mazePath: [],
+      v9Paths: valid.map(r => flat(r.pts)), v9Walls: W.walls, v9Map: source && age <= (V.V9_ROUTE_AGE ?? .65) ? source.map : null,
+      v9Reason: reason, localUnsafe: unsafe, safe: [], near: [], gaps: [], goal: null, ro: W.ro}};
+    this.prev = cmd; this.prevBoost = false; return [cmd, false];
+  }
+

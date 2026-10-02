@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://ntl-slither.com/rs.php">
+<link rel="icon" type="image/png" href="/favicon.ico">
+<title>Slither.io RealTime Status - by NTL</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script>
+var rsPosted = false;
+function onSubmit(token) {
+  if (rsPosted) return;
+  rsPosted = true;
+  var f = document.getElementById("rscaptcha");
+  var i = document.getElementById("cf-token");
+  if (i) i.value = token;
+  f.submit();
+}
+</script>
+</head>
+<body style="background-color:#555;">
+<form id="rscaptcha" method="post" action="/ss/?sort=cnt&amp;lowts=1" style="padding:40px;text-align:center;">
+<input type="hidden" name="cf-turnstile-response" id="cf-token" value="">
+<div class="cf-turnstile" data-sitekey="0x4AAAAAAE2UaYfWdDBe7v45" data-callback="onSubmit" data-action="rs" data-theme="dark" data-retry="never" style="display:inline-block;"></div>
+</form>
+</body>
+</html>

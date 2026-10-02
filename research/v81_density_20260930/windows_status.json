@@ -1,0 +1,9 @@
+[
+  {
+    "url": "http://slither.com/io",
+    "version": "0930-b5b4403f",
+    "playing": false,
+    "bot": true,
+    "preset": "v8_exact"
+  }
+]

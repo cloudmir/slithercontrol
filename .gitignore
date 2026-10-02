@@ -1,0 +1,36 @@
+# Local environments and agent state
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.workspace/
+.agents/
+.codex/
+.env
+.env.*
+!.env.example
+
+# Raw runs, downloaded data, and transient output stay on disk
+runs/
+data/*.feather
+data/*.npz
+*.log
+*.out
+*.lock
+*.headers
+*.jsonl
+*.jsonl.gz
+*.gz
+*.pack
+*.idx
+*.rev
+
+# Large generated analysis artifacts (scripts and summaries are tracked)
+/research/mod_parity_states.json
+/research/t3_20261002/samples.csv
+/research/t3_20261002/report.html
+/research/t3_20261002/data.json
+/research/v10_20261001/futures.json
+/research/v10_20261001/past.json
+/research/mods/jcm-bot/

@@ -1,0 +1,29 @@
+{
+  "v1Frames": 150,
+  "v6Frames": 150,
+  "commandDifferences": 0,
+  "planDifferences": 0,
+  "switches": 9,
+  "unchangedDecisionBodies": true,
+  "macroParity": [
+    {
+      "label": "empty",
+      "intent": "explore"
+    },
+    {
+      "label": "food",
+      "intent": "food"
+    },
+    {
+      "label": "wall",
+      "intent": "escape"
+    },
+    {
+      "label": "heads",
+      "intent": "escape"
+    }
+  ],
+  "observationParity": true,
+  "triggerIndependent": true,
+  "scope": "offline replay and synthetic; no survival result"
+}

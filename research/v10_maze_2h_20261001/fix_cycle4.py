@@ -1,0 +1,17 @@
+from pathlib import Path
+p=Path('ext/pilot.js');s=p.read_text()
+s=s.replace('v10MazeGuides(s,W,root,edge,deadline) {','v10MazeGuides(s,W,root,edge,deadline,preferred=null) {')
+s=s.replace('blocked=new Uint8Array(N);','blocked=new Uint8Array(N),clearance=new Float32Array(N).fill(48);')
+s=s.replace('r-w_NOTFOUND','x_NOTFOUND') if False else s
+s=s.replace('const r=w[4]+W.ro+W.margin+1,dx=', 'const r=w[4]+W.ro+W.margin+1,band=r+48,dx=')
+s=s.replace('Math.min(w[0],w[2])-r-ox','Math.min(w[0],w[2])-band-ox').replace('Math.max(w[0],w[2])+r-ox','Math.max(w[0],w[2])+band-ox').replace('Math.min(w[1],w[3])-r-oy','Math.min(w[1],w[3])-band-oy').replace('Math.max(w[1],w[3])+r-oy','Math.max(w[1],w[3])+band-oy')
+s=s.replace('if((x-w[0]-u*dx)**2+(y-w[1]-u*dy)**2<=r*r)blocked[at(i,j)]=1;', 'const gap=hypot(x-w[0]-u*dx,y-w[1]-u*dy)-r;clearance[at(i,j)]=Math.min(clearance[at(i,j)],gap);if(gap<=0)blocked[at(i,j)]=1;')
+s=s.replace('const p=point(k),radial=hypot(p.x-s.x,p.y-s.y);', "const p=point(k),radial=hypot(p.x-s.x,p.y-s.y);\n      if(preferred&&!exits.has('held')&&hypot(p.x-preferred[0],p.y-preferred[1])<cell*1.5&&W.check(p,{x:preferred[0],y:preferred[1]},0,0,.5,false)>=0)exits.set('held',k);")
+s=s.replace('if(exits.size===8)break;', "if(exits.size===(preferred?9:8))break;")
+s=s.replace('const nd=d+cell*(dx&&dy?Math.SQRT2:1);', 'const nd=d+cell*(dx&&dy?Math.SQRT2:1)*(1+.6*Math.max(0,(32-clearance[q])/32)**2);')
+s=s.replace('chain.reverse();\n      // Visibility', "chain.reverse();if(sector==='held')chain.push({x:preferred[0],y:preferred[1]});\n      // Visibility")
+s=s.replace("guides.push({path,goal:[point(k).x,point(k).y],length,kind:'escape',sector,lookScale:.65,useBoost:false,score:-length});", "const goal=sector==='held'?preferred:[point(k).x,point(k).y];guides.push({path,goal,length,kind:'escape',sector:sector==='held'?Math.floor((Math.atan2(goal[1]-s.y,goal[0]-s.x)+PI)*8/TAU)%8:sector,preferred:sector==='held',lookScale:.65,useBoost:false,score:-length});")
+s=s.replace("begin+(V.V10_BUDGET??90)*.55));", "begin+(V.V10_BUDGET??90)*.55),old?.goal);")
+s=s.replace("for(const g of goals){\n      if(performance.now()>deadline-2)break;", "goals.sort((a,b)=>Number(b.preferred)-Number(a.preferred));\n    for(const g of goals){\n      if(performance.now()>deadline-2)break;")
+s=s.replace("if(!accept(g,`${ver}:${g.sector}`)&&performance.now()<deadline-4)accept({...g,lookScale:.4},`${ver}:${g.sector}`);", "const id=g.preferred&&old?old.id:`${ver}:${g.sector}`;\n      if(!accept(g,id)&&performance.now()<deadline-4)accept({...g,lookScale:.4},id);")
+p.write_text(s)

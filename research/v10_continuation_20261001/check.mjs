@@ -1,0 +1,15 @@
+import fs from 'node:fs';import vm from 'node:vm';import assert from 'node:assert/strict';
+const dir=process.argv[2]||'ext',label=process.argv[3]||'after';vm.runInThisContext(fs.readFileSync(dir+'/pilot.js','utf8'));
+const D=JSON.parse(fs.readFileSync('params.json')),V={...D.defaults,...D.presets.v10_layered.values,V10_BUDGET:150,V10_LOCAL_MS:20};
+const base={x:30000,y:30000,ang:0,sp:6.12,sc:2,L:1000,t:10,cmdNow:0,boostNow:false,wall:[30000,30000,20000],segs:[],sid:[],heads:[],hid:[],food:[],own:[]};
+const results={};const test=(name,fn)=>{try{results[name]={pass:true,...fn()};}catch(e){results[name]={pass:false,error:e.message};}};
+const make=()=>new SlpPilot.Pilot(V,'safe');
+test('open_space_has_executable_exit',()=>{const p=make(),r=p.v10Route(base,1);assert(r.certified);assert(r.routes[0].actions.length>10);assert(r.routes[0].duration>3);p.step({...base,route:r});assert.equal(p.last.trace.mode,'v10route');assert.equal(p.last.trace.v10_geometry_only,0);assert(p.last.trace.v10_continuation_s>3);assert.equal(p.last.controls[0].target,r.routes[0].actions[0].target);return {duration:p.last.trace.v10_continuation_s};});
+test('distant_new_wall_invalidates_whole_route',()=>{const p=make(),r=p.v10Route(base,1);const s={...base,segs:[30800,27500,30800,32500,20],sid:[1],route:{...r,routes:[r.routes[0]]}};p.step(s);assert.notEqual(p.last.trace.mode,'v10route');assert.equal(p.last.trace.v10_replan,1);assert.equal(p.last.draw.v9Paths.length,0);return {reject:p.last.trace.v10_reject};});
+test('actual_pose_rejoins_route',()=>{const p=make(),r=p.v10Route(base,1);const s={...base,x:30090,y:30020,ang:.08,t:10.4,route:r};p.step(s);assert.equal(p.last.trace.mode,'v10route');assert(p.last.controls[0].target<0);return {target:p.last.controls[0].target};});
+test('usable_exit_survives_new_food_attraction',()=>{const p=make(),r=p.v10Route(base,1),r2=p.v10Route({...base,t:10.3,x:30050,food:[30000,30800,30,30000,30810,30]},2);assert(r2.certified);assert.equal(r.routes[0].id,r2.routes[0].id);assert.deepEqual(r.routes[0].goal,r2.routes[0].goal);});
+test('terminal_wall_not_certified',()=>{const p=make(),s={...base,segs:[30200,29500,30200,30500,20],sid:[1]},W=p.v10World(s),ph=p.v4Physics(s.sc),root=p.v10Root(s,W,ph);const r=p.v10Follow(s,W,ph,root,{path:[{x:30000,y:30000},{x:30100,y:30000}],length:100});assert(!r.ok);assert.equal(r.reason,'terminal');});
+test('parameter_change_clears_commitment',()=>{const p=make();p.v10Route(base,1);assert(p.v10Committed);p.setParams({...V,V10_MARGIN:30});assert.equal(p.v10Committed,null);});
+test('queued_collision_never_certifies_exit',()=>{const p=make(),s={...base,segs:[30050,29000,30050,31000,20],sid:[1]},r=p.v10Route(s,1);assert(!r.certified);assert.equal(r.routes.length,0);});
+test('stale_route_not_replayed',()=>{const p=make(),r=p.v10Route(base,1);p.step({...base,t:12,route:r});assert.notEqual(p.last.trace.mode,'v10route');assert.equal(p.last.trace.v10_replan,1);});
+fs.writeFileSync(`research/v10_continuation_20261001/check_${label}.json`,JSON.stringify(results,null,2));console.log(results);if(Object.values(results).some(r=>!r.pass))process.exitCode=1;

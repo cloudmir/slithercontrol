@@ -1,0 +1,17 @@
+{
+  "original_candidate_gaps_matched": 106,
+  "mismatches": [],
+  "unique_deaths": 106,
+  "parallel_subset": 7,
+  "all_actual_speeds": [
+    5.777777777777778,
+    5.79,
+    5.833333333333333,
+    5.888888888888889,
+    5.944444444444445
+  ],
+  "own_diameter_range": [
+    29.0,
+    47.60377358490565
+  ]
+}

@@ -1,0 +1,1 @@
+{"foodWaypointThenExit":true,"closestFood":0.5851850466132478,"foodOffRemovesFoodRoutes":true}

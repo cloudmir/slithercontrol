@@ -1,0 +1,17 @@
+{
+  "build": "1001-a67ce2c6",
+  "hashes": {
+    "ext/pilot.js": "73073d38b65dbf72b2940bee526990989394308bf7ba65701106250b48ef2489",
+    "ext/mod.js": "12e35c68f8272c5d810e21f4f4b714056fa5e3abe9fbd1f3c645eec84aaefb87",
+    "params.json": "77ad8bf9d028df5ca682f8cefb7fef8058065600e6c7cbb4c7dffeabcb4cac78",
+    "ext/params.js": "ed8b13cd6d1865a22b322931feb1444cb33d234779e169dc141d8833f8cdd6ae",
+    "ext/manifest.json": "cdaa6e664d1eb198d0175b8156528b7b3e20145e65e0d200feba5b98900cd452"
+  },
+  "before": {
+    "ext/pilot.js": "bea9863808b30b063dcd120c3d960c30c040b956d128fe93f244ad8eadeea5d0",
+    "ext/mod.js": "3cf70585db0e1a01ca9e71ff325e4c2f6ef850b05b7e2a27e37dd88822e444a5",
+    "params.json": "77ad8bf9d028df5ca682f8cefb7fef8058065600e6c7cbb4c7dffeabcb4cac78",
+    "ext/params.js": "7a48106af80a3eab08c37dd55709498b11a2a88ff1fd8b68d47a71622c98aecd",
+    "ext/manifest.json": "785bd416364eab0161c5736f9128982da800739aea712a5ce1329d2006250945"
+  }
+}

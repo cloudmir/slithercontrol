@@ -1,0 +1,11 @@
+{
+ "applied": true,
+ "version": "0930-298ee1cb",
+ "playing": false,
+ "bot": false,
+ "foodRange": 3000,
+ "heapSize": 250,
+ "goalWeight": 1.5,
+ "boostWeight": 80,
+ "centerWeight": 2
+}

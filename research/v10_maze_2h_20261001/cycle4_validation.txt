@@ -1,0 +1,85 @@
+{
+  "build": "1001-1c8fbce5",
+  "seconds": 323.5,
+  "capped": true,
+  "server": "103.4.30.88:444",
+  "players_max_observed": 149,
+  "L_first": 10,
+  "L_last": 1109,
+  "L_max": 1109,
+  "net_L_per_min": 203.83,
+  "settings_changes": [],
+  "food_risk_values": {
+    "100": 9448
+  },
+  "modes": {
+    "v10replan": 125,
+    "v10route": 9300,
+    "v10emergency": 23
+  },
+  "route_frame_percent": 98.4,
+  "boost_frame_percent": 0.4,
+  "food_value_on_routes": {
+    "p50": 0,
+    "p95": 0.01155692074722622,
+    "max": 0.6467316721966357
+  },
+  "closure_risk_on_routes": {
+    "p50": 0.6054040838054454,
+    "p95": 0.7262537529665677,
+    "max": 0.8544086430902943
+  },
+  "remains_observation_samples": 594,
+  "samples_with_remains": 271,
+  "samples_with_remains_within100px": 0,
+  "nearest_remains_px": {
+    "p50": 908.9166363500469,
+    "p95": 1420.6234051413749,
+    "max": 1703.4877615287724
+  },
+  "decision_errors": 0,
+  "page_errors": [],
+  "decision_ms": {
+    "p50": 3.8,
+    "p95": 7.2
+  },
+  "observation_to_command_ms": {
+    "p50": 10.2,
+    "p95": 21.3
+  },
+  "screenshots": 602,
+  "capture_interval_s": {
+    "p50": 0.5,
+    "p95": 0.5279999999999996,
+    "max": 0.6800000000000068
+  },
+  "camera_error": null,
+  "limits": [
+    "One live game; any setting changes are split into observational segments, not a causal A/B comparison.",
+    "Net length change includes boost loss; observed food is not proven reachable food.",
+    "Risk is a heuristic index, not calibrated death probability.",
+    "Decision-frame shares are not independent escape success rates."
+  ],
+  "end_reason": "time_cap",
+  "risk_segments": [
+    {
+      "risk_setting": 100,
+      "from_s": 0.003,
+      "to_s": 323.47,
+      "L_start": 10,
+      "L_end": 1109,
+      "L_max": 1109,
+      "net_L_per_min": 203.85,
+      "frames": 9448,
+      "boost_frame_percent": 0.4,
+      "food_value": {
+        "p50": 0,
+        "p95": 0.010461242717263789,
+        "max": 0.6467316721966357
+      },
+      "remains_samples": 594,
+      "samples_with_remains": 271,
+      "within100px": 0
+    }
+  ]
+}

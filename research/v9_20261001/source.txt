@@ -1,0 +1,438 @@
+V9 implementation source and local verification, 2026-10-01
+
+Build 1001-1d9eee2a
+
+{
+  "ext/pilot.js": "98923e4268177e99d8469838b3bd8671eb3efc205bfa73929049b3a48e7dc6d1",
+  "ext/mod.js": "5657b1efe7efa9c063f4046bafd98d7cdbd416535c7f0ad1b168002a421bac34",
+  "params.json": "8f20264bed81e3c13c2c9079f0d1712c4d421e910d25085f08d8c8fc37ea474a",
+  "ext/params.js": "0ebb6fd81378c0c67b1da1f5d81dc76519de3085aa6d394ea6705c08336901a1",
+  "ext/manifest.json": "2224fabda07c558e551a9d0f6f56f0d25abfeb05a4b3f1838ea70296ae9d7cc4"
+}
+
+
+## research/v9_20261001/check.json
+
+{
+  "open": {
+    "routes": 3,
+    "reason": "observed_exit",
+    "ms": 71.92953499999999,
+    "expanded": 426,
+    "used": 3
+  },
+  "corridor": {
+    "routes": 1,
+    "reason": "observed_exit",
+    "ms": 490.12029199999995,
+    "expanded": 11443,
+    "used": 1
+  },
+  "frontWall": {
+    "routes": 3,
+    "reason": "observed_exit",
+    "ms": 42.218185999999946,
+    "expanded": 404,
+    "used": 3
+  },
+  "closed": {
+    "routes": 0,
+    "reason": "closed_or_narrow",
+    "ms": 8.31248000000005,
+    "expanded": 0,
+    "used": 0
+  },
+  "uTurn": {
+    "routes": 3,
+    "reason": "observed_exit",
+    "ms": 123.83656399999995,
+    "expanded": 2631,
+    "used": 3
+  }
+}
+
+
+## research/v9_20261001/edge_cases.json
+
+{
+  "corridor100": {
+    "routes": 0,
+    "reason": "latency_blocked",
+    "ms": 2.9867789999999985
+  },
+  "corridor120": {
+    "routes": 1,
+    "reason": "observed_exit",
+    "ms": 21.401769
+  },
+  "staleRemoved": true,
+  "newWallsInvalidateAll": true,
+  "sweptCrossingRejected": true,
+  "futureTrailRejected": true,
+  "rebasedFromCurrentHead": true,
+  "earlierAlgorithmsUnchanged": true
+}
+
+
+## research/v9_20261001/drive.json
+
+{
+  "corridor": {
+    "safe": true,
+    "escaped": true,
+    "distance": 907.4893500004546,
+    "elapsed": 4.72,
+    "minGap": 6,
+    "routeTicks": 119
+  },
+  "frontWall": {
+    "safe": true,
+    "escaped": true,
+    "distance": 904.4682870690053,
+    "elapsed": 5.24,
+    "minGap": 51.527252234594926,
+    "routeTicks": 132
+  },
+  "uTurn": {
+    "safe": true,
+    "escaped": true,
+    "distance": 903.8600431891495,
+    "elapsed": 6.44,
+    "minGap": 10.18461205065978,
+    "routeTicks": 162
+  }
+}
+
+
+## research/v9_20261001/mock.json
+
+{
+  "version": "1001-1d9eee2a",
+  "multipleWorkerRoutes": true,
+  "thinLines": true,
+  "corridorRoute": true,
+  "displayTogglePreservesValues": true,
+  "sliderWorks": true,
+  "v1SwitchOff": true,
+  "saved": true,
+  "errors": []
+}
+
+
+## research/v9_20261001/windows_applied.json
+
+{
+  "applied": false,
+  "reason": "connection_or_apply_failed",
+  "error": "BrowserType.connect_over_cdp: socket hang up\nCall log:\n  - <ws preparing> retrieving websocket url from http://127.0.0.1:9337\n"
+}
+
+
+Test scope: check.mjs uses V9_BUDGET=500 for geometry scenarios; drive.mjs and edge_cases.mjs use the default 100ms planning budget. Browser mock exercises real Workers in a local mock page, not the live game. Initial delayed-control failure is preserved in drive_initial.mjs; final drive.json tests fixed-target command replay with latency. Live browser connection failed; no runtime reload confirmed.
+
+
+## ext/pilot.js
+
+1733:   // V9: current observed capsule walls + heading/speed/time search. No grid
+1734:   // polyline is ever labelled an escape: only swept, drivable rollouts are drawn.
+1735:   v9World(s) {
+1736:     const V = this.values, ro = R * s.sc, margin = V.V9_MARGIN ?? 5, obs = V.V9_OBS ?? 1200;
+1737:     const walls = [], bins = new Map(), cell = 96;
+1738:     const pointD = (x, y, ax, ay, bx, by) => {
+1739:       const dx = bx - ax, dy = by - ay, f = clip(((x - ax) * dx + (y - ay) * dy) / Math.max(1e-12, dx * dx + dy * dy), 0, 1);
+1740:       return hypot(x - ax - f * dx, y - ay - f * dy);
+1741:     };
+1742:     const segmentD = (ax, ay, bx, by, cx, cy, dx, dy) => {
+1743:       const ux = bx - ax, uy = by - ay, vx = dx - cx, vy = dy - cy, den = ux * vy - uy * vx;
+1744:       if (Math.abs(den) > 1e-10) {
+1745:         const wx = cx - ax, wy = cy - ay, t = (wx * vy - wy * vx) / den, u = (wx * uy - wy * ux) / den;
+1746:         if (t >= 0 && t <= 1 && u >= 0 && u <= 1) return 0;
+1747:       }
+1748:       return Math.min(pointD(ax, ay, cx, cy, dx, dy), pointD(bx, by, cx, cy, dx, dy), pointD(cx, cy, ax, ay, bx, by), pointD(dx, dy, ax, ay, bx, by));
+1749:     };
+1750:     for (let i = 0; i + 4 < s.segs.length; i += 5) {
+1751:       const a = Array.from(s.segs.slice(i, i + 5)); if (!a.every(Number.isFinite) || a[4] < 0) continue;
+1752:       // Use at least the rendered physical radius; negative calibration must not
+1753:       // make a displayed V9 escape line cut through a visible body.
+1754:       a[4] = Math.max(a[4], a[4] + this.P.bodyOff(a[4]));
+1755:       const pad = a[4] + ro + margin + 130, id = walls.length; walls.push(a);
+1756:       const x0 = Math.max(s.x - obs - 2, Math.min(a[0], a[2]) - pad), x1 = Math.min(s.x + obs + 2, Math.max(a[0], a[2]) + pad);
+1757:       const y0 = Math.max(s.y - obs - 2, Math.min(a[1], a[3]) - pad), y1 = Math.min(s.y + obs + 2, Math.max(a[1], a[3]) + pad);
+1758:       for (let x = Math.floor(x0 / cell); x <= Math.floor(x1 / cell); x++) for (let y = Math.floor(y0 / cell); y <= Math.floor(y1 / cell); y++) {
+1759:         const key = x + ',' + y; if (!bins.has(key)) bins.set(key, []); bins.get(key).push(id);
+1760:       }
+1761:     }
+1762:     const heads = [];
+1763:     for (let i = 0; i + 4 < s.heads.length; i += 5) {
+1764:       const [x, y, h, sp, sc] = s.heads.slice(i, i + 5); if (![x, y, h, sp, sc].every(Number.isFinite)) continue;
+1765:       heads.push({x, y, vx: Math.cos(h) * sp * PX_PER_SP, vy: Math.sin(h) * sp * PX_PER_SP, r: R * sc});
+1766:     }
+1767:     const check = (a, b, t0 = 0, t1 = t0, pad = 0, dynamic = true) => {
+1768:       let gap = Math.min(128, obs - Math.max(hypot(a.x - s.x, a.y - s.y), hypot(b.x - s.x, b.y - s.y)) - pad);
+1769:       gap = Math.min(gap, s.wall[2] - Math.max(hypot(a.x - s.wall[0], a.y - s.wall[1]), hypot(b.x - s.wall[0], b.y - s.wall[1])) - ro - margin - pad);
+1770:       if (gap < 0) return gap;
+1771:       const seen = new Set();
+1772:       for (let x = Math.floor((Math.min(a.x, b.x) - pad) / cell); x <= Math.floor((Math.max(a.x, b.x) + pad) / cell); x++)
+1773:         for (let y = Math.floor((Math.min(a.y, b.y) - pad) / cell); y <= Math.floor((Math.max(a.y, b.y) + pad) / cell); y++)
+1774:           for (const id of bins.get(x + ',' + y) || []) if (!seen.has(id)) {
+1775:             seen.add(id); const w = walls[id];
+1776:             gap = Math.min(gap, segmentD(a.x, a.y, b.x, b.y, w[0], w[1], w[2], w[3]) - w[4] - ro - margin - pad);
+1777:             if (gap < 0) return gap;
+1778:           }
+1779:       if (dynamic) for (const h of heads) {
+1780:         // Forecast only, not a guarantee of enemy intent. Rechecked every tick.
+1781:         const ax = a.x - h.x - h.vx * t0, ay = a.y - h.y - h.vy * t0, bx = b.x - h.x - h.vx * t1, by = b.y - h.y - h.vy * t1;
+1782:         const uncertainty = (V.V9_HEAD_PAD ?? 20) * Math.min(t1, 3);
+1783:         gap = Math.min(gap, pointD(0, 0, ax, ay, bx, by) - ro - h.r - margin - pad - uncertainty);
+1784:         // The moving head leaves a new body wall behind it during this forecast.
+1785:         gap = Math.min(gap, segmentD(a.x, a.y, b.x, b.y, h.x, h.y, h.x + h.vx * t1, h.y + h.vy * t1) - ro - h.r - margin - pad - uncertainty);
+1786:         if (gap < 0) return gap;
+1787:       }
+1788:       return gap;
+1789:     };
+1790:     return {ro, obs, margin, walls, check};
+1791:   }
+1792:   v9Roll(s, W, ph, start, turn, duration, t0, target = null, boost = false) {
+1793:     let st = {...start}, t = t0, clear = Infinity; const pts = [], end = t0 + duration;
+1794:     while (t < end - 1e-8) {
+1795:       const dt = Math.min(.04, end - t), next = this.v4Adv(st, target === null ? st.h + turn * ph.w * dt : target, boost, dt, ph);
+1796:       const pad = Math.max(st.v, next.v) * dt * Math.abs(wrap(next.h - st.h)) / 8 + .15;
+1797:       const g = W.check(st, next, t, t + dt, pad); if (g < 0) return {ok: false, st, t, pts, clear: Math.min(clear, g)};
+1798:       clear = Math.min(clear, g); t += dt; st = next; pts.push(t, st.x, st.y, st.h, boost ? 1 : 0);
+1799:     }
+1800:     return {ok: true, st, t, pts, clear};
+1801:   }
+1802:   v9Root(s, W, ph) {
+1803:     const start = {x: s.x, y: s.y, h: s.ang, v: s.sp * PX_PER_SP};
+1804:     const lat = Math.max(0, this.values.TRACK_LAT ?? .17), cmd = Number.isFinite(s.cmdNow) ? s.cmdNow : s.ang;
+1805:     // Replay commands already in flight. Treating the last sent command as
+1806:     // active for the whole latency interval falsely promises an earlier turn.
+1807:     const history = s.cmdHistory || [], pts = [0, s.x, s.y, s.ang, s.boostNow ? 1 : 0];
+1808:     let st = start, t = 0, clear = Infinity;
+1809:     while (t < lat - 1e-8) {
+1810:       const stamp = s.t + t - lat; let active = {ang: cmd, boost: !!s.boostNow};
+1811:       if (history.length) { active = history[0]; for (const q of history) { if (q.t > stamp + 1e-8) break; active = q; } }
+1812:       const next = history.find(q => q.t > stamp + 1e-8), duration = Math.min(.04, lat - t, next ? next.t - stamp : Infinity);
+1813:       const r = this.v9Roll(s, W, ph, st, 0, duration, t, active.ang, !!active.boost);
+1814:       pts.push(...r.pts); clear = Math.min(clear, r.clear); st = r.st; t = r.t;
+1815:       if (!r.ok) return {...r, pts, clear};
+1816:     }
+1817:     return {ok: true, st, t, pts, clear};
+1818:   }
+1819:   v9Route(s, ver) {
+1820:     TURN_FIX = !!this.values.TURN_FIX;
+1821:     const V = this.values, now = () => performance.now(), started = now(), budget = V.V9_BUDGET ?? 90;
+1822:     const W = this.v9World(s), ph = this.v4Physics(s.sc), root = this.v9Root(s, W, ph), edge = Math.min(V.V9_EDGE ?? 900, W.obs - 80);
+1823:     const routes = [], C = 32, N = 2 * Math.ceil(W.obs / C) + 1, ox = s.x - (N >> 1) * C, oy = s.y - (N >> 1) * C;
+1824:     const grid = new Uint8Array(N * N), xy = i => ({x: ox + (i % N) * C, y: oy + Math.floor(i / N) * C});
+1825:     const idx = (x, y) => { const i = Math.round((x - ox) / C), j = Math.round((y - oy) / C); return i < 0 || j < 0 || i >= N || j >= N ? -1 : j * N + i; };
+1826:     const result = (reason, expanded = 0) => ({algo: 'v9', ver, t0: s.t, routes, reason, certified: routes.length ? 1 : 0,
+1827:       // Map belongs to this observation, never accumulated stale moving bodies.
+1828:       map: {ox, oy, cell: C, n: N, blocked: Array.from(grid)}, expanded, ms: now() - started});
+1829:     if (!root.ok) return result('latency_blocked');
+1830:     // Cell centres are for topology/heuristics only. Swept capsules below are
+1831:     // authoritative, including all segments between the displayed path points.
+1832:     for (let i = 0; i < grid.length; i++) {
+1833:       const q = xy(i); grid[i] = W.check(q, q, 0, 0, 0, false) < 0 ? 1 : 0;
+1834:       if ((i & 127) === 0 && now() - started > budget) return result('map_budget');
+1835:     }
+1836:     const neighbors = i => { const out = [], x = i % N, y = Math.floor(i / N);
+1837:       for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
+1838:         if ((!dx && !dy) || x + dx < 0 || x + dx >= N || y + dy < 0 || y + dy >= N) continue;
+1839:         const j = i + dx + dy * N; if (grid[j] || (dx && dy && (grid[i + dx] || grid[i + dy * N]))) continue; out.push(j);
+1840:       } return out;
+1841:     };
+1842:     const startCell = idx(root.st.x, root.st.y); if (startCell < 0) return result('outside');
+1843:     // The rounded cell centre can be blocked while the exact root is free;
+1844:     // swept rollout validation decides whether the snake can leave the root.
+1845:     grid[startCell] = 0;
+1846:     const sector = q => (Math.floor((wrap(Math.atan2(q.y - s.y, q.x - s.x) - s.ang) + Math.PI / 8 + TAU) / (Math.PI / 4)) % 8);
+1847:     const goals = Array.from({length: 8}, () => []), distance = new Int32Array(grid.length).fill(-1), queue = [startCell]; distance[startCell] = 0;
+1848:     for (let qi = 0; qi < queue.length; qi++) {
+1849:       const i = queue[qi], q = xy(i), radial = hypot(q.x - s.x, q.y - s.y);
+1850:       if (radial >= edge && radial <= edge + C * 1.5) goals[sector(q)].push(i);
+1851:       for (const j of neighbors(i)) if (distance[j] < 0) { distance[j] = distance[i] + 1; queue.push(j); }
+1852:     }
+1853:     const order = goals.map((g, k) => ({k, d: g.length ? Math.min(...g.map(i => distance[i])) + Math.min(k, 8 - k) * 2 : Infinity})).filter(g => Number.isFinite(g.d)).sort((a, b) => a.d - b.d);
+1854:     if (!order.length) return result('closed_or_narrow');
+1855:     let expanded = 0;
+1856:     const maxRoutes = Math.round(V.V9_ROUTES ?? 3), H = V.V9_H ?? 8;
+1857:     for (const goal of order) {
+1858:       if (routes.length >= maxRoutes || now() - started > budget) break;
+1859:       const dist = new Int32Array(grid.length).fill(-1), q = [...goals[goal.k]]; for (const i of q) dist[i] = 0;
+1860:       for (let qi = 0; qi < q.length; qi++) for (const j of neighbors(q[qi])) if (dist[j] < 0) { dist[j] = dist[q[qi]] + 1; q.push(j); }
+1861:       const deadline = Math.min(started + budget, now() + Math.max(10, (started + budget - now()) / Math.max(1, maxRoutes - routes.length)));
+1862:       const heap = [], seen = new Map();
+1863:       const push = n => { heap.push(n); let i = heap.length - 1; while (i) { const p = (i - 1) >> 1; if (heap[p].f <= n.f) break; heap[i] = heap[p]; i = p; } heap[i] = n; };
+1864:       const pop = () => { const n = heap[0], last = heap.pop(); if (heap.length) { let i = 0; while (2 * i + 1 < heap.length) { let c = 2 * i + 1; if (c + 1 < heap.length && heap[c + 1].f < heap[c].f) c++; if (heap[c].f >= last.f) break; heap[i] = heap[c]; i = c; } heap[i] = last; } return n; };
+1865:       const key = n => [Math.round(n.st.x / 20), Math.round(n.st.y / 20), Math.round(wrap(n.st.h) / (TAU / 32)), Math.round(n.st.v / 30), Math.floor(n.t / .7)].join(',');
+1866:       push({st: root.st, t: root.t, parent: null, part: root.pts, action: null, f: 0, turnCost: 0, clear: root.clear});
+1867:       let found = null, count = 0;
+1868:       while (heap.length && count++ < 5000) {
+1869:         if ((count & 15) === 0 && now() > deadline) break;
+1870:         const n = pop(); expanded++;
+1871:         if (hypot(n.st.x - s.x, n.st.y - s.y) >= edge && sector(n.st) === goal.k) { found = n; break; }
+1872:         if (n.t + .28 > H) continue;
+1873:         for (const turn of [0, -.5, .5, -1, 1]) {
+1874:           const target = n.st.h + turn * ph.w * .28;
+1875:           const r = this.v9Roll(s, W, ph, n.st, turn, .28, n.t, target); if (!r.ok) continue;
+1876:           const cell = idx(r.st.x, r.st.y); if (cell < 0 || dist[cell] < 0) continue;
+1877:           const child = {st: r.st, t: r.t, parent: n, part: r.pts, action: {start: n.t, end: r.t, turn, target}, turnCost: n.turnCost + Math.abs(turn) * .08, clear: Math.min(n.clear, r.clear)};
+1878:           const cost = r.t + child.turnCost + (H - Math.min(H, r.clear / 30)) * .01, k = key(child); if ((seen.get(k) ?? Infinity) <= cost) continue;
+1879:           seen.set(k, cost); child.f = cost + dist[cell] * C / ph.cs * 1.4; push(child);
+1880:         }
+1881:       }
+1882:       if (found) {
+1883:         const nodes = []; for (let n = found; n; n = n.parent) nodes.push(n); nodes.reverse();
+1884:         const pts = nodes.flatMap(n => n.part), actions = nodes.map(n => n.action).filter(Boolean);
+1885:         // Different exit sectors; reject almost identical exits near a sector seam.
+1886:         const endAngle = Math.atan2(found.st.y - s.y, found.st.x - s.x);
+1887:         if (!routes.some(r => Math.abs(wrap(r.angle - endAngle)) < rad(25))) routes.push({pts, actions, angle: endAngle, clear: found.clear, duration: found.t, goal: [found.st.x, found.st.y]});
+1888:       }
+1889:     }
+1890:     return result(routes.length ? 'observed_exit' : (now() - started >= budget ? 'search_budget' : 'no_drivable_route'), expanded);
+1891:   }
+1892:   v9Step(s) {
+1893:     TURN_FIX = !!this.values.TURN_FIX;
+1894:     const started = performance.now(), V = this.values, W = this.v9World(s), ph = this.v4Physics(s.sc), root = this.v9Root(s, W, ph);
+1895:     const source = s.route?.algo === 'v9' ? s.route : null, age = source ? s.t - source.t0 : Infinity, valid = [];
+1896:     let reason = !source ? 'none' : age < 0 || age > (V.V9_ROUTE_AGE ?? .65) ? 'old' : source.reason;
+1897:     if (root.ok && source && age >= 0 && age <= (V.V9_ROUTE_AGE ?? .65)) for (const route of source.routes || []) {
+1898:       let st = root.st, t = root.t, pts = [...root.pts], controls = [], clear = root.clear, ok = true;
+1899:       // Rebase every candidate to the current head/heading/speed and recheck its
+1900:       // ENTIRE remaining route on the fresh map, rather than snapping to old lines.
+1901:       for (const a of route.actions) {
+1902:         const until = a.end - age; if (until <= t + 1e-8) continue;
+1903:         const r = this.v9Roll(s, W, ph, st, a.turn, until - t, t, a.target);
+1904:         controls.push({start: t, end: until, target: a.target});
+1905:         if (!r.ok) { ok = false; break; } pts.push(...r.pts); st = r.st; t = r.t; clear = Math.min(clear, r.clear);
+1906:       }
+1907:       const radial = hypot(st.x - s.x, st.y - s.y), edge = Math.min(V.V9_EDGE ?? 900, W.obs - 80);
+1908:       if (ok && radial >= edge - ph.cs * (V.V9_ROUTE_AGE ?? .65) && t > root.t + .5) valid.push({pts, controls, clear, end: st, duration: t});
+1909:     }
+1910:     if (source?.routes?.length && !valid.length && reason !== 'old') reason = 'changed';
+1911:     let selected = valid[0], unsafe = false;
+1912:     if (!selected) {
+1913:       let best = null;
+1914:       // No full exit: only short collision-checked motion, never drawn as an exit.
+1915:       for (const turn of [0, -.5, .5, -1, 1]) {
+1916:         const target = root.st.h + turn * ph.w;
+1917:         const r = root.ok ? this.v9Roll(s, W, ph, root.st, turn, 1, root.t, target) : root;
+1918:         const score = r.t * 1000 + Math.min(r.clear, 100) - Math.abs(turn) * 2;
+1919:         if (!best || score > best.score) best = {...r, score, target};
+1920:       }
+1921:       selected = {pts: root.ok ? [...root.pts, ...best.pts] : root.pts, controls: [{start: root.t, end: best.t, target: best.target}], clear: best.clear}; unsafe = !best.ok;
+1922:     }
+1923:     const P = selected.pts, plan = P.length >= 10 ? P : null;
+1924:     let k = 0; if (plan) while (k + 5 < P.length && P[k] < (V.TRACK_LAT ?? .17) + .08) k += 5;
+1925:     const cmd = selected.controls?.[0]?.target ?? (plan ? P[k + 3] : s.ang), flat = p => { const a = []; for (let i = 0; i + 4 < p.length; i += 5) a.push(p[i + 1], p[i + 2]); return a; };
+1926:     const trace = {mode: valid.length ? 'v9escape' : unsafe ? 'v9blocked' : 'v9local', boost: false, cmd: r1(deg(cmd)), n_safe: valid.length,
+1927:       cause: reason, v9_routes: valid.length, v9_reason: reason, v9_clear: r1(selected.clear), v9_plan_ms: source?.ms ?? 0,
+1928:       v3_route_match: valid.length ? 1 : 0, v3_cert: valid.length ? 1 : 0, v6_intent: 'escape', L: s.L, sc: s.sc};
+1929:     this.last = {trace, mode: trace.mode, plan, controls: selected.controls, draw: {chosen: flat(P), localPath: flat(P.slice(0, 5 * 32)), mazePath: [],
+1930:       v9At: s.t, v9Paths: valid.map(r => flat(r.pts)), v9Walls: W.walls, v9Map: source && age <= (V.V9_ROUTE_AGE ?? .65) ? source.map : null,
+1931:       v9Reason: reason, localUnsafe: unsafe, safe: [], near: [], gaps: [], goal: null, ro: W.ro}};
+1932:     this.prev = cmd; this.prevBoost = false; return [cmd, false];
+1933:   }
+1934: 
+
+
+## ext/mod.js
+
+228:   const nine = !!S.values.V9_ON;
+229:   const seven = !nine && !S.values.V8_ON && S.values.V7_ON;
+230:   const six = nine ? false : S.values.V8_ON ? v8Control.phase === 'avoid' : seven || S.values.V6_ON;
+231:   const radius = Math.max(RADIUS, nine ? S.values.V9_OBS : 0, six ? S.values.V6_OBS : 0, seven ? S.values.V7_HEAD_R : 0);
+232:   const hx = s.xx, hy = s.yy, R2 = radius * radius, RF2 = (seven ? Math.max(S.values.FOOD_R, S.values.V6_FOOD_R ?? 3000) : six ? (S.values.V6_FOOD_R ?? 3000) : FOOD_RADIUS) ** 2;
+233:   const inr = (x, y) => (x - hx) * (x - hx) + (y - hy) * (y - hy) < R2, inf = (x, y) => (x - hx) * (x - hx) + (y - hy) * (y - hy) < RF2;
+234:   const segs = [], sid = [], heads = [], hid = [], food = [], own = [];
+235:   for (const o of window.slithers) {
+236:     if (o === s || o.dead) continue;
+237:     const r = 14.5 * o.sc, P = o.pts;
+238:     let px = null, py = null, pin = false;
+239:     for (let i = 0; i <= P.length; i++) {
+240:       let x, y;
+241:       if (i < P.length) { if (P[i].dying) { if (nine) { px = null; py = null; pin = false; } continue; } x = P[i].xx; y = P[i].yy; } else { x = o.xx; y = o.yy; }
+242:       if (nine && !Number.isFinite(x + y)) { px = null; py = null; pin = false; continue; }
+243:       const inn = inr(x, y);
+244:       if (px !== null && (inn || pin || (nine && Math.min(px,x)-r <= hx+radius && Math.max(px,x)+r >= hx-radius && Math.min(py,y)-r <= hy+radius && Math.max(py,y)+r >= hy-radius))) { segs.push(px, py, x, y, r); sid.push(o.id); }
+245:       px = x; py = y; pin = inn;
+246:     }
+247:     if (inf(o.xx, o.yy)) { heads.push(o.xx, o.yy, o.ang, o.sp, o.sc); hid.push(o.id); }
+248:   }
+249:   for (let i = 0; i < window.foods_c; i++) { const f = window.foods[i]; if (f && !f.eaten && inf(f.xx, f.yy)) food.push(f.xx, f.yy, f.sz); }
+250:   for (const p of s.pts) if (!p.dying) own.push(p.xx, p.yy);
+251:   own.push(hx, hy);
+252:   const F = a => Float64Array.from(a);
+253:   return {v8Control, x: hx, y: hy, ang: s.ang, sp: s.sp, sc: s.sc, boost: s.md, wall: [window.grd, window.grd, window.flux_grd],
+254:     L: snakeLen(s), t: performance.now() / 1000, cmdHistory: nine ? commandHistory.slice() : undefined,
+255:     segs: F(segs), sid: F(sid), heads: F(heads), hid: F(hid), food: F(food), own: F(own), cmdNow: sent.ang, boostNow: !!(s.wmd)};
+
+
+## ext/mod.js
+
+580: const sent = {ang: NaN, bucket: -1, boost: 0, at: 0, planAge: 0, why: 'none'};
+581: const commandHistory = [];
+582: const bucketOf = a => { let b = a % (2 * Math.PI); if (b < 0) b += 2 * Math.PI; return Math.floor(251 * b / (2 * Math.PI)); };
+583: function applyCmd(ang, boost, why) {   // xm/ym only when the bucket changes (the game skips equal buckets anyway); boost via wmd
+584:   const b = bucketOf(ang), cur = (window.xm || window.ym) ? bucketOf(Math.atan2(window.ym, window.xm)) : -1;   // the game's real value (a mouse move over the panel can overwrite it)
+585:   if (b !== sent.bucket || cur !== b) { window.xm = Math.cos(ang) * 250; window.ym = Math.sin(ang) * 250; sent.bucket = b; sent.at = performance.now(); }
+586:   sent.ang = ang; sent.why = why;
+587:   const want = boost ? 1 : 0, s = window.slither, real = s && s.wmd ? 1 : 0;   // compare with the real wanted mode, not our memory (bot off resets it)
+588:   if (want !== real) window.setAcceleration(want);
+589:   sent.boost = want;
+590:   if (S.values.V9_ON) {
+591:     const t = performance.now() / 1000, actual = Math.atan2(window.ym, window.xm), prev = commandHistory[commandHistory.length - 1];
+592:     if (!prev) commandHistory.push({t: t - 2, ang: s ? s.ang : actual, boost: !!real});
+593:     if (!prev || prev.ang !== actual || prev.boost !== !!want) commandHistory.push({t, ang: actual, boost: !!want});
+594:     while (commandHistory.length > 1 && commandHistory[1].t < t - 2) commandHistory.shift();
+595:   } else commandHistory.length = 0;
+596: }
+597: function planAt(tt) {                  // interpolated [x, y, h, b] on the plan at time tt (clamped to its ends)
+598:   const P = plan.pts, n = plan.n; let i = 0; while (i + 1 < n && P[5 * (i + 1)] < tt) i++;
+599:   if (i + 1 >= n) { const k = 5 * (n - 1); return [P[k + 1], P[k + 2], P[k + 3], P[k + 4]]; }
+600:   const k = 5 * i, t0 = P[k], t1 = P[k + 5], f = t1 > t0 ? Math.min(1, Math.max(0, (tt - t0) / (t1 - t0))) : 0;
+601:   const h0 = P[k + 3], h1 = P[k + 8], dh = ((h1 - h0 + 3 * Math.PI) % (2 * Math.PI)) - Math.PI;
+602:   return [P[k + 1] + f * (P[k + 6] - P[k + 1]), P[k + 2] + f * (P[k + 7] - P[k + 2]), h0 + f * dh, f < .5 ? P[k + 4] : P[k + 9]];
+603: }
+604: function track() {
+605:   if (!game || !S.bot || !plan || !window.playing || !window.slither || window.slither.dead) return;
+606:   const s = window.slither, now = performance.now(), tau = (now - plan.T0) / 1000; sent.planAge = tau;
+607:   if (tau > plan.tEnd) { sent.why = 'plan_end'; return; }                                 // beyond the trajectory: keep the last command
+608:   if (S.values.V9_ON && plan.controls?.length) {
+609:     const when = tau + (S.values.TRACK_LAT ?? .17);
+610:     const action = plan.controls.find(a => a.end > when + 1e-8) || plan.controls[plan.controls.length - 1];
+611:     applyCmd(action.target, false, 'v9_controls'); return;
+612:   }
+613:   let ang, why, tb, th;
+
+
+## ext/mod.js
+
+732:     if (S.values.V9_ON && d.v9Paths) {
+733:       const fresh = performance.now() / 1000 - d.v9At < .2;
+734:       const candidates = fresh ? d.v9Paths : [];
+735:       ctx.save(); ctx.lineWidth = OVERLAY_LINE_WIDTH;
+736:       if (fresh && S.show.v9Map) {
+737:         ctx.strokeStyle = 'rgba(188,145,255,.55)'; ctx.setLineDash([3, 4]);
+738:         for (const w of d.v9Walls || []) {
+739:           const ax = X(w[0]), ay = Y(w[1]), bx = X(w[2]), by = Y(w[3]), rr = (w[4] + d.ro + S.values.V9_MARGIN) * g, a = Math.atan2(by - ay, bx - ax);
+740:           ctx.beginPath(); ctx.arc(ax, ay, rr, a + Math.PI / 2, a + 3 * Math.PI / 2);
+741:           ctx.arc(bx, by, rr, a - Math.PI / 2, a + Math.PI / 2); ctx.closePath(); ctx.stroke();
+742:         }
+743:         ctx.setLineDash([]);
+744:       }
+745:       if (S.show.v9Routes) {
+746:         const colors = ['#45f08a', '#53baff', '#ffd269', '#d69aff', '#ff93bd'];
+747:         candidates.forEach((p, i) => { ctx.strokeStyle = colors[i % colors.length]; ctx.globalAlpha = i ? .7 : 1;
+748:           ctx.setLineDash(i ? [5, 4] : []); polyline(ctx, p, X, Y); });
+749:         ctx.globalAlpha = 1; ctx.setLineDash([]); ctx.fillStyle = candidates.length ? '#45f08a' : '#ffb83d'; ctx.font = '9.6px system-ui';
+750:         ctx.fillText(candidates.length ? `V9 · 관측 내 탈출 ${candidates.length}개` : 'V9 · 탈출 경로 미확보', X(me.xx), Y(me.yy) - 48);
+751:       }
+752:       if (fresh && S.show.localPath && !candidates.length && d.localPath?.length) {
+753:         ctx.strokeStyle = d.localUnsafe ? '#ff5b6b' : '#aab3bd'; ctx.setLineDash([2, 4]); polyline(ctx, d.localPath, X, Y);
+754:       }
+755:       ctx.restore();
+756:     } else
+757:     if (S.show.path && d.localPath) {
+758:       const hx = X(me.xx), hy = Y(me.yy), maze = d.mazePath || [], local = d.localPath;

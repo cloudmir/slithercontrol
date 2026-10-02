@@ -1,0 +1,743 @@
+# V10 two-hour improvement — source, verification and live results
+
+Timebox: 2026-10-01 13:26:44–15:26:44 KST.
+Status: complete. Current build 1001-e57022de.
+
+User requirements (facts about requests, not verified performance): prioritize missing maze escape at 73F; show multiple routes; hold selected path below risk threshold; improve food collection; repeat live tests for two hours. Later user requested proactive boost for crowded escape and straight food approaches, then an adjustable consumption cost. Default0 was chosen by the assistant to match this request; it is not an empirically optimized setting.
+
+## Verified implementation scope
+- Independent 32px topological exit search, followed by executable turning/speed/continuous collision checks; entry manoeuvre can join a corridor behind current turning circle. Static guide and time-checked prefix are distinct.
+- Hold selected route below V10_SWITCH_RISK; invalid/completed paths may change immediately. All accepted candidates carry numbered RISK labels. RISK is a heuristic index, not probability.
+- Pellet approach continuously re-aims, verifies return to escape corridor, and preserves local target. Food waypoint requires continuing exit. Center preference is attenuated when food exists.
+- V10 observed-command response lag changed 0.17→0.06 s after held-out fits on two runs. This is not server RTT.
+- Current enemy target heading is recorded from client wang, predicted until reached, then straight. Future heading changes remain unknown; uncertainty padding retained.
+- Final boost change: existing wrap/corridor/intercept classifications remove boost consumption penalty during escape; same-corridor faster boost is preferred only after passing path checks and no material increase (>0.02) in closure index. Food approach compares arrival time and retains existing mass/distance/alignment gates.
+
+- Adjustable V10_BOOST_COST slider: default0, range0–1. Normal/food boost penalty changes with this setting; wrap/corridor/intercept escape remains exempt, explicitly stated in UI. Local0/1 test and browser change-persist-restore are separately recorded.
+
+## Live records (sequential, not matched A/B)
+|cycle|build|page seconds|end|max length|route decision %|errors|
+|---|---|---:|---|---:|---:|---:|
+|1|1001-e3ec3cd8|283|death|929|96.81|0|
+|2|1001-9d240756|79.8|death|234|91.7|0|
+|3|1001-2476f9c0|103.5|death|396|93.27|0|
+|4|1001-1c8fbce5|323.5|time cap, not death|1109|98.43|0|
+|5|1001-baeb2963|322.6|time cap, not death|1128|96.7|0|
+|6|1001-23a6405a|324.1|time cap, not death|1042|99.13|0|
+|7|1001-c4f88ef1|227.3|death|734|96.41|0|
+|8|1001-6b1157ec|240.3|death|1292|97.36|0|
+|9|1001-2021acdc|115|death|605|98.46|0|
+|10|1001-3cf85fbe|212.1|death|838|96.47|0|
+|11|1001-9f675f97|262.2|death|1027|98.11|0|
+|12|1001-8b3cb7b1|156.7|death|970|98.45|0|
+|13|1001-34e53dc6|328.1|time cap, not death|1604|96.36|0|
+|14|1001-e57022de|49.4|time cap, not death|225|99.78|0|
+
+## Explicit limits
+- Cycle14, if present, is a 45-second final-slider connection smoke test, not a survival trial.
+- Original 33F/73F full state was not retained; synthetic 73F topology sketch is not exact replay. No claim that the original death would have been prevented.
+- All successful local tests are model checks. Real deaths remain. Sequential lengths/route fractions do not establish causal survival improvement.
+- A 90ms budget can leave fewer candidates or fail same-exit repair; 500ms structural checks are separate. Experimental preferred-first repair was not adopted because repeated timing-sensitive results were inconclusive.
+- Cycle9 forecast-shortening experiment was not adopted; full 1.2s dynamic prefix restored.
+- Page time and wall clock differ. Capped games are not counted as deaths.
+
+## Local validation and matched prediction outputs
+### contracts_structural.json
+```json
+{
+  "retain_selected_below_threshold": {
+    "pass": true
+  },
+  "switch_above_threshold": {
+    "pass": true
+  },
+  "invalid_held_is_not_preserved": {
+    "pass": true
+  },
+  "empty_world_multiple_routes": {
+    "pass": true,
+    "routes": 3,
+    "ms": 83.71898300000001
+  },
+  "sketch_of_f73_open_four_sides_not_exact_replay": {
+    "pass": true,
+    "routes": 3,
+    "ms": 122.64488399999996
+  },
+  "closed_ring_does_not_invent_escape": {
+    "pass": true,
+    "reason": "grid_disconnected"
+  },
+  "near_food_detour_rejoins_selected_route": {
+    "pass": true,
+    "food": 0.5093622960376231
+  },
+  "pellets_behind_wall_not_chased": {
+    "pass": true
+  },
+  "planner_revalidates_actuator_selected_route": {
+    "pass": true,
+    "held": "11:0"
+  },
+  "repair_same_exit_when_distant_body_moves": {
+    "pass": true,
+    "routes": 3
+  },
+  "no_boost_without_food_or_near_threat": {
+    "pass": true
+  }
+}
+```
+### boost_contract_before.json
+```json
+[{"name":"crowded_straight_exit","routes":2,"boost":false,"boostActions":0,"food":false,"duration":12.363000000000005},{"name":"straight_food","routes":3,"boost":true,"boostActions":13,"food":true,"duration":10.02299999999999},{"name":"empty_no_boost","routes":3,"boost":false,"boostActions":0,"food":false,"duration":12.363000000000005}]
+
+```
+### boost_contract_after.json
+```json
+[{"name":"crowded_straight_exit","routes":2,"boost":true,"boostActions":36,"food":false,"duration":5.732999999999997},{"name":"straight_food","routes":3,"boost":true,"boostActions":13,"food":true,"duration":10.02299999999999},{"name":"empty_no_boost","routes":3,"boost":false,"boostActions":0,"food":false,"duration":12.363000000000005}]
+
+```
+### head_target_contract.json
+```json
+{"oldGap":128,"targetGap":-97.5,"unmatchedIdFallsBack":true,"case":"Visible current target turns across point then stops turning; future changes remain unknown."}
+
+```
+### preferred_decision.json
+```json
+{
+  "adopted": false,
+  "candidate": "pilot_preferred_candidate.js",
+  "reason": "Under 90ms, repeated repair result was 3/8 both before and after in one run; a later diagnostic run passed8/8. Strong timing sensitivity, insufficient evidence of reliable improvement. Production retains cycle11 topology search.",
+  "before": [
+    {
+      "repair": false,
+      "repairMs": 65.08179000000001,
+      "sealedAlternative": true,
+      "sealedNotInvented": true,
+      "sealedMs": 58.554359999999974
+    },
+    {
+      "repair": true,
+      "repairMs": 52.11170999999996,
+      "sealedAlternative": false,
+      "sealedNotInvented": true,
+      "sealedMs": 65.62899000000004
+    },
+    {
+      "repair": false,
+      "repairMs": 64.54683,
+      "sealedAlternative": false,
+      "sealedNotInvented": true,
+      "sealedMs": 63.37160999999992
+    },
+    {
+      "repair": false,
+      "repairMs": 67.32332999999994,
+      "sealedAlternative": false,
+      "sealedNotInvented": true,
+      "sealedMs": 64.69992000000002
+    },
+    {
+      "repair": false,
+      "repairMs": 71.79894000000002,
+      "sealedAlternative": true,
+      "sealedNotInvented": true,
+      "sealedMs": 67.80393000000004
+    },
+    {
+      "repair": false,
+      "repairMs": 56.38616999999999,
+      "sealedAlternative": false,
+      "sealedNotInvented": true,
+      "sealedMs": 67.89708000000007
+    },
+    {
+      "repair": true,
+      "repairMs": 47.86731000000009,
+      "sealedAlternative": true,
+      "sealedNotInvented": true,
+      "sealedMs": 55.599840000000086
+    },
+    {
+      "repair": true,
+      "repairMs": 26.56007999999997,
+      "sealedAlternative": false,
+      "sealedNotInvented": true,
+      "sealedMs": 66.77226000000019
+    }
+  ],
+  "after": [
+    {
+      "repair": false,
+      "repairMs": 63.75680999999997,
+      "sealedAlternative": false,
+      "sealedNotInvented": true,
+      "sealedMs": 74.97701999999998
+    },
+    {
+      "repair": false,
+      "repairMs": 63.11853000000002,
+      "sealedAlternative": false,
+      "sealedNotInvented": true,
+      "sealedMs": 70.60032000000001
+    },
+    {
+      "repair": false,
+      "repairMs": 79.97535000000005,
+      "sealedAlternative": false,
+      "sealedNotInvented": true,
+      "sealedMs": 64.62189000000001
+    },
+    {
+      "repair": true,
+      "repairMs": 52.263180000000034,
+      "sealedAlternative": true,
+      "sealedNotInvented": true,
+      "sealedMs": 76.4174700000001
+    },
+    {
+      "repair": false,
+      "repairMs": 67.52349000000004,
+      "sealedAlternative": true,
+      "sealedNotInvented": true,
+      "sealedMs": 77.73740999999995
+    },
+    {
+      "repair": true,
+      "repairMs": 56.18790000000001,
+      "sealedAlternative": false,
+      "sealedNotInvented": true,
+      "sealedMs": 100.60892999999987
+    },
+    {
+      "repair": true,
+      "repairMs": 51.16958999999997,
+      "sealedAlternative": true,
+      "sealedNotInvented": true,
+      "sealedMs": 63.781110000000126
+    },
+    {
+      "repair": false,
+      "repairMs": 52.59177,
+      "sealedAlternative": true,
+      "sealedNotInvented": true,
+      "sealedMs": 57.988169999999855
+    }
+  ]
+}
+```
+### cost_zero.json
+```json
+[{"name":"crowded_straight_exit","routes":2,"boost":true,"boostActions":36,"food":false,"duration":5.732999999999997},{"name":"straight_food","routes":3,"boost":true,"boostActions":13,"food":true,"duration":10.02299999999999},{"name":"empty_no_boost","routes":3,"boost":false,"boostActions":0,"food":false,"duration":12.363000000000005}]
+
+```
+### cost_one.json
+```json
+[{"name":"crowded_straight_exit","routes":2,"boost":true,"boostActions":36,"food":false,"duration":5.732999999999997},{"name":"straight_food","routes":3,"boost":false,"boostActions":0,"food":true,"duration":12.363000000000005},{"name":"empty_no_boost","routes":3,"boost":false,"boostActions":0,"food":false,"duration":12.363000000000005}]
+
+```
+### cost_ui_result.json
+```json
+{
+  "sliderPresent": true,
+  "domChangeApplied": 0.4,
+  "reloadPersistence": true,
+  "restoredDefault": 0,
+  "otherValuesPreserved": true,
+  "build": "1001-e57022de"
+}
+```
+### runs/v10_maze_cycle11_20261001_150146/head_target_errors.json
+```json
+{
+  "run": "runs/v10_maze_cycle11_20261001_150146",
+  "limitations": "Same matched observations; overlapping samples; current target may change later; not survival validation.",
+  "errors": {
+    "old": {
+      "0.1": {
+        "n": 1348,
+        "p50": 3.8,
+        "p95": 12.87,
+        "p99": 20.55
+      },
+      "0.2": {
+        "n": 1350,
+        "p50": 8.82,
+        "p95": 29.69,
+        "p99": 45.12
+      },
+      "0.3": {
+        "n": 1357,
+        "p50": 16.32,
+        "p95": 56.42,
+        "p99": 81.59
+      },
+      "0.5": {
+        "n": 1345,
+        "p50": 42.07,
+        "p95": 133.79,
+        "p99": 181.5
+      },
+      "0.75": {
+        "n": 1328,
+        "p50": 82.46,
+        "p95": 255.05,
+        "p99": 338.61
+      },
+      "1": {
+        "n": 1270,
+        "p50": 139.52,
+        "p95": 401.89,
+        "p99": 534.85
+      }
+    },
+    "target": {
+      "0.1": {
+        "n": 1348,
+        "p50": 3.14,
+        "p95": 12.75,
+        "p99": 18.9
+      },
+      "0.2": {
+        "n": 1350,
+        "p50": 7.47,
+        "p95": 26.66,
+        "p99": 39.89
+      },
+      "0.3": {
+        "n": 1357,
+        "p50": 13.06,
+        "p95": 48.27,
+        "p99": 72.93
+      },
+      "0.5": {
+        "n": 1345,
+        "p50": 34.95,
+        "p95": 116.23,
+        "p99": 166.36
+      },
+      "0.75": {
+        "n": 1328,
+        "p50": 68.5,
+        "p95": 222.63,
+        "p99": 293.26
+      },
+      "1": {
+        "n": 1270,
+        "p50": 113.71,
+        "p95": 349.42,
+        "p99": 450.85
+      }
+    }
+  }
+}
+```
+### runs/v10_maze_cycle12_20261001_150937/head_target_errors.json
+```json
+{
+  "run": "runs/v10_maze_cycle12_20261001_150937",
+  "limitations": "Same matched observations; overlapping samples; current target may change later; not survival validation.",
+  "errors": {
+    "old": {
+      "0.1": {
+        "n": 690,
+        "p50": 5.2,
+        "p95": 15.89,
+        "p99": 22.02
+      },
+      "0.2": {
+        "n": 729,
+        "p50": 9.2,
+        "p95": 33.99,
+        "p99": 49.89
+      },
+      "0.3": {
+        "n": 739,
+        "p50": 17.06,
+        "p95": 64.53,
+        "p99": 94.32
+      },
+      "0.5": {
+        "n": 685,
+        "p50": 39.46,
+        "p95": 151.24,
+        "p99": 216.06
+      },
+      "0.75": {
+        "n": 690,
+        "p50": 82.92,
+        "p95": 302.55,
+        "p99": 391.28
+      },
+      "1": {
+        "n": 688,
+        "p50": 135.21,
+        "p95": 443.56,
+        "p99": 570.62
+      }
+    },
+    "target": {
+      "0.1": {
+        "n": 690,
+        "p50": 4.63,
+        "p95": 14.91,
+        "p99": 21.41
+      },
+      "0.2": {
+        "n": 729,
+        "p50": 7.46,
+        "p95": 27.88,
+        "p99": 37.41
+      },
+      "0.3": {
+        "n": 739,
+        "p50": 13.51,
+        "p95": 53.52,
+        "p99": 69.63
+      },
+      "0.5": {
+        "n": 685,
+        "p50": 33.03,
+        "p95": 119.63,
+        "p99": 147.52
+      },
+      "0.75": {
+        "n": 690,
+        "p50": 67.45,
+        "p95": 233.09,
+        "p99": 296.83
+      },
+      "1": {
+        "n": 688,
+        "p50": 111.69,
+        "p95": 362.83,
+        "p99": 448.26
+      }
+    }
+  }
+}
+```
+
+## Raw provenance
+```json
+{
+  "current_hashes": {
+    "ext/pilot.js": "13adc3f8e4577a3d388aac4b7f018f431b52e0ecb8fa98eb4ece0ed2d9cbafe0",
+    "ext/mod.js": "2303624960ea9e2622996e276adbcb3f6f381f016e3e5d4612c6905ea60316a8",
+    "params.json": "0e8854239093770be2251c4b9eaf491342c005461659c921bdb84c3707215b67",
+    "ext/params.js": "9b4e916d4abbcd1664edff96cd53cd41fc4f43e1f8242e5bf089bc455056c60a",
+    "ext/manifest.json": "3bacf4b2e3dddcc92c06fb55f66884d79ecd03114edc0128b40de7c0969fedad"
+  },
+  "runs": [
+    {
+      "cycle": 1,
+      "purpose": "live_iteration",
+      "run": "runs/v10_maze_cycle1_20261001_133306",
+      "build": "1001-e3ec3cd8",
+      "seconds": 283,
+      "capped": false,
+      "L_max": 929,
+      "route_pct": 96.81,
+      "decision_p95": {
+        "p50": 5.3,
+        "p95": 10
+      },
+      "errors": 0,
+      "server": "181.41.140.146:444",
+      "players": 406,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "b538b5e204b5b408259ef83dda81b70571e829ba918bd7b7b884f8c2b27266ec",
+        "slp_01_log.json.gz": "f94fbbdb7c2c4cf3698874503c09a576e88ad408f5e7e7cb73f84506b289e0fd",
+        "slp_01.json": "e279a681139d0e9703f84487b659b850346c0ab399810442d549c613e0cc5131"
+      }
+    },
+    {
+      "cycle": 2,
+      "purpose": "live_iteration",
+      "run": "runs/v10_maze_cycle2_20261001_134218",
+      "build": "1001-9d240756",
+      "seconds": 79.8,
+      "capped": false,
+      "L_max": 234,
+      "route_pct": 91.7,
+      "decision_p95": {
+        "p50": 4.6,
+        "p95": 10.8
+      },
+      "errors": 0,
+      "server": "181.41.140.146:444",
+      "players": 469,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "a84b7c7aea52dca8e8596dc19559223e3051ca3f71805cbeb165599825bcf287",
+        "slp_01_log.json.gz": "dc493e6e834fffcfb5d19cc2ddbeea00bb07415a4fb955f417835b96ec602b4f",
+        "slp_01.json": "0cbca399e69d726871b962a3d4ae6e3dbde31518a0e8cbfd510cab9145a06898"
+      }
+    },
+    {
+      "cycle": 3,
+      "purpose": "live_iteration",
+      "run": "runs/v10_maze_cycle3_20261001_134851",
+      "build": "1001-2476f9c0",
+      "seconds": 103.5,
+      "capped": false,
+      "L_max": 396,
+      "route_pct": 93.27,
+      "decision_p95": {
+        "p50": 5.3,
+        "p95": 9.3
+      },
+      "errors": 0,
+      "server": "181.41.140.178:444",
+      "players": 107,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "6bd30bd8a4e64888bf6f3c4f7015c08c5af5976adbff1e9fe01f617f12eefca2",
+        "slp_01_log.json.gz": "d7e6f7e681b61cc0f5e2f85c9cda80f3a844436c5775158e541c3c67c7cbaa27",
+        "slp_01.json": "ca57f87c5fc41880da3a770c938bc06a584bf905de29466a3ef3a5e882d68363"
+      }
+    },
+    {
+      "cycle": 4,
+      "purpose": "live_iteration",
+      "run": "runs/v10_maze_cycle4_20261001_135606",
+      "build": "1001-1c8fbce5",
+      "seconds": 323.5,
+      "capped": true,
+      "L_max": 1109,
+      "route_pct": 98.43,
+      "decision_p95": {
+        "p50": 3.8,
+        "p95": 7.2
+      },
+      "errors": 0,
+      "server": "103.4.30.88:444",
+      "players": 149,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "1fe7f2f8e3ed2722dc0b3656af608b38b941c9edc9ed15f6e168edc5e7b7c478",
+        "slp_01_log.json.gz": "86f033c297e9fa7764e5067e18869e9cf3b60a3e247336c7db2d3104c02b4cc3",
+        "slp_01.json": "0250543aa8c835f5615dfa9c88fa6f81a81e29be108f8964df097a61077e514f"
+      }
+    },
+    {
+      "cycle": 5,
+      "purpose": "live_iteration",
+      "run": "runs/v10_maze_cycle5_20261001_140421",
+      "build": "1001-baeb2963",
+      "seconds": 322.6,
+      "capped": true,
+      "L_max": 1128,
+      "route_pct": 96.7,
+      "decision_p95": {
+        "p50": 4.5,
+        "p95": 10.2
+      },
+      "errors": 0,
+      "server": "181.41.140.146:444",
+      "players": 274,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "cdf9522d9a4c44b7c409f5d300889175fea4d0be9f7aa3a497583ee4e2ce2a13",
+        "slp_01_log.json.gz": "50112dadfdff48690876e69ab5729573493a9252b8e6f3059b3280e24195efbc",
+        "slp_01.json": "60de8d3f49302a57b56d63c9ad51d063ee90fc736d91d7f46eff83b4fceaa15b"
+      }
+    },
+    {
+      "cycle": 6,
+      "purpose": "live_iteration",
+      "run": "runs/v10_maze_cycle6_20261001_141536",
+      "build": "1001-23a6405a",
+      "seconds": 324.1,
+      "capped": true,
+      "L_max": 1042,
+      "route_pct": 99.13,
+      "decision_p95": {
+        "p50": 3.9,
+        "p95": 8.2
+      },
+      "errors": 0,
+      "server": "181.41.140.146:444",
+      "players": 240,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "4cd11dc95705a1c63c1ac608b5acaf2b44748079918925dc27ee3e0a0223c1a3",
+        "slp_01_log.json.gz": "2501a1cb0b5ccff544b50cfc5f3c6bea789ec27024022109a11fa0819e5537f9",
+        "slp_01.json": "b5d51e078b6090d12e37dcdd6fe0e20977e8534259df5ffd2f772416ea774ae1"
+      }
+    },
+    {
+      "cycle": 7,
+      "purpose": "live_iteration",
+      "run": "runs/v10_maze_cycle7_20261001_142637",
+      "build": "1001-c4f88ef1",
+      "seconds": 227.3,
+      "capped": false,
+      "L_max": 734,
+      "route_pct": 96.41,
+      "decision_p95": {
+        "p50": 3.5,
+        "p95": 8.6
+      },
+      "errors": 0,
+      "server": "181.41.140.146:444",
+      "players": 262,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "dcc7e7fe3b41886cd2c85047b0a12109f1c8e066512ac890ff28722ceb7bfa9d",
+        "slp_01_log.json.gz": "8dcbb2e3135de239e7ffd7551b3c5f7c614e02dc0d98f0409b193d2b6bfe1374",
+        "slp_01.json": "5e2bdf8ee6a4d944a2e883cc8ba0f9225c2383b3ce2fa75ecc708827d02a879b"
+      }
+    },
+    {
+      "cycle": 8,
+      "purpose": "live_iteration",
+      "run": "runs/v10_maze_cycle8_20261001_143315",
+      "build": "1001-6b1157ec",
+      "seconds": 240.3,
+      "capped": false,
+      "L_max": 1292,
+      "route_pct": 97.36,
+      "decision_p95": {
+        "p50": 4.1,
+        "p95": 9.6
+      },
+      "errors": 0,
+      "server": "181.41.140.146:444",
+      "players": 231,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "268bbf925d07937d77fb647a3542e8d6b2a4fba980413ca2d02b294e06f429b9",
+        "slp_01_log.json.gz": "cbfaeeb23f6d459ff09afc3e2b09858667eca6a16b1ae5740c46dc221e9eaa8c",
+        "slp_01.json": "ec3fc258320b6337da051f2f99d46fd2b54423f286234132376e0a53af0d50b7"
+      }
+    },
+    {
+      "cycle": 9,
+      "purpose": "live_iteration",
+      "run": "runs/v10_maze_cycle9_20261001_144347",
+      "build": "1001-2021acdc",
+      "seconds": 115,
+      "capped": false,
+      "L_max": 605,
+      "route_pct": 98.46,
+      "decision_p95": {
+        "p50": 3.7,
+        "p95": 8.6
+      },
+      "errors": 0,
+      "server": "181.41.140.146:444",
+      "players": 274,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "d429690dd31d4a4d2b42874fbf3ce7df300ef094a5faddd6bc2334404ad6f52f",
+        "slp_01_log.json.gz": "0eb0863b86df0164fb1e487d6a96d01511b26cb98255fe3ae5175ac1577f85cb",
+        "slp_01.json": "1412b0ad75f51c6dd138f3f9ae958febaa3ec24fa37b4c5dfcce2c39bb550d87"
+      }
+    },
+    {
+      "cycle": 10,
+      "purpose": "live_iteration",
+      "run": "runs/v10_maze_cycle10_20261001_144853",
+      "build": "1001-3cf85fbe",
+      "seconds": 212.1,
+      "capped": false,
+      "L_max": 838,
+      "route_pct": 96.47,
+      "decision_p95": {
+        "p50": 4.4,
+        "p95": 10.1
+      },
+      "errors": 0,
+      "server": "181.41.140.146:444",
+      "players": 316,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "cd48272c64734a0107cca9f9a38ae84c4763d8092b67a3738b185e36d6905930",
+        "slp_01_log.json.gz": "f1b37aa225ae7e6b73c7cb3b5370c006dd4fdbba23a3d3b22052b01c096baa69",
+        "slp_01.json": "ad0613b94f12b1faa4ce7ec094208f0bace3ce1d30b9789204eeb1a38f671543"
+      }
+    },
+    {
+      "cycle": 11,
+      "purpose": "live_iteration",
+      "run": "runs/v10_maze_cycle11_20261001_150146",
+      "build": "1001-9f675f97",
+      "seconds": 262.2,
+      "capped": false,
+      "L_max": 1027,
+      "route_pct": 98.11,
+      "decision_p95": {
+        "p50": 3.9,
+        "p95": 10.3
+      },
+      "errors": 0,
+      "server": "181.41.140.146:444",
+      "players": 283,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "325eaacff30c307fda083c369ecf02dc57341625b5a2ebe4b1f7a84460108de9",
+        "slp_01_log.json.gz": "8739336c5017aefa0358ba98d0ad513dfe699a09c3b0c575f0f6329b6e40949d",
+        "slp_01.json": "3f869712466f711eb86b093b9a3023b24948fbe063660d105c17c589355a9226"
+      }
+    },
+    {
+      "cycle": 12,
+      "purpose": "live_iteration",
+      "run": "runs/v10_maze_cycle12_20261001_150937",
+      "build": "1001-8b3cb7b1",
+      "seconds": 156.7,
+      "capped": false,
+      "L_max": 970,
+      "route_pct": 98.45,
+      "decision_p95": {
+        "p50": 4.2,
+        "p95": 10.4
+      },
+      "errors": 0,
+      "server": "181.41.140.146:444",
+      "players": 251,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "0a13c6f36a333154f2bf989c0c731c69b894f34c39957bc3ab4cd3262959170d",
+        "slp_01_log.json.gz": "486ac9893c96ce23189e463d82d52d8ce23a12fd61e64fbd4da046080482074d",
+        "slp_01.json": "5acd2bbd50267cbb3794fac04032215572d48269d6420295c66316509256ba28"
+      }
+    },
+    {
+      "cycle": 13,
+      "purpose": "live_iteration",
+      "run": "runs/v10_maze_cycle13_20261001_151511",
+      "build": "1001-34e53dc6",
+      "seconds": 328.1,
+      "capped": true,
+      "L_max": 1604,
+      "route_pct": 96.36,
+      "decision_p95": {
+        "p50": 3.4,
+        "p95": 9.7
+      },
+      "errors": 0,
+      "server": "181.41.140.146:444",
+      "players": 215,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "74b29af6c558bcee1366e8890a644efdd27e022f189d8712cfb0653196a1b06e",
+        "slp_01_log.json.gz": "51a2e56087ce844420514c808a57f3e7837f710e38608d2e60a20dbcab384e29",
+        "slp_01.json": "3fd5efacc8eb01de49183a4e931c91ae6d4dffc45b83fb9d69e9907cd6d5ff7b"
+      }
+    },
+    {
+      "cycle": 14,
+      "purpose": "slider_smoke_45s",
+      "run": "runs/v10_maze_cycle14_20261001_152244",
+      "build": "1001-e57022de",
+      "seconds": 49.4,
+      "capped": true,
+      "L_max": 225,
+      "route_pct": 99.78,
+      "decision_p95": {
+        "p50": 2.7,
+        "p95": 6.1
+      },
+      "errors": 0,
+      "server": "181.41.140.146:444",
+      "players": 184,
+      "raw_hashes": {
+        "slp_01_box.json.gz": "b392f795848024c85e7d15989f645588c5287eb686b506e3a0f2db451d27291e",
+        "slp_01_log.json.gz": "f2a19e03fc2c7ee911715a5ac6875cb0391d0cc8b9ac739447bb041981f8ad58",
+        "slp_01.json": "879917332ba5991ab653404c784b3e79cb84dfb87f5ec2cc4744ecf3d98995fc"
+      }
+    }
+  ]
+}
+```

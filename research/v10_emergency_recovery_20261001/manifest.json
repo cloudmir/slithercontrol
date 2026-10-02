@@ -1,0 +1,22 @@
+{
+  "build": "1001-8ef6d22b",
+  "hashes": {
+    "ext/pilot.js": "bea9863808b30b063dcd120c3d960c30c040b956d128fe93f244ad8eadeea5d0",
+    "ext/mod.js": "30eca3628e7e428a73253210ed63039d5af4f61f24406ef314a2968b129765cf",
+    "ext/params.js": "deaef2f101efaa2dac81acdb0f1a50d3f34cc7f184d3ea640bc2bba58282449d",
+    "ext/manifest.json": "36109f886558c414120100244e276b448784558b181586cf5b39430d30633dd2",
+    "params.json": "77ad8bf9d028df5ca682f8cefb7fef8058065600e6c7cbb4c7dffeabcb4cac78"
+  },
+  "scope": "V10 emergency recovery selection and diagnostic collision depth; no live game or browser reload",
+  "pending": [
+    "actual server collision calibration",
+    "maze budget reliability beyond existing local regressions",
+    "live food/boost comparison and matched A/B"
+  ],
+  "limits": [
+    "Recovery remains unsafe even when diagnostic gap improves",
+    "12ms additional recovery target checked between equal candidate rounds; one round can exceed it",
+    "maximum recovery horizon .32 seconds; timing budget can shorten it",
+    "Original recorded frames use fixed observations; continued survival unproven"
+  ]
+}

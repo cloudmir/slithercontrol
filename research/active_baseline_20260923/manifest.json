@@ -1,0 +1,8 @@
+{
+  "brain.py": "2b7b2697840d03e55a6158679ef423fc63c7ef474ba2b70f50d04b80cff1c6b9",
+  "sim.py": "2aacde3546f0e6471cab2c78b7ecd21cbe23ee0ddddc3461ccf1b2842eabd2a3",
+  "play.py": "451d1f970a533e8768d88b66fd76e4d797d3aec07bf504446d81c5351b228ca7",
+  "compare.py": "15a11303717b3463cfeb233abb0cbe563c87cd32c9805d1ae3e174023b01cd9b",
+  "tune.py": "ac3971492e9c237d04eca3fa5c6997f5f1c7ab9a1c9948bcf437baa7cbdfec1d",
+  "runs/best_params.json": "c7464371b46c6a992c6dbf319fdb2d1d9e7df302426c5a48444043c4d2fa98fe"
+}

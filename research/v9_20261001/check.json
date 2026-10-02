@@ -1,0 +1,37 @@
+{
+  "open": {
+    "routes": 3,
+    "reason": "observed_exit",
+    "ms": 71.92953499999999,
+    "expanded": 426,
+    "used": 3
+  },
+  "corridor": {
+    "routes": 1,
+    "reason": "observed_exit",
+    "ms": 490.12029199999995,
+    "expanded": 11443,
+    "used": 1
+  },
+  "frontWall": {
+    "routes": 3,
+    "reason": "observed_exit",
+    "ms": 42.218185999999946,
+    "expanded": 404,
+    "used": 3
+  },
+  "closed": {
+    "routes": 0,
+    "reason": "closed_or_narrow",
+    "ms": 8.31248000000005,
+    "expanded": 0,
+    "used": 0
+  },
+  "uTurn": {
+    "routes": 3,
+    "reason": "observed_exit",
+    "ms": 123.83656399999995,
+    "expanded": 2631,
+    "used": 3
+  }
+}

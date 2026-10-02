@@ -1,0 +1,31 @@
+2 finished games
+survival s: median 315 mean 315 min 282 max 349; 600 s reached 0/2
+L_max: median 808 mean 808 max 1125
+modes: loop 45%, feed 43%, evade 8%, unwrap 3%, escape 1%, emergency 1%; boost 66% of ticks
+command jumps > 90 deg: 52.4/min; by mode loop 279, evade 105, feed 105, unwrap 37, escape 13, emergency 12
+attacks (threat > 0 for >= 0.2 s): 135, survived 133, died within 1.5 s 2; boost share survived 0.80 vs died 0.70; duration survived 1.05 s vs died 0.85 s
+L gain/min: median 160; narrow-gap ticks 1357, through-gap picks 98
+last emergency run before death: median 0.44 s (n=2)
+obs_to_cmd ms p50 median 27.6, p95 max 52.1
+
+--- deaths.py ---
+_20260925_160525  282.3s L 1125 wrapped  killer r25 head 54px boostK 0 remains 1 boostUs 1 stuck 0.57s rev3s 9 mode2s feed
+_20260925_161050  348.6s L  491 cut_off  killer r14 head 54px boostK 1 remains 0 boostUs 1 stuck 0.18s rev3s 3 mode2s feed
+
+2 deaths; survival median 315 s
+  wrapped   1 (50%)  remains 1  killer boosting 0  median s 282
+  cut_off   1 (50%)  remains 0  killer boosting 1  median s 349
+  remains: 1/2
+  killer_boost: 1/2
+  boosting: 2/2
+  spawn_fight: 0/2
+
+bunching (straightness 5 s, own-body cover): last 5 s before death vs 15-20 s before (same black box)
+  _20260925_160525 wrapped  end (0.6, 0.05)  base (0.53, 0.07)
+  _20260925_161050 cut_off  end (0.77, 0.05)  base (0.27, 0.05)
+  median straightness end 0.69 vs base 0.40; own cover end 0.05 vs base 0.06
+
+command straightness per 5 s: last 15 s before death median 0.70 (n=4) vs rest of game 0.55 (n=121); share of rest windows < 0.3: 21%
+
+wrap onsets (wrapping snake = killer):
+  _20260925_160525 {'before_s': 0.9, 'cover': np.float64(0.42), 'radius': 244, 'gap_deg': 210, 'closed_after': None, 'our_L': 1121, 'heading_off_gap': 163, 'mode': 'unwrap', 'box_s': 33.0, 'head_px': 351, 'head_sp': 6.1, 'head_r': 25, 'head_to_gap_deg': 118, 'pre_mode': 'loop', 'pre_remains': True, 'pre_boost': 0.73}

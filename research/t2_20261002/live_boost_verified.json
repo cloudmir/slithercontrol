@@ -1,0 +1,14 @@
+{
+  "run": "runs/t2_20261002_082349",
+  "build": "1002-c8485bf1",
+  "trace_rows": 779,
+  "boost_command_ticks": 370,
+  "boost_reasons": {
+    "no_target": 34,
+    "catch_target": 370,
+    "turn_alignment": 375
+  },
+  "actual_speed_source": "slp_*_box.json.gz frames.sp; trace has no sp field",
+  "actual_boost_speed_frames": 330,
+  "speed_max": 14
+}

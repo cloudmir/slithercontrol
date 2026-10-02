@@ -1,0 +1,17 @@
+{
+  "originalFunctionsUnchanged": 8,
+  "detectorMatchesOriginal": true,
+  "rising": true,
+  "raid": true,
+  "earlyThickWrap": true,
+  "newEnemyResetsExit": true,
+  "feedParityFrames": 12,
+  "offParityFrames": 4,
+  "wrapTriggersWithoutCrowd": true,
+  "returnDelay": true,
+  "safeExitAngle": 1.9634954084936211,
+  "safeExitGap": 128,
+  "foodIgnoredDuringEscape": true,
+  "blockedPrefixRemainsUnsafe": true,
+  "liveSurvivalTest": false
+}

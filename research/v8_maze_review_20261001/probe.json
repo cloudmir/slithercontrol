@@ -1,0 +1,26 @@
+{
+  "wallNoHeads": {
+    "phase": "feed",
+    "mode": "cruise"
+  },
+  "wallBodyEnabled": {
+    "phase": "avoid",
+    "density": 5.490868996008366
+  },
+  "crowd": {
+    "headRadius": 2500,
+    "phase": "avoid",
+    "intent": "food",
+    "reason": "food",
+    "routeUsed": 1,
+    "mode": "v6food"
+  },
+  "wallRoute": {
+    "intent": "escape",
+    "certified": 1,
+    "reason": "exit",
+    "maxHeadingChangeDegrees": 96.64715305349769,
+    "maxRequiredTurnRateRatio": 1.4442801977624686,
+    "points": 7
+  }
+}

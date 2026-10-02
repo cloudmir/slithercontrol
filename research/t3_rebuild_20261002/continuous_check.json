@@ -1,0 +1,7 @@
+{
+  "one_game_not_independent_nine": true,
+  "actual_speed_and_build_separated": true,
+  "provisional_and_excluded_not_completion": true,
+  "all_ten_bin_speed_requests_without_starvation": true,
+  "user_stop_and_runtime_failure_distinguished": true
+}

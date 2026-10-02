@@ -1,0 +1,121 @@
+{
+  "adopted": false,
+  "candidate": "pilot_preferred_candidate.js",
+  "reason": "Under 90ms, repeated repair result was 3/8 both before and after in one run; a later diagnostic run passed8/8. Strong timing sensitivity, insufficient evidence of reliable improvement. Production retains cycle11 topology search.",
+  "before": [
+    {
+      "repair": false,
+      "repairMs": 65.08179000000001,
+      "sealedAlternative": true,
+      "sealedNotInvented": true,
+      "sealedMs": 58.554359999999974
+    },
+    {
+      "repair": true,
+      "repairMs": 52.11170999999996,
+      "sealedAlternative": false,
+      "sealedNotInvented": true,
+      "sealedMs": 65.62899000000004
+    },
+    {
+      "repair": false,
+      "repairMs": 64.54683,
+      "sealedAlternative": false,
+      "sealedNotInvented": true,
+      "sealedMs": 63.37160999999992
+    },
+    {
+      "repair": false,
+      "repairMs": 67.32332999999994,
+      "sealedAlternative": false,
+      "sealedNotInvented": true,
+      "sealedMs": 64.69992000000002
+    },
+    {
+      "repair": false,
+      "repairMs": 71.79894000000002,
+      "sealedAlternative": true,
+      "sealedNotInvented": true,
+      "sealedMs": 67.80393000000004
+    },
+    {
+      "repair": false,
+      "repairMs": 56.38616999999999,
+      "sealedAlternative": false,
+      "sealedNotInvented": true,
+      "sealedMs": 67.89708000000007
+    },
+    {
+      "repair": true,
+      "repairMs": 47.86731000000009,
+      "sealedAlternative": true,
+      "sealedNotInvented": true,
+      "sealedMs": 55.599840000000086
+    },
+    {
+      "repair": true,
+      "repairMs": 26.56007999999997,
+      "sealedAlternative": false,
+      "sealedNotInvented": true,
+      "sealedMs": 66.77226000000019
+    }
+  ],
+  "after": [
+    {
+      "repair": false,
+      "repairMs": 63.75680999999997,
+      "sealedAlternative": false,
+      "sealedNotInvented": true,
+      "sealedMs": 74.97701999999998
+    },
+    {
+      "repair": false,
+      "repairMs": 63.11853000000002,
+      "sealedAlternative": false,
+      "sealedNotInvented": true,
+      "sealedMs": 70.60032000000001
+    },
+    {
+      "repair": false,
+      "repairMs": 79.97535000000005,
+      "sealedAlternative": false,
+      "sealedNotInvented": true,
+      "sealedMs": 64.62189000000001
+    },
+    {
+      "repair": true,
+      "repairMs": 52.263180000000034,
+      "sealedAlternative": true,
+      "sealedNotInvented": true,
+      "sealedMs": 76.4174700000001
+    },
+    {
+      "repair": false,
+      "repairMs": 67.52349000000004,
+      "sealedAlternative": true,
+      "sealedNotInvented": true,
+      "sealedMs": 77.73740999999995
+    },
+    {
+      "repair": true,
+      "repairMs": 56.18790000000001,
+      "sealedAlternative": false,
+      "sealedNotInvented": true,
+      "sealedMs": 100.60892999999987
+    },
+    {
+      "repair": true,
+      "repairMs": 51.16958999999997,
+      "sealedAlternative": true,
+      "sealedNotInvented": true,
+      "sealedMs": 63.781110000000126
+    },
+    {
+      "repair": false,
+      "repairMs": 52.59177,
+      "sealedAlternative": true,
+      "sealedNotInvented": true,
+      "sealedMs": 57.988169999999855
+    }
+  ]
+}

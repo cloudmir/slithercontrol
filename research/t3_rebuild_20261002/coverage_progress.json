@@ -1,0 +1,318 @@
+{
+  "updated": "2026-10-02 12:02:28",
+  "build": "1002-11dad5e1",
+  "criteria": {
+    "enemy_radius_bins": [
+      "<20",
+      "20–30",
+      "30–40",
+      "40–50",
+      "≥50"
+    ],
+    "actual_speeds": [
+      "cruise_speed",
+      "boost_speed"
+    ],
+    "geometries": [
+      "straight",
+      "gentle_curve"
+    ],
+    "own_radius_bin_width_px": 2,
+    "minimum_independent_alive_games": 3,
+    "minimum_independent_qualified_death_games": 3,
+    "closest_alive_gap_per_game_max_px": 0,
+    "note": "Operational dataset coverage; not all continuous radii or a guaranteed safe offset."
+  },
+  "cells": [
+    {
+      "enemy_bin": 0,
+      "enemy_radius_bin": "<20",
+      "actual_speed_class": "cruise_speed",
+      "geometry_class": "straight",
+      "groups": [],
+      "complete": false
+    },
+    {
+      "enemy_bin": 0,
+      "enemy_radius_bin": "<20",
+      "actual_speed_class": "cruise_speed",
+      "geometry_class": "gentle_curve",
+      "groups": [],
+      "complete": false
+    },
+    {
+      "enemy_bin": 0,
+      "enemy_radius_bin": "<20",
+      "actual_speed_class": "boost_speed",
+      "geometry_class": "straight",
+      "groups": [],
+      "complete": false
+    },
+    {
+      "enemy_bin": 0,
+      "enemy_radius_bin": "<20",
+      "actual_speed_class": "boost_speed",
+      "geometry_class": "gentle_curve",
+      "groups": [],
+      "complete": false
+    },
+    {
+      "enemy_bin": 1,
+      "enemy_radius_bin": "20–30",
+      "actual_speed_class": "cruise_speed",
+      "geometry_class": "straight",
+      "groups": [
+        {
+          "own_radius_bin": [
+            14,
+            16
+          ],
+          "alive_games": 1,
+          "near_boundary_alive_games": 0,
+          "qualified_death_games": 0,
+          "complete": false
+        }
+      ],
+      "complete": false
+    },
+    {
+      "enemy_bin": 1,
+      "enemy_radius_bin": "20–30",
+      "actual_speed_class": "cruise_speed",
+      "geometry_class": "gentle_curve",
+      "groups": [
+        {
+          "own_radius_bin": [
+            14,
+            16
+          ],
+          "alive_games": 2,
+          "near_boundary_alive_games": 0,
+          "qualified_death_games": 0,
+          "complete": false
+        }
+      ],
+      "complete": false
+    },
+    {
+      "enemy_bin": 1,
+      "enemy_radius_bin": "20–30",
+      "actual_speed_class": "boost_speed",
+      "geometry_class": "straight",
+      "groups": [],
+      "complete": false
+    },
+    {
+      "enemy_bin": 1,
+      "enemy_radius_bin": "20–30",
+      "actual_speed_class": "boost_speed",
+      "geometry_class": "gentle_curve",
+      "groups": [],
+      "complete": false
+    },
+    {
+      "enemy_bin": 2,
+      "enemy_radius_bin": "30–40",
+      "actual_speed_class": "cruise_speed",
+      "geometry_class": "straight",
+      "groups": [
+        {
+          "own_radius_bin": [
+            16,
+            18
+          ],
+          "alive_games": 1,
+          "near_boundary_alive_games": 0,
+          "qualified_death_games": 0,
+          "complete": false
+        }
+      ],
+      "complete": false
+    },
+    {
+      "enemy_bin": 2,
+      "enemy_radius_bin": "30–40",
+      "actual_speed_class": "cruise_speed",
+      "geometry_class": "gentle_curve",
+      "groups": [
+        {
+          "own_radius_bin": [
+            14,
+            16
+          ],
+          "alive_games": 8,
+          "near_boundary_alive_games": 0,
+          "qualified_death_games": 0,
+          "complete": false
+        },
+        {
+          "own_radius_bin": [
+            16,
+            18
+          ],
+          "alive_games": 3,
+          "near_boundary_alive_games": 0,
+          "qualified_death_games": 0,
+          "complete": false
+        }
+      ],
+      "complete": false
+    },
+    {
+      "enemy_bin": 2,
+      "enemy_radius_bin": "30–40",
+      "actual_speed_class": "boost_speed",
+      "geometry_class": "straight",
+      "groups": [],
+      "complete": false
+    },
+    {
+      "enemy_bin": 2,
+      "enemy_radius_bin": "30–40",
+      "actual_speed_class": "boost_speed",
+      "geometry_class": "gentle_curve",
+      "groups": [],
+      "complete": false
+    },
+    {
+      "enemy_bin": 3,
+      "enemy_radius_bin": "40–50",
+      "actual_speed_class": "cruise_speed",
+      "geometry_class": "straight",
+      "groups": [
+        {
+          "own_radius_bin": [
+            14,
+            16
+          ],
+          "alive_games": 4,
+          "near_boundary_alive_games": 0,
+          "qualified_death_games": 0,
+          "complete": false
+        }
+      ],
+      "complete": false
+    },
+    {
+      "enemy_bin": 3,
+      "enemy_radius_bin": "40–50",
+      "actual_speed_class": "cruise_speed",
+      "geometry_class": "gentle_curve",
+      "groups": [
+        {
+          "own_radius_bin": [
+            16,
+            18
+          ],
+          "alive_games": 6,
+          "near_boundary_alive_games": 0,
+          "qualified_death_games": 0,
+          "complete": false
+        },
+        {
+          "own_radius_bin": [
+            14,
+            16
+          ],
+          "alive_games": 12,
+          "near_boundary_alive_games": 0,
+          "qualified_death_games": 0,
+          "complete": false
+        },
+        {
+          "own_radius_bin": [
+            20,
+            22
+          ],
+          "alive_games": 1,
+          "near_boundary_alive_games": 0,
+          "qualified_death_games": 0,
+          "complete": false
+        }
+      ],
+      "complete": false
+    },
+    {
+      "enemy_bin": 3,
+      "enemy_radius_bin": "40–50",
+      "actual_speed_class": "boost_speed",
+      "geometry_class": "straight",
+      "groups": [],
+      "complete": false
+    },
+    {
+      "enemy_bin": 3,
+      "enemy_radius_bin": "40–50",
+      "actual_speed_class": "boost_speed",
+      "geometry_class": "gentle_curve",
+      "groups": [],
+      "complete": false
+    },
+    {
+      "enemy_bin": 4,
+      "enemy_radius_bin": "≥50",
+      "actual_speed_class": "cruise_speed",
+      "geometry_class": "straight",
+      "groups": [
+        {
+          "own_radius_bin": [
+            20,
+            22
+          ],
+          "alive_games": 1,
+          "near_boundary_alive_games": 0,
+          "qualified_death_games": 0,
+          "complete": false
+        },
+        {
+          "own_radius_bin": [
+            14,
+            16
+          ],
+          "alive_games": 4,
+          "near_boundary_alive_games": 0,
+          "qualified_death_games": 0,
+          "complete": false
+        }
+      ],
+      "complete": false
+    },
+    {
+      "enemy_bin": 4,
+      "enemy_radius_bin": "≥50",
+      "actual_speed_class": "cruise_speed",
+      "geometry_class": "gentle_curve",
+      "groups": [
+        {
+          "own_radius_bin": [
+            14,
+            16
+          ],
+          "alive_games": 6,
+          "near_boundary_alive_games": 0,
+          "qualified_death_games": 0,
+          "complete": false
+        }
+      ],
+      "complete": false
+    },
+    {
+      "enemy_bin": 4,
+      "enemy_radius_bin": "≥50",
+      "actual_speed_class": "boost_speed",
+      "geometry_class": "straight",
+      "groups": [],
+      "complete": false
+    },
+    {
+      "enemy_bin": 4,
+      "enemy_radius_bin": "≥50",
+      "actual_speed_class": "boost_speed",
+      "geometry_class": "gentle_curve",
+      "groups": [],
+      "complete": false
+    }
+  ],
+  "completed_conditions": 0,
+  "total_conditions": 20
+}

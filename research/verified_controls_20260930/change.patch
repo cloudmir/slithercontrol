@@ -1,0 +1,170 @@
+--- research/verified_controls_before_20260930/mod.js
++++ ext/mod.js
+@@ -16,7 +16,7 @@
+ // of every wrap episode (a snake covering >= 30% of the bearings within 500 px) from 2 s before it until it ends.
+ const LOG_KEYS = ['t', 'x', 'y', 'ang', 'sp', 'sc', 'L', 'mode', 'boost', 'cmd', 'clear', 'hard', 'n_safe', 'wrap', 'cov', 'cov_id',
+   'cov_free', 'esc', 'enclosed', 'gap_now', 'threat', 'goal', 'nh', 'eat', 'pred', 'sized', 'raid', 'guard', 'gforce', 'gatk', 'giant', 'pph', 'pset', 'pgap', 'ptr', 'ptid', 'pstab', 'ttd', 'v2obj',
+-  'ttds', 'ttdh', 'branch', 'cause', 'head_hit', 'head_checked', 'ttddyn', 'dyn_id', 'dyn_kind', 'dyn_gap', 'dyn_heads', 'dyn_excluded', 'emergency', 'em_gap', 'em_unavoidable', 'unknown_at', 'verified_s', 'static_hit', 'boost_reason', 'chg', 'exit_width', 'exit_reach', 'exit_close', 'exit_slack', 'exit_unknown', 'exit_reason', 'v3_ms', 'v3_over', 'v3_full', 'v3_hold', 'v3_leaves', 'v3_eval', 'v3_cert', 'v3_ncert', 'v3_exits', 'v3_risk', 'v3_commit', 'v3_shield', 'v3_root', 'v3_keep', 'v3_local', 'v3_goal', 'v3_goal_age', 'v3_route_match', 'v3_cert_reason', 'pred25', 'herr25', 'trk_age', 'trk_cmd', 'trk_why', 'v6_intent', 'v6_goal_x', 'v6_goal_y', 'v6_reason', 'v7_phase', 'v7_heads', 'v7_radius', 'v7_threshold', 'v7_switched', 'v8_phase', 'v8_heads', 'v8_radius', 'v8_threshold', 'v8_switched', 'v81_heads', 'v81_radius']
++  'ttds', 'ttdh', 'branch', 'cause', 'head_hit', 'head_checked', 'ttddyn', 'dyn_id', 'dyn_kind', 'dyn_gap', 'dyn_heads', 'dyn_excluded', 'emergency', 'em_gap', 'em_unavoidable', 'unknown_at', 'verified_s', 'static_hit', 'boost_reason', 'chg', 'exit_width', 'exit_reach', 'exit_close', 'exit_slack', 'exit_unknown', 'exit_reason', 'v3_ms', 'v3_over', 'v3_full', 'v3_hold', 'v3_leaves', 'v3_eval', 'v3_cert', 'v3_ncert', 'v3_exits', 'v3_risk', 'v3_commit', 'v3_shield', 'v3_root', 'v3_keep', 'v3_local', 'v3_goal', 'v3_goal_age', 'v3_route_match', 'v3_cert_reason', 'pred25', 'herr25', 'trk_age', 'trk_cmd', 'trk_why', 'v6_intent', 'v6_goal_x', 'v6_goal_y', 'v6_reason', 'v7_phase', 'v7_heads', 'v7_radius', 'v7_threshold', 'v7_switched', 'v8_phase', 'v8_heads', 'v8_radius', 'v8_threshold', 'v8_switched']
+ const CLIP_MAX_FRAMES = 3600;
+ const PROFILES = {safe: '안전형', aggressive: '공격형'};
+ // Displays: the basic ones start on, the analysis ones (for tuning) start off (user 2026-09-26).
+@@ -56,6 +56,7 @@
+   if (!s.hz60) { s.gfx.hz = 60; s.hz60 = true; }
+   if (!DEF.profiles[s.profile]) s.profile = 'aggressive';
+   if (!TABS.some(([k]) => k === s.tab)) s.tab = 'home';
++  if (s.values?.V81_ON || s.preset === 'v81_exact') { s.values = {...s.values, V8_ON: 1}; s.preset = 'v8_exact'; }
+   s.values = Object.assign(preset(s.profile), s.values || {});
+   for (const k of Object.keys(s.values)) if (!(k in DEF.defaults)) delete s.values[k];
+   if (!s.preset || (!BUILTIN[s.preset] && !s.presets[s.preset])) s.preset = s.profile;
+@@ -195,20 +196,15 @@
+   const s = window.slither;
+   if (!window.playing || !s || s.dead) return null;
+   let v8Control = null;
+-  if (S.values.V81_ON || S.values.V8_ON) {
+-    const seen = new Set(), near = new Set(), r2 = S.values.V8_HEAD_R ** 2, nr2 = (S.values.V81_HEAD_R ?? 250) ** 2;
+-    for (const o of window.slithers) if (o !== s && !o.dead && Number.isFinite(o.xx + o.yy)) {
+-      const d2 = (o.xx - s.xx) ** 2 + (o.yy - s.yy) ** 2;
+-      if (d2 <= r2) seen.add(o.id);
+-      if (d2 <= nr2) near.add(o.id);
+-    }
+-    v8Control = S.values.V81_ON
+-      ? window.SlpPilot.v81Choice(v8Switch, seen.size, near.size, performance.now() / 1000, S.values)
+-      : window.SlpPilot.v8Choice(v8Switch, seen.size, performance.now() / 1000, S.values);
++  if (S.values.V8_ON) {
++    const seen = new Set(), r2 = S.values.V8_HEAD_R ** 2;
++    for (const o of window.slithers) if (o !== s && !o.dead && Number.isFinite(o.xx + o.yy) &&
++      (o.xx - s.xx) ** 2 + (o.yy - s.yy) ** 2 <= r2) seen.add(o.id);
++    v8Control = window.SlpPilot.v8Choice(v8Switch, seen.size, performance.now() / 1000, S.values);
+     if (v8Control.switched) { route = null; planVer++; planSentAt = 0; }
+   }
+-  const seven = !S.values.V81_ON && !S.values.V8_ON && S.values.V7_ON;
+-  const six = S.values.V81_ON || S.values.V8_ON ? v8Control.phase === 'avoid' : seven || S.values.V6_ON;
++  const seven = !S.values.V8_ON && S.values.V7_ON;
++  const six = S.values.V8_ON ? v8Control.phase === 'avoid' : seven || S.values.V6_ON;
+   const radius = Math.max(RADIUS, six ? S.values.V6_OBS : 0, seven ? S.values.V7_HEAD_R : 0);
+   const hx = s.xx, hy = s.yy, R2 = radius * radius, RF2 = (seven ? Math.max(S.values.FOOD_R, S.values.V6_FOOD_R ?? 3000) : six ? (S.values.V6_FOOD_R ?? 3000) : FOOD_RADIUS) ** 2;
+   const inr = (x, y) => (x - hx) * (x - hx) + (y - hy) * (y - hy) < R2, inf = (x, y) => (x - hx) * (x - hx) + (y - hy) * (y - hy) < RF2;
+@@ -334,8 +330,8 @@
+     const q = game.predQ.shift(); if (st.t - q.t < .7) pred = Math.round(Math.hypot(st.x - q.x50, st.y - q.y50) * 10) / 10;
+   }
+   pending.pred = pred; pending.pred25 = pred25; pending.herr25 = herr25; st.pred = pred === null ? -1 : pred;
+-  if (S.values.V4_ON || S.values.V6_ON || S.values.V7_ON || S.values.V8_ON || S.values.V81_ON) { st.route = route;
+-    const v8 = !!(S.values.V81_ON || S.values.V8_ON), v7 = !v8 && !!S.values.V7_ON, v6 = v8 || v7 || !!S.values.V6_ON, every = v6 ? (S.values.V6_PLAN_MS || 400) : (S.values.V4_PLAN_MS || 350);
++  if (S.values.V4_ON || S.values.V6_ON || S.values.V7_ON || S.values.V8_ON) { st.route = route;
++    const v8 = !!S.values.V8_ON, v7 = !v8 && !!S.values.V7_ON, v6 = v8 || v7 || !!S.values.V6_ON, every = v6 ? (S.values.V6_PLAN_MS || 400) : (S.values.V4_PLAN_MS || 350);
+     const needPlan = v8 ? st.v8Control.phase === 'avoid' : !v7 || window.SlpPilot.countHeads(st, S.values.V7_HEAD_R) >= S.values.V7_HEAD_N || last?.trace?.v7_phase === 'avoid';
+     if (needPlan && worker2 && !planBusy && performance.now() - planSentAt >= every) { planBusy = true; planSentAt = performance.now(); planVer++;
+       const cp = Object.assign({}, st, {route: undefined, segs: Float32Array.from(st.segs), sid: Float32Array.from(st.sid), heads: Float32Array.from(st.heads), hid: Float32Array.from(st.hid), food: Float32Array.from(st.food), own: Float32Array.from(st.own)});
+@@ -351,11 +347,11 @@
+     frame.cmd = [r.cmd, r.boost]; game.box.push(frame);
+     while (frame.t - game.box[0].t > BOX_S) game.box.shift();
+     const tr = r.trace, q = (v, d) => v === null || v === undefined ? null : Math.round(v * d) / d;
+-    if ((S.values.V81_ON || S.values.V8_ON || S.values.V7_ON || S.values.V6_ON) && (tr.cause === 'changed' || tr.cause === 'old')) { route = null; planSentAt = 0; }
++    if ((S.values.V8_ON || S.values.V7_ON || S.values.V6_ON) && (tr.cause === 'changed' || tr.cause === 'old')) { route = null; planSentAt = 0; }
+     game.log.push([frame.t, q(frame.x, 10), q(frame.y, 10), q(frame.ang, 1000), q(frame.sp, 100), q(frame.sc, 100), frame.L, tr.mode,
+       tr.boost ? 1 : 0, tr.cmd, tr.clear, tr.hard, tr.n_safe, tr.wrap, tr.cov, tr.cov_id, tr.cov_free, tr.esc, tr.enclosed, q(gapNow, 10), tr.threat,
+       tr.goal, tr.nh, tr.eat, pred, tr.sized, tr.raid, tr.guard, tr.gforce, tr.gatk, tr.giant, tr.pph, tr.pset, tr.pgap, tr.ptr, tr.ptid, tr.pstab, tr.ttd, tr.v2obj,
+-      tr.ttds, tr.ttdh, tr.branch, tr.cause, tr.head_hit, tr.head_checked, tr.ttddyn, tr.dyn_id, tr.dyn_kind, tr.dyn_gap, tr.dyn_heads, tr.dyn_excluded, tr.emergency, tr.em_gap, tr.em_unavoidable, tr.unknown_at, tr.verified_s, tr.static_hit, tr.boost_reason, tr.chg, tr.exit_width, tr.exit_reach, tr.exit_close, tr.exit_slack, tr.exit_unknown, tr.exit_reason, tr.v3_ms, tr.v3_over, tr.v3_full, tr.v3_hold, tr.v3_leaves, tr.v3_eval, tr.v3_cert, tr.v3_ncert, tr.v3_exits, tr.v3_risk, tr.v3_commit, tr.v3_shield, tr.v3_root, tr.v3_keep, tr.v3_local, tr.v3_goal, tr.v3_goal_age, tr.v3_route_match, tr.v3_cert_reason, pred25, herr25, plan ? Math.round(sent.planAge * 1000) / 1000 : null, Number.isFinite(sent.ang) ? Math.round(sent.ang * 180 / Math.PI * 10) / 10 : null, sent.why, tr.v6_intent, tr.v6_goal_x, tr.v6_goal_y, tr.v6_reason, tr.v7_phase, tr.v7_heads, tr.v7_radius, tr.v7_threshold, tr.v7_switched, tr.v8_phase, tr.v8_heads, tr.v8_radius, tr.v8_threshold, tr.v8_switched, tr.v81_heads, tr.v81_radius]);
++      tr.ttds, tr.ttdh, tr.branch, tr.cause, tr.head_hit, tr.head_checked, tr.ttddyn, tr.dyn_id, tr.dyn_kind, tr.dyn_gap, tr.dyn_heads, tr.dyn_excluded, tr.emergency, tr.em_gap, tr.em_unavoidable, tr.unknown_at, tr.verified_s, tr.static_hit, tr.boost_reason, tr.chg, tr.exit_width, tr.exit_reach, tr.exit_close, tr.exit_slack, tr.exit_unknown, tr.exit_reason, tr.v3_ms, tr.v3_over, tr.v3_full, tr.v3_hold, tr.v3_leaves, tr.v3_eval, tr.v3_cert, tr.v3_ncert, tr.v3_exits, tr.v3_risk, tr.v3_commit, tr.v3_shield, tr.v3_root, tr.v3_keep, tr.v3_local, tr.v3_goal, tr.v3_goal_age, tr.v3_route_match, tr.v3_cert_reason, pred25, herr25, plan ? Math.round(sent.planAge * 1000) / 1000 : null, Number.isFinite(sent.ang) ? Math.round(sent.ang * 180 / Math.PI * 10) / 10 : null, sent.why, tr.v6_intent, tr.v6_goal_x, tr.v6_goal_y, tr.v6_reason, tr.v7_phase, tr.v7_heads, tr.v7_radius, tr.v7_threshold, tr.v7_switched, tr.v8_phase, tr.v8_heads, tr.v8_radius, tr.v8_threshold, tr.v8_switched]);
+     if (r.plan && r.plan.length >= 10) { const P = r.plan, n = P.length / 5, at = tt => { let i = 0; while (i + 1 < n && P[5 * (i + 1)] < tt) i++;
+         if (i + 1 >= n) { const k = 5 * (n - 1); return [P[k + 1], P[k + 2], P[k + 3]]; }
+         const k = 5 * i, t0 = P[k], t1 = P[k + 5], f = t1 > t0 ? Math.min(1, Math.max(0, (tt - t0) / (t1 - t0))) : 0, dh = ((P[k + 8] - P[k + 3] + 3 * Math.PI) % (2 * Math.PI)) - Math.PI;
+@@ -671,7 +667,7 @@
+   if (d) {
+     if (last.trace.v8_phase && S.show.path) {
+       ctx.font = 'bold 13px system-ui'; ctx.fillStyle = last.trace.v8_phase === 'avoid' ? '#ffb83d' : '#f6db52';
+-      ctx.fillText(`${S.values.V81_ON ? 'V8-1' : 'V8'} · ${last.trace.v8_phase === 'near' ? 'V4.1 근접' : last.trace.v8_phase === 'avoid' ? 'V6' : 'V1 잔해'} · 머리 ${last.trace.v8_phase === 'near' ? last.trace.v81_heads + ' / ' + last.trace.v81_radius + 'px' : last.trace.v8_heads + '/' + last.trace.v8_threshold}`, X(me.xx) + 22, Y(me.yy) - 68);
++      ctx.fillText(`V8 · ${last.trace.v8_phase === 'avoid' ? 'V6' : 'V1 잔해'} · 머리 ${last.trace.v8_heads}/${last.trace.v8_threshold}`, X(me.xx) + 22, Y(me.yy) - 68);
+     }
+     if (last.trace.v7_phase && S.show.path) {
+       ctx.font = 'bold 13px system-ui'; ctx.fillStyle = last.trace.v7_phase === 'avoid' ? '#ffb83d' : '#f6db52';
+@@ -958,7 +954,7 @@
+ #slp .frame{display:grid;grid-template-columns:76px minmax(0,1fr);min-height:0;flex:1}#slp .tabs{box-sizing:border-box;display:flex;flex-direction:column;gap:5px;padding:12px 8px;background:#060d18;border-right:1px solid var(--line)}#slp .tabs button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;height:52px;padding:4px;border:0;border-radius:12px;background:transparent;color:#68768f;font-size:10px}#slp .tabs button:hover{background:#ffffff08;color:#cbd7e9}#slp .tabs button.act{color:var(--mint);background:linear-gradient(145deg,#18322f,#10231f);box-shadow:0 0 0 1px #54f2c229 inset}#slp .navwrap{display:flex;flex-direction:column;align-items:center;gap:3px}#slp .navic{font-size:17px;line-height:1}#slp .navtx{font-size:9.5px;font-weight:700;letter-spacing:.04em}
+ #slp .body{min-width:0;overflow:auto;padding:13px 14px 16px;background:linear-gradient(180deg,#0d1626,#0a1220);scrollbar-width:thin;scrollbar-color:#30415d transparent}#slp .eyebrow{color:#66758e;font-size:9.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin:3px 2px 7px}#slp .hero{padding:11px;border:1px solid #ffffff12;border-radius:15px;background:linear-gradient(135deg,#142238,#11192b);box-shadow:0 16px 30px #0003;margin-bottom:12px}
+ #slp .seg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:#070e1a;border:1px solid #ffffff16;border-radius:12px;padding:4px;margin:0}#slp .seg button{flex:1;border:0;background:transparent;color:#7f8ba2;padding:9px 5px;border-radius:9px;font-weight:800}#slp .seg button.on{background:linear-gradient(135deg,var(--mint),#43d79e);color:#041913;box-shadow:0 6px 18px #3fe0aa30}
+-#slp .list{border:1px solid #ffffff12;border-radius:14px;overflow:hidden;margin:6px 0;background:#101b2d;box-shadow:0 12px 26px #00025}#slp .quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;border:0;background:none;box-shadow:none;overflow:visible}#slp .quick-grid .li{min-height:96px;display:grid;grid-template-columns:36px 1fr;grid-template-rows:auto 1fr;align-items:start;gap:5px 9px;padding:11px;border:1px solid #ffffff12;border-radius:14px;background:linear-gradient(145deg,#152238,#101a2c);box-shadow:0 10px 24px #00025}#slp .quick-grid .li .ic{grid-row:1/3}#slp .quick-grid .li .sw,#slp .quick-grid .li .num{grid-column:2;justify-self:end;align-self:end}
++#slp .list{border:1px solid #ffffff12;border-radius:14px;overflow:hidden;margin:6px 0;background:#101b2d;box-shadow:0 12px 26px #00025}#slp .quick-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;border:0;background:none;box-shadow:none;overflow:visible}#slp .quick-grid .li{min-height:84px;display:grid;grid-template-columns:36px minmax(0,1fr);grid-template-rows:auto auto;align-items:start;gap:8px 10px;padding:12px 14px;border:1px solid #ffffff12;border-radius:14px;background:linear-gradient(145deg,#152238,#101a2c);box-shadow:0 10px 24px #00025}#slp .quick-grid .li .ic{grid-row:1/3}#slp .quick-grid .li .sw{grid-column:2;justify-self:end;align-self:end}#slp .quick-control{grid-column:2;display:flex;align-items:center;gap:12px;width:100%;min-width:0}#slp .quick-control input[type=range]{flex:1 1 0;width:0;min-width:0;height:28px;cursor:ew-resize}#slp .quick-control input[type=number]{flex:0 0 64px;width:64px;box-sizing:border-box}#slp .quick-control input:disabled{cursor:default;opacity:.45}
+ #slp .li{display:flex;align-items:center;gap:10px;padding:10px 11px;border-bottom:1px solid #ffffff0c;transition:background .15s,border-color .15s}#slp .li:hover{background:#ffffff06}#slp .li:last-child{border-bottom:0}#slp .li .ic{width:34px;height:34px;border-radius:11px;background:linear-gradient(145deg,#263854,#1b2941);display:flex;align-items:center;justify-content:center;font-size:15px;flex:none;color:#bcd4ff;box-shadow:0 0 0 1px #ffffff0e inset}#slp .li .txt{flex:1;min-width:0}#slp .li .t{font-weight:800;color:#edf4ff;font-size:12px}#slp .li .s{font-size:10px;color:#8290a8;margin-top:2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}#slp .li.chg{border-color:#d7aa322d}#slp .li.chg .t{color:#ffd86a}#slp .li.off{opacity:.42}
+ #slp .sw{width:42px;height:24px;border-radius:14px;background:#3b465a;border:0;padding:0;position:relative;flex:none;cursor:pointer;box-shadow:0 0 0 1px #ffffff14 inset}#slp .sw i{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#d8dfeb;transition:left .18s,background .18s;box-shadow:0 2px 7px #0008}#slp .sw.on{background:linear-gradient(90deg,#2ac98e,#55edbd)}#slp .sw.on i{left:21px;background:#fff}#slp .sw.half{background:#b98b2f}#slp .sw.half i{left:12px}#slp .sw.dis{opacity:.35;cursor:not-allowed}
+ #slp .num{width:62px;text-align:right;background:#080f1d;color:#f3f7ff;border:1px solid #ffffff20;border-radius:9px;padding:6px 8px}#slp details.exp{margin-top:10px}#slp details.exp summary{cursor:pointer;color:#74829b;font-size:10px;margin:6px 2px;list-style:none}#slp details.exp summary::before{content:'+  '}#slp details.exp[open] summary::before{content:'−  '}
+@@ -994,7 +990,7 @@
+   const t = last && game && S.bot ? last.trace : null, sp = (txt, css = '') => el('span', {style: css}, txt);
+   // status tiles (design 2026-09-29, after the Suite / 143X panels): mode · decision ms · FPS · length/rank
+   const tile = (lab, val, css = '', title = '') => el('div', {class: 'tile', title}, el('div', {class: 'tl'}, lab), el('div', {class: 'tv', style: css}, val));
+-  const modeTxt = !S.bot ? '꺼짐' : !game ? '대기' : !t ? '판단 대기' : (t.v8_phase ? `${S.values.V81_ON ? 'V8-1' : 'V8'} · ${t.v8_phase === 'near' ? 'V4.1 근접' : t.v8_phase === 'avoid' ? 'V6' : 'V1 잔해'} (${t.v8_heads}/${t.v8_threshold})` : t.v7_phase ? `V7 · ${t.v7_phase === 'avoid' ? 'V6 회피' : 'V1 잔해'} (${t.v7_heads}/${t.v7_threshold})` : (MODE_KO[t.mode] || t.mode)) + (t.boost ? ' ⚡' : '');
++  const modeTxt = !S.bot ? '꺼짐' : !game ? '대기' : !t ? '판단 대기' : (t.v8_phase ? `V8 · ${t.v8_phase === 'avoid' ? 'V6' : 'V1 잔해'} (${t.v8_heads}/${t.v8_threshold})` : t.v7_phase ? `V7 · ${t.v7_phase === 'avoid' ? 'V6 회피' : 'V1 잔해'} (${t.v7_heads}/${t.v7_threshold})` : (MODE_KO[t.mode] || t.mode)) + (t.boost ? ' ⚡' : '');
+   const modeCss = !S.bot ? 'color:#8a94b0' : t ? `color:${MODE_COL[t.mode] || '#ddd'}` : 'color:#8a94b0';
+   const lenTxt = game && window.slither ? String(snakeLen(window.slither)) : '-', rankTxt = window.rank > 0 && window.slither_count > 0 ? `${window.rank}/${window.slither_count}` : '-';
+   hudEl.replaceChildren(
+@@ -1081,7 +1077,7 @@
+     el('div', {class: 'title', title: '끌어서 옮기기', onmousedown: e => {
+       if (e.target.tagName === 'BUTTON') return;
+       const r = panel.getBoundingClientRect(); drag = {dx: e.clientX - r.left, dy: e.clientY - r.top}; e.preventDefault();
+-    }}, el('span', {class: 'logo'}, el('img', {src: document.documentElement.getAttribute('data-slp-cat-icon') || '', alt: '발로 두드리는 고양이'})), el('div', {class: 'tt'}, el('b', {}, 'SLP MOD'), el('div', {class: 'st'}, `${S.values.V81_ON ? 'V8-1 · V1+V4.1+V6' : S.values.V8_ON ? 'V8 · 원본 V1+V6' : S.values.V7_ON ? 'V7 · 잔해+혼잡 회피' : S.values.V6_ON ? 'V6 · 미로+근접' : S.values.V5_ON ? 'V5 · 시퀀스 탐색' : S.values.V4_ON ? 'V4 · 미로 풀이' : S.values.V2_ON && S.values.V3_ON ? 'V3 · 가용 경로 계획' : S.values.V2_ON ? 'V2 · 시간 여유 판단' : `V1 · ${PROFILES[S.profile]}`} · ${VERSION}`)),
++    }}, el('span', {class: 'logo'}, el('img', {src: document.documentElement.getAttribute('data-slp-cat-icon') || '', alt: '발로 두드리는 고양이'})), el('div', {class: 'tt'}, el('b', {}, 'SLP MOD'), el('div', {class: 'st'}, `${S.values.V8_ON ? 'V8 · 원본 V1+V6' : S.values.V7_ON ? 'V7 · 잔해+혼잡 회피' : S.values.V6_ON ? 'V6 · 미로+근접' : S.values.V5_ON ? 'V5 · 시퀀스 탐색' : S.values.V4_ON ? 'V4 · 미로 풀이' : S.values.V2_ON && S.values.V3_ON ? 'V3 · 가용 경로 계획' : S.values.V2_ON ? 'V2 · 시간 여유 판단' : `V1 · ${PROFILES[S.profile]}`} · ${VERSION}`)),
+       btn(S.bot ? '● 봇 ON' : '○ 봇 OFF', false, () => setBot(!S.bot), '봇 켜기/끄기 (T)', `bot ${S.bot ? 'go' : 'stop'}`),
+       btn('—', false, () => { S.panel = false; save(); render(); }, '패널 숨기기 (H)', 'ico')),
+     el('div', {class: 'presetbar'},
+@@ -1103,30 +1099,37 @@
+       if (min === 0 && max === 1 && step === 1)
+         ctl = el('button', {class: 'sw' + (v ? ' on' : '') + (off ? ' dis' : ''), title: off && rs ? rs.why.join('\n') : (v ? '켜짐 — 누르면 끔' : '꺼짐 — 누르면 켬'),
+           onclick: () => { if (off) return; setValue(key, v ? 0 : 1); render(); }}, el('i'));
+-      else { ctl = el('input', {type: 'number', class: 'num', min, max, step, value: fmt(v, step)}); if (off) ctl.disabled = true;
+-        ctl.onchange = () => { const x = Math.min(max, Math.max(min, Number(ctl.value))); if (!Number.isFinite(x) || S.values[key] === x) return; setValue(key, x); render(); }; }
++      else {
++        const num = el('input', {type: 'number', class: 'num', min, max, step, value: fmt(v, step), 'aria-label': title + ' 숫자'});
++        const slider = el('input', {type: 'range', min, max, step, value: v, 'aria-label': title + ' 슬라이더'});
++        num.disabled = slider.disabled = off;
++        slider.oninput = () => { num.value = fmt(slider.value, step); };
++        const commit = x => { if (!Number.isFinite(x) || S.values[key] === x) return; setValue(key, x); render(); };
++        slider.onchange = () => commit(Number(slider.value));
++        num.onchange = () => commit(Math.min(max, Math.max(min, Number(num.value))));
++        ctl = el('div', {class: 'quick-control'}, slider, num);
++      }
+       return el('div', {class: 'li' + (off ? ' off' : '') + (v !== cur[key] ? ' chg' : ''), title: `${key} · 프리셋 값 ${cur[key]}`},
+         el('span', {class: 'ic'}, icon), el('div', {class: 'txt'}, el('div', {class: 't'}, title), el('div', {class: 's'}, ev)), ctl);
+     };
+-    const v81 = !!S.values.V81_ON, v8 = !v81 && !!S.values.V8_ON, v7 = !v81 && !v8 && !!S.values.V7_ON, v6 = !v81 && !v8 && !v7 && !!S.values.V6_ON, v41 = !v81 && !v8 && !v7 && !v6 && !!S.values.V41_ON, v5 = !v81 && !v8 && !v7 && !v6 && !v41 && !!S.values.V5_ON, v4 = !v81 && !v8 && !v7 && !v6 && !v5 && !v41 && !!S.values.V4_ON, v2 = !v81 && !v8 && !v7 && !v6 && !v4 && !v5 && !v41 && !!S.values.V2_ON, v3 = v2 && !!S.values.V3_ON;
++    const v8 = !!S.values.V8_ON, v7 = !v8 && !!S.values.V7_ON, v6 = !v8 && !v7 && !!S.values.V6_ON, v41 = !v8 && !v7 && !v6 && !!S.values.V41_ON, v5 = !v8 && !v7 && !v6 && !v41 && !!S.values.V5_ON, v4 = !v8 && !v7 && !v6 && !v5 && !v41 && !!S.values.V4_ON, v2 = !v8 && !v7 && !v6 && !v4 && !v5 && !v41 && !!S.values.V2_ON, v3 = v2 && !!S.values.V3_ON;
+     const seg = el('div', {class: 'seg'},
+-      btn('V1', !v81 && !v8 && !v7 && !v2 && !v4 && !v5 && !v41 && !v6, () => { setValue('V81_ON', 0); setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V6_ON', 0); setValue('V41_ON', 0); setValue('V5_ON', 0); setValue('V2_ON', 0); setValue('V3_ON', 0); setValue('V4_ON', 0); render(); }, '기존 판단: 프리셋의 모든 값을 사용'),
+-      btn('V2', v2 && !v3, () => { setValue('V81_ON', 0); setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V6_ON', 0); setValue('V41_ON', 0); setValue('V5_ON', 0); setValue('V4_ON', 0); setValue('V2_ON', 1); setValue('V3_ON', 0); render(); }, 'V2: 시간 여유 판단'),
+-      btn('V3', v3, () => { setValue('V81_ON', 0); setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V6_ON', 0); setValue('V41_ON', 0); setValue('V5_ON', 0); setValue('V4_ON', 0); setValue('V2_ON', 1); setValue('V3_ON', 1); render(); }, 'V3: 가용 경로 계획'),
+-      btn('V4 · 미로', v4, () => { setValue('V81_ON', 0); setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V6_ON', 0); setValue('V41_ON', 0); setValue('V5_ON', 0); setValue('V4_ON', 1); render(); }, 'V4: 몸·벽·적 전방 도달 영역을 벽으로 보고 격자 시간 탐색으로 출구를 찾음 (2026-09-30)'),
+-      btn('V5 · 시퀀스', v5, () => { setValue('V81_ON', 0); setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V6_ON', 0); setValue('V41_ON', 0); setValue('V4_ON', 0); setValue('V2_ON', 0); setValue('V3_ON', 0); setValue('V5_ON', 1); render(); }, 'V5: 2단계 원호 시퀀스 100개를 매 틱 평가 — 먹이 실섭취·목표 접근·적 도달 위험 비용 (2026-09-30)'),
+-      btn('V4.1 · 근접', v41, () => { setValue('V81_ON', 0); setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V6_ON', 0); setValue('V41_ON', 1); render(); }, 'V4.1: 최초 미로 풀이(48px 격자·전방 원뿔 도달장·Dijkstra) 보존판 — 근접 회피 모드'),
+-      btn('V6 · 이중층', v6, () => { setValue('V81_ON', 0); setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V41_ON', 0); setValue('V5_ON', 0); setValue('V4_ON', 0); setValue('V2_ON', 0); setValue('V3_ON', 0); setValue('V6_ON', 1); render(); }, 'V6: 비동기 2차원 미로 안내선 + 매 틱 연속 원호 근접 회피'),
+-      btn('V7 · 자동 전환', v7, () => { setValue('V81_ON', 0); setValue('V8_ON', 0); for (const k of ['V6_ON','V41_ON','V5_ON','V4_ON','V3_ON','V2_ON','PROBE_ON']) setValue(k, 0); setValue('V7_ON', 1); render(); }, '현재 V1 설정으로 추종하고, 반경 안 머리 개수가 기준 이상이면 V6로 회피'),
+-      btn('V8 · 원본 전환', v8, () => { applyPreset('v8_exact'); }, '저장된 잔해 적극 V1과 기존 V6 설정·관측·판단을 사용'),
+-      btn('V8-1 · 근접 추가', v81, () => { S.preset = 'v81_exact'; for (const k of ['V8_ON','V7_ON','V6_ON','V41_ON','V5_ON','V4_ON','V3_ON','V2_ON','PROBE_ON']) S.values[k] = 0; S.values.V81_ON = 1; if (game) game.changes.push({t: gameT(), preset: S.preset, V81_ON: 1, V8_ON: 0, V7_ON: 0, V6_ON: 0, V41_ON: 0, V5_ON: 0, V4_ON: 0, V3_ON: 0, V2_ON: 0, PROBE_ON: 0}); route = null; planVer++; planSentAt = 0; save(); send({type: 'params', ...pilotParams()}); render(); }, 'V8 설정을 유지하며 단일 머리 근접 시 원본 V4.1 사용. 밀집 V6 우선'));
++      btn('V1', !v8 && !v7 && !v2 && !v4 && !v5 && !v41 && !v6, () => { setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V6_ON', 0); setValue('V41_ON', 0); setValue('V5_ON', 0); setValue('V2_ON', 0); setValue('V3_ON', 0); setValue('V4_ON', 0); render(); }, '기존 판단: 프리셋의 모든 값을 사용'),
++      btn('V2', v2 && !v3, () => { setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V6_ON', 0); setValue('V41_ON', 0); setValue('V5_ON', 0); setValue('V4_ON', 0); setValue('V2_ON', 1); setValue('V3_ON', 0); render(); }, 'V2: 시간 여유 판단'),
++      btn('V3', v3, () => { setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V6_ON', 0); setValue('V41_ON', 0); setValue('V5_ON', 0); setValue('V4_ON', 0); setValue('V2_ON', 1); setValue('V3_ON', 1); render(); }, 'V3: 가용 경로 계획'),
++      btn('V4 · 미로', v4, () => { setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V6_ON', 0); setValue('V41_ON', 0); setValue('V5_ON', 0); setValue('V4_ON', 1); render(); }, 'V4: 몸·벽·적 전방 도달 영역을 벽으로 보고 격자 시간 탐색으로 출구를 찾음 (2026-09-30)'),
++      btn('V5 · 시퀀스', v5, () => { setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V6_ON', 0); setValue('V41_ON', 0); setValue('V4_ON', 0); setValue('V2_ON', 0); setValue('V3_ON', 0); setValue('V5_ON', 1); render(); }, 'V5: 2단계 원호 시퀀스 100개를 매 틱 평가 — 먹이 실섭취·목표 접근·적 도달 위험 비용 (2026-09-30)'),
++      btn('V4.1 · 근접', v41, () => { setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V6_ON', 0); setValue('V41_ON', 1); render(); }, 'V4.1: 최초 미로 풀이(48px 격자·전방 원뿔 도달장·Dijkstra) 보존판 — 근접 회피 모드'),
++      btn('V6 · 이중층', v6, () => { setValue('V8_ON', 0); setValue('V7_ON', 0); setValue('V41_ON', 0); setValue('V5_ON', 0); setValue('V4_ON', 0); setValue('V2_ON', 0); setValue('V3_ON', 0); setValue('V6_ON', 1); render(); }, 'V6: 비동기 2차원 미로 안내선 + 매 틱 연속 원호 근접 회피'),
++      btn('V7 · 자동 전환', v7, () => { setValue('V8_ON', 0); for (const k of ['V6_ON','V41_ON','V5_ON','V4_ON','V3_ON','V2_ON','PROBE_ON']) setValue(k, 0); setValue('V7_ON', 1); render(); }, '현재 V1 설정으로 추종하고, 반경 안 머리 개수가 기준 이상이면 V6로 회피'),
++      btn('V8 · 원본 전환', v8, () => { applyPreset('v8_exact'); }, '저장된 잔해 적극 V1과 기존 V6 설정·관측·판단을 사용'));
+     const BUNDLE = ['TURN_FIX', 'RAIDER_ON', 'SIZE_SAFE', 'SIZE_GATE', 'HEAD_RAYS', 'WRAP_RAID', 'WRAP_EXIT_TAIL', 'HEAP_GATE', 'SIZE_PROFILE'];
+     const bOn = BUNDLE.filter(k => S.values[k]).length;
+     const bundleRow = el('div', {class: 'li'}, el('span', {class: 'ic'}, '📦'), el('div', {class: 'txt'}, el('div', {class: 't'}, '검증 묶음'), el('div', {class: 's'}, `사이클 2 A/B 채택 8개 + 크기 프로필 · ${bOn}/${BUNDLE.length} 켬`)),
+       el('button', {class: 'sw' + (bOn === BUNDLE.length ? ' on' : bOn ? ' half' : ''), title: '묶음 전체 켜기/끄기',
+         onclick: () => { const on = bOn === BUNDLE.length ? 0 : 1; for (const k of BUNDLE) setValue(k, on); render(); }}, el('i')));
+-    const rows = v81 || v8
+-      ? [...(v81 ? [sw('V81_HEAD_R', 'V4.1 단일 머리 근접 반경', '범위 안 머리가 정확히 1개면 V4.1. 기존 밀집 V6가 우선. 0이면 끔', '↔')] : []), sw('V8_HEAD_R', '혼잡 판정 반경', '내 머리에서 이 거리 안의 적 머리만 셈', '◎'), sw('V8_HEAD_N', 'V6 전환 머리 개수', '이 개수 이상이면 원본 V6 사용', '🛡'), sw('V8_CLEAR_S', 'V1 복귀 대기', '기준보다 적은 상태가 지속되면 원본 V1 복귀', '⏱'), sw('W_GOAL', 'V1 잔해 목표 끌림', '저장된 잔해 적극 설정에서 조정', '🎯'), sw('FOOD_R', 'V1 잔해 탐색 범위', '원본 V1 먹이 탐색 반경', '🔭'), sw('BOOST_COST', 'V1 부스트 비용', '낮을수록 부스트 적극 사용', '⚡'), sw('V6_MARGIN', 'V6 몸·벽 여유', '원본 V6 설정에서 조정', '↔'), sw('V6_SAFETY', 'V6 적 도달 여유', '원본 V6 설정에서 조정', '🛡'), sw('V6_CENTER_W', 'V6 중심 이동 가중치', '원본 V6 설정에서 조정', '◎')]
++    const rows = v8
++      ? [sw('V8_HEAD_R', '혼잡 판정 반경', '내 머리에서 이 거리 안의 적 머리만 셈', '◎'), sw('V8_HEAD_N', 'V6 전환 머리 개수', '이 개수 이상이면 원본 V6 사용', '🛡'), sw('V8_CLEAR_S', 'V1 복귀 대기', '기준보다 적은 상태가 지속되면 원본 V1 복귀', '⏱'), sw('W_GOAL', 'V1 잔해 목표 끌림', '저장된 잔해 적극 설정에서 조정', '🎯'), sw('FOOD_R', 'V1 잔해 탐색 범위', '원본 V1 먹이 탐색 반경', '🔭'), sw('BOOST_COST', 'V1 부스트 비용', '낮을수록 부스트 적극 사용', '⚡'), sw('V6_MARGIN', 'V6 몸·벽 여유', '원본 V6 설정에서 조정', '↔'), sw('V6_SAFETY', 'V6 적 도달 여유', '원본 V6 설정에서 조정', '🛡'), sw('V6_CENTER_W', 'V6 중심 이동 가중치', '원본 V6 설정에서 조정', '◎')]
+       : v7
+       ? [sw('V7_HEAD_R', '혼잡 판정 반경', '내 머리에서 이 거리 안의 적 머리만 셈', '◎'), sw('V7_HEAD_N', 'V6 전환 머리 개수', '이 개수 이상이면 즉시 V6 회피', '🛡'), sw('V7_CLEAR_S', 'V1 복귀 대기', '기준보다 적은 상태가 이 시간 지속되면 먹이 추종 복귀', '⏱'), sw('W_GOAL', 'V1 잔해 목표 끌림', '평상시 V1의 무더기 추종 가중치', '🎯'), sw('FOOD_R', 'V1 잔해 탐색 범위', '평상시 V1 먹이 탐색 반경', '🔭'), sw('BOOST_COST', 'V1 부스트 비용', '낮을수록 V1 부스트 적극 사용', '⚡'), sw('REMAINS', '잔해 판정 크기', '평상시 V1의 큰 먹이 판정', '✨'), sw('REMAINS_ONLY', '잔해만 무더기로', '평상시 일반 먹이는 무더기 목표에서 제외', '🎯'), sw('V6_MARGIN', 'V6 몸·벽 여유', '혼잡 회피 중 사용할 추가 여유', '↔'), sw('V6_SAFETY', 'V6 적 도달 여유', '혼잡 회피 중 적보다 먼저 통과할 시간', '🛡'), sw('V6_CENTER_W', 'V6 중심 이동 가중치', '회피 후보에서 안쪽 선호', '◎')]
+       : v6
+@@ -1347,7 +1350,7 @@
+     boxSize: () => game ? {frames: game.box.length, floats: game.box.reduce((n, f) => n + f.segs.length + f.heads.length + f.food.length + f.own.length, 0)} : null,
+     terms: () => last && last.draw.an && last.draw.an.plans && last.draw.an.plans.chosen.terms,
+     status: () => ({bot: S.bot, game: !!game, ticks: game && game.ticks, fps, ping, errors: game && game.errors,
+-      last: last && {ms: last.ms, mode: last.trace.mode, squeeze: last.trace.squeeze, v7_phase: last.trace.v7_phase, v7_heads: last.trace.v7_heads, v8_phase: last.trace.v8_phase, v8_heads: last.trace.v8_heads, v81_heads: last.trace.v81_heads, v81_radius: last.trace.v81_radius}, squeeze_ticks: game && game.squeeze.length})};
++      last: last && {ms: last.ms, mode: last.trace.mode, squeeze: last.trace.squeeze, v7_phase: last.trace.v7_phase, v7_heads: last.trace.v7_heads, v8_phase: last.trace.v8_phase, v8_heads: last.trace.v8_heads}, squeeze_ticks: game && game.squeeze.length})};
+   console.log('[SLP] MOD', VERSION, 'ready; worker', !!worker);
+ }, 100);
+ })();

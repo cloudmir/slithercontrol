@@ -1,0 +1,74 @@
+  t2Step(s) {
+    // Dedicated target-locked follower. Interference changes sample validity, never the driving objective.
+    const {x:px,y:py,ang,sp,sc,t:T,segs:S,sid,heads:H,hid}=s,ro=R*sc,V=this.values;
+    const minLen=V.T2_MIN_LEN??600,start=V.T2_GAP0??6;
+    const pr=this.t2Probe||(this.t2Probe={id:null,set:start,since:T,levels:[],samples:[],dir:1,quantError:0});
+    let event=null,heading=null,lateral=null,bend=null,valid=false,reason='no_target',visibleLength=0;
+    const done=(cmd,phase,tg=null,gap=null,path=[])=>{
+      const tr={mode:'probe',boost:false,cmd:r1(deg(cmd)),L:s.L,sc:r2(sc),prof:this.profile,nh:hid.length,
+        t2_on:1,t2_phase:phase,t2_own_r:ro,t2_enemy_r:tg?.r??null,t2_gap:gap,t2_set:pr.set,t2_target:tg?.id??null,t2_level:event,
+        t2_heading_error:heading,t2_lateral:lateral,t2_bend:bend,t2_valid:valid?1:0,t2_reason:reason,t2_visible_length:visibleLength,
+        pph:valid?1:phase==='seek'?0:2,pset:pr.set,pgap:gap,ptr:tg?.r??null,ptid:tg?.id??null,pstab:pr.levels.length};
+      this.last={mode:'probe',trace:tr,draw:{chosen:path,safe:[],pos:new Float64Array(0),N,C2:0,i:0,near:tg?[{id:tg.id,x:tg.x,y:tg.y,r:tg.r,gap}]:[],gaps:[],goal:null,crowdAt:null,wp:null,attacker:null,ro,analysis:null}};
+      this.prev=cmd;this.prevBoost=false;return [cmd,false];
+    };
+    const snakes=new Map();for(let k=0;k<sid.length;k++){let a=snakes.get(sid[k]);if(!a){a=[];snakes.set(sid[k],a);}a.push(k);}
+    const candidates=[];
+    for(const [id,ks]of snakes){let len=0,best=null;
+      for(let i=0;i<ks.length;i++){const k=ks[i],ax=S[k*5],ay=S[k*5+1],dx=S[k*5+2]-ax,dy=S[k*5+3]-ay,L=hypot(dx,dy);len+=L;if(L<1e-6)continue;
+        const u=clip(((px-ax)*dx+(py-ay)*dy)/(L*L),0,1),x=ax+u*dx,y=ay+u*dy,d=hypot(px-x,py-y);
+        if(!best||d<best.d)best={id,ks,i,k,u,x,y,d,r:S[k*5+4],h:Math.atan2(dy,dx)};}
+      if(best){best.len=len;best.gap=best.d-ro-best.r;candidates.push(best);}
+    }
+    // Once acquired, retain this enemy through bends, head proximity, and changes in neighbouring snakes.
+    let tg=candidates.find(q=>q.id===pr.id&&q.d<1800);
+    if(!tg){
+      tg=candidates.filter(q=>q.len>=minLen&&q.d<1000).sort((a,b)=>a.gap-b.gap)[0];
+      if(tg){pr.id=tg.id;pr.set=start;pr.since=T;pr.samples=[];delete pr.prevGap;pr.dir=Math.cos(ang-tg.h)>=0?1:-1;pr.quantError=0;}
+      else{pr.id=null;pr.samples=[];delete pr.prevGap;
+        // Approach a long nearby enemy, even when its straight portion is not yet suitable for metrology.
+        const q=candidates.filter(q=>q.len>=minLen).sort((a,b)=>a.d-b.d)[0];
+        if(q){const side=sign(Math.cos(q.h)*(py-q.y)-Math.sin(q.h)*(px-q.x))||1,h=q.h+(Math.cos(ang-q.h)<0?PI:0),nx=-Math.sin(q.h)*side,ny=Math.cos(q.h)*side,D=ro+q.r+30,ax=q.x+nx*D+100*Math.cos(h),ay=q.y+ny*D+100*Math.sin(h);visibleLength=q.len;reason='approach_long_enemy';return done(Math.atan2(ay-py,ax-px),'seek',q,q.gap,[px,py,ax,ay]);}
+        const wall=s.wall||[30000,30000,20000],cmd=hypot(px-wall[0],py-wall[1])>150?Math.atan2(wall[1]-py,wall[0]-px):ang;return done(cmd,'seek',null,null,[px,py,px+200*Math.cos(cmd),py+200*Math.sin(cmd)]);
+      }
+    }
+    visibleLength=tg.len;
+    const dir=pr.dir,tangent=tg.h+(dir<0?PI:0),tx=Math.cos(tangent),ty=Math.sin(tangent),side=sign(tx*(py-tg.y)-ty*(px-tg.x))||1;
+    const gap=tg.gap,err=gap-pr.set,dt=T-(pr.prevT??T);heading=Math.abs(wrap(ang-tangent));
+    lateral=pr.prevGap!==undefined&&dt>0&&dt<.2?(gap-pr.prevGap)/dt:0;
+    if(dt>.15||Math.abs((pr.rt??tg.r)-tg.r)>.3)pr.samples=[];
+    pr.prevGap=gap;pr.prevT=T;pr.rt=tg.r;
+    // Curvature only labels data. It never releases the locked enemy or activates an escape controller.
+    bend=0;for(const d of [-1,1]){let walked=0,i=tg.i,last=tg.h;while(walked<100&&i+d>=0&&i+d<tg.ks.length){i+=d;const k=tg.ks[i],a=Math.atan2(S[k*5+3]-S[k*5+1],S[k*5+2]-S[k*5]);bend+=Math.abs(wrap(a-last));last=a;walked+=hypot(S[k*5+2]-S[k*5],S[k*5+3]-S[k*5+1]);}}
+    // Advance a short distance along the actual body, then offset to the side we occupy.
+    const v=Math.max(5.5,sp)*PX_PER_SP,look=clip(v*.32,55,110);let left=look,i=tg.i,u=tg.u,qx=tg.x,qy=tg.y,qh=tg.h,ended=false;
+    for(let guard=0;guard<300&&left>0;guard++){const k=tg.ks[i],ax=S[k*5],ay=S[k*5+1],dx=S[k*5+2]-ax,dy=S[k*5+3]-ay,L=hypot(dx,dy)||1e-6,room=(dir>0?1-u:u)*L;
+      if(left<=room){u+=dir*left/L;qx=ax+u*dx;qy=ay+u*dy;qh=Math.atan2(dy,dx);left=0;break;}
+      qx=ax+(dir>0?dx:0);qy=ay+(dir>0?dy:0);qh=Math.atan2(dy,dx);left-=room;i+=dir;
+      if(i<0||i>=tg.ks.length){ended=true;qx+=dir*left*Math.cos(qh);qy+=dir*left*Math.sin(qh);break;}u=dir>0?0:1;
+    }
+    const future=qh+(dir<0?PI:0),nx=-Math.sin(future)*side,ny=Math.cos(future)*side;
+    const predicted=err+clip(lateral,-150,150)*.14,normal=clip(-predicted*1.6,-(gap>pr.set+80?v*.75:gap>pr.set+10?35:8),20);
+    // Near-body steering combines tangent feedback with the actual bend ahead.
+    const curve=clip(wrap(future-tangent),-rad(20),rad(20));let desired=tangent+curve*.7+side*Math.asin(clip(normal/v,-.8,.3));
+    if(gap>pr.set+100){const D=ro+tg.r+pr.set+35,ax=qx+nx*D,ay=qy+ny*D;desired=Math.atan2(ay-py,ax-px);}
+    // 251 heading codes: unbiased pulse-density commands overcome the floor bias and sub-code dead band.
+    const quantum=TAU/251,code=((desired%TAU+TAU)%TAU)/quantum,lo=Math.floor(code),fraction=code-lo;
+    pr.quantError+=fraction;const up=pr.quantError>=1?1:0;if(up)pr.quantError-=1;const cmd=(lo+up+.15)*quantum;
+    const D=ro+tg.r+pr.set,ox=qx+nx*D,oy=qy+ny*D;
+    reason='clean';
+    if(ended)reason='body_endpoint';else if(bend>rad(6))reason='curve';else if(heading>rad(6)||Math.abs(err)>20)reason='align';
+    for(let j=0;j<hid.length;j++)if(hypot(H[j*5]-px,H[j*5+1]-py)<250){reason='head_interference';break;}
+    for(let k=0;k<sid.length;k++)if(sid[k]!==tg.id&&segDist(px,py,S,k)-S[k*5+4]-ro<35){reason='body_interference';break;}
+    if(s.wall&&s.wall[2]-hypot(px-s.wall[0],py-s.wall[1])-ro<100)reason='wall_interference';
+    valid=reason==='clean';
+    if(!valid)pr.samples=[];
+    else{const a=pr.samples;a.push({t:T,gap,err:Math.abs(err),ro,rt:tg.r,heading,lateral:Math.abs(lateral),speed:sp});while(a.length&&T-a[0].t>1)a.shift();
+      const med=k=>a.map(q=>q[k]).sort((x,y)=>x-y)[a.length>>1],range=k=>Math.max(...a.map(q=>q[k]))-Math.min(...a.map(q=>q[k]));
+      if(a.length>=15&&T-a[0].t>=.75&&T-pr.since>=1.2&&med('err')<1&&range('gap')<1.5&&med('heading')<rad(6)&&med('lateral')<8&&range('ro')<.3&&range('rt')<.3){
+        event={serial:(this.t2Serial=(this.t2Serial??0)+1),t:T,target:pr.id,own_r:med('ro'),enemy_r:med('rt'),set:pr.set,gap:med('gap'),gap_min:Math.min(...a.map(q=>q.gap)),gap_max:Math.max(...a.map(q=>q.gap)),samples:a.length,duration:T-a[0].t,speed:med('speed'),heading:med('heading'),lateral:med('lateral'),bend};
+        pr.levels.push(event);pr.set=Math.max(-30,pr.set-1);pr.since=T;pr.samples=[];
+      }
+    }
+    return done(cmd,reason==='align'?'align':'follow',tg,gap,[px,py,ox,oy]);
+  }

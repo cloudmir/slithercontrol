@@ -1,0 +1,238 @@
+--- research/v6_collection_before_20260930/pilot.js
++++ ext/pilot.js
+@@ -1287,15 +1287,35 @@
+       if (c < 0 || Wd.gapAt(probe.x, probe.y, t + .1) < M || Rf.tr[c] <= t + .1 + SAFE) { danger = true; break; }
+     }
+     if (danger) K.dangerUntil = s.t + .8;
+-    const escaping = s.t < K.dangerUntil, foodCells = new Map();
++    const escaping = s.t < K.dangerUntil, foodCells = new Map(), bins = new Map();
++    const foodR = V.V6_FOOD_R ?? 3000, heapSize = Math.max(Wd.CELL, V.V6_HEAP_SIZE ?? 250);
++    const goalW = V.V6_GOAL_W ?? 1.5, centerW = V.V6_CENTER_W ?? 2;
++    const centerDist = hypot(s.x - s.wall[0], s.y - s.wall[1]);
++    // Fade the centre bias near the centre; it is a direction preference, not a point to orbit.
++    const centerGain = (x, y) => centerW * Math.min(1, centerDist / 2000) * (centerDist - hypot(x - s.wall[0], y - s.wall[1]));
+     if (!escaping) for (let i = 0; i + 2 < s.food.length; i += 3) {
+       if (s.food[i + 2] < (V.V6_REMAINS_MIN ?? 12)) continue;
+       const x = s.food[i], y = s.food[i + 1], d = hypot(x - s.x, y - s.y), c = Wd.cellI(x, y);
+-      if (c < 0 || d < Wd.ro + 15 || d > V.V6_OBS - Wd.CELL) continue;
++      if (goalW <= 0 || d < Wd.ro + 15 || d > foodR) continue;
+       if (d < ph.cs * .65 && (x - s.x) * Math.cos(s.ang) + (y - s.y) * Math.sin(s.ang) < 0) continue;
+       if (K.passed.some(p => hypot(x - p.x, y - p.y) < Wd.CELL * 1.5)) continue;
+-      const w = s.food[i + 2];
+-      foodCells.set(c, (foodCells.get(c) || 0) + w);
++      const key = Math.floor(x / heapSize) + ',' + Math.floor(y / heapSize);
++      let b = bins.get(key); if (!b) { b = {mass: 0, x: 0, y: 0, members: []}; bins.set(key, b); }
++      const w = s.food[i + 2]; b.mass += w; b.x += x * w; b.y += y * w; b.members.push({x, y, c, d});
++    }
++    const piles = [...bins.values()].map(b => {
++      b.x /= b.mass; b.y /= b.mass;
++      b.keep = K.target && hypot(b.x - K.target.x, b.y - K.target.y) < heapSize ? 1.25 : 1;
++      b.distance = hypot(b.x - s.x, b.y - s.y); b.value = b.mass * b.keep / (400 + b.distance); return b;
++    }).sort((a, b) => b.value - a.value).slice(0, 8);
++    const remote = [];
++    for (const b of piles) {
++      let mapped = false;
++      for (const f of b.members) if (f.c >= 0 && f.d <= V.V6_OBS - Wd.CELL) {
++        const old = foodCells.get(f.c); if (!old || b.value > old.pile.value) foodCells.set(f.c, {pile: b, x: f.x, y: f.y}); mapped = true;
++      }
++      // Far food supplies a heading only. Certify only the local prefix, never the unseen rest.
++      if (!mapped) remote.push(b);
+     }
+     const c0 = Wd.cellI(root.x, root.y); if (c0 < 0) return {algo: 'v6', ver, t0: s.t, pts: null, certified: 0, reason: 'outside', ms: clock() - T0};
+     const at = new Float32Array(NN).fill(1e9), cost = new Float32Array(NN).fill(1e9), minG = new Float32Array(NN).fill(-1e9), prev = new Int32Array(NN).fill(-1), done = new Uint8Array(NN);
+@@ -1303,22 +1323,30 @@
+     const pop = () => { const n = hk[0], ln = hk.pop(), lv = hv.pop(); if (hk.length) { hk[0] = ln; hv[0] = lv; let c = 0; for (;;) { const l = 2 * c + 1, r = l + 1; let m = c; if (l < hk.length && hv[l] < hv[m]) m = l; if (r < hk.length && hv[r] < hv[m]) m = r; if (m === c) break; [hk[m], hk[c]] = [hk[c], hk[m]]; [hv[m], hv[c]] = [hv[c], hv[m]]; c = m; } } return n; };
+     const nb = [[1, 0, 1], [-1, 0, 1], [0, 1, 1], [0, -1, 1], [1, 1, Math.SQRT2], [1, -1, Math.SQRT2], [-1, 1, Math.SQRT2], [-1, -1, Math.SQRT2]];
+     at[c0] = LAT; cost[c0] = 0; minG[c0] = Wd.gapAt(root.x, root.y, LAT); if (minG[c0] < M) return {algo: 'v6', ver, t0: s.t, pts: null, certified: 0, reason: 'root_blocked', ms: clock() - T0}; push(c0, 0);
+-    let exit = -1, partial = c0, partialV = -Infinity, foodGoal = -1, foodScore = -Infinity, exits = 0, expanded = 0, over = false;
++    let exit = -1, partial = c0, partialV = -Infinity, foodGoal = -1, foodScore = -Infinity, selectedFood = null, exitScore = -Infinity, exits = 0, expanded = 0, over = false;
+     while (hk.length) {
+       if ((++expanded & 63) === 0 && clock() - T0 > V.V6_PLAN_BUDGET) { over = true; break; }
+       const n = pop(); if (done[n]) continue; done[n] = 1;
+       const x0 = n === c0 ? root.x : Wd.cx(n), y0 = n === c0 ? root.y : Wd.cy(n), radial = hypot(x0 - s.x, y0 - s.y), slack0 = Math.min(Rf.tr[n], H + 2) - at[n] - SAFE;
+       const forward = (x0 - s.x) * Math.cos(s.ang) + (y0 - s.y) * Math.sin(s.ang);
+-      const pv = escaping ? radial + Math.min(Math.max(minG[n], 0), 100) * 2 + Math.min(slack0, 3) * 60 : forward - Math.abs((x0 - s.x) * Math.sin(s.ang) - (y0 - s.y) * Math.cos(s.ang));
++      const pv = (escaping ? radial + Math.min(Math.max(minG[n], 0), 100) * 2 + Math.min(slack0, 3) * 60 : forward - Math.abs((x0 - s.x) * Math.sin(s.ang) - (y0 - s.y) * Math.cos(s.ang))) + centerGain(x0, y0);
+       if (n !== c0 && pv > partialV) { partialV = pv; partial = n; }
+       if (n !== c0 && foodCells.has(n)) {
+-        const keep = K.target && hypot(x0 - K.target.x, y0 - K.target.y) < Wd.CELL * 1.5 ? 1.25 : 1;
++        const f = foodCells.get(n), b = f.pile;
+         const facing = 1 - .3 * Math.abs(wrap(Math.atan2(y0 - s.y, x0 - s.x) - s.ang)) / Math.PI;
+-        const score = foodCells.get(n) * keep * facing / (150 + cost[n] * ph.cs);
+-        if (score > foodScore) { foodScore = score; foodGoal = n; }
+-      }
+-      if (escaping && radial >= EDGE && minG[n] >= M && slack0 > 0) { exit = n; exits++; break; }
+-      if (!escaping && !foodCells.size && radial >= EDGE) continue;
++        const score = b.mass * b.keep * facing / (400 + cost[n] * ph.cs);
++        if (score > foodScore) { foodScore = score; foodGoal = n; selectedFood = {x: f.x, y: f.y, mass: b.mass}; }
++      }
++      if (n !== c0) for (const b of remote) {
++        const remaining = hypot(b.x - x0, b.y - y0), progress = b.distance - remaining;
++        if (progress < Wd.CELL * 2) continue;
++        const score = b.mass * b.keep / (400 + cost[n] * ph.cs + remaining) * Math.min(1, progress / Math.max(EDGE, Wd.CELL));
++        if (score > foodScore) { foodScore = score; foodGoal = n; selectedFood = {x: b.x, y: b.y, mass: b.mass}; }
++      }
++      if (escaping && radial >= EDGE && minG[n] >= M && slack0 > 0) {
++        exits++; if (pv > exitScore) { exit = n; exitScore = pv; } continue;
++      }
++      if (!escaping && !piles.length && radial >= EDGE) continue;
+       if (at[n] >= H) continue;
+       const ni = n % N, nj = Math.floor(n / N);
+       for (const [di, dj, w] of nb) {
+@@ -1337,7 +1365,7 @@
+     const intent = escaping ? 'escape' : foodGoal >= 0 ? 'food' : 'explore';
+     const goal = escaping ? (exit >= 0 ? exit : partial) : foodGoal >= 0 ? foodGoal : partial;
+     if (goal === c0 || prev[goal] < 0) return {algo: 'v6', ver, t0: s.t, intent, pts: null, certified: 0, reason: over ? 'budget' : 'no_path', exits, ms: clock() - T0};
+-    K.target = intent === 'food' ? {x: Wd.cx(goal), y: Wd.cy(goal)} : null;
++    K.target = intent === 'food' ? {x: selectedFood.x, y: selectedFood.y} : null;
+     const cells = []; for (let q = goal; q !== -1; q = prev[q]) cells.push(q); cells.reverse();
+     // Remove only collinear grid points. Corners remain visible because they are the actual maze corridor chosen by the search.
+     const line = [[root.x, root.y, c0]]; for (let k = 1; k < cells.length; k++) { const c = cells[k], p = line[line.length - 1];
+@@ -1347,8 +1375,8 @@
+     for (let k = 1; k < line.length; k++) { const q = line[k], h = Math.atan2(q[1] - last[1], q[0] - last[0]); tt += hypot(q[0] - last[0], q[1] - last[1]) / ph.cs; pts.push(tt, q[0], q[1], h, 0); const sl = Rf.tr[q[2]] - tt - SAFE; if (sl < minSlack) minSlack = sl; last = q; }
+     const certified = exit >= 0 && minClear >= M && minSlack > 0;
+     return {algo: 'v6', ver, t0: s.t, pts, intent, certified: certified ? 1 : 0, reason: escaping ? (certified ? 'exit' : (over ? 'budget_prefix' : 'reachable_prefix')) : intent, exits,
+-      partial: escaping && !certified, mode: intent, foodValue: foodGoal >= 0 ? foodCells.get(foodGoal) : 0,
+-      goal: {x: last[0], y: last[1], kind: intent}, minClear, minSlack, expanded, ms: clock() - T0};
++      partial: escaping && !certified, mode: intent, foodValue: intent === 'food' ? selectedFood.mass : 0,
++      goal: {x: intent === 'food' ? selectedFood.x : last[0], y: intent === 'food' ? selectedFood.y : last[1], kind: intent}, minClear, minSlack, expanded, ms: clock() - T0};
+   }
+ 
+   v6Step(s) {
+@@ -1398,11 +1426,24 @@
+         for (let j = 0; j < foods.length; j++) if (!eaten.has(j)) { const f = foods[j], rr = ro + 30; if ((f[0] - st.x) ** 2 + (f[1] - st.y) ** 2 < rr * rr) { eaten.add(j); food += f[2]; } } }
+       let follow; if (route) { const q = guideAhead(route.pts, st0.x, st0.y, Math.max(140, ph.cs * HL * .8), route.intent === 'food'); follow = -hypot(st.x - q[0], st.y - q[1]) - Math.abs(wrap(st.h - q[2])) * 30; }
+       else follow = -Math.abs(fr) * 80 + Math.min(mg, 80) * .15;
+-      cands.push({boost, fr, hitT, risk, mg, hm, follow, food, turn, samp}); }
++      const foodDriving = route && route.intent === 'food';
++      let collect = 0;
++      if (foodDriving) {
++        follow *= V.V6_GOAL_W ?? 1.5;
++        const g = route.goal, distance = g ? hypot(g.x - px, g.y - py) : 0;
++        if (boost && g && distance > (V.V6_BOOST_MIN_DIST ?? 150) && route.foodValue >= (V.V6_BOOST_MIN_MASS ?? 48)) {
++          const progress = distance - hypot(g.x - st.x, g.y - st.y);
++          collect = (V.V6_BOOST_W ?? 80) * clip(progress / Math.max(1, ph.cs * HL), 0, 1);
++        }
++      } else {
++        const d = hypot(px - s.wall[0], py - s.wall[1]);
++        collect = (V.V6_CENTER_W ?? 2) * Math.min(1, d / 2000) * (d - hypot(st.x - s.wall[0], st.y - s.wall[1]));
++      }
++      cands.push({boost, fr, hitT, risk, mg, hm, follow, food, collect, turn, samp}); }
+     const clean = cands.filter(c => c.hitT === Infinity), base = clean.length ? clean : cands, safe = clean.filter(c => c.risk <= 1e-8), pool = safe.length ? safe : base; let best = null;
+     const foodDriving = route && route.intent === 'food';
+     const better = (a, b) => { if (!b) return true; if (a.hitT !== b.hitT) return a.hitT > b.hitT; if (Math.abs(a.risk - b.risk) > 1e-6) return a.risk < b.risk;
+-      const af = a.follow + (foodDriving ? a.food * (V.V6_FOOD_W ?? 1) : 0), bf = b.follow + (foodDriving ? b.food * (V.V6_FOOD_W ?? 1) : 0);
++      const af = a.follow + a.collect + (foodDriving ? a.food * (V.V6_FOOD_W ?? 1) : 0), bf = b.follow + b.collect + (foodDriving ? b.food * (V.V6_FOOD_W ?? 1) : 0);
+       if (Math.abs(af - bf) > 3) return af > bf; if (Math.abs(a.hm - b.hm) > 3) return a.hm > b.hm; if (Math.abs(a.mg - b.mg) > 2) return a.mg > b.mg; return a.food * .08 - a.turn > b.food * .08 - b.turn; };
+     for (const c of pool) if (better(c, best)) best = c;
+     // Compare the requested route motion with the chosen safe motion, so the
+--- research/v6_collection_before_20260930/mod.js
++++ ext/mod.js
+@@ -193,7 +193,7 @@
+   const s = window.slither;
+   if (!window.playing || !s || s.dead) return null;
+   const radius = S.values.V6_ON ? Math.max(RADIUS, S.values.V6_OBS) : RADIUS;
+-  const hx = s.xx, hy = s.yy, R2 = radius * radius, RF2 = FOOD_RADIUS * FOOD_RADIUS;
++  const hx = s.xx, hy = s.yy, R2 = radius * radius, RF2 = (S.values.V6_ON ? (S.values.V6_FOOD_R ?? 3000) : FOOD_RADIUS) ** 2;
+   const inr = (x, y) => (x - hx) * (x - hx) + (y - hy) * (y - hy) < R2, inf = (x, y) => (x - hx) * (x - hx) + (y - hy) * (y - hy) < RF2;
+   const segs = [], sid = [], heads = [], hid = [], food = [], own = [];
+   for (const o of window.slithers) {
+@@ -1076,7 +1076,7 @@
+         ctl = el('button', {class: 'sw' + (v ? ' on' : '') + (off ? ' dis' : ''), title: off && rs ? rs.why.join('\n') : (v ? '켜짐 — 누르면 끔' : '꺼짐 — 누르면 켬'),
+           onclick: () => { if (off) return; setValue(key, v ? 0 : 1); render(); }}, el('i'));
+       else { ctl = el('input', {type: 'number', class: 'num', min, max, step, value: fmt(v, step)}); if (off) ctl.disabled = true;
+-        ctl.onchange = () => { const x = Math.min(max, Math.max(min, Number(ctl.value))); if (Number.isFinite(x)) setValue(key, x); render(); }; }
++        ctl.onchange = () => { const x = Math.min(max, Math.max(min, Number(ctl.value))); if (!Number.isFinite(x) || S.values[key] === x) return; setValue(key, x); render(); }; }
+       return el('div', {class: 'li' + (off ? ' off' : '') + (v !== cur[key] ? ' chg' : ''), title: `${key} · 프리셋 값 ${cur[key]}`},
+         el('span', {class: 'ic'}, icon), el('div', {class: 'txt'}, el('div', {class: 't'}, title), el('div', {class: 's'}, ev)), ctl);
+     };
+@@ -1095,7 +1095,7 @@
+       el('button', {class: 'sw' + (bOn === BUNDLE.length ? ' on' : bOn ? ' half' : ''), title: '묶음 전체 켜기/끄기',
+         onclick: () => { const on = bOn === BUNDLE.length ? 0 : 1; for (const k of BUNDLE) setValue(k, on); render(); }}, el('i')));
+     const rows = v6
+-      ? [sw('V6_FOOD_W', '잔해 수집 가중치', '안전 후보에서 경로 주변 큰 먹이를 먹는 행동 가중치', '🍽'), sw('V6_REMAINS_MIN', '잔해 판정 크기', '이 크기 이상의 먹이만 목표와 수집 평가에 포함', '✨'), sw('V6_EDGE', '미로 목표 거리', '멀리 탐색할 목표 반경. 통로가 막히면 부분 경로까지만 표시', '🗺'), sw('V6_H', '미로 탐색 시간', '먼 경로까지 탐색할 시간 범위', '⏱'), sw('V6_PLAN_MS', '미로 재탐색 주기', 'Worker가 거시 안내선을 갱신하는 간격', '🗺'), sw('V6_ROUTE_AGE', '경로 유효 나이', '이보다 낡은 안내선은 즉시 폐기', '⏱'), sw('V6_LOCAL_H', '근접 회피 지평', '매 틱 연속 원호를 검사하는 시간', '🛡'), sw('V6_MARGIN', '몸·벽 여유', '실측 사망 경계를 반영한 추가 여유', '↔'), sw('V6_SAFETY', '적 도달 여유', '적보다 먼저 통과해야 하는 시간', '⚡')]
++      ? [sw('V6_FOOD_R', '잔해 탐색 범위', '관측된 먼 잔해까지 목표로 선택. 미로는 가까운 경로부터 확인', '🔭'), sw('V6_HEAP_SIZE', '잔해 무더기 크기', '큰 값일수록 넓게 묶어 총량으로 목표 선택', '✨'), sw('V6_GOAL_W', '잔해 목표 끌림', '안전 후보에서 목표 경로 추종 강도. 0이면 잔해 목표 끔', '🎯'), sw('V6_BOOST_W', '잔해 부스트 선호', '목표에 가까워지는 안전한 부스트에 가점. 0이면 가점 없음', '⚡'), sw('V6_BOOST_MIN_MASS', '부스트 최소 잔해량', '무더기 크기 합계가 이 값 이상일 때 부스트 가점', '✨'), sw('V6_BOOST_MIN_DIST', '부스트 최소 거리', '가까운 잔해에는 부스트 가점 억제', '↔'), sw('V6_CENTER_W', '중심 이동 가중치', '잔해 목표가 없을 때 맵 중심 쪽 선호. 중심 가까이에서는 약해짐. 0이면 끔', '◎'), sw('V6_FOOD_W', '잔해 수집 가중치', '안전 후보에서 경로 주변 큰 먹이를 먹는 행동 가중치', '🍽'), sw('V6_REMAINS_MIN', '잔해 판정 크기', '이 크기 이상의 먹이만 목표와 수집 평가에 포함', '✨'), sw('V6_EDGE', '미로 목표 거리', '멀리 탐색할 목표 반경. 통로가 막히면 부분 경로까지만 표시', '🗺'), sw('V6_H', '미로 탐색 시간', '먼 경로까지 탐색할 시간 범위', '⏱'), sw('V6_PLAN_MS', '미로 재탐색 주기', 'Worker가 거시 안내선을 갱신하는 간격', '🗺'), sw('V6_ROUTE_AGE', '경로 유효 나이', '이보다 낡은 안내선은 즉시 폐기', '⏱'), sw('V6_LOCAL_H', '근접 회피 지평', '매 틱 연속 원호를 검사하는 시간', '🛡'), sw('V6_MARGIN', '몸·벽 여유', '실측 사망 경계를 반영한 추가 여유', '↔'), sw('V6_SAFETY', '적 도달 여유', '적보다 먼저 통과해야 하는 시간', '⚡')]
+       : v5
+       ? [sw('V5_W_FOOD', '먹이 가중', '경로에서 실제 먹는 양 × 이 값', '🍖'), sw('V5_TG', '먹이 환산 시간', '작을수록 가까운 먹이 우선, 클수록 먼 무더기도 쫓음', '🎯'), sw('V5_W_RISK', '적 위험 비용', '적이 먼저 닿는 칸 비용 · 클수록 잘 피함', '⚠'), sw('V5_W_TURN', '회전 비용', '클수록 제자리 회전 억제', '🌀'), sw('V5_W_BOOST', '부스트 비용', '초당 비용', '🚀'), sw('V4_MARGIN', '벽 여유', '몸·경계에서 이만큼 떨어짐 (V4와 공유)', '↔'), sw('TRACK_LAT', '지연 보상', '명령→서버 지연 s', '⚡')]
+       : v4
+--- research/v6_collection_before_20260930/params.json
++++ params.json
+@@ -224,7 +224,14 @@
+   "V5_TG": 12,
+   "V5_EXPLOREV": 10,
+   "V6_FOOD_W": 1,
+-  "V6_REMAINS_MIN": 12
++  "V6_REMAINS_MIN": 12,
++  "V6_FOOD_R": 3000,
++  "V6_HEAP_SIZE": 250,
++  "V6_GOAL_W": 1.5,
++  "V6_BOOST_W": 80,
++  "V6_BOOST_MIN_MASS": 48,
++  "V6_BOOST_MIN_DIST": 150,
++  "V6_CENTER_W": 2
+  },
+  "profiles": {
+   "safe": {},
+@@ -1915,6 +1922,62 @@
+      30,
+      1,
+      true
++    ],
++    [
++     "V6_FOOD_R",
++     "잔해 탐색 반경 px ↑멀리",
++     500,
++     5000,
++     100,
++     true
++    ],
++    [
++     "V6_HEAP_SIZE",
++     "잔해 무더기 크기 px ↑넓게 묶기",
++     48,
++     500,
++     1,
++     true
++    ],
++    [
++     "V6_GOAL_W",
++     "잔해 목표 끌림 ↑경로 추종 (0 목표 끔)",
++     0,
++     5,
++     0.1,
++     true
++    ],
++    [
++     "V6_BOOST_W",
++     "잔해 부스트 선호 ↑적극 (0 가점 없음)",
++     0,
++     300,
++     5,
++     true
++    ],
++    [
++     "V6_BOOST_MIN_MASS",
++     "부스트 최소 잔해량 ↑큰 무더기만",
++     0,
++     500,
++     4,
++     true
++    ],
++    [
++     "V6_BOOST_MIN_DIST",
++     "부스트 최소 목표 거리 px",
++     0,
++     1000,
++     25,
++     true
++    ],
++    [
++     "V6_CENTER_W",
++     "중심 이동 가중치 ↑안쪽 선호 (0 끔)",
++     0,
++     5,
++     0.1,
++     true
+     ]
+    ]
+   },

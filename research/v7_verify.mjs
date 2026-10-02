@@ -1,0 +1,37 @@
+import fs from 'node:fs';
+import vm from 'node:vm';
+import assert from 'node:assert/strict';
+vm.runInThisContext(fs.readFileSync('ext/pilot.js','utf8'));
+const cfg=JSON.parse(fs.readFileSync('params.json','utf8'));
+const v={...cfg.defaults,...cfg.profiles.aggressive,...cfg.presets.v7_remains.values};
+const base={x:30000,y:30000,ang:0,sp:6.12,sc:2,L:1000,t:10,segs:[],sid:[],heads:[],hid:[],food:[30408,30312,20,30410,30313,20],own:[],wall:[30000,30000,20000],cmdNow:0,boostNow:false};
+const state=o=>{const s={...base,...o};for(const k of ['segs','sid','heads','hid','food','own'])s[k]=Float64Array.from(s[k]);return s;};
+const heads=(n,dist=400)=>Array.from({length:n},(_,i)=>[30000+dist,30000+i*5,Math.PI,5.8,1]).flat();
+const out={};
+const p=new SlpPilot.Pilot(v,'aggressive');
+const vanilla=new SlpPilot.Pilot({...v,V7_ON:0},'aggressive');
+for(const t of [10,10.1,10.2]){
+ const s=state({t});assert.deepEqual(p.step(s),vanilla.step(s));assert.equal(p.last.trace.v7_phase,'feed');
+}
+out.v1_identical=true;
+let s=state({t:10.3,heads:heads(3),hid:[1,2,3]});s.route=p.v7Route(s,1);
+assert.equal(s.route.intent,'escape');assert.equal(s.route.foodValue,0);
+const cmd=p.step(s);assert.equal(p.last.trace.v7_phase,'avoid');assert.equal(p.last.trace.v7_heads,3);assert.equal(p.last.trace.v7_switched,1);
+const direct=new SlpPilot.Pilot(p.v7Values(true),'aggressive');direct.prev=s.cmdNow;direct.prevBoost=s.boostNow;assert.deepEqual(cmd,direct.step(s));
+out.v6_identical=true;out.escape_reason=s.route.reason;
+p.step(state({t:10.4,heads:heads(2),hid:[1,2]}));assert.equal(p.last.trace.v7_phase,'avoid');
+p.step(state({t:11.0,heads:heads(3),hid:[1,2,3]}));assert.equal(p.last.trace.v7_phase,'avoid');
+p.step(state({t:11.1,heads:heads(2),hid:[1,2]}));assert.equal(p.last.trace.v7_phase,'avoid');
+p.step(state({t:12.0}));assert.equal(p.last.trace.v7_phase,'avoid');
+p.step(state({t:12.2}));assert.equal(p.last.trace.v7_phase,'feed');assert.equal(p.last.trace.v7_switched,1);
+out.delayed_return=true;
+p.setParams({...v,V7_HEAD_R:1000,V7_HEAD_N:1,V7_CLEAR_S:0},'aggressive');
+p.step(state({t:13,heads:heads(1,900),hid:[9]}));assert.equal(p.last.trace.v7_phase,'avoid');
+p.step(state({t:13.1}));assert.equal(p.last.trace.v7_phase,'feed');out.live_params=true;
+assert.equal(SlpPilot.countHeads(state({heads:heads(3),hid:[1,1,1]}),450),1);
+assert.equal(SlpPilot.countHeads(state({heads:[30450,30000,0,5,1,30451,30000,0,5,1],hid:[1,2]}),450),1);
+assert.equal(SlpPilot.countHeads(state({segs:[30000,30000,30500,30000,20],sid:[1]}),450),0);out.radius_and_distinct=true;
+const cold=new SlpPilot.Pilot(v,'aggressive');cold.step(state({heads:heads(3),hid:[1,2,3]}));assert.equal(cold.last.trace.v7_phase,'avoid');assert(Number.isFinite(cold.prev));out.no_macro_fallback=true;
+const fakeFood={algo:'v6',intent:'food',t0:10,pts:[0,30000,30000,0,0,1,31000,30000,0,0],foodValue:999,goal:{x:31000,y:30000}};
+const fresh=new SlpPilot.Pilot(v,'aggressive');fresh.step(state({heads:heads(3),hid:[1,2,3],route:fakeFood}));assert.equal(fresh.last.trace.v6_intent,'none');out.reject_food_guide=true;
+fs.writeFileSync('research/v7_verify_20260930.json',JSON.stringify(out,null,1));console.log(JSON.stringify(out,null,1));

@@ -1,0 +1,55 @@
+{
+  "long_diverse_paths_and_actuator": {
+    "pass": true,
+    "lengths": [
+      2229.3709824562065,
+      2267.225913680153,
+      2267.163573951792
+    ],
+    "durations": [
+      6.102999999999996,
+      6.492999999999996,
+      6.492999999999996
+    ],
+    "mapMs": 42.05553599999999,
+    "localMs": 6.915275000000008
+  },
+  "reverse_head_reaches_later": {
+    "pass": true,
+    "forward": 0.2764976958525346,
+    "back": 1.3390893428712498
+  },
+  "certificate_covers_midsegment": {
+    "pass": true
+  },
+  "closure_beats_width_food_scores": {
+    "pass": true
+  },
+  "near_forecast_boundary_split": {
+    "pass": true
+  },
+  "wall_in_distant_remainder_invalidates": {
+    "pass": true
+  },
+  "closed_ring_has_no_exit": {
+    "pass": true
+  },
+  "queued_collision_never_certifies": {
+    "pass": true
+  },
+  "stale_route_and_param_reset": {
+    "pass": true
+  },
+  "closed_loop_follows_long_path": {
+    "pass": true,
+    "goalError": 44.767535087725264
+  },
+  "recorded_27s_three_long_routes_selected": {
+    "pass": true,
+    "t": 27.01,
+    "mapMs": 102.18215499999997,
+    "localMs": 17.784743999999932,
+    "shown": 3,
+    "risk": 0.6234084239931788
+  }
+}

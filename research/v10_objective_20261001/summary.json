@@ -1,0 +1,427 @@
+{
+  "comparison": {
+    "horizon_s": 0.05,
+    "results": [
+      {
+        "run": "runs/v10_recovery_live_20261001_155641/slp_01",
+        "n": 61,
+        "applied_input": {
+          "heading_mean_deg": 2.3451638187276886,
+          "heading_p95_deg": 6.067306802185927,
+          "position_mean_px": 4.264483002982388,
+          "wrong_turn_over_3deg": 3
+        },
+        "actual_wire": {
+          "heading_mean_deg": 2.33508003125683,
+          "heading_p95_deg": 5.586481363404012,
+          "position_mean_px": 4.256373047682652,
+          "wrong_turn_over_3deg": 3
+        },
+        "changes": 12,
+        "examples": [
+          {
+            "t": 62.613,
+            "old": {
+              "heading_deg": 4.2835973018528195,
+              "position_px": 5.175710315327831,
+              "sign": 1
+            },
+            "wire": {
+              "heading_deg": 0.3722609561749958,
+              "position_px": 5.207719127956881,
+              "sign": 1
+            },
+            "actualSign": 1
+          },
+          {
+            "t": 102.458,
+            "old": {
+              "heading_deg": 4.001927135695762,
+              "position_px": 1.097418502444304,
+              "sign": 1
+            },
+            "wire": {
+              "heading_deg": 0.04955303863830483,
+              "position_px": 0.9401071463297195,
+              "sign": 1
+            },
+            "actualSign": 1
+          }
+        ]
+      },
+      {
+        "run": "runs/v10_wire_live_20261001_192903/slp_01",
+        "n": 357,
+        "applied_input": {
+          "heading_mean_deg": 2.2432444052830736,
+          "heading_p95_deg": 6.012243115147499,
+          "position_mean_px": 2.1921175773401935,
+          "wrong_turn_over_3deg": 14
+        },
+        "actual_wire": {
+          "heading_mean_deg": 1.4197606977279007,
+          "heading_p95_deg": 3.8489868086208894,
+          "position_mean_px": 2.1352803674177823,
+          "wrong_turn_over_3deg": 3
+        },
+        "changes": 0,
+        "examples": [
+          {
+            "t": 385.214,
+            "old": {
+              "heading_deg": 5.4375100822186555,
+              "position_px": 4.050141808179739,
+              "sign": -1
+            },
+            "wire": {
+              "heading_deg": 0.7726321277369569,
+              "position_px": 3.840817390585482,
+              "sign": -1
+            },
+            "actualSign": -1
+          },
+          {
+            "t": 389.567,
+            "old": {
+              "heading_deg": 8.007685790932316,
+              "position_px": 5.018277645748771,
+              "sign": -1
+            },
+            "wire": {
+              "heading_deg": 1.6015561585227867,
+              "position_px": 4.345741047978127,
+              "sign": -1
+            },
+            "actualSign": -1
+          },
+          {
+            "t": 391.647,
+            "old": {
+              "heading_deg": 5.275830467882496,
+              "position_px": 0.7578351282162148,
+              "sign": 1
+            },
+            "wire": {
+              "heading_deg": 2.1072273010241047,
+              "position_px": 0.27202289559053694,
+              "sign": 1
+            },
+            "actualSign": 1
+          },
+          {
+            "t": 393.456,
+            "old": {
+              "heading_deg": 3.503440373268015,
+              "position_px": 0.6576320507723273,
+              "sign": -1
+            },
+            "wire": {
+              "heading_deg": 0.4717380478046766,
+              "position_px": 0.8164882143800581,
+              "sign": -1
+            },
+            "actualSign": -1
+          },
+          {
+            "t": 393.632,
+            "old": {
+              "heading_deg": 4.27957368446616,
+              "position_px": 6.303832959470581,
+              "sign": -1
+            },
+            "wire": {
+              "heading_deg": 0.8134598701919379,
+              "position_px": 6.264769314326445,
+              "sign": -1
+            },
+            "actualSign": -1
+          }
+        ]
+      },
+      {
+        "run": "runs/v10_twenty_20261001_195831/slp_01",
+        "n": 359,
+        "applied_input": {
+          "heading_mean_deg": 1.8852128832089812,
+          "heading_p95_deg": 5.46391548042472,
+          "position_mean_px": 2.3406578468535915,
+          "wrong_turn_over_3deg": 5
+        },
+        "actual_wire": {
+          "heading_mean_deg": 1.8739663188436888,
+          "heading_p95_deg": 6.796327421443867,
+          "position_mean_px": 2.396344918171546,
+          "wrong_turn_over_3deg": 8
+        },
+        "changes": 0,
+        "examples": [
+          {
+            "t": 603.864,
+            "old": {
+              "heading_deg": 4.6900348019396585,
+              "position_px": 1.6160056215679215,
+              "sign": -1
+            },
+            "wire": {
+              "heading_deg": 0.18138430871483122,
+              "position_px": 2.4029362416644053,
+              "sign": -1
+            },
+            "actualSign": -1
+          },
+          {
+            "t": 619.016,
+            "old": {
+              "heading_deg": 12.722313212888908,
+              "position_px": 3.920870763070533,
+              "sign": -1
+            },
+            "wire": {
+              "heading_deg": 1.2194075471795962,
+              "position_px": 2.9306250348439695,
+              "sign": 1
+            },
+            "actualSign": 1
+          },
+          {
+            "t": 620.36,
+            "old": {
+              "heading_deg": 5.1609188247067355,
+              "position_px": 0.6555506138106904,
+              "sign": 1
+            },
+            "wire": {
+              "heading_deg": 0.8254683865090378,
+              "position_px": 0.979794588156229,
+              "sign": 1
+            },
+            "actualSign": 1
+          },
+          {
+            "t": 624.521,
+            "old": {
+              "heading_deg": 5.2329448943354056,
+              "position_px": 0.22536885589147365,
+              "sign": 1
+            },
+            "wire": {
+              "heading_deg": 0.30253984063746736,
+              "position_px": 1.230354981900307,
+              "sign": 1
+            },
+            "actualSign": 1
+          },
+          {
+            "t": 625.526,
+            "old": {
+              "heading_deg": 5.68351018034632,
+              "position_px": 0.9536205395465931,
+              "sign": 1
+            },
+            "wire": {
+              "heading_deg": 1.1989541832669073,
+              "position_px": 0.6884326038374835,
+              "sign": -1
+            },
+            "actualSign": -1
+          }
+        ]
+      },
+      {
+        "run": "runs/v10_twenty_20261001_195831/slp_02",
+        "n": 171,
+        "applied_input": {
+          "heading_mean_deg": 1.6925093127535094,
+          "heading_p95_deg": 4.901517997563871,
+          "position_mean_px": 3.669259501131949,
+          "wrong_turn_over_3deg": 2
+        },
+        "actual_wire": {
+          "heading_mean_deg": 1.4315977856216646,
+          "heading_p95_deg": 3.6865357458569172,
+          "position_mean_px": 3.661595244209715,
+          "wrong_turn_over_3deg": 3
+        },
+        "changes": 23,
+        "examples": [
+          {
+            "t": 447.705,
+            "old": {
+              "heading_deg": 4.901517997563871,
+              "position_px": 0.5727296269933078,
+              "sign": 1
+            },
+            "wire": {
+              "heading_deg": 0.37371859397138224,
+              "position_px": 0.43223806303075674,
+              "sign": 1
+            },
+            "actualSign": 1
+          },
+          {
+            "t": 469.924,
+            "old": {
+              "heading_deg": 5.6373708116878465,
+              "position_px": 1.4520805233643395,
+              "sign": 1
+            },
+            "wire": {
+              "heading_deg": 0.2816575908423002,
+              "position_px": 1.0760925699171464,
+              "sign": 1
+            },
+            "actualSign": 1
+          }
+        ]
+      }
+    ],
+    "limits": [
+      "Same recorded observations and same50ms horizon, no future commands used",
+      "Retained user TRACK_LAT; no fitting to these results",
+      "Overlapping samples within games, not independent episodes",
+      "Recorded server/client motion interpolation, physics and delay not exact",
+      "Offline representation comparison, not old bot vs new bot live A/B"
+    ]
+  },
+  "stop": {
+    "requested": "중지",
+    "states": [
+      {
+        "bot": false,
+        "playing": false
+      }
+    ]
+  },
+  "completed_collected_games": 2,
+  "batch_completed": false,
+  "batch_error": "RuntimeError('Stop file requested; no additional game')",
+  "games": [
+    {
+      "game": 1,
+      "seconds": 654.1,
+      "L_max": 474,
+      "capped": true,
+      "errors": 0,
+      "changes": [],
+      "cause": "600초 수집 상한 종료 · 사망 분석 대상 아님",
+      "improvement": "사망하지 않고 수집 상한으로 종료. 그림은 종료 전 구간 설명용이며 개선 필요를 입증하지 않음."
+    },
+    {
+      "game": 2,
+      "seconds": 473.6,
+      "L_max": 5099,
+      "capped": false,
+      "errors": 0,
+      "changes": [
+        {
+          "t": 382.284,
+          "V10_SWITCH_RISK": 0
+        },
+        {
+          "t": 384.58,
+          "V10_SWITCH_RISK": 0.2
+        },
+        {
+          "t": 385.912,
+          "V10_FOOD_W": 5
+        },
+        {
+          "t": 387.312,
+          "V10_FOOD_RISK": 100
+        },
+        {
+          "t": 390.788,
+          "V10_BOOST_COST": 0.81
+        },
+        {
+          "t": 394.152,
+          "V10_BOOST_COST": 0
+        },
+        {
+          "t": 395.343,
+          "V10_BOOST_COST": 0.12
+        },
+        {
+          "t": 397.382,
+          "V10_SWITCH_RISK": 0.75
+        },
+        {
+          "t": 398.781,
+          "preset": "v8_exact"
+        },
+        {
+          "t": 398.797,
+          "V81_BODY_ON": 1
+        },
+        {
+          "t": 409.357,
+          "preset": "v10_layered"
+        },
+        {
+          "t": 410.056,
+          "preset": "v8_exact"
+        },
+        {
+          "t": 410.066,
+          "V81_BODY_ON": 1
+        },
+        {
+          "t": 418.329,
+          "preset": "v10_layered"
+        },
+        {
+          "t": 421.451,
+          "preset": "v8_exact"
+        },
+        {
+          "t": 421.461,
+          "V81_BODY_ON": 1
+        },
+        {
+          "t": 424.123,
+          "preset": "v10_layered"
+        },
+        {
+          "t": 424.953,
+          "preset": "v8_exact"
+        },
+        {
+          "t": 424.964,
+          "V81_BODY_ON": 1
+        },
+        {
+          "t": 442.473,
+          "preset": "v10_layered"
+        },
+        {
+          "t": 448.399,
+          "preset": "v8_exact"
+        },
+        {
+          "t": 448.414,
+          "V81_BODY_ON": 1
+        },
+        {
+          "t": 449.943,
+          "preset": "v10_layered"
+        }
+      ],
+      "cause": "마지막 관측에서 몸통 218의 표시 두께와 겹침(-3.9px). 실제 서버 충돌 상대는 미확인.",
+      "improvement": "종료 2.0초 전부터 우회전, 부스트 해제. 기록 구간 모델 최소 간격 128.0px. 모델상 침범 없는 후보가 있음. 판단 후보 선택·추종 지연을 점검할 필요."
+    }
+  ],
+  "conclusions": {
+    "representation_bug": "successful socket byte/time replaces input-write history; previous31 local assertions plus live packet-history checks passed",
+    "tracking_accuracy": "one unchanged439.4s run50ms heading mean2.243->1.420deg; latest unchanged capped game1.885->1.874deg but p95 5.464->6.796deg and position2.341->2.396px. No consistent overall tracking gain shown.",
+    "survival": "no matched A/B; small sample, right-censored capped game, mixed settings and V8/V10 switches in game2; improved survival or growth not demonstrated",
+    "recovery": "85 emergency frames in439.4s death and80 in latest mixed473.6s death; recovery evaluation active but death prevention unproven",
+    "next_priority": "analyse death earlier in time: last mixed death model has alternative2s before end; investigate route selection/early exit and residual latency/geometry rather than assume wiring alone fixes death"
+  },
+  "limits": [
+    "Only saved last~60s windows for replay, not whole game coverage",
+    "50ms comparison is offline on same observations under fixed user delay, correlated frames; not randomized A/B",
+    "Short-horizon heading improvement does not imply long-horizon collision avoidance",
+    "Model alternative path uses recorded enemy future; no live survival proof",
+    "Raw game clock654.1s for first cap differs collector600s wall time; cap treated as censoring not death"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "feedMode": "feed",
+  "avoidMode": "v10replan",
+  "thresholdSliderChangesPhase": true,
+  "toggleOffUsesOriginalCondition": true,
+  "toggleOnLowFoodAvoids": true,
+  "headColors": [
+    "#ff3030",
+    "#3080ff"
+  ],
+  "presetPersistence": true,
+  "otherModesPreserved": true,
+  "errors": [],
+  "scope": "local mock, real Workers; no live games"
+}

@@ -1,0 +1,10 @@
+{
+  "kind": "fact",
+  "status": "confirmed",
+  "as_of": "2026-10-01",
+  "type": "user_requirement",
+  "user_statement": "이렇게 나와야 정답이야, 라인도 저정도 수준으로 길게 나와야함. 내가 그린 노란색 라인",
+  "reference_image": "research/v10_continuation_20261001/user_yellow_routes.png",
+  "interpretation": "사용자가 직접 그린 노란색 세 갈래 선처럼 머리에서 시작해 몸통 사이의 공간을 따라 멀리 이어지는 복수 후보 경로를 탐색하고 표시하는 것이 요구 기준. 이미지에서 정확한 세계 좌표 길이와 각 경로의 실제 통과 안전성은 미검증.",
+  "implementation_status": "요구 기록. 이 지시에 따른 코드 변경 없음."
+}

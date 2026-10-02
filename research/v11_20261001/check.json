@@ -1,0 +1,11 @@
+{
+  "originalFunctionsUnchanged": 5,
+  "singleNearHead": true,
+  "farHeadFeeds": true,
+  "bodyGapMeasured": 55.5,
+  "bodyOnlyAvoid": true,
+  "disabledConditions": true,
+  "clearHoldReturn": true,
+  "controllerParityFrames": 8,
+  "realSurvivalTest": false
+}

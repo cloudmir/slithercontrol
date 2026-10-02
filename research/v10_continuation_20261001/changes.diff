@@ -1,0 +1,203 @@
+--- before/pilot.js
++++ ext/pilot.js
+@@ -390,7 +390,7 @@
+     this.coilDir = 0; this.coilLowSince = null; this.escLock = null; this.lastCoil = null;
+     this.side = 0; this.sideUntil = -1; this.pend = null; this.boostSince = -1;
+   }
+-  setParams(values, profile) { this.values = values; this.P = makeParams(values); this.sizedT = 0; this.Psized = null; if (profile) this.profile = profile;
++  setParams(values, profile) { this.v10Committed = null; this.values = values; this.P = makeParams(values); this.sizedT = 0; this.Psized = null; if (profile) this.profile = profile;
+     for (const [key, six] of [['v8Feed', false], ['v8Avoid', true], ['v8Plan', true]]) {
+       if (this[key]) this[key].setParams(this.v8Values(six), this.profile);
+     }
+@@ -2097,7 +2097,7 @@
+     const threat={t0:s.t,ver,heads,attack,coverage,width,gap:minGap,closing,strategy,away:Math.atan2(awayY+bodyAwayY,awayX+bodyAwayX),tail:Math.atan2(tailY,tailX),ms:performance.now()-t0};
+     this.v10History=threat;return threat;
+   }
+-  v10Route(s,ver){
++  v10Geometry(s,ver){
+     const begin=performance.now(),V=this.values,W=this.v10World(s),cell=V.V10_CELL??24,edge=Math.min(Math.max(V.V10_EDGE??1450,(s.viewRadius??0)*.85),W.obs-80),totalBudget=V.V10_BUDGET??90,budget=s.v10Fine?totalBudget:totalBudget*.65;
+     const foods=this.v9FoodGoals(s),food=foods[0],T=s.threat&&s.t-s.threat.t0<.8?s.threat:this.v10Threat(s);
+     const goals=[];if(food&&food.d<edge)goals.push({x:food.x,y:food.y,kind:'food'});
+@@ -2145,10 +2145,86 @@
+     if(!routes.length&&!s.v10Fine&&cell>8){
+       const remaining=totalBudget-(performance.now()-begin);
+       if(remaining>8){const old=this.values;this.values={...V,V10_CELL:8,V10_BUDGET:remaining};let fine;
+-        try{fine=this.v10Route({...s,v10Fine:true},ver);}finally{this.values=old;}
++        try{fine=this.v10Geometry({...s,v10Fine:true},ver);}finally{this.values=old;}
+         fine.ms=performance.now()-begin;fine.fineRetry=true;return fine;}
+     }
+     return {algo:'v10',ver,t0:s.t,routes,reason:routes.length?'mapped':exhausted?'budget':'no_map_route',certified:false,ms:performance.now()-begin,expanded,map:{radius:W.obs,cell},walls:W.walls};
++  }
++  // Same feedback law is used by the planner and the actuator's verifier.
++  // A static polyline is only a guide; success requires reaching its goal with
++  // the measured turn/speed model, queued inputs and swept collision checks.
++  v10Follow(s,W,ph,root,route,deadline=Infinity){
++    if(!root.ok||!route.path?.length)return {ok:false,reason:'prefix'};
++    const path=route.path,goal=path[path.length-1];let st=root.st,t=root.t,clear=root.clear;
++    const pts=[...root.pts],actions=[];let index=1,travel=0,reason='horizon';
++    const limit=Math.min(14,Math.max(3,(route.length||2000)/Math.max(80,ph.cs)*1.8));
++    for(let step=0;t-root.t<limit;step++){
++      if((step&3)===0&&performance.now()>deadline){reason='budget';break;}
++      let nearest=Infinity,projection=null;
++      for(let i=index;i<path.length;i++){
++        const a=path[i-1],b=path[i],dx=b.x-a.x,dy=b.y-a.y,len=hypot(dx,dy);
++        const u=clip(((st.x-a.x)*dx+(st.y-a.y)*dy)/Math.max(1,len*len),0,1),d=hypot(st.x-a.x-u*dx,st.y-a.y-u*dy);
++        if(d<nearest){nearest=d;projection={i,u,len};}
++      }
++      if(!projection){reason='empty';break;}
++      index=projection.i;
++      // Short lookahead tracks narrow corridors; longer lookahead is not a
++      // license to cut corners: every resulting curved motion is swept below.
++      let remaining=Math.max(24,st.v*.22)*(route.lookScale||1),i=index,u=projection.u,aim;
++      for(;i<path.length;i++){
++        const a=path[i-1],b=path[i],len=hypot(b.x-a.x,b.y-a.y),available=len*(1-u);
++        if(remaining<=available||i===path.length-1){const f=Math.min(1,u+remaining/Math.max(1,len));aim={x:a.x+(b.x-a.x)*f,y:a.y+(b.y-a.y)*f};break;}
++        remaining-=available;u=0;
++      }
++      const angle=Math.atan2(aim.y-st.y,aim.x-st.x),distance=hypot(goal.x-st.x,goal.y-st.y);
++      const boost=!!route.useBoost && Math.abs(wrap(angle-st.h))<.35 && distance>180;
++      const r=this.v9Roll(s,W,ph,st,0,.13,t,angle,boost);
++      clear=Math.min(clear,r.clear);
++      if(!r.ok){reason='collision';break;}
++      actions.push({start:t,end:r.t,target:angle,boost});pts.push(...r.pts);travel+=hypot(r.st.x-st.x,r.st.y-st.y);st=r.st;t=r.t;
++      if(hypot(goal.x-st.x,goal.y-st.y)<Math.max(25,st.v*.14)){
++        // Reject a dead end whose goal is clear but whose continuation is not.
++        const tail=this.v9Roll(s,W,ph,st,0,.6,t,st.h,false);
++        if(!tail.ok)return {ok:false,reason:'terminal',pts,actions,clear};
++        pts.push(...tail.pts);
++        return {ok:true,pts,actions,clear:Math.min(clear,tail.clear),duration:tail.t,travel,st:tail.st};
++      }
++    }
++    return {ok:false,reason,pts,actions,clear};
++  }
++  v10Route(s,ver){
++    TURN_FIX=!!this.values.TURN_FIX;
++    const begin=performance.now(),V=this.values,W=this.v10World(s),ph=this.v4Physics(s.sc),root=this.v10Root(s,W,ph),deadline=begin+(V.V10_BUDGET??90);
++    const routes=[],old=this.v10Committed,food=this.v9FoodGoals(s)[0];
++    const accept=(guide,id)=>{
++      if(guide.kind==='food'&&(!food||hypot(food.x-guide.goal[0],food.y-guide.goal[1])>150))return false;
++      const r=this.v10Follow(s,W,ph,root,guide,deadline);
++      if(!r.ok)return false;
++      routes.push({...guide,id,geometryOnly:false,certified:true,pts:r.pts,actions:r.actions,clear:r.clear,duration:r.duration});return true;
++    };
++    // Revalidate the committed exit first. A new food attraction or search
++    // timeout must not overwrite a still usable, unfinished exit.
++    if(old&&s.t>=old.t0&&s.t-old.t0<2&&hypot(old.goal[0]-s.x,old.goal[1]-s.y)>220)accept(old,old.id);
++    let geo=null;
++    if(!routes.length&&performance.now()<deadline){
++      const saved=this.values;
++      this.values={...V,V10_BUDGET:Math.max(1,(deadline-performance.now())*.55)};
++      try{geo=this.v10Geometry(s,ver);}finally{this.values=saved;}
++      const T=s.threat||this.v10Threat(s);
++      for(const guide of geo.routes){
++        const canBoost=guide.kind==='food'?V.V9_BOOST_ON&&food?.mass>=(V.V9_BOOST_MIN_MASS??48):T.strategy!=='cruise'&&(V.V10_ESCAPE_BOOST??1);
++        for(const useBoost of canBoost?[true,false]:[false]){
++          for(const lookScale of [1,.65,1.5]){
++            if(performance.now()>deadline)break;
++            if(accept({...guide,useBoost,lookScale},`${ver}:${routes.length}`))break;
++          }
++          if(routes.length)break;
++        }
++        if(routes.length>=(V.V9_ROUTES??3)||performance.now()>deadline)break;
++      }
++    }
++    this.v10Committed=routes[0]?{...routes[0],t0:s.t}:null;
++    return {algo:'v10',ver,t0:s.t,routes,certified:routes.length>0,reason:routes.length?'continuation':performance.now()>=deadline||geo?.reason==='budget'?'budget':!root.ok?'prefix_collision':'no_drivable_route',ms:performance.now()-begin,expanded:geo?.expanded??0,map:{radius:W.obs,cell:V.V10_CELL??24},walls:W.walls};
+   }
+   v10Root(s,W,ph){
+     const lag=Math.max(0,this.values.TRACK_LAT??.17),age=Math.max(0,s.inputAgeMs??0)/1000;
+@@ -2175,6 +2251,29 @@
+     const T=s.threat&&s.t-s.threat.t0>=0&&s.t-s.threat.t0<.65?s.threat:this.v10Threat(s),foods=this.v9FoodGoals(s),food=foods[0];
+     const source=s.route?.algo==='v10'&&s.t-s.route.t0>=0&&s.t-s.route.t0<(V.V10_ROUTE_AGE??.9)?s.route:null;
+     const guides=source?.routes||[],look=Math.max(110,ph.cs*.7),candidates=[];
++    let continuationReject=source?'invalid':'pending';
++    if(root.ok&&guides.some(q=>q.certified)){
++      const fullWorld=this.v10World(s),ordered=[...guides].sort((a,b)=>Number(b.id===this.v10RouteId)-Number(a.id===this.v10RouteId));
++      // One full continuation is rechecked against the newest observation.
++      // No unchecked remainder is treated as safe; overruns remain visible.
++      for(const guide of ordered){
++        if(!guide.certified||guide.kind==='food'&&!food)continue;
++        if(guide.kind==='escape'&&hypot(guide.goal[0]-s.x,guide.goal[1]-s.y)<180){continuationReject='completed';break;}
++        const r=this.v10Follow(s,fullWorld,ph,root,guide,begin+Math.max(6,V.V10_LOCAL_MS??3));
++        if(r.ok&&r.actions.length){
++          const action=r.actions[0],ms=performance.now()-begin;this.v10ComputeMs=ms;this.v10RouteId=guide.id;
++          const flat=[];for(let i=0;i<r.pts.length;i+=5)flat.push(r.pts[i+1],r.pts[i+2]);
++          const trace={mode:'v10route',cmd:r1(deg(action.target)),boost:action.boost,n_safe:1,cause:'continuation',v10_strategy:T.strategy,v10_local_ms:ms,v10_world_ms:worldMs,v10_budget_hit:ms>(V.V10_LOCAL_MS??3),v10_checked:1,v10_clear:r.clear,v10_root_safe:true,v10_map_ms:source.ms,v10_map_age:s.t-source.t0,v10_routes:guides.length,v10_threat_ms:T.ms,v10_attack:T.attack,v10_closing:T.closing,v10_coverage:T.coverage,v10_geometry_only:0,v10_route_id:guide.id,v10_continuation_s:r.duration-root.t,v10_replan:0,L:s.L,sc:s.sc};
++          this.last={trace,mode:trace.mode,plan:r.pts,controls:[action],draw:{chosen:flat,localPath:flat.slice(0,Math.min(flat.length,50)),localUnsafe:false,v9At:s.t,v9Paths:[flat],v9Walls:fullWorld.walls,v9Reason:'continuation',v9FoodPath:guide.kind==='food',mazePath:[],safe:[],near:[],gaps:[],goal:guide.goal,ro:fullWorld.ro}};
++          this.prev=action.target;this.prevBoost=action.boost;return [action.target,action.boost];
++        }
++        continuationReject=r.reason;
++        if(performance.now()-begin>Math.max(6,V.V10_LOCAL_MS??3))break;
++      }
++    }
++    // A failed continuation explicitly requests replanning. Short emergency
++    // rollouts below are never displayed or logged as a certified exit.
++
+     for(let n=0;n<guides.length;n++){
+       const route=guides[n];if(route.kind==='food'&&!food)continue;
+       let nearest=0,dist=Infinity;
+@@ -2237,9 +2336,9 @@
+     // Command validity and the predicted time of collision are different clocks.
+     // An emergency action remains a best-effort action, never a certified path.
+     const controls=[{start:root.t,end:root.t+.13,target:best.angle,boost:best.boost}],ms=performance.now()-begin;this.v10ComputeMs=ms;
+-    const trace={mode:'v10'+(unsafe?'emergency':T.strategy),cmd:r1(deg(best.angle)),boost:best.boost,n_safe:root.ok?choices.filter(q=>q.ok).length:0,cause:source?.reason??'pending',v10_strategy:T.strategy,v10_local_ms:ms,v10_world_ms:worldMs,v10_budget_hit:budgetHit||ms>(V.V10_LOCAL_MS??3),v10_checked:checked,v10_clear:best.clear,v10_root_safe:root.ok,v10_map_ms:source?.ms??0,v10_map_age:source?s.t-source.t0:-1,v10_routes:guides.length,v10_threat_ms:T.ms,v10_attack:T.attack,v10_closing:T.closing,v10_coverage:T.coverage,v10_geometry_only:1,L:s.L,sc:s.sc};
+-    const guideLines=candidates.filter(c=>c.route>=0&&c.aim&&W.check({x:s.x,y:s.y},c.aim,0,0,.3,false)>=0).map(c=>[s.x,s.y,c.aim.x,c.aim.y,...guides[c.route].path.slice(c.joinIndex).flatMap(p=>[p.x,p.y])]);
+-    this.last={trace,mode:trace.mode,plan:pts,controls,draw:{chosen:flat(pts),localPath:flat(pts),localUnsafe:unsafe,v9At:s.t,v9Paths:guideLines,v9Walls:source?.walls??W.walls,v9Reason:source?.reason??'pending',v9FoodPath:guides[0]?.kind==='food',mazePath:[],safe:[],near:[],gaps:[],goal:food?[food.x,food.y]:null,ro:W.ro}};
++    const trace={mode:'v10'+(unsafe?'emergency':T.strategy),cmd:r1(deg(best.angle)),boost:best.boost,n_safe:root.ok?choices.filter(q=>q.ok).length:0,cause:source?.reason??'pending',v10_strategy:T.strategy,v10_local_ms:ms,v10_world_ms:worldMs,v10_budget_hit:budgetHit||ms>(V.V10_LOCAL_MS??3),v10_checked:checked,v10_clear:best.clear,v10_root_safe:root.ok,v10_map_ms:source?.ms??0,v10_map_age:source?s.t-source.t0:-1,v10_routes:guides.length,v10_threat_ms:T.ms,v10_attack:T.attack,v10_closing:T.closing,v10_coverage:T.coverage,v10_geometry_only:1,v10_route_id:null,v10_continuation_s:0,v10_replan:1,v10_reject:continuationReject,L:s.L,sc:s.sc};
++
++    this.last={trace,mode:trace.mode,plan:pts,controls,draw:{chosen:flat(pts),localPath:flat(pts),localUnsafe:unsafe,v9At:s.t,v9Paths:[],v9Walls:source?.walls??W.walls,v9Reason:source?.reason??'pending',v9FoodPath:guides[0]?.kind==='food',mazePath:[],safe:[],near:[],gaps:[],goal:food?[food.x,food.y]:null,ro:W.ro}};
+     this.prev=best.angle;this.prevBoost=best.boost;return [best.angle,best.boost];
+   }
+ 
+--- before/mod.js
++++ ext/mod.js
+@@ -16,7 +16,7 @@
+ // of every wrap episode (a snake covering >= 30% of the bearings within 500 px) from 2 s before it until it ends.
+ const LOG_KEYS = ['t', 'x', 'y', 'ang', 'sp', 'sc', 'L', 'mode', 'boost', 'cmd', 'clear', 'hard', 'n_safe', 'wrap', 'cov', 'cov_id',
+   'cov_free', 'esc', 'enclosed', 'gap_now', 'threat', 'goal', 'nh', 'eat', 'pred', 'sized', 'raid', 'guard', 'gforce', 'gatk', 'giant', 'pph', 'pset', 'pgap', 'ptr', 'ptid', 'pstab', 'ttd', 'v2obj',
+-  'ttds', 'ttdh', 'branch', 'cause', 'head_hit', 'head_checked', 'ttddyn', 'dyn_id', 'dyn_kind', 'dyn_gap', 'dyn_heads', 'dyn_excluded', 'emergency', 'em_gap', 'em_unavoidable', 'unknown_at', 'verified_s', 'static_hit', 'boost_reason', 'chg', 'exit_width', 'exit_reach', 'exit_close', 'exit_slack', 'exit_unknown', 'exit_reason', 'v3_ms', 'v3_over', 'v3_full', 'v3_hold', 'v3_leaves', 'v3_eval', 'v3_cert', 'v3_ncert', 'v3_exits', 'v3_risk', 'v3_commit', 'v3_shield', 'v3_root', 'v3_keep', 'v3_local', 'v3_goal', 'v3_goal_age', 'v3_route_match', 'v3_cert_reason', 'pred25', 'herr25', 'trk_age', 'trk_cmd', 'trk_why', 'v6_intent', 'v6_goal_x', 'v6_goal_y', 'v6_reason', 'v7_phase', 'v7_heads', 'v7_radius', 'v7_threshold', 'v7_switched', 'v8_phase', 'v8_heads', 'v8_radius', 'v8_threshold', 'v8_switched', 'v81_on', 'v81_density', 'v81_body_trigger', 'v81_reason', 'v9_routes', 'v9_reason', 'v9_clear', 'v9_plan_ms', 'v9_goal_x', 'v9_goal_y', 'v9_goal_mass','v10_strategy','v10_local_ms','v10_world_ms','v10_budget_hit','v10_checked','v10_clear','v10_root_safe','v10_map_ms','v10_map_age','v10_routes','v10_threat_ms','v10_attack','v10_closing','v10_coverage','v10_geometry_only','v10_observe_ms','v10_queue_ms','v10_result_age_ms','v10_command_id']
++  'ttds', 'ttdh', 'branch', 'cause', 'head_hit', 'head_checked', 'ttddyn', 'dyn_id', 'dyn_kind', 'dyn_gap', 'dyn_heads', 'dyn_excluded', 'emergency', 'em_gap', 'em_unavoidable', 'unknown_at', 'verified_s', 'static_hit', 'boost_reason', 'chg', 'exit_width', 'exit_reach', 'exit_close', 'exit_slack', 'exit_unknown', 'exit_reason', 'v3_ms', 'v3_over', 'v3_full', 'v3_hold', 'v3_leaves', 'v3_eval', 'v3_cert', 'v3_ncert', 'v3_exits', 'v3_risk', 'v3_commit', 'v3_shield', 'v3_root', 'v3_keep', 'v3_local', 'v3_goal', 'v3_goal_age', 'v3_route_match', 'v3_cert_reason', 'pred25', 'herr25', 'trk_age', 'trk_cmd', 'trk_why', 'v6_intent', 'v6_goal_x', 'v6_goal_y', 'v6_reason', 'v7_phase', 'v7_heads', 'v7_radius', 'v7_threshold', 'v7_switched', 'v8_phase', 'v8_heads', 'v8_radius', 'v8_threshold', 'v8_switched', 'v81_on', 'v81_density', 'v81_body_trigger', 'v81_reason', 'v9_routes', 'v9_reason', 'v9_clear', 'v9_plan_ms', 'v9_goal_x', 'v9_goal_y', 'v9_goal_mass','v10_strategy','v10_local_ms','v10_world_ms','v10_budget_hit','v10_checked','v10_clear','v10_root_safe','v10_map_ms','v10_map_age','v10_routes','v10_threat_ms','v10_attack','v10_closing','v10_coverage','v10_geometry_only','v10_route_id','v10_continuation_s','v10_replan','v10_reject','v10_observe_ms','v10_queue_ms','v10_result_age_ms','v10_command_id']
+ const CLIP_MAX_FRAMES = 3600;
+ const OVERLAY_LINE_WIDTH = 0.5;
+ const PROFILES = {safe: '안전형', aggressive: '공격형'};
+@@ -381,11 +381,11 @@
+   if ((S.values.V10_ON || S.values.V9_ON) || S.values.V4_ON || S.values.V6_ON || S.values.V7_ON || S.values.V8_ON) { st.route = route;
+     const v9 = !!(S.values.V10_ON || S.values.V9_ON), v8 = !v9 && !!S.values.V8_ON, v7 = !v9 && !v8 && !!S.values.V7_ON, v6 = v8 || v7 || !!S.values.V6_ON, every = S.values.V10_ON ? (S.values.V10_PLAN_MS || 300) : v9 ? (S.values.V9_PLAN_MS || 300) : v6 ? (S.values.V6_PLAN_MS || 400) : (S.values.V4_PLAN_MS || 350);
+     const needPlan = v9 ? true : v8 ? st.v8Control.phase === 'avoid' : !v7 || window.SlpPilot.countHeads(st, S.values.V7_HEAD_R) >= S.values.V7_HEAD_N || last?.trace?.v7_phase === 'avoid';
+-    if (needPlan && worker2 && !planBusy && performance.now() - planSentAt >= every) { planBusy = true; planSentAt = performance.now(); planVer++;
++    if (needPlan && worker2 && !planBusy && performance.now() - planSentAt >= (S.values.V10_ON && last?.trace?.v10_replan ? Math.min(every,100) : every)) { planBusy = true; planSentAt = performance.now(); planVer++;
+       const cp = Object.assign({}, st, {route: undefined, segs: Float32Array.from(st.segs), sid: Float32Array.from(st.sid), heads: Float32Array.from(st.heads), hid: Float32Array.from(st.hid), food: Float32Array.from(st.food), own: Float32Array.from(st.own)});
+       worker2.postMessage({type: 'plan', kind: S.values.V10_ON ? 'v10' : v9 ? 'v9' : v8 ? 'v8' : v7 ? 'v7' : v6 ? 'v6' : 'v4', ver: planVer, s: cp}, [cp.segs.buffer, cp.sid.buffer, cp.heads.buffer, cp.hid.buffer, cp.food.buffer, cp.own.buffer]); } }
+   pending.box = {t: Math.round(pending.at - game.t0) / 1000, x: st.x, y: st.y, ang: st.ang, sp: st.sp, sc: st.sc, boost: st.boost,
+-    wall: st.wall, L: st.L, viewRadius:st.viewRadius, v8Control: st.v8Control, cmdHistory: S.values.V10_ON?st.cmdHistory?.map(q=>({...q,t:q.t-game.t0/1000})):st.cmdHistory, segs: f32(st.segs), sid: f32(st.sid), heads: f32(st.heads), hid: f32(st.hid), food: f32(st.food), own: f32(st.own)};
++    wall: st.wall, L: st.L, viewRadius:st.viewRadius, route:S.values.V10_ON&&route?{algo:route.algo,ver:route.ver,t0:route.t0-game.t0/1000,certified:route.certified,reason:route.reason,ms:route.ms,routes:route.routes?.map(({pts,actions,...q})=>q)}:undefined, v8Control: st.v8Control, cmdHistory: S.values.V10_ON?st.cmdHistory?.map(q=>({...q,t:q.t-game.t0/1000})):st.cmdHistory, segs: f32(st.segs), sid: f32(st.sid), heads: f32(st.heads), hid: f32(st.hid), food: f32(st.food), own: f32(st.own)};
+   send({type: 'step', id: pending.id, s: st}, [st.segs.buffer, st.sid.buffer, st.heads.buffer, st.hid.buffer, st.food.buffer, st.own.buffer]);
+ }
+ function onResult(r) {
+@@ -400,7 +400,7 @@
+     game.log.push([frame.t, q(frame.x, 10), q(frame.y, 10), q(frame.ang, 1000), q(frame.sp, 100), q(frame.sc, 100), frame.L, tr.mode,
+       tr.boost ? 1 : 0, tr.cmd, tr.clear, tr.hard, tr.n_safe, tr.wrap, tr.cov, tr.cov_id, tr.cov_free, tr.esc, tr.enclosed, q(gapNow, 10), tr.threat,
+       tr.goal, tr.nh, tr.eat, pred, tr.sized, tr.raid, tr.guard, tr.gforce, tr.gatk, tr.giant, tr.pph, tr.pset, tr.pgap, tr.ptr, tr.ptid, tr.pstab, tr.ttd, tr.v2obj,
+-      tr.ttds, tr.ttdh, tr.branch, tr.cause, tr.head_hit, tr.head_checked, tr.ttddyn, tr.dyn_id, tr.dyn_kind, tr.dyn_gap, tr.dyn_heads, tr.dyn_excluded, tr.emergency, tr.em_gap, tr.em_unavoidable, tr.unknown_at, tr.verified_s, tr.static_hit, tr.boost_reason, tr.chg, tr.exit_width, tr.exit_reach, tr.exit_close, tr.exit_slack, tr.exit_unknown, tr.exit_reason, tr.v3_ms, tr.v3_over, tr.v3_full, tr.v3_hold, tr.v3_leaves, tr.v3_eval, tr.v3_cert, tr.v3_ncert, tr.v3_exits, tr.v3_risk, tr.v3_commit, tr.v3_shield, tr.v3_root, tr.v3_keep, tr.v3_local, tr.v3_goal, tr.v3_goal_age, tr.v3_route_match, tr.v3_cert_reason, pred25, herr25, plan ? Math.round(sent.planAge * 1000) / 1000 : null, Number.isFinite(sent.ang) ? Math.round(sent.ang * 180 / Math.PI * 10) / 10 : null, sent.why, tr.v6_intent, tr.v6_goal_x, tr.v6_goal_y, tr.v6_reason, tr.v7_phase, tr.v7_heads, tr.v7_radius, tr.v7_threshold, tr.v7_switched, tr.v8_phase, tr.v8_heads, tr.v8_radius, tr.v8_threshold, tr.v8_switched, tr.v81_on, tr.v81_density, tr.v81_body_trigger, tr.v81_reason, tr.v9_routes, tr.v9_reason, tr.v9_clear, tr.v9_plan_ms, tr.v9_goal_x, tr.v9_goal_y, tr.v9_goal_mass,tr.v10_strategy,tr.v10_local_ms,tr.v10_world_ms,tr.v10_budget_hit,tr.v10_checked,tr.v10_clear,tr.v10_root_safe,tr.v10_map_ms,tr.v10_map_age,tr.v10_routes,tr.v10_threat_ms,tr.v10_attack,tr.v10_closing,tr.v10_coverage,tr.v10_geometry_only,tr.v10_observe_ms,tr.v10_queue_ms,tr.v10_result_age_ms,tr.v10_command_id]);
++      tr.ttds, tr.ttdh, tr.branch, tr.cause, tr.head_hit, tr.head_checked, tr.ttddyn, tr.dyn_id, tr.dyn_kind, tr.dyn_gap, tr.dyn_heads, tr.dyn_excluded, tr.emergency, tr.em_gap, tr.em_unavoidable, tr.unknown_at, tr.verified_s, tr.static_hit, tr.boost_reason, tr.chg, tr.exit_width, tr.exit_reach, tr.exit_close, tr.exit_slack, tr.exit_unknown, tr.exit_reason, tr.v3_ms, tr.v3_over, tr.v3_full, tr.v3_hold, tr.v3_leaves, tr.v3_eval, tr.v3_cert, tr.v3_ncert, tr.v3_exits, tr.v3_risk, tr.v3_commit, tr.v3_shield, tr.v3_root, tr.v3_keep, tr.v3_local, tr.v3_goal, tr.v3_goal_age, tr.v3_route_match, tr.v3_cert_reason, pred25, herr25, plan ? Math.round(sent.planAge * 1000) / 1000 : null, Number.isFinite(sent.ang) ? Math.round(sent.ang * 180 / Math.PI * 10) / 10 : null, sent.why, tr.v6_intent, tr.v6_goal_x, tr.v6_goal_y, tr.v6_reason, tr.v7_phase, tr.v7_heads, tr.v7_radius, tr.v7_threshold, tr.v7_switched, tr.v8_phase, tr.v8_heads, tr.v8_radius, tr.v8_threshold, tr.v8_switched, tr.v81_on, tr.v81_density, tr.v81_body_trigger, tr.v81_reason, tr.v9_routes, tr.v9_reason, tr.v9_clear, tr.v9_plan_ms, tr.v9_goal_x, tr.v9_goal_y, tr.v9_goal_mass,tr.v10_strategy,tr.v10_local_ms,tr.v10_world_ms,tr.v10_budget_hit,tr.v10_checked,tr.v10_clear,tr.v10_root_safe,tr.v10_map_ms,tr.v10_map_age,tr.v10_routes,tr.v10_threat_ms,tr.v10_attack,tr.v10_closing,tr.v10_coverage,tr.v10_geometry_only,tr.v10_route_id,tr.v10_continuation_s,tr.v10_replan,tr.v10_reject,tr.v10_observe_ms,tr.v10_queue_ms,tr.v10_result_age_ms,tr.v10_command_id]);
+     if (r.plan && r.plan.length >= 10) { const P = r.plan, n = P.length / 5, at = tt => { let i = 0; while (i + 1 < n && P[5 * (i + 1)] < tt) i++;
+         if (i + 1 >= n) { const k = 5 * (n - 1); return [P[k + 1], P[k + 2], P[k + 3]]; }
+         const k = 5 * i, t0 = P[k], t1 = P[k + 5], f = t1 > t0 ? Math.min(1, Math.max(0, (tt - t0) / (t1 - t0))) : 0, dh = ((P[k + 8] - P[k + 3] + 3 * Math.PI) % (2 * Math.PI)) - Math.PI;
+@@ -802,7 +802,7 @@
+         candidates.forEach((p, i) => { ctx.strokeStyle = colors[i % colors.length]; ctx.globalAlpha = i ? .7 : 1;
+           ctx.setLineDash(S.values.V10_ON ? [5,4] : i ? [5, 4] : []); polyline(ctx, p, X, Y); });
+         ctx.globalAlpha = 1; ctx.setLineDash([]); ctx.fillStyle = candidates.length ? '#45f08a' : '#ffb83d'; ctx.font = '9.6px system-ui';
+-        ctx.fillText(S.values.V10_ON ? `V10 · 지도 후보 ${candidates.length}개 · 이동 중 재검사` : candidates.length ? `V9 · ${d.v9FoodPath ? '잔해 경로' : '관측 내 탈출'} ${candidates.length}개` : 'V9 · 탈출 경로 미확보', X(me.xx), Y(me.yy) - 48);
++        ctx.fillText(S.values.V10_ON ? (candidates.length ? `V10 · 주행 검증 경로 · 예측 ${Number(last?.trace?.v10_continuation_s||0).toFixed(1)}초` : 'V10 · 주행 경로 재탐색') : candidates.length ? `V9 · ${d.v9FoodPath ? '잔해 경로' : '관측 내 탈출'} ${candidates.length}개` : 'V9 · 탈출 경로 미확보', X(me.xx), Y(me.yy) - 48);
+       }
+       if (fresh && S.show.localPath && (S.values.V10_ON || !candidates.length) && d.localPath?.length) {
+         ctx.strokeStyle = d.localUnsafe ? '#ff5b6b' : '#aab3bd'; ctx.setLineDash(S.values.V10_ON ? [] : [2, 4]); polyline(ctx, d.localPath, X, Y);
+@@ -1337,7 +1337,7 @@
+       el('button', {class: 'sw' + (bOn === BUNDLE.length ? ' on' : bOn ? ' half' : ''), title: '묶음 전체 켜기/끄기',
+         onclick: () => { const on = bOn === BUNDLE.length ? 0 : 1; for (const k of BUNDLE) setValue(k, on); render(); }}, el('i')));
+     const rows = S.values.V10_ON
+-      ? [sw('V9_FOOD_W','잔해 추종 가중치','작은 일반 먹이는 제외'),sw('V9_FOOD_R','잔해 탐색 범위','현재 관측된 큰 먹이만 탐색'),sw('V9_BOOST_ON','잔해 부스트','안전 후보 중 잔해 접근 부스트'),sw('V9_CENTER_W','중앙 이동 가중치','잔해가 없을 때 중앙 접근'),sw('V10_ESCAPE_BOOST','탈출 부스트','위험 상황에서 먹이 없이도 가속 후보 검사'),sw('V10_OBS','지도 최소 반경','전체 화면 범위를 항상 포함하며 더 큰 설정값까지 관측'),sw('V10_EDGE','지도 목표 거리','정적 통과 경로, 이동 중 재검사'),sw('V10_MARGIN','몸통·벽 여유','표시 두께 기준 추가 여유, 실측 사망점 확정값 아님'),sw('V10_HEAD_UNCERT','머리 예측 오차 배율','사망 로그에서 측정한 0.35초 이내 오차 여유'),sw('V10_TAIL_W','적 머리 반대쪽 선호','위협 머리 진행 반대 방향 가중'),sw('V10_LOCAL_H','근접 검사 시간','지연 후 실제 회전 원호 검사'),sw('V10_LOCAL_MS','근접 계산 목표 ms','검사 완료 후보만 사용. 실제 초과는 기록'),sw('V9_ROUTES','지도 후보 수','정적 몸통 벽 통과 안내선')]
++      ? [sw('V9_FOOD_W','잔해 추종 가중치','작은 일반 먹이는 제외'),sw('V9_FOOD_R','잔해 탐색 범위','현재 관측된 큰 먹이만 탐색'),sw('V9_BOOST_ON','잔해 부스트','안전 후보 중 잔해 접근 부스트'),sw('V9_CENTER_W','중앙 이동 가중치','잔해가 없을 때 중앙 접근'),sw('V10_ESCAPE_BOOST','탈출 부스트','위험 상황에서 먹이 없이도 가속 후보 검사'),sw('V10_OBS','지도 최소 반경','전체 화면 범위를 항상 포함하며 더 큰 설정값까지 관측'),sw('V10_EDGE','지도 목표 거리','실제 회전·속도로 도달할 목표 거리'),sw('V10_MARGIN','몸통·벽 여유','표시 두께 기준 추가 여유, 실측 사망점 확정값 아님'),sw('V10_HEAD_UNCERT','머리 예측 오차 배율','사망 로그에서 측정한 0.35초 이내 오차 여유'),sw('V10_TAIL_W','적 머리 반대쪽 선호','위협 머리 진행 반대 방향 가중'),sw('V10_LOCAL_H','근접 검사 시간','지연 후 실제 회전 원호 검사'),sw('V10_LOCAL_MS','근접 계산 목표 ms','검사 완료 후보만 사용. 실제 초과는 기록'),sw('V9_ROUTES','지도 후보 수','출구까지 주행 검증할 후보 수')]
+       : v9
+       ? [sw('V9_FOOD_W', '잔해 추종 가중치', '관측된 큰 먹이를 향하는 경로 선호. 0이면 잔해 목표 끔'), sw('V9_FOOD_R', '잔해 탐색 범위', '보이는 잔해의 목표 탐색 반경 (px). 미로 밖 구간은 접근 방향만 안내'), sw('V9_BOOST_ON', '잔해 적극 부스트', '검사에 통과한 잔해 접근 경로에서 부스트 사용'), sw('V9_CENTER_W', '중앙 이동 가중치', '안전 후보의 맵 중심 접근 선호. 중심 2000px 안에서는 해제. 0이면 끔'), sw('V9_REMAINS_MIN', '잔해 판정 최소 크기', '크기로 사체 먹이를 추정. 기본12; 일반 작은 먹이 제외'), sw('V9_HEAP_SIZE', '잔해 묶음 범위', '가까운 잔해를 하나의 목표로 묶는 범위 (px)'), sw('V9_BOOST_MIN_MASS', '부스트 최소 잔해량', '이 크기 합계 이상인 잔해 묶음에 부스트 허용'), sw('V9_BOOST_MIN_DIST', '부스트 최소 거리', '목표 가까이에서는 부스트를 끄고 감속 (px)'), sw('V9_TARGET_HOLD', '목표 유지 시간', '비슷한 목표 사이의 잦은 전환을 억제. 먹이가 사라지면 즉시 해제'), sw('V9_OBS', '미로 지도 반경', '현재 관측된 몸통을 벽으로 만드는 범위', '🗺'), sw('V9_EDGE', '탈출 목표 거리', '지도 안 탐색 경계까지의 목표. 지도 반경보다 80px 이상 작게 제한', '↗'), sw('V9_MARGIN', '몸통·벽 여유', '내 두께와 적 두께에 더할 여유 (px)', '↔'), sw('V9_ROUTES', '탈출 후보 수', '서로 다른 출구 방향의 통과 검증 경로만 표시', '⑶'), sw('V9_H', '미로 탐색 시간', '실제 회전·속도로 탐색할 최대 시간 (s)', '⏱'), sw('V9_HEAD_PAD', '적 머리 예측 여유', '적의 현재 진행 예측에 더하는 불확실성 여유', '🛡')]
+       : v8

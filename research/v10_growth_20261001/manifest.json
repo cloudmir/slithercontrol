@@ -1,0 +1,14 @@
+{
+  "build": "1001-3e1c3608",
+  "hashes": {
+    "ext/pilot.js": "2027d2c89901ec2f0dd65d4fc8a3d64d31ab5aaf74cbe50c35690f63aab2a7cf",
+    "ext/mod.js": "564492ea002a880d30008b9eb060f6c6d4d9001a05b21f53eca0fb5f696f6145",
+    "params.json": "f6649974e852f6aeced20aa042469cbdbcb2149480d6012bc7267f48cdee4f5c",
+    "ext/params.js": "b193d6658987e0966b9536f6e147344467022ed12b31be2df2ba571ebce013b3",
+    "ext/manifest.json": "c37bc4a8aaffa8a6c99c06fd221f2946069c29df3e41d670ea9ce7ea610d5bd6"
+  },
+  "test_budget_ms": 150,
+  "production_budget_ms": 90,
+  "boost_cost": "heuristic time penalty 0.04/second; not calibrated mass loss",
+  "risk": "index, not probability"
+}

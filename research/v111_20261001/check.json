@@ -1,0 +1,171 @@
+{
+  "originalFunctionsUnchanged": 7,
+  "feedParityFrames": 12,
+  "feedAlgorithmFlagOff": true,
+  "allFailedTurnsEvaluated": true,
+  "unsafeNotCertified": true,
+  "wallOrderIndependent": true,
+  "replay": [
+    {
+      "t": 35.897,
+      "before": [
+        1.2334760271614935,
+        true
+      ],
+      "after": [
+        1.2334760271614935,
+        false
+      ],
+      "modeBefore": "v10replan",
+      "modeAfter": "v10replan",
+      "rootSafe": true,
+      "recovery": false,
+      "depth": null,
+      "terminal": null,
+      "evaluated": 0.9,
+      "oldMs": 145.74674400000004,
+      "newMs": 105.68982899999992
+    },
+    {
+      "t": 36.023,
+      "before": [
+        0.15984494934298255,
+        true
+      ],
+      "after": [
+        1.6598449493429825,
+        false
+      ],
+      "modeBefore": "v10replan",
+      "modeAfter": "v10replan",
+      "rootSafe": true,
+      "recovery": false,
+      "depth": null,
+      "terminal": null,
+      "evaluated": 0.9,
+      "oldMs": 107.79040299999997,
+      "newMs": 80.38700100000005
+    },
+    {
+      "t": 36.231,
+      "before": [
+        3.8653206380689396,
+        false
+      ],
+      "after": [
+        3.8653206380689396,
+        false
+      ],
+      "modeBefore": "v10replan",
+      "modeAfter": "v10replan",
+      "rootSafe": true,
+      "recovery": false,
+      "depth": null,
+      "terminal": null,
+      "evaluated": 0.9,
+      "oldMs": 43.52142099999992,
+      "newMs": 44.3127099999997
+    },
+    {
+      "t": 36.422,
+      "before": [
+        1.1689710972195777,
+        false
+      ],
+      "after": [
+        0.6689710972195777,
+        false
+      ],
+      "modeBefore": "v10emergency",
+      "modeAfter": "v10emergency",
+      "rootSafe": true,
+      "recovery": true,
+      "depth": 10.031441868202897,
+      "terminal": -58.59415110020873,
+      "evaluated": 0.24000000000000002,
+      "oldMs": 3.107090999999855,
+      "newMs": 22.940631999999823
+    },
+    {
+      "t": 36.551,
+      "before": [
+        1.7614826563356056,
+        false
+      ],
+      "after": [
+        1.2614826563356056,
+        false
+      ],
+      "modeBefore": "v10emergency",
+      "modeAfter": "v10emergency",
+      "rootSafe": false,
+      "recovery": true,
+      "depth": 7.078960165660063,
+      "terminal": -68.94519866647519,
+      "evaluated": 0.12,
+      "oldMs": 3.980761000000257,
+      "newMs": 17.38256999999976
+    },
+    {
+      "t": 36.678,
+      "before": [
+        1.7614826563356056,
+        false
+      ],
+      "after": [
+        2.7614826563356054,
+        false
+      ],
+      "modeBefore": "v10emergency",
+      "modeAfter": "v10emergency",
+      "rootSafe": false,
+      "recovery": true,
+      "depth": 16.201257432781603,
+      "terminal": -74.27618336047492,
+      "evaluated": 0.28,
+      "oldMs": 6.935723000000053,
+      "newMs": 17.30106999999998
+    },
+    {
+      "t": 36.824,
+      "before": [
+        1.7614826563356052,
+        false
+      ],
+      "after": [
+        2.7614826563356054,
+        false
+      ],
+      "modeBefore": "v10emergency",
+      "modeAfter": "v10emergency",
+      "rootSafe": false,
+      "recovery": true,
+      "depth": 19.01463607864545,
+      "terminal": -93.25354010568628,
+      "evaluated": 0.24000000000000002,
+      "oldMs": 8.693478000000141,
+      "newMs": 15.648845000000165
+    },
+    {
+      "t": 36.951,
+      "before": [
+        1.7614826563356052,
+        false
+      ],
+      "after": [
+        2.7614826563356054,
+        false
+      ],
+      "modeBefore": "v10emergency",
+      "modeAfter": "v10emergency",
+      "rootSafe": false,
+      "recovery": true,
+      "depth": 12.282475682624769,
+      "terminal": -50.71943539736877,
+      "evaluated": 0.24000000000000002,
+      "oldMs": 4.3995050000003175,
+      "newMs": 13.542790999999852
+    }
+  ],
+  "limits": "fixed observations/model; no proven counterfactual survival"
+}

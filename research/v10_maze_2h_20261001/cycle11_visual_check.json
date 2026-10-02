@@ -1,0 +1,10 @@
+{
+  "run": "runs/v10_maze_cycle11_20261001_150146",
+  "image": "game_01_second_0225_0112.513.jpg",
+  "observations": [
+    "Five numbered route RISK labels visible.",
+    "Selected #1 RISK 0.65; alternatives #4/#5 show 0.61. This single image shows the selected route is not automatically replaced by the smallest displayed index.",
+    "Header shows five long paths. Route overlaps remain geometrically possible."
+  ],
+  "limit": "Screen labels are rounded and not probabilities; this image does not establish survival."
+}

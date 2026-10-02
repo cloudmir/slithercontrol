@@ -1,0 +1,1440 @@
+{
+  "snapshot": "2026-10-02 11:47:40",
+  "deaths": 93,
+  "death_actual_phase": {
+    "align": 56,
+    "seek": 28,
+    "follow": 9
+  },
+  "death_guard_changed": {
+    "1": 93
+  },
+  "death_valid": {
+    "0": 93
+  },
+  "death_reasons": {
+    "head_interference": 57,
+    "entry_no_safe_turn": 6,
+    "body_interference": 30
+  },
+  "qualify_if_only_valid_gate_removed": 0,
+  "boost_ticks_actual_phase": {
+    "align": 3,
+    "follow": 1291,
+    "seek": 15
+  },
+  "boost_ticks_valid": {
+    "0": 314,
+    "1": 995
+  },
+  "qualified_levels_by_speed_request": {
+    "0": 79,
+    "1": 19
+  },
+  "lasts": [
+    {
+      "run": "t3_20261002_094249",
+      "game": 1,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "평행 주행 아님",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_094249",
+      "game": 2,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "entry_no_safe_turn",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근"
+      ]
+    },
+    {
+      "run": "t3_20261002_094249",
+      "game": 3,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "사망 전 관측 시점 불확실",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_094739",
+      "game": 1,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_094739",
+      "game": 2,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "사망 전 관측 시점 불확실",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_094739",
+      "game": 3,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_095256",
+      "game": 1,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님"
+      ]
+    },
+    {
+      "run": "t3_20261002_095256",
+      "game": 2,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_095256",
+      "game": 3,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님"
+      ]
+    },
+    {
+      "run": "t3_20261002_095256",
+      "game": 4,
+      "phase": "follow",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_095256",
+      "game": 5,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "접촉 구간 곡률 큼"
+      ]
+    },
+    {
+      "run": "t3_20261002_095256",
+      "game": 6,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "사망 전 관측 시점 불확실"
+      ]
+    },
+    {
+      "run": "t3_20261002_100238",
+      "game": 1,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_100238",
+      "game": 2,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님"
+      ]
+    },
+    {
+      "run": "t3_20261002_100238",
+      "game": 3,
+      "phase": "follow",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "사망 전 관측 시점 불확실"
+      ]
+    },
+    {
+      "run": "t3_20261002_100238",
+      "game": 4,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님"
+      ]
+    },
+    {
+      "run": "t3_20261002_101048",
+      "game": 1,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님"
+      ]
+    },
+    {
+      "run": "t3_20261002_101048",
+      "game": 2,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_101048",
+      "game": 3,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_101048",
+      "game": 4,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "접촉 구간 곡률 큼",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_101048",
+      "game": 5,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_101048",
+      "game": 6,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "평행 주행 아님"
+      ]
+    },
+    {
+      "run": "t3_20261002_101736",
+      "game": 1,
+      "phase": "follow",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "entry_no_safe_turn",
+      "recent_level_missing": false,
+      "other_exclusions": [
+        "빠른 수직 접근",
+        "평행 주행 아님"
+      ]
+    },
+    {
+      "run": "t3_20261002_101736",
+      "game": 2,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_101736",
+      "game": 3,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "접촉 구간 곡률 큼",
+        "사망 전 관측 시점 불확실",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_101736",
+      "game": 4,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음"
+      ]
+    },
+    {
+      "run": "t3_20261002_101736",
+      "game": 5,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_101736",
+      "game": 6,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_102528",
+      "game": 1,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "접촉 구간 곡률 큼",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_102528",
+      "game": 2,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_102528",
+      "game": 3,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_102528",
+      "game": 4,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_102528",
+      "game": 5,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_102528",
+      "game": 6,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "접촉 구간 곡률 큼",
+        "사망 전 관측 시점 불확실",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_103336",
+      "game": 1,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "접촉 구간 곡률 큼",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_103336",
+      "game": 2,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "평행 주행 아님",
+        "접촉 구간 곡률 큼",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_103336",
+      "game": 3,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님"
+      ]
+    },
+    {
+      "run": "t3_20261002_103336",
+      "game": 4,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_103336",
+      "game": 5,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_103336",
+      "game": 6,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "접촉 구간 곡률 큼"
+      ]
+    },
+    {
+      "run": "t3_20261002_104400",
+      "game": 1,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_104400",
+      "game": 2,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음"
+      ]
+    },
+    {
+      "run": "t3_20261002_104400",
+      "game": 3,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_104400",
+      "game": 4,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님"
+      ]
+    },
+    {
+      "run": "t3_20261002_104400",
+      "game": 5,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_104400",
+      "game": 6,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님"
+      ]
+    },
+    {
+      "run": "t3_20261002_105337",
+      "game": 1,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "사망 전 관측 시점 불확실",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_105337",
+      "game": 2,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_105337",
+      "game": 3,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_105337",
+      "game": 4,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "접촉 구간 곡률 큼",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_105337",
+      "game": 5,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "접촉 구간 곡률 큼",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_105337",
+      "game": 6,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음"
+      ]
+    },
+    {
+      "run": "t3_20261002_110217",
+      "game": 1,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음"
+      ]
+    },
+    {
+      "run": "t3_20261002_110217",
+      "game": 2,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "사망 전 관측 시점 불확실",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_110217",
+      "game": 3,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_110217",
+      "game": 4,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_110217",
+      "game": 5,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_110217",
+      "game": 6,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음"
+      ]
+    },
+    {
+      "run": "t3_20261002_110740",
+      "game": 1,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "사망 전 관측 시점 불확실",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_110740",
+      "game": 2,
+      "phase": "follow",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "entry_no_safe_turn",
+      "recent_level_missing": false,
+      "other_exclusions": [
+        "빠른 수직 접근",
+        "평행 주행 아님"
+      ]
+    },
+    {
+      "run": "t3_20261002_110740",
+      "game": 3,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님"
+      ]
+    },
+    {
+      "run": "t3_20261002_110740",
+      "game": 4,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "entry_no_safe_turn",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근 2.5초 안정 유지 표본 없음",
+        "평행 주행 아님"
+      ]
+    },
+    {
+      "run": "t3_20261002_110740",
+      "game": 5,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_110740",
+      "game": 6,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_111437",
+      "game": 1,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "사망 전 관측 시점 불확실"
+      ]
+    },
+    {
+      "run": "t3_20261002_111437",
+      "game": 2,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님"
+      ]
+    },
+    {
+      "run": "t3_20261002_111437",
+      "game": 3,
+      "phase": "follow",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_111437",
+      "game": 4,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음"
+      ]
+    },
+    {
+      "run": "t3_20261002_111437",
+      "game": 5,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_111437",
+      "game": 6,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "사망 전 관측 시점 불확실",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_112043",
+      "game": 1,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "평행 주행 아님",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_112043",
+      "game": 2,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "접촉 구간 곡률 큼",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_112043",
+      "game": 3,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근"
+      ]
+    },
+    {
+      "run": "t3_20261002_112043",
+      "game": 4,
+      "phase": "follow",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": false,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "사망 전 관측 시점 불확실",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_112043",
+      "game": 5,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_112043",
+      "game": 6,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_112638",
+      "game": 1,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "평행 주행 아님",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_112638",
+      "game": 2,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님"
+      ]
+    },
+    {
+      "run": "t3_20261002_112638",
+      "game": 3,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "사망 전 관측 시점 불확실",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_112638",
+      "game": 4,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음"
+      ]
+    },
+    {
+      "run": "t3_20261002_112638",
+      "game": 5,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_112638",
+      "game": 6,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "사망 전 관측 시점 불확실",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_113306",
+      "game": 1,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음"
+      ]
+    },
+    {
+      "run": "t3_20261002_113306",
+      "game": 2,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님"
+      ]
+    },
+    {
+      "run": "t3_20261002_113306",
+      "game": 3,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "entry_no_safe_turn",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님"
+      ]
+    },
+    {
+      "run": "t3_20261002_113306",
+      "game": 4,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_113306",
+      "game": 5,
+      "phase": "follow",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": false,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름"
+      ]
+    },
+    {
+      "run": "t3_20261002_113306",
+      "game": 6,
+      "phase": "follow",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": false,
+      "other_exclusions": [
+        "빠른 수직 접근",
+        "평행 주행 아님"
+      ]
+    },
+    {
+      "run": "t3_20261002_114036",
+      "game": 1,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "body_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음"
+      ]
+    },
+    {
+      "run": "t3_20261002_114036",
+      "game": 2,
+      "phase": "seek",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_114036",
+      "game": 3,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "접촉 구간 곡률 큼",
+        "다른 머리 간섭 가능"
+      ]
+    },
+    {
+      "run": "t3_20261002_114036",
+      "game": 4,
+      "phase": "follow",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "entry_no_safe_turn",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "접촉 구간 곡률 큼",
+        "사망 전 관측 시점 불확실"
+      ]
+    },
+    {
+      "run": "t3_20261002_114036",
+      "game": 5,
+      "phase": "align",
+      "valid": 0,
+      "guard_changed": 1,
+      "reason": "head_interference",
+      "recent_level_missing": true,
+      "other_exclusions": [
+        "최근접 몸통이 추종 대상과 다름",
+        "최근 2.5초 안정 유지 표본 없음",
+        "빠른 수직 접근",
+        "평행 주행 아님",
+        "다른 머리 간섭 가능"
+      ]
+    }
+  ],
+  "boost_window_audit": {
+    "longest_constant_command_qualified_boost_segment": {
+      "duration": 1.4989999999999952,
+      "run": "t3_20261002_095256",
+      "game": 4,
+      "samples": 47,
+      "boost_command": 1,
+      "gap_range": 4.310378543562493,
+      "speed_range": 0,
+      "median_goal_error": 2.837846162520428
+    },
+    "overlapping_boost_windows_failures": {
+      "goal_error_ge2": 90,
+      "gap_range_ge3": 189,
+      "speed_range_ge1": 185
+    }
+  }
+}

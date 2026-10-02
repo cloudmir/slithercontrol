@@ -1,0 +1,185 @@
+{
+  "tests": [
+    {
+      "normal": 0,
+      "angle": 0,
+      "side": 1,
+      "tailMedianGap": -4.682007324310689,
+      "tailMedianError": 0.317992675689311,
+      "nearTicks": 120,
+      "minGap": -4.831773524227174,
+      "boostTicks": 36
+    },
+    {
+      "normal": 0,
+      "angle": 0,
+      "side": -1,
+      "tailMedianGap": -4.3042587864656525,
+      "tailMedianError": 0.6957412135343475,
+      "nearTicks": 120,
+      "minGap": -4.8776244407345075,
+      "boostTicks": 36
+    },
+    {
+      "normal": 0,
+      "angle": 1.5707963267948966,
+      "side": 1,
+      "tailMedianGap": -4.665147784995497,
+      "tailMedianError": 0.3348522150045028,
+      "nearTicks": 120,
+      "minGap": -4.74003088495374,
+      "boostTicks": 3
+    },
+    {
+      "normal": 0,
+      "angle": 1.5707963267948966,
+      "side": -1,
+      "tailMedianGap": -4.3338732832962705,
+      "tailMedianError": 0.6661267167037295,
+      "nearTicks": 120,
+      "minGap": -4.860177898557595,
+      "boostTicks": 13
+    },
+    {
+      "normal": 0,
+      "angle": 3.141592653589793,
+      "side": 1,
+      "tailMedianGap": -4.678028749851364,
+      "tailMedianError": 0.3219712501486356,
+      "nearTicks": 120,
+      "minGap": -4.678028749851364,
+      "boostTicks": 4
+    },
+    {
+      "normal": 0,
+      "angle": 3.141592653589793,
+      "side": -1,
+      "tailMedianGap": -4.3562245905341115,
+      "tailMedianError": 0.6437754094658885,
+      "nearTicks": 120,
+      "minGap": -4.876550797234813,
+      "boostTicks": 0
+    },
+    {
+      "normal": 20,
+      "angle": 0,
+      "side": 1,
+      "tailMedianGap": -4.739491066960909,
+      "tailMedianError": 0.26050893303909106,
+      "nearTicks": 120,
+      "minGap": -4.884918044190272,
+      "boostTicks": 36
+    },
+    {
+      "normal": 20,
+      "angle": 0,
+      "side": -1,
+      "tailMedianGap": -4.1550975818609,
+      "tailMedianError": 0.8449024181390996,
+      "nearTicks": 120,
+      "minGap": -4.8675245938648,
+      "boostTicks": 34
+    },
+    {
+      "normal": 20,
+      "angle": 1.5707963267948966,
+      "side": 1,
+      "tailMedianGap": -4.744434822940093,
+      "tailMedianError": 0.255565177059907,
+      "nearTicks": 120,
+      "minGap": -4.881759174513718,
+      "boostTicks": 16
+    },
+    {
+      "normal": 20,
+      "angle": 1.5707963267948966,
+      "side": -1,
+      "tailMedianGap": -4.365299725155637,
+      "tailMedianError": 0.6347002748443629,
+      "nearTicks": 120,
+      "minGap": -4.86972488489846,
+      "boostTicks": 12
+    },
+    {
+      "normal": 20,
+      "angle": 3.141592653589793,
+      "side": 1,
+      "tailMedianGap": -4.727674545498303,
+      "tailMedianError": 0.2723254545016971,
+      "nearTicks": 120,
+      "minGap": -4.878378216126293,
+      "boostTicks": 4
+    },
+    {
+      "normal": 20,
+      "angle": 3.141592653589793,
+      "side": -1,
+      "tailMedianGap": -4.217100709905935,
+      "tailMedianError": 0.7828992900940648,
+      "nearTicks": 120,
+      "minGap": -4.858825250776135,
+      "boostTicks": 5
+    },
+    {
+      "normal": -20,
+      "angle": 0,
+      "side": 1,
+      "tailMedianGap": -4.7012847456171585,
+      "tailMedianError": 0.2987152543828415,
+      "nearTicks": 120,
+      "minGap": -4.8687016079020395,
+      "boostTicks": 34
+    },
+    {
+      "normal": -20,
+      "angle": 0,
+      "side": -1,
+      "tailMedianGap": -4.03655662608071,
+      "tailMedianError": 0.96344337391929,
+      "nearTicks": 117,
+      "minGap": -4.882796075711667,
+      "boostTicks": 36
+    },
+    {
+      "normal": -20,
+      "angle": 1.5707963267948966,
+      "side": 1,
+      "tailMedianGap": -4.72304463837645,
+      "tailMedianError": 0.27695536162354983,
+      "nearTicks": 120,
+      "minGap": -4.866892903432017,
+      "boostTicks": 3
+    },
+    {
+      "normal": -20,
+      "angle": 1.5707963267948966,
+      "side": -1,
+      "tailMedianGap": -4.1375320659681165,
+      "tailMedianError": 0.8624679340318835,
+      "nearTicks": 120,
+      "minGap": -4.869757217209553,
+      "boostTicks": 7
+    },
+    {
+      "normal": -20,
+      "angle": 3.141592653589793,
+      "side": 1,
+      "tailMedianGap": -4.711458223900991,
+      "tailMedianError": 0.28854177609900944,
+      "nearTicks": 120,
+      "minGap": -4.8847611275850795,
+      "boostTicks": 4
+    },
+    {
+      "normal": -20,
+      "angle": 3.141592653589793,
+      "side": -1,
+      "tailMedianGap": -4.152836686054798,
+      "tailMedianError": 0.8471633139452024,
+      "nearTicks": 120,
+      "minGap": -4.870992546904745,
+      "boostTicks": 0
+    }
+  ],
+  "scope": "synthetic 251-code +160ms delay; not server boundary"
+}

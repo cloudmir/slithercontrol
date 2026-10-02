@@ -1,0 +1,48 @@
+{
+  "rows": [
+    {
+      "t": 103.904,
+      "predictedTurn": 0.2497862536269322,
+      "actualTurn": 0.33112012442504213,
+      "positionError": 5.4606032776947995,
+      "rootSafe": true,
+      "rootGap": 128
+    },
+    {
+      "t": 104.126,
+      "predictedTurn": -0.2497862536269322,
+      "actualTurn": -0.30692031425247457,
+      "positionError": 11.926346323838974,
+      "rootSafe": true,
+      "rootGap": 113.86132136036268
+    },
+    {
+      "t": 104.252,
+      "predictedTurn": 0.20220791960275353,
+      "actualTurn": 0.21138162292770876,
+      "positionError": 4.587020127739105,
+      "rootSafe": true,
+      "rootGap": 65.6606296925702
+    },
+    {
+      "t": 104.29,
+      "predictedTurn": 0.2497862536269313,
+      "actualTurn": 0.19064757704154545,
+      "positionError": 5.251986071310059,
+      "rootSafe": true,
+      "rootGap": 48.526945207194835
+    },
+    {
+      "t": 104.335,
+      "predictedTurn": 0.2497862536269322,
+      "actualTurn": 0.29639419472684647,
+      "positionError": 11.849985359419362,
+      "rootSafe": true,
+      "rootGap": 38.39643272704715
+    }
+  ],
+  "limits": [
+    "Historical send phase unavailable: diagnostic sets both gate waits0",
+    "Packet+TRACK_LAT .06 is model; interpolation used; not counterfactual survival"
+  ]
+}

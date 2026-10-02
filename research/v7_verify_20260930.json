@@ -1,0 +1,10 @@
+{
+ "v1_identical": true,
+ "v6_identical": true,
+ "escape_reason": "reachable_prefix",
+ "delayed_return": true,
+ "live_params": true,
+ "radius_and_distinct": true,
+ "no_macro_fallback": true,
+ "reject_food_guide": true
+}

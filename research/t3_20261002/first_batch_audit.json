@@ -1,0 +1,169 @@
+[
+  {
+    "game": "slp_01_log.json.gz",
+    "seconds": 14.5,
+    "path_px": 2641,
+    "phases": {
+      "seek": 420
+    },
+    "reasons": {
+      "no_target": 419,
+      "seek_straight_run": 1
+    },
+    "target_ticks": 1,
+    "boost_ticks": 0,
+    "end": {
+      "t": 14.507,
+      "ang": 1.571,
+      "cmd": 90.4,
+      "t3_heading_error": null,
+      "t3_gap": null,
+      "t3_target": null,
+      "t3_lateral": null,
+      "t3_phase": "seek"
+    }
+  },
+  {
+    "game": "slp_02_log.json.gz",
+    "seconds": 7.2,
+    "path_px": 1302,
+    "phases": {
+      "seek": 215
+    },
+    "reasons": {
+      "no_target": 215
+    },
+    "target_ticks": 0,
+    "boost_ticks": 0,
+    "end": {
+      "t": 7.207,
+      "ang": 3.043,
+      "cmd": 175.1,
+      "t3_heading_error": null,
+      "t3_gap": null,
+      "t3_target": null,
+      "t3_lateral": null,
+      "t3_phase": "seek"
+    }
+  },
+  {
+    "game": "slp_03_log.json.gz",
+    "seconds": 18.2,
+    "path_px": 3304,
+    "phases": {
+      "seek": 543
+    },
+    "reasons": {
+      "no_target": 543
+    },
+    "target_ticks": 0,
+    "boost_ticks": 0,
+    "end": {
+      "t": 18.209,
+      "ang": 3.068,
+      "cmd": 176.6,
+      "t3_heading_error": null,
+      "t3_gap": null,
+      "t3_target": null,
+      "t3_lateral": null,
+      "t3_phase": "seek"
+    }
+  },
+  {
+    "game": "slp_04_log.json.gz",
+    "seconds": 12.7,
+    "path_px": 2394,
+    "phases": {
+      "seek": 316,
+      "align": 61
+    },
+    "reasons": {
+      "no_target": 286,
+      "seek_straight_run": 30,
+      "align": 61
+    },
+    "target_ticks": 91,
+    "boost_ticks": 19,
+    "end": {
+      "t": 12.667,
+      "ang": 4.737,
+      "cmd": 271.3,
+      "t3_heading_error": 0.4118310585535472,
+      "t3_gap": 454.2903300294635,
+      "t3_target": 76,
+      "t3_lateral": -286.73752029002407,
+      "t3_phase": "align"
+    }
+  },
+  {
+    "game": "slp_05_log.json.gz",
+    "seconds": 7.5,
+    "path_px": 1354,
+    "phases": {
+      "seek": 225
+    },
+    "reasons": {
+      "no_target": 225
+    },
+    "target_ticks": 0,
+    "boost_ticks": 0,
+    "end": {
+      "t": 7.452,
+      "ang": 4.541,
+      "cmd": -98.9,
+      "t3_heading_error": null,
+      "t3_gap": null,
+      "t3_target": null,
+      "t3_lateral": null,
+      "t3_phase": "seek"
+    }
+  },
+  {
+    "game": "slp_06_log.json.gz",
+    "seconds": 18.3,
+    "path_px": 3320,
+    "phases": {
+      "seek": 533,
+      "align": 10
+    },
+    "reasons": {
+      "no_target": 533,
+      "curve": 10
+    },
+    "target_ticks": 10,
+    "boost_ticks": 0,
+    "end": {
+      "t": 18.302,
+      "ang": 4.688,
+      "cmd": -90.1,
+      "t3_heading_error": null,
+      "t3_gap": null,
+      "t3_target": null,
+      "t3_lateral": null,
+      "t3_phase": "seek"
+    }
+  },
+  {
+    "game": "slp_07_log.json.gz",
+    "seconds": 5.4,
+    "path_px": 936,
+    "phases": {
+      "seek": 156
+    },
+    "reasons": {
+      "no_target": 156
+    },
+    "target_ticks": 0,
+    "boost_ticks": 0,
+    "end": {
+      "t": 5.152,
+      "ang": 0.147,
+      "cmd": 8.7,
+      "t3_heading_error": null,
+      "t3_gap": null,
+      "t3_target": null,
+      "t3_lateral": null,
+      "t3_phase": "seek"
+    }
+  }
+]

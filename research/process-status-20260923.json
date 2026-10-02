@@ -1,0 +1,23 @@
+{
+  "at": "2026-09-23T22:28:54.161086+09:00",
+  "processes": [],
+  "runs/recovery_v1/training.jsonl": {
+    "mtime": "2026-09-23T22:28:49.775713+09:00",
+    "last_lines": [
+      "{\"complete\": false, \"steps\": 43008, \"leads\": [2, 4, 6], \"wall_s\": 87.61314392999338, \"episodes\": 36, \"successes\": 4, \"success_rate\": 0.1111111111111111, \"mean_life_s\": 3.6444444444445114, \"invalid\": 0, \"model\": \"runs/recovery_v1/models/ppo_043008.zip\", \"shield_interventions\": 0}",
+      "{\"complete\": false, \"steps\": 45056, \"leads\": [2, 4, 6], \"wall_s\": 52.48111680000147, \"episodes\": 31, \"successes\": 5, \"success_rate\": 0.16129032258064516, \"mean_life_s\": 3.81720430107527, \"invalid\": 0, \"model\": \"runs/recovery_v1/models/ppo_045056.zip\", \"shield_interventions\": 0}"
+    ]
+  },
+  "runs/recovery_v1/execution.jsonl": {
+    "mtime": "2026-09-23T22:28:52.025713+09:00",
+    "last_lines": [
+      "{\"before_steps\": 43008, \"envs\": 4, \"chunk\": 2048}",
+      "{\"before_steps\": 45056, \"envs\": 4, \"chunk\": 2048}"
+    ]
+  },
+  "models": [
+    "ppo_040960.zip",
+    "ppo_043008.zip",
+    "ppo_045056.zip"
+  ]
+}

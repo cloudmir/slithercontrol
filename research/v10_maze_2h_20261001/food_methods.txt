@@ -1,0 +1,36 @@
+  // V8/V1 principle: count individual pellets touched by a near-term swept
+  // trajectory, not merely proximity to a distant heap centre.
+  v10Pellets(s,pts,until) {
+    let mass=0;const reach=14.5*s.sc+6;
+    for(let f=0;f<s.food.length;f+=3){const x=s.food[f],y=s.food[f+1],size=s.food[f+2];
+      if(hypot(x-s.x,y-s.y)>500)continue;
+      for(let i=5;i<pts.length&&pts[i]<=until;i+=5){
+        const ax=pts[i-4],ay=pts[i-3],dx=pts[i+1]-ax,dy=pts[i+2]-ay;
+        const u=clip(((x-ax)*dx+(y-ay)*dy)/Math.max(1e-9,dx*dx+dy*dy),0,1);
+        if(hypot(x-ax-u*dx,y-ay-u*dy)<=reach){mass+=size*(size>=(this.values.V9_REMAINS_MIN??12)?4:1)*Math.exp(-pts[i]);break;}
+      }
+    }return mass/(mass+80);
+  }
+  v10FeedPrefix(s,W,ph,root,route,deadline) {
+    const weight=this.values.V10_FOOD_W??2;if(weight<=0)return route;
+    const nominal=this.v10Pellets(s,route.pts,root.t+1),targets=[];
+    for(let i=0;i<s.food.length;i+=3){const d=hypot(s.food[i]-s.x,s.food[i+1]-s.y);if(d>300||d<14.5*s.sc*.6)continue;
+      targets.push({x:s.food[i],y:s.food[i+1],value:s.food[i+2]*(s.food[i+2]>=(this.values.V9_REMAINS_MIN??12)?4:1)/(d+30)});}
+    targets.sort((a,b)=>b.value-a.value);let best=route,bestScore=weight*nominal;const headings=[];
+    for(const g of targets){
+      if(performance.now()>deadline-2||headings.length>=3)break;
+      const angle=Math.atan2(g.y-root.st.y,g.x-root.st.x);if(headings.some(a=>Math.abs(wrap(a-angle))<.15))continue;headings.push(angle);
+      const r=this.v9Roll(s,W,ph,root.st,0,.32,root.t,angle,false);if(!r.ok)continue;
+      const joinRoot={...r,pts:[...root.pts,...r.pts],clear:Math.min(root.clear,r.clear)};
+      const joined=this.v10Follow(s,W,ph,joinRoot,route,deadline,.64);if(!joined.ok)continue;
+      // The detour must reconnect near the chosen corridor, not invent a new
+      // strategy. Near-term collision checking includes the return manoeuvre.
+      const end=joined.pts.length-5;let gap=Infinity;
+      for(const p of route.path)gap=Math.min(gap,hypot(p.x-joined.pts[end+1],p.y-joined.pts[end+2]));
+      // Use segments too: visibility-simplified guides have sparse vertices.
+      for(let i=1;i<route.path.length;i++){const a=route.path[i-1],b=route.path[i],dx=b.x-a.x,dy=b.y-a.y,u=clip(((joined.pts[end+1]-a.x)*dx+(joined.pts[end+2]-a.y)*dy)/Math.max(1,dx*dx+dy*dy),0,1);gap=Math.min(gap,hypot(joined.pts[end+1]-a.x-u*dx,joined.pts[end+2]-a.y-u*dy));}
+      if(gap>60)continue;
+      const food=this.v10Pellets(s,joined.pts,root.t+1),score=weight*food-gap*.003;
+      if(score>bestScore+.02){bestScore=score;best={...route,feedPrefix:joined.pts,feedValue:food,actions:[{start:root.t,end:root.t+.13,target:angle,boost:false},...joined.actions],clear:Math.min(r.clear,joined.clear)};}
+    }return best;
+  }

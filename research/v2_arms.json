@@ -1,0 +1,30 @@
+{
+ "V": {
+  "V2_ON": 1,
+  "V2_H": 5,
+  "V2_TOK": 2.5,
+  "V2_MARGIN": 10,
+  "V2_MINL": 80,
+  "V2_HEAPW": 0.2,
+  "V2_HEAPMIN": 60,
+  "V2_BCOST": 60,
+  "V2_HYST": 5,
+  "V2_CONE": 120,
+  "V2_TOKS": 5,
+  "V2_WTTD": 8,
+  "V2_WRAPCOV": 0.54,
+  "V2_WRAPR": 1150,
+  "V2_WRAPANG": 60,
+  "V2_WRAPRATIO": 0,
+  "V2_ARCMIN": 2,
+  "V2_CHGR": 1000,
+  "V2_WALLSHRINK": 1,
+  "V2_STRAIGHT": 1,
+  "V2_WRAP": 1,
+  "V2_CHG": 0,
+  "V2_BOOSTFREE": 0,
+  "V2_REMAINS": 12,
+  "PROBE_ON": 0,
+  "WF_ON": 0
+ }
+}
